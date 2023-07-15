@@ -8,10 +8,13 @@
   min-height: 100vh;
 } */
 
+body {
+  background-color: #ffd0d5;
+}
+
 /* INTRO */
 
 #intro {
-  background-color: #ffd0d5;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -19,6 +22,7 @@
   justify-content: center;
   position: relative;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 #introLogo {
@@ -31,6 +35,8 @@
   top: 0;
   left: 0;
   width: 118%;
+  display: none;
+  transition: left 1s, width 1s;
 }
 
 @media all and (min-width: 600px) {
