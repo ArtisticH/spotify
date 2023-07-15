@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* body {
+  min-height: 100vh;
+} */
+
+/* INTRO */
+
+#intro {
+  background-color: #ffd0d5;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+#introLogo {
+  width: 20rem;
+  z-index: 1;
+}
+
+#introFlower {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 118%;
+}
+
+@media all and (min-width: 600px) {
+  #introLogo {
+    width: 26rem;
+  }
+}
+
+@media all and (min-width: 1024px) {
+  #introLogo {
+    width: 40rem;
+  }
+
+  #introFlower {
+    width: 60%;
+  }
+}
