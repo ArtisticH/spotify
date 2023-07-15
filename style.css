@@ -4,14 +4,12 @@
   box-sizing: border-box;
 }
 
-/* body {
-  min-height: 100vh;
-} */
-
 body {
   background-color: #ffd0d5;
+  min-height: 100vh;
 }
 
+/* --------------------------------------------------------------------------------- */
 /* INTRO */
 
 #intro {
@@ -54,3 +52,52 @@ body {
     width: 60%;
   }
 }
+
+/* --------------------------------------------------------------------------------- */
+/* HEADER */
+
+header {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.4rem;
+}
+
+.forflex {
+  width: 94%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: all 0.5s ease-out;
+}
+
+.forflex.active {
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+.triangle {
+  width: 25px;
+  height: 2px;
+  background: #000;
+  margin-bottom: 5px;
+  transition: all 0.4s;
+}
+
+.triangle.third {
+  margin-bottom: 0;
+}
+
+.triangle.first.active {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.triangle.second.active {
+  opacity: 0;
+}
+
+.triangle.third.active {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
