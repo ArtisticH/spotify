@@ -111,9 +111,24 @@ main {
 
 #imgMain {
 
-  border: 1px solid salmon;
+  border: 5px solid salmon;
   height: 400px;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
 
+}
+
+.mainimg_container {
+  border: 2px solid red;
+  width: 75%;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
+.mainimg {
+  width: 100%;
+  /* aspect-ratio: 1 / 1; */
 }
 
 #titleMain {
