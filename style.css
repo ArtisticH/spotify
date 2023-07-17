@@ -95,3 +95,127 @@ header {
   transform: translateY(-7px) rotate(-45deg);
 }
 
+/* --------------------------------------------------------------------------------- */
+/* MAIN */
+
+main {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+}
+
+.forwidth {
+  width: 94%;
+  border: 1px solid white;
+}
+
+#imgMain {
+
+  border: 1px solid salmon;
+  height: 400px;
+
+}
+
+#titleMain {
+  border: 1px solid lime;
+  height: 100px;
+
+}
+
+#shuffleMain {
+  border: 1px solid blue;
+  height: 100px;
+
+
+}
+
+#progressAndScroll {
+  border: 1px solid purple;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#progressMain {
+  border: 1px solid red;
+  width: 100px;
+  height: 80px;
+
+}
+
+#scrollMain {
+  border: 1px solid red;
+  width: 100px;
+  height: 80px;
+
+}
+
+@media all and (min-width: 600px) {
+  .forwidth {
+    width: 90%;
+    position: relative;
+  }
+
+  #shuffleMain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;  
+    width: 50px;
+  }
+
+  #imgMain {
+
+    border: 4px solid salmon;
+    height: 400px;
+  
+  }
+  
+  
+}
+
+@media all and (min-width: 1024px) {
+  .forwidth {
+    width: 88%;
+    position: static;
+
+  }
+  
+  #shuffleMain {
+    position:static;
+    height: 100px;
+    width: 100%;
+  }
+
+  #imgAndTitle {
+    border: 4px solid skyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media all and (min-width: 1320px) {
+  #shuffleMain {
+    grid-area: a;
+    height: 100%;
+    /* width: 200px; */
+  }
+
+  #imgAndTitle {
+    grid-area: b;
+  }
+
+  #progressAndScroll {
+    grid-area: c;
+  }
+
+  .forwidth {
+    display: grid;
+    grid-template-areas: 
+      'a b'
+      'a b'
+      'a c';
+    grid-template-columns: 1fr 7fr;
+  }
+}

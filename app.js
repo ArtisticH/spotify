@@ -61,3 +61,7 @@ menuTriangle.onclick = () => {
 button.onclick = () => {
   forflex.classList.toggle('active');
 };
+
+// ----------------------------------------------------------------------------------
+// MAIN
+
