@@ -113,22 +113,35 @@ main {
 
   border: 5px solid salmon;
   height: 400px;
-  /* display: flex;
+  display: flex;
   align-items: center;
-  justify-content: center; */
+  justify-content: center;
+  position: relative;
 
 }
 
 .mainimg_container {
   border: 2px solid red;
-  width: 75%;
+  width: 83%;
   aspect-ratio: 1 / 1;
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+#firstimg {
+  left: 200%;
+  transform: translate(-50%, -50%) rotate(10deg);
 }
 
 .mainimg {
   width: 100%;
-  /* aspect-ratio: 1 / 1; */
+  aspect-ratio: 1 / 1;
 }
 
 #titleMain {

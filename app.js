@@ -65,3 +65,18 @@ button.onclick = () => {
 // ----------------------------------------------------------------------------------
 // MAIN
 
+let mainimg_containers = document.querySelectorAll('.mainimg_container');
+console.log(mainimg_containers)
+
+imgclick.onclick = function() {
+  animate({
+    duration: 200,
+    timing: function(timeFraction) {
+      return timeFraction;
+    },
+    draw: function(progress) {
+      firstimg.style.opacity = 1 * progress + '';
+      firstimg.style.left = 200 - (200 - 50) * progress + '%';
+    }
+  })
+}
