@@ -7,12 +7,13 @@
 body {
   background-color: #ffd0d5;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* --------------------------------------------------------------------------------- */
 /* INTRO */
 
-#intro {
+/* #intro {
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -21,11 +22,15 @@ body {
   position: relative;
   overflow-x: hidden;
   overflow-y: hidden;
-}
+} */
 
 #introLogo {
   width: 20rem;
   z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #introFlower {
