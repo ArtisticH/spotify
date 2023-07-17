@@ -13,17 +13,6 @@ body {
 /* --------------------------------------------------------------------------------- */
 /* INTRO */
 
-/* #intro {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow-x: hidden;
-  overflow-y: hidden;
-} */
-
 #introLogo {
   width: 20rem;
   z-index: 1;

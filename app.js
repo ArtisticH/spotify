@@ -1,38 +1,52 @@
 // INTRO
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   setTimeout(() => {
-//     introFlower.style.display = 'block';
-//   }, 1500);
-
-//   setTimeout(() => {
-//     introFlower.style.left = `-${introFlower.offsetWidth}px`;
-//     introFlower.style.width = '30%';
-//     introLogo.remove();
-//   }, 4000);
-
-//   setTimeout(() => {
-//     intro.remove();
-//   }, 4500);
-// });
-
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     introFlower.style.display = 'block';
-    console.log(introFlower.offsetWidth)
   }, 1500);
 
   setTimeout(() => {
-    introFlower.style.left = `-${introFlower.offsetWidth}px`;
-    introFlower.style.width = '30%';
+    let width = introFlower.offsetWidth;
+
+    animate({
+      duration: 100,
+      timing: function(timeFraction) {
+        return timeFraction;
+      },
+      draw: function(progress) {
+        introFlower.style.left = -(width * progress) + 'px';
+        // 118% -> 10% 로 width 변경
+        introFlower.style.width = 118 - (118 - 10) * progress + '%';
+      }
+    })
+
     introLogo.remove();
   }, 4000);
 });
+
+function animate({timing, draw, duration}) {
+
+  let start = performance.now();
+
+  requestAnimationFrame(function animate(time) {
+    let timeFraction = (time - start) / duration;
+    if (timeFraction > 1) timeFraction = 1;
+
+    let progress = timing(timeFraction)
+
+    draw(progress); 
+
+    if (timeFraction < 1) {
+      requestAnimationFrame(animate);
+    }
+  });
+}
 
 
 
 // ----------------------------------------------------------------------------------
 // HEADER
+
 const triFirst = document.querySelector('.triangle.first');
 const triSec = document.querySelector('.triangle.second');
 const triThird = document.querySelector('.triangle.third');
