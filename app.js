@@ -1,9 +1,20 @@
 // INTRO
 
+let mainimg_containers = document.querySelectorAll('.mainimg_container');
+let index = 15;
+let i = 0;
+
+
 document.addEventListener('DOMContentLoaded', () => {
+
   setTimeout(() => {
     introFlower.style.display = 'block';
   }, 1500);
+
+  [...mainimg_containers].forEach(item => {
+     item.style.zIndex = `${index}`;
+     index--;
+   })
 
   setTimeout(() => {
     let width = introFlower.offsetWidth;
@@ -21,6 +32,20 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     introLogo.remove();
+    titleMain.style.opacity = '1';
+
+    let intervalId = setInterval(() => {
+
+       [...mainimg_containers][i].classList.add('stack');
+       i++;
+
+       if (i >= mainimg_containers.length) {
+         clearInterval(intervalId);
+         forflex.classList.add('active');
+       }
+
+    }, 10);
+
   }, 4000);
 });
 
@@ -65,18 +90,4 @@ button.onclick = () => {
 // ----------------------------------------------------------------------------------
 // MAIN
 
-let mainimg_containers = document.querySelectorAll('.mainimg_container');
-console.log(mainimg_containers)
 
-imgclick.onclick = function() {
-  animate({
-    duration: 200,
-    timing: function(timeFraction) {
-      return timeFraction;
-    },
-    draw: function(progress) {
-      firstimg.style.opacity = 1 * progress + '';
-      firstimg.style.left = 200 - (200 - 50) * progress + '%';
-    }
-  })
-}

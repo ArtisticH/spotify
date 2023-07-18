@@ -1,3 +1,28 @@
+@font-face {
+  font-family: 'Circular-medium';
+  src: url('./font/CircularSpotifyTxT-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Circular-book';
+  src: url('./font/CircularSpotifyTxT-Book.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Circular-bold';
+  src: url('./font/CircularSpotifyTxT-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'ProductSans-Light';
+  src: url('./font/ProductSans-Light.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'AvenirLTStd-Light';
+  src: url('./font/AvenirLTStd-Light.otf') format('opentype');
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -110,18 +135,16 @@ main {
 }
 
 #imgMain {
-
   border: 5px solid salmon;
   height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-
 }
 
 .mainimg_container {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   width: 83%;
   aspect-ratio: 1 / 1;
   display: flex;
@@ -129,14 +152,23 @@ main {
   justify-content: center;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 200%;
   transform: translate(-50%, -50%);
   opacity: 0;
+  transition: all 0.2s ease-out;
 }
 
-#firstimg {
-  left: 200%;
-  transform: translate(-50%, -50%) rotate(10deg);
+.mainimg_container.stack {
+  left: 50%;
+  opacity: 1;
+}
+
+.mainimg_container.first {
+  transform: translate(-50%, -50%) rotate(-5deg);
+}
+
+.mainimg_container.second {
+  transform: translate(-50%, -50%) rotate(5deg);
 }
 
 .mainimg {
@@ -146,15 +178,29 @@ main {
 
 #titleMain {
   border: 1px solid lime;
-  height: 100px;
+  padding-bottom: 8rem;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
 
+.titleSmall {
+  font-family: 'Circular-medium';
+  font-size: 0.9rem;
+  letter-spacing: -0.5px;
+}
+
+.titleBig {
+  padding-top: 0.4rem;
+  font-family: 'Circular-medium';
+  font-size: 2.6rem;
+  letter-spacing: -2.5px;
+  font-weight: 550;
+  line-height: 1.1;
 }
 
 #shuffleMain {
   border: 1px solid blue;
   height: 100px;
-
-
 }
 
 #progressAndScroll {
@@ -168,14 +214,12 @@ main {
   border: 1px solid red;
   width: 100px;
   height: 80px;
-
 }
 
 #scrollMain {
   border: 1px solid red;
   width: 100px;
   height: 80px;
-
 }
 
 @media all and (min-width: 600px) {
@@ -193,20 +237,15 @@ main {
   }
 
   #imgMain {
-
     border: 4px solid salmon;
     height: 400px;
-  
   }
-  
-  
 }
 
 @media all and (min-width: 1024px) {
   .forwidth {
     width: 88%;
     position: static;
-
   }
   
   #shuffleMain {
