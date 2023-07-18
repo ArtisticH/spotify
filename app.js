@@ -42,9 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
        if (i >= mainimg_containers.length) {
          clearInterval(intervalId);
          forflex.classList.add('active');
+         document.body.style.overflowY = 'auto';
        }
 
-    }, 10);
+    }, 30);
 
   }, 4000);
 });

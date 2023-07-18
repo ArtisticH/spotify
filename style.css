@@ -33,6 +33,7 @@ body {
   background-color: #ffd0d5;
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 /* --------------------------------------------------------------------------------- */
@@ -136,12 +137,13 @@ main {
 
 #imgMain {
   border: 5px solid salmon;
-  height: 400px;
+  height: 450px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 }
+
 
 .mainimg_container {
   /* border: 2px solid red; */
@@ -199,8 +201,14 @@ main {
 }
 
 #shuffleMain {
-  border: 1px solid blue;
-  height: 100px;
+  border: 3px solid blue;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#shuffle_container {
+  border: 2px solid lime;
 }
 
 #progressAndScroll {
