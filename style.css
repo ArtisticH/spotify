@@ -53,7 +53,7 @@ body {
   left: 0;
   width: 118%;
   display: none;
-  transition: left 1s, width 1s;
+  transition: left 0.1s, width 0.1s;
 }
 
 @media all and (min-width: 600px) {
@@ -286,3 +286,6 @@ main {
     grid-template-columns: 1fr 7fr;
   }
 }
+
+/* --------------------------------------------------------------------------------- */
+/* SECTION RELEASE */

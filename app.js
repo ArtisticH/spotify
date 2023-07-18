@@ -17,15 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
    })
 
   setTimeout(() => {
-    let width = introFlower.offsetWidth;
+    let flowerWidth = introFlower.offsetWidth;
 
     animate({
-      duration: 100,
+      duration: 200,
       timing: function(timeFraction) {
         return timeFraction;
       },
       draw: function(progress) {
-        introFlower.style.left = -(width * progress) + 'px';
+        introFlower.style.left = -(flowerWidth * progress) + 'px';
         // 118% -> 10% 로 width 변경
         introFlower.style.width = 118 - (118 - 10) * progress + '%';
       }
@@ -82,12 +82,9 @@ menuTriangle.onclick = () => {
   triThird.classList.toggle('active');
 };
 
-// 이거를 intro 후에 나타나도록 바꿔
-button.onclick = () => {
-  forflex.classList.toggle('active');
-};
-
 // ----------------------------------------------------------------------------------
 // MAIN
 
 
+// ----------------------------------------------------------------------------------
+// SEC 1 - RELEASE
