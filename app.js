@@ -88,3 +88,70 @@ menuTriangle.onclick = () => {
 
 // ----------------------------------------------------------------------------------
 // SEC 1 - RELEASE
+
+(function() {
+  const $release = document.querySelectorAll('.release');
+
+  [...$release].forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      const $topic = item.querySelector('.topic');
+      $topic.classList.add('hover');
+
+      if(item.firstElementChild.id === 'forplaysvg') {
+        const $play = item.querySelector('#play');
+        $play.classList.add('hover');
+      }
+    });
+
+    item.addEventListener('mouseleave', () => {
+      const $topic = item.querySelector('.topic');
+      $topic.classList.remove('hover');
+
+      if(item.firstElementChild.id === 'forplaysvg') {
+        const $play = item.querySelector('#play');
+        $play.classList.remove('hover');
+      }
+    });
+  });
+})();
+
+(function () {
+  const $hoverArea = document.querySelectorAll('.right_arrow_location');
+
+  [...$hoverArea].forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      const $firstLine = item.querySelector('.arrow_exp');
+      const $backBlack = item.querySelector('.arrow_circle');
+      const $invert = item.querySelector('.right_arrow');
+      const $secondLine = item.querySelector('.arrow_line_second');
+
+      $firstLine.classList.add('hover');
+      $backBlack.classList.add('hover');
+      $invert.classList.add('hover');
+      $secondLine.classList.add('hover');
+    });
+
+    item.addEventListener('mouseleave', () => {
+      const $firstLine = item.querySelector('.arrow_exp');
+      const $backBlack = item.querySelector('.arrow_circle');
+      const $invert = item.querySelector('.right_arrow');
+      const $secondLine = item.querySelector('.arrow_line_second');
+
+      $firstLine.classList.remove('hover');
+      $backBlack.classList.remove('hover');
+      $invert.classList.remove('hover');
+      $secondLine.classList.replace('hover', 'rewind');
+
+      // 왜 타이머 함수의 delay를 300으로 맞춰야 할까?
+      /* hover out 시 
+        transition: 0.3s ease-in-out;
+        2초 동안 효과가 나타나고 
+        그 다음에 바로 'rewind' 사라지기 위해서
+      */
+      setTimeout(() => {
+        $secondLine.classList.remove('rewind');
+      }, 300);
+    });
+  });
+})();
+
