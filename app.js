@@ -205,3 +205,26 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
 // ----------------------------------------------------------------------------------
 // SEC 2 - SPOTLIGHT
 
+// ----------------------------------------------------------------------------------
+// SEC 5 - JOBS
+
+
+jobs_rols.addEventListener('mouseenter', () => {
+  miami_arrow_container.classList.toggle('hover');
+  miami_arrow_circle.classList.toggle('hover');
+  miami_arrow.classList.toggle('hover');
+  jobs_editorial.classList.toggle('hover');
+});
+
+jobs_rols.addEventListener('mouseleave', () => {
+  miami_arrow_container.classList.toggle('hover');
+  miami_arrow_circle.classList.toggle('hover');
+  miami_arrow.classList.toggle('hover');
+  jobs_editorial.classList.toggle('hover');
+});
+
+/*
+git remote add origin https://github.com/ArtisticH/Spotify-Clone.git
+git branch -M main
+git push -u origin main
+*/

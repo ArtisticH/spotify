@@ -159,17 +159,17 @@ header {
 
 .menuFour_circle {
   background-color: black;
-  width: 0px;
-  height: 0px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
+  transform: scale(0);
   transition: all 0.1s linear;
   visibility: hidden;
   opacity: 0;
 }
 
 .menuFour_circle.hover {
-  width: 4px;
-  height: 4px;
+  transform: scale(1);
   opacity: 0.5;
   visibility: visible;
 }
@@ -194,6 +194,13 @@ header {
     width: 88%;
     border: 1px solid red;
   }
+
+  .menuFour_title {
+    font-family: 'Circular-medium';
+    letter-spacing: -0.7px;
+    font-size: 1.1rem;
+  }
+  
 }
 
 /* --------------------------------------------------------------------------------- */
@@ -827,6 +834,33 @@ main {
   font-family: 'AvenirLTStd-Light';
 }
 
+@media all and (min-width: 600px) {
+  .up_heading {
+    font-size: 1.7rem;
+    letter-spacing: -1.4px;
+  }
+
+  .under_heading {
+    margin-top: -0.3rem;
+    font-size: 1.7rem;
+    letter-spacing: -1.4px;
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .up_heading {
+    font-size: 2rem;
+    letter-spacing: -1.7px;
+  }
+
+  .under_heading {
+    margin-top: -0.3rem;
+    font-size: 2rem;
+    letter-spacing: -1.7px;
+  }
+}
+
+
 /* --------------------------------------------------------------------------------- */
 /* SECTION TOOLS */
 
@@ -841,10 +875,6 @@ main {
     grid-gap: 1.5rem;
   }
 }
-
-@media all and (min-width: 1024px) {
-}
-
 
 /* --------------------------------------------------------------------------------- */
 /* SECTION JOBS */
@@ -885,11 +915,85 @@ main {
   margin-top: -0.4rem;
 }
 
+#miami_arrow_container {
+  visibility: hidden;
+}
+
+#jobs_editorial.hover {
+  text-decoration: underline;
+}
+
 @media all and (min-width: 600px) {
+
+  #jobs_editorial {
+    font-family: 'Circular-medium';
+    font-size: 1.3rem;
+    letter-spacing: -1px;
+    margin-top: -0.4rem;
+  }
 }
 
 @media all and (min-width: 1024px) {
+
+  #jobs_rols {
+    margin-top: -0.6rem;
+    position: relative;
+  }  
+
+  #jobs_editorial {
+    font-family: 'Circular-medium';
+    font-size: 1.5rem;
+    letter-spacing: -1px;
+    margin-top: 0rem;
+  }
+
+  #miami_title {
+    font-size: 0.9rem;
+    letter-spacing: -0.8px;
+  }
+  
+  #miami_arrow_container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;  
+  }
+
+  #miami_arrow_container.hover {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #miami_arrow_circle {
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0);
+    transition: all 0.3s ease-in-out;  
+  }
+
+  #miami_arrow_circle.hover {
+    transform: scale(1);
+    background-color: black;
+  }
+
+  #miami_arrow {
+    width: 70%;
+    transition: 0.1s ease-in-out;  
+    transition: all 0.3s ease-in-out;  
+  }
+
+  #miami_arrow.hover {
+    filter: invert(1);
+  }
+  
 }
+
 
 
 /* --------------------------------------------------------------------------------- */
