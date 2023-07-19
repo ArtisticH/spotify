@@ -1,3 +1,9 @@
+// 새로고침
+
+window.addEventListener('beforeunload', () => {
+  window.scrollTo(0,0);
+});
+
 // INTRO
 
 let mainimg_containers = document.querySelectorAll('.mainimg_container');
@@ -85,6 +91,21 @@ menuTriangle.onclick = () => {
 
 // ----------------------------------------------------------------------------------
 // MAIN
+
+scrollMain.onclick = () => {
+  const start = window.pageYOffset; 
+  const end = release.getBoundingClientRect().top + window.pageYOffset; 
+
+  animate({
+    duration: 400,
+    timing: function quad(timeFraction) {
+      return Math.pow(timeFraction, 2)
+    },
+    draw: function(progress) {
+      window.scrollTo(0, start + (end - start) * progress);
+    }
+  });
+}
 
 
 // ----------------------------------------------------------------------------------
