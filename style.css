@@ -933,6 +933,10 @@ main {
     font-size: 1.7rem;
     letter-spacing: -1.4px;
   }
+
+  .spotBox {
+    margin-right: 5rem;
+  }  
 }
 
 @media all and (min-width: 1024px) {
@@ -946,6 +950,20 @@ main {
     font-size: 2rem;
     letter-spacing: -1.7px;
   }
+
+  .spotBox {
+    margin-right: 10rem;
+  }  
+
+  .spot_up_heading {
+    font-size: 1.5rem;
+    letter-spacing: -0.8px;
+  }
+  
+  .spot_under_heading {
+    font-size: 1.5rem;
+    letter-spacing: -0.8px;
+  }  
 }
 
 
