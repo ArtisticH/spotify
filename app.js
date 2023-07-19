@@ -69,6 +69,17 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
 // ----------------------------------------------------------------------------------
 // SEC 2 - SPOTLIGHT
 
+// const $spotImg = document.querySelector('.spotImg');
+// const $spotSvg = document.querySelector('.spotSvg');
+
+// $spotImg.addEventListener('mouseover', () => {
+//   $spotSvg.classList.toggle('hover');
+// })
+
+// $spotImg.addEventListener('mouseout', () => {
+//   $spotSvg.classList.toggle('hover');
+// })
+
 
 
 // ----------------------------------------------------------------------------------

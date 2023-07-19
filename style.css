@@ -570,7 +570,7 @@ main {
 }
 
 .forwidth {
-  border: 1px solid lime;
+  border: 1px solid black;
 }
 
 .heading {
@@ -831,6 +831,87 @@ main {
   letter-spacing: -1px;
   font-weight: bolder;
   font-family: 'AvenirLTStd-Light';
+}
+
+.spot_scroll_container {
+  border: 2px solid greenyellow;
+  /* display: flex;
+  align-items: center; */
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  cursor: pointer;
+}
+
+.spotBox {
+  position: relative;
+  border: 3px solid hotpink;
+  display: inline-block;
+  /* height: min-content; */
+  position: relative;
+  margin-right: 2.5rem;
+  width: 256px;
+}
+
+.spotImg {
+  width: 100%;
+  position: relative;
+  /* z-index: 5; */
+}
+
+.spotSvg {
+  /* z-index: -0.5; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: all 0.3s ease-in;
+}
+
+.spotSvg.hover {
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+.spot_up_heading {
+  font-family: 'Circular-medium';
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.8px;
+}
+
+.spot_under_heading {
+  font-size: 1.2rem;
+  letter-spacing: -0.8px;
+  font-weight: bolder;
+  font-family: 'AvenirLTStd-Light';
+}
+
+.spot_side {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%) rotate(180deg);
+  writing-mode: vertical-lr;
+  margin-right: -0.3rem;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.spot_side_circle {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #000;
+  margin-bottom: 0.3rem;
+}
+
+.spot_side_location {
+  font-family: 'Circular-medium';
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: -0.7px;
 }
 
 @media all and (min-width: 600px) {
