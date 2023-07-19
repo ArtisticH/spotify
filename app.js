@@ -39,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     introLogo.remove();
     titleMain.style.opacity = '1';
+    shuffleMain.style.opacity = '1';
+    progressAndScroll.style.opacity = '1';
 
     let intervalId = setInterval(() => {
 
@@ -52,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
        }
 
     }, 30);
-
   }, 4000);
 });
 
@@ -74,8 +75,6 @@ function animate({timing, draw, duration}) {
   });
 }
 
-
-
 // ----------------------------------------------------------------------------------
 // HEADER
 
@@ -89,6 +88,22 @@ menuTriangle.onclick = () => {
   triThird.classList.toggle('active');
 };
 
+const $menuFour = document.querySelectorAll('.menuFour');
+const $menuFourCircle = document.querySelector('.menuFour_circle');
+const $menuFourTitle = document.querySelector('.menuFour_title');
+
+[...$menuFour].forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    item.querySelector('.menuFour_circle').classList.toggle('hover');
+    item.querySelector('.menuFour_title').classList.toggle('hover');
+  });
+
+  item.addEventListener('mouseleave', () => {
+    item.querySelector('.menuFour_circle').classList.toggle('hover');
+    item.querySelector('.menuFour_title').classList.toggle('hover');
+  });
+
+})
 // ----------------------------------------------------------------------------------
 // MAIN
 
@@ -107,73 +122,81 @@ scrollMain.onclick = () => {
   });
 }
 
+const $downArrow = document.querySelector('.down_arrow');
+
+scrollMain.addEventListener('mouseenter', () => {
+  scrollArrow.classList.toggle('hover');
+  $downArrow.classList.toggle('hover');
+});
+
+scrollMain.addEventListener('mouseleave', () => {
+  scrollArrow.classList.toggle('hover');
+  $downArrow.classList.toggle('hover');
+});
+
 
 // ----------------------------------------------------------------------------------
 // SEC 1 - RELEASE
 
-(function() {
-  const $release = document.querySelectorAll('.release');
+const $release = document.querySelectorAll('.release');
 
-  [...$release].forEach(item => {
-    item.addEventListener('mouseenter', () => {
-      const $topic = item.querySelector('.topic');
-      $topic.classList.add('hover');
+[...$release].forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    const $topic = item.querySelector('.img_topic');
+    $topic.classList.add('hover');
 
-      if(item.firstElementChild.id === 'forplaysvg') {
-        const $play = item.querySelector('#play');
-        $play.classList.add('hover');
-      }
-    });
-
-    item.addEventListener('mouseleave', () => {
-      const $topic = item.querySelector('.topic');
-      $topic.classList.remove('hover');
-
-      if(item.firstElementChild.id === 'forplaysvg') {
-        const $play = item.querySelector('#play');
-        $play.classList.remove('hover');
-      }
-    });
+    if(item.firstElementChild.id === 'forPlaySvg') {
+      const $play = item.querySelector('#playLoc');
+      $play.classList.add('hover');
+    }
   });
-})();
 
-(function () {
-  const $hoverArea = document.querySelectorAll('.right_arrow_location');
+  item.addEventListener('mouseleave', () => {
+    const $topic = item.querySelector('.img_topic');
+    $topic.classList.remove('hover');
 
-  [...$hoverArea].forEach(item => {
-    item.addEventListener('mouseenter', () => {
-      const $firstLine = item.querySelector('.arrow_exp');
-      const $backBlack = item.querySelector('.arrow_circle');
-      const $invert = item.querySelector('.right_arrow');
-      const $secondLine = item.querySelector('.arrow_line_second');
-
-      $firstLine.classList.add('hover');
-      $backBlack.classList.add('hover');
-      $invert.classList.add('hover');
-      $secondLine.classList.add('hover');
-    });
-
-    item.addEventListener('mouseleave', () => {
-      const $firstLine = item.querySelector('.arrow_exp');
-      const $backBlack = item.querySelector('.arrow_circle');
-      const $invert = item.querySelector('.right_arrow');
-      const $secondLine = item.querySelector('.arrow_line_second');
-
-      $firstLine.classList.remove('hover');
-      $backBlack.classList.remove('hover');
-      $invert.classList.remove('hover');
-      $secondLine.classList.replace('hover', 'rewind');
-
-      // 왜 타이머 함수의 delay를 300으로 맞춰야 할까?
-      /* hover out 시 
-        transition: 0.3s ease-in-out;
-        2초 동안 효과가 나타나고 
-        그 다음에 바로 'rewind' 사라지기 위해서
-      */
-      setTimeout(() => {
-        $secondLine.classList.remove('rewind');
-      }, 300);
-    });
+    if(item.firstElementChild.id === 'forPlaySvg') {
+      const $play = item.querySelector('#playLoc');
+      $play.classList.remove('hover');
+    }
   });
-})();
+});
 
+
+const $hoverArea = document.querySelectorAll('.rightArrow_loc');
+
+[...$hoverArea].forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    const $firstLine = item.querySelector('.rightArrow_loc_title');
+    const $backBlack = item.querySelector('.rightArrow_loc_circle');
+    const $invert = item.querySelector('.rightArrow_loc_arrow');
+    const $secondLine = item.querySelector('.rightArrow_loc_line');
+
+    $firstLine.classList.add('hover');
+    $backBlack.classList.add('hover');
+    $invert.classList.add('hover');
+    $secondLine.classList.add('hover');
+  });
+
+  item.addEventListener('mouseleave', () => {
+    const $firstLine = item.querySelector('.rightArrow_loc_title');
+    const $backBlack = item.querySelector('.rightArrow_loc_circle');
+    const $invert = item.querySelector('.rightArrow_loc_arrow');
+    const $secondLine = item.querySelector('.rightArrow_loc_line');
+
+    $firstLine.classList.remove('hover');
+    $backBlack.classList.remove('hover');
+    $invert.classList.remove('hover');
+    $secondLine.classList.replace('hover', 'rewind');
+
+    // 왜 타이머 함수의 delay를 300으로 맞춰야 할까?
+    /* hover out 시 
+      transition: 0.3s ease-in-out;
+      2초 동안 효과가 나타나고 
+      그 다음에 바로 'rewind' 사라지기 위해서
+    */
+    setTimeout(() => {
+      $secondLine.classList.remove('rewind');
+    }, 300);
+  });
+});
