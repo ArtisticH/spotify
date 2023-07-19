@@ -731,6 +731,9 @@ main {
 @media all and (min-width: 600px) {
   .forwidth {
     width: 93%;
+  }
+
+  .arrow_relative {
     position: relative;
   }
 
@@ -839,6 +842,9 @@ main {
   }
 }
 
+@media all and (min-width: 1024px) {
+}
+
 
 /* --------------------------------------------------------------------------------- */
 /* SECTION JOBS */
@@ -879,14 +885,33 @@ main {
   margin-top: -0.4rem;
 }
 
-@media all and (min-width: 1024px) {
-  #toolsAndJobs {
-    background-color: #fff;
-  }  
+@media all and (min-width: 600px) {
+}
 
+@media all and (min-width: 1024px) {
+}
+
+
+/* --------------------------------------------------------------------------------- */
+/* SECTION TOOLS & JOBS */
+
+
+
+#toolsAndJobs {
+  background-color: #fff;
+  /* border: 4px solid red; */
+} 
+
+#toolsAndJobsGrid {
+  /* border: 4px solid blue; */
+}
+
+@media all and (min-width: 1024px) {
   #toolsAndJobsGrid {
-    border: 4px solid red;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.1fr 1fr;
+    grid-gap: 6rem;
   }
 }
+
+
