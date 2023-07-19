@@ -922,6 +922,10 @@ main {
   letter-spacing: -0.7px;
 }
 
+.spotImgRead {
+  display: none;
+}
+
 @media all and (min-width: 600px) {
   .up_heading {
     font-size: 1.7rem;
@@ -964,6 +968,28 @@ main {
     font-size: 1.5rem;
     letter-spacing: -0.8px;
   }  
+
+  .spotImg_container {
+    /* border: 3px solid red; */
+    position: relative;
+  }
+
+  .spotImgRead {
+    color: #fff;
+    background-color: #000;
+    display: block;
+    position: absolute;
+    left: 0.5rem;
+    bottom: 1rem;
+    width: 62%;
+    height: 68%;
+    padding: 2rem;
+    font-size: 1.5rem;
+    white-space: normal;
+    font-family: 'AvenirLTStd-Light';
+    letter-spacing: -1.5px;
+    font-weight: bolder;
+  }
 }
 
 
