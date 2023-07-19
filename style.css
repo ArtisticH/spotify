@@ -841,16 +841,24 @@ main {
   overflow-x: scroll;
   overflow-y: hidden;
   cursor: pointer;
+  padding: 2rem 0;
+  width: 110%;
+}
+
+.spotFlex {
+  width: fit-content;
+  border: 1px solid red;
+  overflow-x: scroll;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .spotBox {
   position: relative;
-  border: 3px solid hotpink;
+  /* border: 3px solid hotpink; */
   display: inline-block;
-  /* height: min-content; */
-  position: relative;
-  margin-right: 2.5rem;
-  width: 256px;
+  margin-right: 3rem;
 }
 
 .spotImg {

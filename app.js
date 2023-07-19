@@ -80,6 +80,13 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
 //   $spotSvg.classList.toggle('hover');
 // })
 
+const widthArr = ['256px', '185px', '240px'];
+const $spotBoxs = document.querySelectorAll('.spotBox');
+
+[...$spotBoxs].forEach(item => {
+  let index = [...$spotBoxs].indexOf(item) % 3;
+  item.style.width = widthArr[index];
+})
 
 
 // ----------------------------------------------------------------------------------
