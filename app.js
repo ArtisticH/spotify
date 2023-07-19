@@ -138,9 +138,9 @@ scrollMain.addEventListener('mouseleave', () => {
 // ----------------------------------------------------------------------------------
 // SEC 1 - RELEASE
 
-const $release = document.querySelectorAll('.release');
+const $imgBox = document.querySelectorAll('.imgBox');
 
-[...$release].forEach(item => {
+[...$imgBox].forEach(item => {
   item.addEventListener('mouseenter', () => {
     const $topic = item.querySelector('.img_topic');
     $topic.classList.add('hover');
@@ -200,3 +200,8 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
     }, 300);
   });
 });
+
+
+// ----------------------------------------------------------------------------------
+// SEC 2 - SPOTLIGHT
+

@@ -36,6 +36,11 @@ body {
   overflow-y: hidden;
 }
 
+.fordisplay {
+  display: flex;
+  justify-content: center;
+}
+
 /* --------------------------------------------------------------------------------- */
 /* INTRO */
 
@@ -77,8 +82,6 @@ body {
 /* HEADER */
 
 header {
-  display: flex;
-  justify-content: center;
   padding-top: 1.4rem;
 }
 
@@ -133,7 +136,7 @@ header {
 
 .menuFour {
   margin-left: 0.8rem;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .menuFour_title {
@@ -146,10 +149,12 @@ header {
 }
 
 .menuFour_circle_container {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 5px;
+  margin-top: 0.2rem;
 }
 
 .menuFour_circle {
@@ -157,12 +162,16 @@ header {
   width: 0px;
   height: 0px;
   border-radius: 50%;
-  transition: all 0.5s linear;
+  transition: all 0.1s linear;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .menuFour_circle.hover {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
+  opacity: 0.5;
+  visibility: visible;
 }
 
 @media all and (min-width: 600px) {
@@ -191,8 +200,6 @@ header {
 /* MAIN */
 
 main {
-  display: flex;
-  justify-content: center;
   border: 1px solid black;
   padding-bottom: 2rem;
   padding-top: 1rem;
@@ -553,8 +560,6 @@ main {
 /* SECTION RELEASE */
 
 #release {
-  display: flex;
-  justify-content: center;
   background-color: #fff;
 }
 
@@ -568,10 +573,10 @@ main {
   font-weight: 500;
   letter-spacing: -1px;
   padding: 1.6rem 0;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
-.release {
+.imgBox {
   cursor: pointer;
   margin-bottom: 2.5rem;
   border: 2px solid salmon;
@@ -729,7 +734,7 @@ main {
     position: relative;
   }
 
-  .release {
+  .imgBox {
     height: min-content;
   }
 
@@ -741,7 +746,7 @@ main {
     width: 100%;
   }
 
-  .forgrid {
+  .forgrid_release {
     border: 3px solid black;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -768,13 +773,10 @@ main {
 
   .rightArrow {
     /* border: 1px solid red; */
-    position: absolute;
     top: 2.3rem;
-    left: 0;
-    width: 100%;
   }
 
-  .forgrid {
+  .forgrid_release {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 1.3rem;
@@ -790,5 +792,101 @@ main {
     font-size: 1.5rem;
     margin-top: 0.3rem;
     line-height: 1.1;
+  }
+}
+
+/* --------------------------------------------------------------------------------- */
+/* SECTION SPOTLIGHT */
+
+#spotlight {
+  background-color: #fff;
+}
+
+.heading_container {
+  border: 1px solid red;
+  padding: 2rem 0;
+}
+
+.up_heading {
+  font-family: 'Circular-medium';
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -1px;
+  margin: 0;
+  /* border: 1px solid purple; */
+}
+
+.under_heading {
+  margin-top: -0.3rem;
+  font-size: 1.5rem;
+  letter-spacing: -1px;
+  font-weight: bolder;
+  font-family: 'AvenirLTStd-Light';
+}
+
+/* --------------------------------------------------------------------------------- */
+/* SECTION TOOLS */
+
+#tools {
+  background-color: #fff;
+}
+
+@media all and (min-width: 600px) {
+  .forgrid_tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1.5rem;
+  }
+}
+
+
+/* --------------------------------------------------------------------------------- */
+/* SECTION JOBS */
+
+#jobs {
+  background-color: #fff;
+}
+
+#jobs_rols {
+  margin-top: -1rem;
+}
+
+#miami_container {
+  border: 1px solid black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#miami_circle {
+  width: 7px;
+  height: 7px;
+  background-color: #000;
+  border-radius: 50%;
+  margin-right: 0.2rem;
+}
+
+#miami_title {
+  font-family: 'Circular-medium';
+  font-size: 0.8rem;
+  letter-spacing: -0.8px;
+}
+
+#jobs_editorial {
+  font-family: 'Circular-medium';
+  font-size: 1.2rem;
+  letter-spacing: -1px;
+  margin-top: -0.4rem;
+}
+
+@media all and (min-width: 1024px) {
+  #toolsAndJobs {
+    background-color: #fff;
+  }  
+
+  #toolsAndJobsGrid {
+    border: 4px solid red;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }

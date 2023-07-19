@@ -16,7 +16,7 @@
   
   <!---------------------------------------------------------------------------------->
   <!-- HEADER -->
-  <header>
+  <header class="fordisplay">
     <div class="forflex" id="forflex">
       <img id="headerLogo" src="./svg/small_logo.svg" alt="small_logo">
       <div id="menuTriangle">
@@ -57,7 +57,7 @@
 
   <!---------------------------------------------------------------------------------->
   <!-- MAIN -->
-  <main>
+  <main class="fordisplay">
     <div class="forwidth main">
       <div id="imgAndTitle">
         <div id="imgMain">
@@ -138,29 +138,29 @@
   <!---------------------------------------------------------------------------------->
   <!-- SECTION RELEASE -->
 
-  <section id="release">
+  <section id="release" class="fordisplay">
     <div class="forwidth">
       <h3 class="heading">New Releases</h3>
-      <div class="forgrid">
-        <div class="release">
+      <div class="forgrid_release">
+        <div class="imgBox">
           <img class='relImg' src="./img/rel1.webp" alt="rel1">
           <div class="sub_heading">BEHIND THE SCENES</div>
           <p class="img_topic">Collaboration Secrets: Design X Engineering</p>
           <p class="img_exp">Learn how engineers and designers collaborate at Spotify: what works well, what can go wrong.. and everything in between!</p>
         </div>
-        <div class="release">
+        <div class="imgBox">
           <img class='relImg' src="./img/rel2.webp" alt="rel2">
           <div class="sub_heading">Q+A</div>
           <p class="img_topic">Ask Spotify Design 07</p>
           <p class="img_exp">How do you choose colors? Prioritize your workload? Govern a design system? Our community panel returns to answer your thoughtful questions.</p>
         </div> 
-        <div class="release">
+        <div class="imgBox">
           <img class='relImg' src="./img/rel3.webp" alt="rel3">
           <div class="sub_heading">BEHIND THE SCENES</div>
           <p class="img_topic">Making Moves: Designing Motion for 2022 Wrapped</p>
           <p class="img_exp">Simple brief, complex executions: UX Motion Designer Ade shares his journey on bringing 2022 Wrapped's data stories to life.</p>
         </div> 
-        <div class="release">
+        <div class="imgBox">
           <div id="forPlaySvg">
             <img class='relImg' src="./img/rel4.webp" alt="rel4">
             <div id="playLoc">
@@ -189,5 +189,93 @@
     </div>
   </section>
 
+  <!---------------------------------------------------------------------------------->
+  <!-- SECTION SPOTLIGHT -->
+
+  <section id="spotlight" class="fordisplay">
+    <div class="forwidth">
+      <div class="heading_container">
+        <div class="up_heading">In the Spotlight</div>
+        <div class="under_heading">Meet the humans who design Spotify</div>  
+      </div>
+    </div>
+  </section>
+
+  <!---------------------------------------------------------------------------------->
+  <!-- SECTION INBOX -->
+  <section></section>
+
+  <div id="toolsAndJobs" class="fordisplay">
+    <div>
+
+      <!---------------------------------------------------------------------------------->
+      <!-- SECTION TOOLS -->
+  
+      <section id="tools" class="fordisplay">
+        <div class="forwidth">
+          <div class="heading_container">
+            <div class="up_heading">Tools</div>
+            <div class="under_heading">Our day-to-day resources</div>  
+          </div>
+          <div class="forgrid_tools">
+            <div class="imgBox">
+              <img class='relImg' src="./img/tools1.webp" alt="tools1">
+              <div class="sub_heading">TOOLS</div>
+              <p class="img_topic">Performance Cards: Designing with Meaning and Empathy</p>
+              <p class="img_exp">challenge the way you think and serve access-constrained users with these cards.</p>
+            </div>
+            <div class="imgBox">
+              <img class='relImg' src="./img/tools2.webp" alt="tools2">
+              <div class="sub_heading">TOOLS</div>
+              <p class="img_topic">Assessing Constraints: Making Products for all Users</p>
+              <p class="img_exp">The team behind Spotify Lite created this tool to ensure they're building products for the people around the world who face technological challenge.</p>
+            </div>  
+          </div>
+          <div class="rightArrow">
+            <div class="rightArrow_loc">
+              <div class="rightArrow_loc_left">
+                <div class="rightArrow_loc_title">VIEW ALL TOOLS</div>
+                <div class="rightArrow_loc_line"></div>
+              </div>
+              <div class="rightArrow_loc_circle">
+                <img class='rightArrow_loc_arrow' src="/svg/right_arrow.svg" alt="right_arrow">
+              </div>
+            </div>
+          </div>  
+        </div>
+      </section>
+  
+      <!---------------------------------------------------------------------------------->
+      <!-- SECTION JOBS -->
+    
+      <section id="jobs" class="fordisplay">
+        <div class="forwidth">
+          <div class="heading_container">
+            <div class="up_heading">Jobs</div>
+            <div class="under_heading">Open roles at Spotify Design</div>  
+          </div>
+          <div id="jobs_rols">
+            <div id="miami_container">
+              <div id="miami_circle"></div>
+              <div id="miami_title">MIAMI</div>
+              <div id="miami_arrow_container"></div>
+            </div>
+            <div id="jobs_editorial">Design Manager - Editorial, LatAm</div>
+          </div>
+          <div class="rightArrow">
+            <div class="rightArrow_loc">
+              <div class="rightArrow_loc_left">
+                <div class="rightArrow_loc_title">VIEW TEAM</div>
+                <div class="rightArrow_loc_line"></div>
+              </div>
+              <div class="rightArrow_loc_circle">
+                <img class='rightArrow_loc_arrow' src="/svg/right_arrow.svg" alt="right_arrow">
+              </div>
+            </div>
+          </div>  
+        </div>
+      </section>
+    </div>  
+  </div>
 </body>
 </html>
