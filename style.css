@@ -1023,8 +1023,6 @@ main {
     position: absolute;
     left: 0.5rem;
     bottom: 1rem;
-    width: 62%;
-    height: 68%;
     padding: 2rem;
     font-size: 1.5rem;
     white-space: normal;
@@ -1034,6 +1032,9 @@ main {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease-in;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .spotImgRead.hover {
@@ -1041,6 +1042,17 @@ main {
     visibility: visible;
   }
 
+  .spotReadMore {
+    text-decoration: underline;
+    font-size: 0.9rem;
+    font-family: 'Circular-medium'; 
+    letter-spacing: -0.5px;
+  }
+
+  .spotImgRead.spot1 {
+    width: 62%;
+    height: 68%;
+  }
   
 }
 

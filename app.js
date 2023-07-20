@@ -73,6 +73,7 @@ const $spotImg = document.querySelector('.spotImg');
 // const $spotSvg = document.querySelector('.spotSvg');
 const $spotImgRead = document.querySelector('.spotImgRead');
 
+
 // $spotImg.addEventListener('mouseover', () => {
 //   $spotSvg.classList.toggle('hover');
 // })
