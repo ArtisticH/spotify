@@ -70,7 +70,6 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
 // SEC 2 - SPOTLIGHT
 
 const $spotImg = document.querySelector('.spotImg');
-const $spotImgHover = document.querySelector('.spotImg.hover');
 // const $spotSvg = document.querySelector('.spotSvg');
 const $spotImgRead = document.querySelector('.spotImgRead');
 
@@ -83,15 +82,10 @@ const $spotImgRead = document.querySelector('.spotImgRead');
 // })
 
 document.addEventListener('mouseover', (e) => {
-  if(e.target === $spotImg || e.relatedTarget === $spotImg) $spotImgRead.classList.toggle('hover');
-  // if(e.target === $spotImg) {
-  //   $spotImgRead.classList.toggle('hover');
-  // }
-});
-
-document.addEventListener('mouseout', (e) => {
-  if(e.target === $spotImg) {
-    $spotImgRead.classList.toggle('hover');
+  if(e.target === $spotImg && e.relatedTarget !== $spotImg && e.relatedTarget !== $spotImgRead) {
+    $spotImgRead.classList.add('hover');
+  } else if (e.relatedTarget === $spotImg && e.target !== $spotImg && e.target !== $spotImgRead) {
+    $spotImgRead.classList.remove('hover');
   }
 });
 
