@@ -69,26 +69,27 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
 // ----------------------------------------------------------------------------------
 // SEC 2 - SPOTLIGHT
 
-const $spotImg = document.querySelector('.spotImg');
-// const $spotSvg = document.querySelector('.spotSvg');
-const $spotImgRead = document.querySelector('.spotImgRead');
+const $spotImg = document.querySelectorAll('.spotImg');
+const $spotImgRead = document.querySelectorAll('.spotImgRead');
 
+$spotImg.forEach((img) => {
+  img.addEventListener('mouseenter', (e) => {
+    let index = [...$spotImg].indexOf(img);
+    if(e.target === $spotImg[index] && e.relatedTarget !== $spotImg[index]) {
+      $spotImgRead[index].classList.add('hover');
+      console.log('enter', $spotImg[index], $spotImgRead[index]);
+    }
+  });
 
-// $spotImg.addEventListener('mouseover', () => {
-//   $spotSvg.classList.toggle('hover');
-// })
-
-// $spotImg.addEventListener('mouseout', () => {
-//   $spotSvg.classList.toggle('hover');
-// })
-
-document.addEventListener('mouseover', (e) => {
-  if(e.target === $spotImg && e.relatedTarget !== $spotImg && e.relatedTarget !== $spotImgRead) {
-    $spotImgRead.classList.add('hover');
-  } else if (e.relatedTarget === $spotImg && e.target !== $spotImg && e.target !== $spotImgRead) {
-    $spotImgRead.classList.remove('hover');
-  }
+  img.addEventListener('mouseleave', (e) => {
+    let index = [...$spotImg].indexOf(img);
+    if(e.target === $spotImg[index] && e.relatedTarget !== $spotImg[index] && e.relatedTarget !== $spotImgRead[index]) {
+      $spotImgRead[index].classList.remove('hover');
+      console.log('leave', $spotImg[index], $spotImgRead[index]);
+    }
+  });
 });
+
 
 // ----------------------------------------------------------------------------------
 // SEC 5 - JOBS

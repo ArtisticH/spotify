@@ -1021,8 +1021,6 @@ main {
     background-color: #000;
     display: block;
     position: absolute;
-    left: 0.5rem;
-    bottom: 1rem;
     padding: 2rem;
     font-size: 1.5rem;
     white-space: normal;
@@ -1049,11 +1047,64 @@ main {
     letter-spacing: -0.5px;
   }
 
-  .spotImgRead.spot1 {
+  #spot1 {
     width: 62%;
     height: 68%;
+    left: 0.5rem;
+    bottom: 1rem;
   }
-  
+
+  #spot2, #spot5, #spot8, #spot11 {
+    left: 0;
+    top: 0;
+    margin: 0.8rem;
+    width: 92%;
+    height: 92%;
+  }
+
+  #spot3, #spot6  {
+    left: 0.5rem;
+    bottom: 1rem;
+    height: 64%;
+    width: 75%;
+  }
+
+  #spot4 {
+    left: 0.5rem;
+    bottom: 1rem;
+    height: 50%;
+    width: 62%;
+  }
+
+  #spot7 {
+    left: 0.5rem;
+    bottom: 1rem;
+    height: 47%;
+    width: 60%;  
+  }
+
+  #spot9 {
+    left: 0.5rem;
+    bottom: 1rem;
+    height: 68%;
+    width: 75%;
+  }
+
+  #spot10 {
+    left: 0.5rem;
+    bottom: 1rem;
+    height: 45%;
+    width: 60%;
+  }
+
+  #spot12 {
+    left: 0.5rem;
+    bottom: 1rem;
+    height: 72%;
+    width: 75%;
+  }
+
+
 }
 
 
