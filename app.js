@@ -69,8 +69,10 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
 // ----------------------------------------------------------------------------------
 // SEC 2 - SPOTLIGHT
 
-// const $spotImg = document.querySelector('.spotImg');
+const $spotImg = document.querySelector('.spotImg');
+const $spotImgHover = document.querySelector('.spotImg.hover');
 // const $spotSvg = document.querySelector('.spotSvg');
+const $spotImgRead = document.querySelector('.spotImgRead');
 
 // $spotImg.addEventListener('mouseover', () => {
 //   $spotSvg.classList.toggle('hover');
@@ -80,26 +82,16 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
 //   $spotSvg.classList.toggle('hover');
 // })
 
-const widthArr = ['256px', '185px', '240px'];
-const widthArrMin600 = ['352px', '256px', '292px'];
-const widthArrMin1024 = ['536px', '312px', '424px'];
-const $spotBoxs = document.querySelectorAll('.spotBox');
-const spotBoxsArr = [...$spotBoxs];
+document.addEventListener('mouseover', (e) => {
+  if(e.target === $spotImg || e.relatedTarget === $spotImg) $spotImgRead.classList.toggle('hover');
+  // if(e.target === $spotImg) {
+  //   $spotImgRead.classList.toggle('hover');
+  // }
+});
 
-function spotWidth(arr) {
-  spotBoxsArr.forEach(item => {
-    let index = spotBoxsArr.indexOf(item) % 3;
-    item.style.width = arr[index];
-  })
-}
-
-spotWidth(widthArr);
-
-window.addEventListener('resize', () => {
-  if(window.innerWidth >= 600 && window.innerWidth < 1024) {
-    spotWidth(widthArrMin600);
-  } else if(window.innerWidth >= 1024) {
-    spotWidth(widthArrMin1024);
+document.addEventListener('mouseout', (e) => {
+  if(e.target === $spotImg) {
+    $spotImgRead.classList.toggle('hover');
   }
 });
 

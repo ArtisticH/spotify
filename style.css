@@ -845,6 +845,10 @@ main {
   width: 110%;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .spotFlex {
   width: fit-content;
   border: 1px solid red;
@@ -859,6 +863,18 @@ main {
   /* border: 3px solid hotpink; */
   display: inline-block;
   margin-right: 3rem;
+}
+
+.spotBox.wf {
+  width: 256px;
+}
+
+.spotBox.ws {
+  width: 185px;
+}
+
+.spotBox.wt {
+  width: 240px;
 }
 
 .spotImg {
@@ -941,6 +957,19 @@ main {
   .spotBox {
     margin-right: 5rem;
   }  
+
+  .spotBox.wf {
+    width: 352px;
+  }
+  
+  .spotBox.ws {
+    width: 256px;
+  }
+  
+  .spotBox.wt {
+    width: 292px;
+  }
+  
 }
 
 @media all and (min-width: 1024px) {
@@ -958,6 +987,19 @@ main {
   .spotBox {
     margin-right: 10rem;
   }  
+
+  .spotBox.wf {
+    width: 536px;
+  }
+  
+  .spotBox.ws {
+    width: 312px;
+  }
+  
+  .spotBox.wt {
+    width: 424px;
+  }
+  
 
   .spot_up_heading {
     font-size: 1.5rem;
@@ -989,7 +1031,17 @@ main {
     font-family: 'AvenirLTStd-Light';
     letter-spacing: -1.5px;
     font-weight: bolder;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in;
   }
+
+  .spotImgRead.hover {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  
 }
 
 
