@@ -851,8 +851,9 @@ main {
 
 .spotFlex {
   width: fit-content;
-  border: 1px solid red;
+  border: 2px solid red;
   overflow-x: scroll;
+  overflow-y: hidden;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -860,6 +861,8 @@ main {
 
 .spotBox {
   position: relative;
+  /* z-index */
+  /* z-index: 0; */
   /* border: 3px solid hotpink; */
   display: inline-block;
   margin-right: 3rem;
@@ -880,20 +883,8 @@ main {
 .spotImg {
   width: 100%;
   position: relative;
-  /* z-index: 5; */
-}
-
-.spotSvg {
-  /* z-index: -0.5; */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  transition: all 0.3s ease-in;
-}
-
-.spotSvg.hover {
-  transform: translate(-50%, -50%) scale(0.8);
+  /* z-index */
+  z-index: 2;
 }
 
 .spot_up_heading {
@@ -1017,6 +1008,8 @@ main {
   }
 
   .spotImgRead {
+    /* z-index */
+    z-index: 3;
     color: #fff;
     background-color: #000;
     display: block;
@@ -1104,8 +1097,316 @@ main {
     width: 75%;
   }
 
+  .spotSvg {
+    border: 1px solid red;
+    position: relative;
+    left: -120%;
+    /* z-index: 1; */
+    height: 703px;
+    width: 703px;
+    transform: scale(0);
+    transition: transform 0.2s ease-in 0.3s;
+  }
+  
+  .spotSvg.hover {
+    transform: scale(1.3);
+  }  
 
 }
+
+/* --------------------------------------------------------------------------------- */
+/* SECTION INBOX */
+
+#sec4 {
+  background: #171313;
+  display: flex;
+  justify-content: center;
+  padding: 5rem 0 3rem 0;
+}
+
+.sec4_que {
+  text-align: center;
+}
+
+.que_detail {
+  display: inline-block;
+  color: #fff;
+  font-family: 'Circular-medium';
+  font-size: 2.5rem;
+  letter-spacing: -2px;
+  line-height: 1.1;
+}
+
+.sec4_exp {
+  color: #837e7e;
+  font-family: 'AvenirLTStd-Light';
+  font-size: 0.8rem;
+  text-align: center;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+
+#form {
+  padding: 4rem 0 6rem 0;
+}
+
+.input_display {
+  display: flex;
+  justify-content: center;
+}
+
+.input_box {
+  width: 448px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.input_line {
+  height: 1px;
+  width: 100%;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+}
+
+#email {
+  font-family: 'AvenirLTStd-Light';
+  background: transparent;
+  border: none;
+  width: 85%;
+  height: 30px;
+  font-size: 1.2rem;
+  letter-spacing: -1.5px;
+  color: #fff;
+}
+/* input 밑에 뜨는 이메일 주소 선택했을 때 배경이 흰색인 효과 없애야 함 */
+#email:focus {
+  outline: none;
+}
+
+#email::placeholder {
+  color: #fff;
+  font-size: 1.2rem;
+  font-family: 'AvenirLTStd-Light';
+  letter-spacing: -1.5px;
+}
+
+button {
+  background: transparent;
+  color: #fff;
+  font-family: 'Circular-medium';
+  border: none;
+  text-align: center;
+}
+
+#inbox {
+  display: inline-block;
+  position: relative;
+}
+
+#inbox_svg1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#inbox_svg2 {
+  position: absolute;
+  top: 145%;
+  left: 35%;
+  width: 75%;
+  display: none;
+  transform: rotate(47deg);
+}
+
+.path1_svg1 {
+  visibility: hidden;
+  stroke-dasharray: 245;
+  stroke-dashoffset: 245;
+}
+
+.path2_svg1 {
+  visibility: hidden;
+  stroke-dasharray: 295;
+  stroke-dashoffset: 295;
+}
+
+.path1_svg1.active {
+  visibility: visible;
+  animation: path1_svg1 0.6s linear;
+  stroke-dashoffset: 0;
+}
+
+@keyframes path1_svg1 {
+  0% {stroke-dashoffset: 245;}
+  100% {stroke-dashoffset: 0;}
+}
+
+.path2_svg1.active {
+  visibility: visible;
+  animation: path2_svg1 0.8s linear;
+  stroke-dashoffset: 0;
+}
+
+@keyframes path2_svg1 {
+  0% {stroke-dashoffset: 295;}
+  25% {stroke-dashoffset: 295;}
+  100% {stroke-dashoffset: 0;}
+}
+/* 화살표가 늘어나는 효과! input 상자를 연결하는 듯한 */
+/* 화살표머리 */
+.path1_svg2 {
+  visibility: hidden;
+  stroke-dasharray: 49;
+  stroke-dashoffset: 49;
+}
+
+/* 화살표몸통 */
+.path2_svg2 {
+  visibility: hidden;
+  stroke-dasharray: 196;
+  stroke-dashoffset: 196;
+}
+
+.path1_svg2.active {
+  visibility: visible;
+  animation: path1_svg2 0.8s linear;
+  stroke-dashoffset: 0;
+}
+
+@keyframes path1_svg2 {
+  0% {stroke-dashoffset: 49;}
+  75% {stroke-dashoffset: 49;}
+  100% {stroke-dashoffset: 0;}
+}
+
+.path2_svg2.active {
+  visibility: visible;
+  animation: path2_svg2 0.6s linear;
+  stroke-dashoffset: 0;
+}
+
+@keyframes path2_svg2 {
+  0% {stroke-dashoffset: 196;}
+  100% {stroke-dashoffset: 0;}
+}
+
+
+.path1_svg1, .path1_svg2, .path2_svg1, .path2_svg1 {
+  fill: none;
+  stroke: #ffe818;
+}
+
+@media all and (min-width: 600px) {
+  .fordisplay.sec4 {
+    width: 75%;
+  }
+
+  .que_detail {
+    font-size: 3.5rem;
+    letter-spacing: -4px;
+    line-height: 1.1;
+  }
+  
+  .sec4_exp_box {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .sec4_exp {
+    width: 95%;
+  }
+
+  .sec4_que_box {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .sec4_que {
+    width: 92%;
+  }
+
+  #form {
+    padding: 6rem 0 14rem 0;
+  }
+
+  #sec4 {
+    padding: 8rem 0 4rem 0;
+  }
+
+  #email {
+    font-size: 1.3rem;
+    letter-spacing: -1.5px;
+  }
+    
+  #email::placeholder {
+    font-size: 1.3rem;
+    letter-spacing: -1.5px;
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .fordisplay.sec4 {
+    width: 90%;
+  }
+
+  .sec4_que_box {
+    justify-content: flex-start;
+  }
+  
+  .sec4_que {
+    text-align: left;
+    width: 100%;
+  }
+
+  .que_detail {
+    font-size: 4rem;
+  }
+
+  #sec4 {
+    padding: 9rem 0 4rem 0;
+  }
+
+  #form {
+    padding: 12rem 0 9rem 0;
+  }
+
+  .input_display {
+    justify-content: flex-end;
+  }
+
+  .input_box {
+    width: 410px;
+  }
+  
+  #email {
+    font-size: 1.5rem;
+    letter-spacing: -1.5px;
+  }
+    
+  #email::placeholder {
+    font-size: 1.5rem;
+    letter-spacing: -1.5px;
+  }  
+
+  .sec4_exp_box {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .sec4_exp {
+    width: 410px;
+    text-align: left;
+  }
+
+  #inbox_svg2 {
+    display: block;
+  }
+}
+
 
 
 /* --------------------------------------------------------------------------------- */
@@ -1266,3 +1567,9 @@ main {
 }
 
 
+/* --------------------------------------------------------------------------------- */
+/* SECTION TIME */
+
+
+/* --------------------------------------------------------------------------------- */
+/* FOOTER */
