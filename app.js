@@ -71,21 +71,28 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
 
 const $spotImg = document.querySelectorAll('.spotImg');
 const $spotImgRead = document.querySelectorAll('.spotImgRead');
+const $spotFlex = document.querySelector('.spotFlex');
 
 $spotImg.forEach((img) => {
+  
   img.addEventListener('mouseenter', (e) => {
     let index = [...$spotImg].indexOf(img);
-    if(e.target === $spotImg[index] && e.relatedTarget !== $spotImg[index]) {
+    [...$spotImgRead].forEach((item) => {
+      item.classList.remove('hover');
+    });
+    if(e.target === $spotImg[index] && (e.relatedTarget === $spotFlex || e.relatedTarget === e.target.parentNode)) {
       $spotImgRead[index].classList.add('hover');
-      console.log('enter', $spotImg[index], $spotImgRead[index]);
+      console.log('enter', $spotImg[index], $spotImgRead[index], e.target, e.relatedTarget);
     }
   });
 
+
   img.addEventListener('mouseleave', (e) => {
+    console.log('leavelrelated', e.relatedTarget);
     let index = [...$spotImg].indexOf(img);
-    if(e.target === $spotImg[index] && e.relatedTarget !== $spotImg[index] && e.relatedTarget !== $spotImgRead[index]) {
+    if(e.target === $spotImg[index] && (e.relatedTarget === $spotFlex || e.relatedTarget === e.target.parentNode)) {
       $spotImgRead[index].classList.remove('hover');
-      console.log('leave', $spotImg[index], $spotImgRead[index]);
+      console.log('leave', $spotImg[index], $spotImgRead[index],  e.target, e.relatedTarget);
     }
   });
 });
