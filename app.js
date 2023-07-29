@@ -105,12 +105,10 @@ const $path1_inboxCircle = document.getElementById('path1_inboxCircle');
 const $path2_inboxCircle = document.getElementById('path2_inboxCircle');
 const $path1_inboxCircle_lenghth = $path1_inboxCircle.getTotalLength();
 const $path2_inboxCircle_length = $path2_inboxCircle.getTotalLength();
-  // const $path1Svg2 = document.querySelector('.path1_svg2');
-  // const $path2Svg2 = document.querySelector('.path2_svg2');
-  // const $path1Svg2Length = $path1Svg2.getTotalLength();
-  // const $path2Svg2Length = $path2Svg2.getTotalLength();
-  // console.log($path1Svg1Length, $path2Svg1Length);
-  // console.log($path1Svg2Length, $path2Svg2Length);
+const $path1_inboxArrow = document.getElementById('path1_inboxArrow');
+const $path2_inboxArrow = document.getElementById('path2_inboxArrow');
+const $path1_inboxArrow_length = $path1_inboxArrow.getTotalLength();
+const $path2_inboxArrow_length = $path2_inboxArrow.getTotalLength();
 
 document.addEventListener('scroll', () => {
   const ratio = (window.pageYOffset + window.innerHeight - ($inbox.getBoundingClientRect().top + window.pageYOffset)) / $inbox.offsetHeight;
@@ -118,17 +116,15 @@ document.addEventListener('scroll', () => {
   if (ratio >= 0.4 && ratio < 1.15) {
     $path1_inboxCircle.classList.add('active');
     $path2_inboxCircle.classList.add('active');
-    // $path1Svg2.classList.add('active');
-    // $path2Svg2.classList.add('active');
+    $path1_inboxArrow.classList.add('active');
+    $path2_inboxArrow.classList.add('active');
   } else if (ratio <= 0.3 || ratio >= 1.17) {
     $path1_inboxCircle.classList.remove('active');
     $path2_inboxCircle.classList.remove('active');
-    // $path1Svg2.classList.toggle('active');
-    // $path2Svg2.classList.remove('active');
+    $path1_inboxArrow.classList.toggle('active');
+    $path2_inboxArrow.classList.remove('active');
   }
 })
-
-
 
 
 // ----------------------------------------------------------------------------------
