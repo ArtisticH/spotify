@@ -153,53 +153,43 @@ jobs_rols.addEventListener('mouseleave', () => {
 // ----------------------------------------------------------------------------------
 // TIME
 
-// const $se = document.getElementById('s8_se').querySelector('.s8_time');
-// const $uk = document.getElementById('s8_uk').querySelector('.s8_time');
-// const $us = document.getElementById('s8_us').querySelector('.s8_time');
+// SE -> UK -> US
+const $hours = document.querySelectorAll('.hour');
+const $mins = document.querySelectorAll('.min');
+const $secs = document.querySelectorAll('.sec');
 
-// function showLondonTime() {
-//   const londonTime = new Date().toLocaleString('en-GB', {
-//     timeZone: 'Europe/London',
-//     hour: 'numeric',
-//     minute: 'numeric',
-//     second: 'numeric',
-//     hour12: false
-//   });
+function setTime(string, timezone, number) {
+  let date = new Date().toLocaleString(string, {
+    timeZone: timezone,
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: false
+  });
 
-//   const formattedTime = londonTime.replace(/:/g, ' : ');
-//   $uk.textContent = formattedTime;
-// }
+  const timeComponents = date.split(':');
+  let hour = parseInt(timeComponents[0]);
+  if(hour < 10) hour = '0' + hour;
+  $hours[number].innerHTML = hour;
 
-// function showSeTime() {
-//   const seTime = new Date().toLocaleString('en-US', {
-//     timeZone: 'Europe/Stockholm',
-//     hour: 'numeric',
-//     minute: 'numeric',
-//     second: 'numeric',
-//     hour12: false
-//   });
+  let minute = parseInt(timeComponents[1]);
+  if (minute < 10) minute = '0' + minute;
+  $mins[number].innerHTML = minute;
 
-//   const formattedTime = seTime.replace(/:/g, ' : ');
-//   $se.textContent = formattedTime;
-// }
+  let second = parseInt(timeComponents[2]);
+  if (second < 10) second = '0' + second;
+  $secs[number].innerHTML = second;
+}
 
-// function showUsTime() {
-//   const usTime = new Date().toLocaleString('en-US', {
-//     timeZone: 'America/New_York',
-//     hour: 'numeric',
-//     minute: 'numeric',
-//     second: 'numeric',
-//     hour12: false
-//   });
+setTime('en-US', 'Europe/Stockholm', 0);
+setTime('en-GB', 'Europe/London', 1);
+setTime('en-US', 'America/New_York', 2);
 
-//   const formattedTime = usTime.replace(/:/g, ' : ');
-//   $us.textContent = formattedTime;
-// }
-
-// // 1초마다 showLondonTime 함수 실행
-// setInterval(showLondonTime, 1000);
-// setInterval(showUsTime, 1000);
-// setInterval(showSeTime, 1000);
+setInterval(() => {
+  setTime('en-US', 'Europe/Stockholm', 0)
+  setTime('en-GB', 'Europe/London', 1)
+  setTime('en-US', 'America/New_York', 2)
+},  1000)
 
 // ----------------------------------------------------------------------------------
 // FOOTER

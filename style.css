@@ -1570,6 +1570,104 @@ button {
 /* --------------------------------------------------------------------------------- */
 /* SECTION TIME */
 
+#time {
+  border: 2px solid red;
+  padding-top: 3.5rem;
+}
+
+#timeLogo {
+  border: 1px solid lime;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 2.5rem;
+}
+
+#timeLogo_img {
+  border: 1px solid salmon;
+  width: 38%;
+}
+
+#timeFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#timeSns {
+  border: 2px solid blue;
+}
+
+.timeSns {
+  margin-top: -0.3rem;
+  font-size: 1.1rem;
+  letter-spacing: -0.5px;
+  font-weight: bolder;
+  font-family: 'AvenirLTStd-Light';
+  line-height: 1.7;
+}
+
+#timeTime {
+  border: 1px solid purple;
+}
+
+.timeTime {
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timeCircle {
+  width: 4px; 
+  height: 4px;
+  background: black;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.timeCountry {
+  /* border: 1px solid purple; */
+  font-family: 'Circular-medium';
+  font-weight: bolder;
+  font-size: 1.1rem;
+  margin-right: 1.3rem;
+}
+
+.timeCity {
+  display: none;
+}
+
+.timeClock {
+  /* border: 1px solid purple; */
+  /* border: 2px solid yellow; */
+  font-family: 'AvenirLTStd-Light';
+  font-weight: bolder;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hour {
+  /* border: 1px solid purple; */
+  padding-right: 0.1rem;
+}
+
+.min {
+  padding: 0 0.1rem;
+  /* border: 1px solid purple; */
+}
+
+.sec {
+  padding-left: 0.1rem;
+}
+
+@media all and (min-width: 600px) {
+}
+
+@media all and (min-width: 1024px) {
+}
 
 /* --------------------------------------------------------------------------------- */
 /* FOOTER */
