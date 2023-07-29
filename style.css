@@ -1571,7 +1571,7 @@ button {
 /* SECTION TIME */
 
 #lower {
-  border: 4px solid darkblue;
+  /* border: 4px solid darkblue; */
 }
 
 #time {
@@ -1788,9 +1788,70 @@ button {
   .timeClock {
     font-size: 1.4rem;
   }  
-
-
 }
 
 /* --------------------------------------------------------------------------------- */
 /* FOOTER */
+
+footer {
+  /* border: 2px solid fuchsia; */
+}
+
+#footerArrowDiv {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#footerArrowMain {
+  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#footerArrowTitle {
+  font-family: 'Circular-medium';
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin-right: 0.5rem;
+}
+
+#footerArrow {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.1s ease-in-out;
+  background: transparent;
+}
+
+#footerArrow.hover {
+  background-color: black;
+}
+
+#footerArrow_avg {
+  width: 35%;
+  transition: all 0.1s ease-in-out;
+}
+
+#footerArrow_avg.hover {
+  filter: invert(1);
+}
+
+@media all and (min-width: 600px) {
+  #footerArrow {
+    width: 60px;
+    height: 60px;
+  }
+    
+  #footerArrow_avg {
+    width: 40%;
+  }
+
+}

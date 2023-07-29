@@ -194,6 +194,36 @@ setInterval(() => {
 // ----------------------------------------------------------------------------------
 // FOOTER
 
+const $footerArrowMain = document.getElementById('footerArrowMain');
+const $footerArrow = document.getElementById('footerArrow');
+const $footerArrow_avg = document.getElementById('footerArrow_avg');
+
+$footerArrowMain.onclick = () => {
+  // const start = window.pageYOffset; 
+  // const end = release.getBoundingClientRect().top + window.pageYOffset; 
+
+  animate({
+    duration: 400,
+    timing: function quad(timeFraction) {
+      return Math.pow(timeFraction, 2)
+    },
+    draw: function(progress) {
+      window.scrollTo(0, 0);
+    }
+  });
+}
+
+$footerArrowMain.addEventListener('mouseenter', () => {
+  $footerArrow.classList.toggle('hover');
+  $footerArrow_avg.classList.toggle('hover');
+});
+
+$footerArrowMain.addEventListener('mouseleave', () => {
+  $footerArrow.classList.toggle('hover');
+  $footerArrow_avg.classList.toggle('hover');
+});
+
+
 
 /*
 git remote add origin https://github.com/ArtisticH/Spotify-Clone.git
