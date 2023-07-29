@@ -1232,15 +1232,6 @@ main {
   width: 100%;
 }
 
-/* #inboxArrowSvg {
-  position: absolute;
-  top: 145%;
-  left: 35%;
-  width: 75%;
-  display: none;
-  transform: rotate(47deg);
-} */
-
 #path1_inboxCircle {
   visibility: hidden;
   stroke-dasharray: 245;
@@ -1265,6 +1256,48 @@ main {
   stroke-dashoffset: 0;
 }
 
+#path1_inboxCircle, #path2_inboxCircle, #path1_inboxArrow, #path2_inboxArrow {
+  fill: none;
+  stroke: #ffe818;
+}
+
+#inboxArrowSvg {
+  position: absolute;
+  top: 145%;
+  left: 35%;
+  width: 75%;
+  display: none;
+  transform: rotate(47deg);
+}
+
+/* 화살표머리 */
+
+#path1_inboxArrow {
+  visibility: hidden;
+  stroke-dasharray: 49;
+  stroke-dashoffset: 49;
+}
+
+/* 화살표몸통 */
+
+#path2_inboxArrow {
+  visibility: hidden;
+  stroke-dasharray: 196;
+  stroke-dashoffset: 196;
+}
+
+#path1_inboxArrow.active {
+  visibility: visible;
+  animation: path1_inboxArrow 0.8s linear;
+  stroke-dashoffset: 0;
+}
+
+#path2_inboxArrow.active {
+  visibility: visible;
+  animation: path2_inboxArrow 0.6s linear;
+  stroke-dashoffset: 0;
+}
+
 @keyframes path1_inboxCircle {
   0% {stroke-dashoffset: 245;}
   100% {stroke-dashoffset: 0;}
@@ -1273,6 +1306,17 @@ main {
 @keyframes path2_inboxCircle {
   0% {stroke-dashoffset: 295;}
   25% {stroke-dashoffset: 295;}
+  100% {stroke-dashoffset: 0;}
+}
+
+@keyframes path1_inboxArrow {
+  0% {stroke-dashoffset: 49;}
+  75% {stroke-dashoffset: 49;}
+  100% {stroke-dashoffset: 0;}
+}
+
+@keyframes path2_inboxArrow {
+  0% {stroke-dashoffset: 196;}
   100% {stroke-dashoffset: 0;}
 }
 
@@ -1351,215 +1395,11 @@ main {
     width: 40%;
     text-align: left;
   }  
-}
 
-/* 
-
-#inbox_svg1 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-#inbox_svg2 {
-  position: absolute;
-  top: 145%;
-  left: 35%;
-  width: 75%;
-  display: none;
-  transform: rotate(47deg);
-}
-
-.path1_svg1 {
-  visibility: hidden;
-  stroke-dasharray: 245;
-  stroke-dashoffset: 245;
-}
-
-.path2_svg1 {
-  visibility: hidden;
-  stroke-dasharray: 295;
-  stroke-dashoffset: 295;
-}
-
-.path1_svg1.active {
-  visibility: visible;
-  animation: path1_svg1 0.6s linear;
-  stroke-dashoffset: 0;
-}
-
-@keyframes path1_svg1 {
-  0% {stroke-dashoffset: 245;}
-  100% {stroke-dashoffset: 0;}
-}
-
-.path2_svg1.active {
-  visibility: visible;
-  animation: path2_svg1 0.8s linear;
-  stroke-dashoffset: 0;
-}
-
-@keyframes path2_svg1 {
-  0% {stroke-dashoffset: 295;}
-  25% {stroke-dashoffset: 295;}
-  100% {stroke-dashoffset: 0;}
-} */
-
-/* 화살표가 늘어나는 효과! input 상자를 연결하는 듯한 */
-/* 화살표머리 */
-
-/* .path1_svg2 {
-  visibility: hidden;
-  stroke-dasharray: 49;
-  stroke-dashoffset: 49;
-} */
-
-/* 화살표몸통 */
-
-/* .path2_svg2 {
-  visibility: hidden;
-  stroke-dasharray: 196;
-  stroke-dashoffset: 196;
-}
-
-.path1_svg2.active {
-  visibility: visible;
-  animation: path1_svg2 0.8s linear;
-  stroke-dashoffset: 0;
-}
-
-@keyframes path1_svg2 {
-  0% {stroke-dashoffset: 49;}
-  75% {stroke-dashoffset: 49;}
-  100% {stroke-dashoffset: 0;}
-}
-
-.path2_svg2.active {
-  visibility: visible;
-  animation: path2_svg2 0.6s linear;
-  stroke-dashoffset: 0;
-}
-
-@keyframes path2_svg2 {
-  0% {stroke-dashoffset: 196;}
-  100% {stroke-dashoffset: 0;}
-}
-
-
-.path1_svg1, .path1_svg2, .path2_svg1, .path2_svg1 {
-  fill: none;
-  stroke: #ffe818;
-}
-
-@media all and (min-width: 600px) {
-  .fordisplay.sec4 {
-    width: 75%;
-  }
-
-  .que_detail {
-    font-size: 3.5rem;
-    letter-spacing: -4px;
-    line-height: 1.1;
-  }
-  
-  #inboxExp_box {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .sec4_exp {
-    width: 95%;
-  }
-
-  #inboxTitles_box {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .sec4_que {
-    width: 92%;
-  }
-
-  #form {
-    padding: 6rem 0 14rem 0;
-  }
-
-  #sec4 {
-    padding: 8rem 0 4rem 0;
-  }
-
-  #email {
-    font-size: 1.3rem;
-    letter-spacing: -1.5px;
-  }
-    
-  #email::placeholder {
-    font-size: 1.3rem;
-    letter-spacing: -1.5px;
-  }
-}
-
-@media all and (min-width: 1024px) {
-  .fordisplay.sec4 {
-    width: 90%;
-  }
-
-  #inboxTitles_box {
-    justify-content: flex-start;
-  }
-  
-  .sec4_que {
-    text-align: left;
-    width: 100%;
-  }
-
-  .que_detail {
-    font-size: 4rem;
-  }
-
-  #sec4 {
-    padding: 9rem 0 4rem 0;
-  }
-
-  #form {
-    padding: 12rem 0 9rem 0;
-  }
-
-  .input_display {
-    justify-content: flex-end;
-  }
-
-  .input_box {
-    width: 410px;
-  }
-  
-  #email {
-    font-size: 1.5rem;
-    letter-spacing: -1.5px;
-  }
-    
-  #email::placeholder {
-    font-size: 1.5rem;
-    letter-spacing: -1.5px;
-  }  
-
-  #inboxExp_box {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .sec4_exp {
-    width: 410px;
-    text-align: left;
-  }
-
-  #inbox_svg2 {
+  #inboxArrowSvg {
     display: block;
-  }
-} */
-
-
+  }  
+}
 
 /* --------------------------------------------------------------------------------- */
 /* SECTION TOOLS */
