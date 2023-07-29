@@ -1585,8 +1585,9 @@ button {
 
 #timeLogo_img {
   border: 1px solid salmon;
-  width: 38%;
+  width: 170px;
 }
+
 
 #timeFlex {
   display: flex;
@@ -1599,7 +1600,6 @@ button {
 }
 
 .timeSns {
-  margin-top: -0.3rem;
   font-size: 1.1rem;
   letter-spacing: -0.5px;
   font-weight: bolder;
@@ -1618,6 +1618,13 @@ button {
   align-items: center;
 }
 
+.timeTime_left {
+  border: 1px solid lime;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .timeCircle {
   width: 4px; 
   height: 4px;
@@ -1631,10 +1638,9 @@ button {
   font-family: 'Circular-medium';
   font-weight: bolder;
   font-size: 1.1rem;
-  margin-right: 1.3rem;
 }
 
-.timeCity {
+.timeCities {
   display: none;
 }
 
@@ -1647,6 +1653,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 1.3rem;
 }
 
 .hour {
@@ -1664,9 +1671,121 @@ button {
 }
 
 @media all and (min-width: 600px) {
+  #timeSns {
+    border: 2px solid blue;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 60%;
+  }
+
+  .timeSns_notInsta {
+    margin-right: 10%;
+  }
+
+  #timeTimeFlex {
+    border: 2px solid purple;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    width: 40%;
+  }
+
+  .timeSns_Insta {
+    border: 1px solid red;
+  }
+
+  #timeLogo_img {
+    width: 190px;
+  }
+
+  .timeSns {
+    font-size: 1.2rem;
+  }
+
+  .timeCircle {
+    width: 7px; 
+    height: 7px;
+    margin-right: 0.2rem;
+  }
+  
+  .timeCountry {
+    font-size: 1.2rem;
+    letter-spacing: -0.5px;
+    border: 1px solid blue;
+
+  }
+  
+  .timeCities {
+    display: block;
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* margin-right: 1.5rem; */
+  }
+
+  .timeCity {
+    font-family: 'Circular-book';
+    font-size: 0.8rem;
+    padding: 0 0.2rem;
+  }
+
+  .timeCity_circle {
+    width: 2px;
+    height: 2px;
+    background: black;
+    border-radius: 50%;
+  }
+  
+  .timeClock {
+    font-size: 1.2rem;
+  }  
+  
 }
 
 @media all and (min-width: 1024px) {
+  #overallTimeFlex {
+    display: flex;
+    align-items: flex-start;
+
+  }
+
+  #timeLogo {
+    width: 33%;
+    border: 1px solid lime;
+    align-items: flex-start;
+    padding-bottom: 0rem;
+  }
+  
+  #timeLogo_img {
+    width: 230px;
+  }
+
+  #timeFlex {
+    width: 67%;
+    border: 2px solid black;
+  }
+
+  .timeSns {
+    font-size: 1.4rem;
+  }
+  
+  .timeCountry {
+    font-size: 1.4rem;
+    letter-spacing: -0.7px;
+  }
+
+  .timeCity {
+    font-size: 0.9rem;
+    letter-spacing: -0.9px;
+  }
+  
+  .timeClock {
+    font-size: 1.4rem;
+  }  
+
+
 }
 
 /* --------------------------------------------------------------------------------- */
