@@ -1570,6 +1570,10 @@ button {
 /* --------------------------------------------------------------------------------- */
 /* SECTION TIME */
 
+#lower {
+  border: 4px solid darkblue;
+}
+
 #time {
   border: 2px solid red;
   padding-top: 3.5rem;
