@@ -1572,6 +1572,14 @@ button {
 
 #lower {
   /* border: 4px solid darkblue; */
+  position: relative;
+}
+
+#footerFlowerSvg {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
 }
 
 #time {
@@ -1788,6 +1796,12 @@ button {
   .timeClock {
     font-size: 1.4rem;
   }  
+
+  #time {
+    border: 2px solid red;
+    padding-bottom: 12rem;
+  }
+  
 }
 
 /* --------------------------------------------------------------------------------- */
@@ -1802,7 +1816,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 4rem 0;
+  padding: 2rem 0;
 }
 
 #footerArrowMain {
@@ -1879,15 +1893,8 @@ footer {
     width: 40%;
   }
   
-  #footerComElems {
-    /* border: 1px solid blue;
-    order: 1;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center; */
-  }
-
   #footerFlex {
+    padding-top: 2rem;
     border: 3px solid orange;
     display: flex;
     justify-content: space-between;
