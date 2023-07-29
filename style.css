@@ -1133,7 +1133,7 @@ main {
 #inboxTitles {
   border: 1px solid red;
   text-align: center;
-  width: 70%;
+  width: 72%;
 
   color: #fff;
   font-family: 'Circular-medium';
@@ -1152,12 +1152,12 @@ main {
 
 #inboxInput {
   border: 1px solid red;
+  width: 448px;
 
 }
 
 #inboxInput_display {
-  /* width: 453px */
-  width: 448px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -1219,7 +1219,61 @@ main {
   text-align: center;
   line-height: 1.3;
   letter-spacing: -0.5px;
+}
 
+#inboxSvg {
+  position: relative;
+}
+
+#inboxCircleSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* #inboxArrowSvg {
+  position: absolute;
+  top: 145%;
+  left: 35%;
+  width: 75%;
+  display: none;
+  transform: rotate(47deg);
+} */
+
+#path1_inboxCircle {
+  visibility: hidden;
+  stroke-dasharray: 245;
+  stroke-dashoffset: 245;
+}
+
+#path2_inboxCircle {
+  visibility: hidden;
+  stroke-dasharray: 295;
+  stroke-dashoffset: 295;
+}
+
+#path1_inboxCircle.active {
+  visibility: visible;
+  animation: path1_inboxCircle 0.6s linear;
+  stroke-dashoffset: 0;
+}
+
+#path2_inboxCircle.active {
+  visibility: visible;
+  animation: path2_inboxCircle 0.8s linear;
+  stroke-dashoffset: 0;
+}
+
+@keyframes path1_inboxCircle {
+  0% {stroke-dashoffset: 245;}
+  100% {stroke-dashoffset: 0;}
+}
+
+@keyframes path2_inboxCircle {
+  0% {stroke-dashoffset: 295;}
+  25% {stroke-dashoffset: 295;}
+  100% {stroke-dashoffset: 0;}
 }
 
 @media all and (min-width: 600px) {
@@ -1262,7 +1316,7 @@ main {
   #inboxTitles {
     font-size: 4rem;
     text-align: left;
-    width: 85%;
+    width: 817px;
   }
   
   #inboxInput_box { 
@@ -1272,12 +1326,11 @@ main {
 
   #inboxInput {
     border: 1px solid blue;
+    width: 40%;
   }
 
   #inboxInput_display {
-    width: 410px;
-    /* max-width: 530px;
-    width: 100%; */
+    width: 100%;
   }
   
   #email {
@@ -1295,16 +1348,10 @@ main {
   }
   
   #inboxExp {
-    width: 410px;
+    width: 40%;
     text-align: left;
-  }
-
-  
+  }  
 }
-/* 
- */
-
-/* input 밑에 뜨는 이메일 주소 선택했을 때 배경이 흰색인 효과 없애야 함 */
 
 /* 
 

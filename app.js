@@ -99,36 +99,36 @@ $spotImg.forEach((img) => {
 // ----------------------------------------------------------------------------------
 // SEC 3 - INBOX
 
-// (function() {
-//   const $content = document.getElementById('sec4');
-//   const $path1Svg1 = document.querySelector('.path1_svg1');
-//   const $path2Svg1 = document.querySelector('.path2_svg1');
-//   const $path1Svg1Length = $path1Svg1.getTotalLength();
-//   const $path2Svg1Length = $path2Svg1.getTotalLength();
-//   const $path1Svg2 = document.querySelector('.path1_svg2');
-//   const $path2Svg2 = document.querySelector('.path2_svg2');
-//   const $path1Svg2Length = $path1Svg2.getTotalLength();
-//   const $path2Svg2Length = $path2Svg2.getTotalLength();
-//   console.log($path1Svg1Length, $path2Svg1Length);
-//   console.log($path1Svg2Length, $path2Svg2Length);
 
-//   window.addEventListener('scroll', () => {
-//     const ratio = (window.scrollY + window.innerHeight - $content.offsetTop) / $content.offsetHeight;
-//     console.log(ratio);
+  const $inbox = document.getElementById('inbox');
+  const $path1_inboxCircle = document.getElementById('path1_inboxCircle');
+  const $path2_inboxCircle = document.getElementById('path2_inboxCircle');
+  const $path1_inboxCircle_lenghth = $path1_inboxCircle.getTotalLength();
+  const $path2_inboxCircle_length = $path2_inboxCircle.getTotalLength();
+  // const $path1Svg2 = document.querySelector('.path1_svg2');
+  // const $path2Svg2 = document.querySelector('.path2_svg2');
+  // const $path1Svg2Length = $path1Svg2.getTotalLength();
+  // const $path2Svg2Length = $path2Svg2.getTotalLength();
+  // console.log($path1Svg1Length, $path2Svg1Length);
+  // console.log($path1Svg2Length, $path2Svg2Length);
 
-//     if (ratio >= 0.4 && ratio < 1.75) {
-//       $path1Svg1.classList.add('active');
-//       $path2Svg1.classList.add('active');
-//       $path1Svg2.classList.add('active');
-//       $path2Svg2.classList.add('active');
-//     } else if (ratio <= 0 || ratio >= 1.77) {
-//       $path1Svg1.classList.remove('active');
-//       $path2Svg1.classList.remove('active');
-//       $path1Svg2.classList.remove('active');
-//       $path2Svg2.classList.remove('active');
-//     }
-//   })
-// })();
+window.addEventListener('scroll', () => {
+  const ratio = (window.scrollY + window.innerHeight - $inbox.offsetTop) / $inbox.offsetHeight;
+  console.log(ratio);
+
+  if (ratio >= 0.4 && ratio < 1.75) {
+    $path1_inboxCircle.classList.add('active');
+    $path2_inboxCircle.classList.add('active');
+    // $path1Svg2.classList.add('active');
+    // $path2Svg2.classList.add('active');
+  } else if (ratio <= 0 || ratio >= 1.77) {
+    $path1_inboxCircle.classList.remove('active');
+    $path2_inboxCircle.classList.remove('active');
+    // $path1Svg2.classList.remove('active');
+    // $path2Svg2.classList.remove('active');
+  }
+})
+
 
 
 
