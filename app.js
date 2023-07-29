@@ -194,13 +194,31 @@ setInterval(() => {
 // ----------------------------------------------------------------------------------
 // FOOTER
 
+function animate({timing, draw, duration}) {
+
+  let start = performance.now();
+
+  requestAnimationFrame(function animate(time) {
+    let timeFraction = (time - start) / duration;
+    if (timeFraction > 1) timeFraction = 1;
+
+    let progress = timing(timeFraction)
+
+    draw(progress); 
+
+    if (timeFraction < 1) {
+      requestAnimationFrame(animate);
+    }
+  });
+}
+
+
 const $footerArrowMain = document.getElementById('footerArrowMain');
 const $footerArrow = document.getElementById('footerArrow');
 const $footerArrow_avg = document.getElementById('footerArrow_avg');
 
 $footerArrowMain.onclick = () => {
-  // const start = window.pageYOffset; 
-  // const end = release.getBoundingClientRect().top + window.pageYOffset; 
+  const start = window.pageYOffset; 
 
   animate({
     duration: 400,
@@ -208,7 +226,7 @@ $footerArrowMain.onclick = () => {
       return Math.pow(timeFraction, 2)
     },
     draw: function(progress) {
-      window.scrollTo(0, 0);
+      window.scrollTo(0, start * (1 - progress));
     }
   });
 }
