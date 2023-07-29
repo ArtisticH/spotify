@@ -1794,13 +1794,15 @@ button {
 /* FOOTER */
 
 footer {
-  /* border: 2px solid fuchsia; */
+  border: 2px solid fuchsia;
+  padding-bottom: 2rem;
 }
 
 #footerArrowDiv {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding: 4rem 0;
 }
 
 #footerArrowMain {
@@ -1844,6 +1846,29 @@ footer {
   filter: invert(1);
 }
 
+#footerElems {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid red;
+}
+
+.footerelem {
+  font-family: 'AvenirLTStd-Light';
+  font-weight: bolder;
+  font-size: 1rem;
+  margin-right: 2rem;
+  border: 1px solid green;
+}
+
+#footerCom {
+  border: 1px solid red;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 @media all and (min-width: 600px) {
   #footerArrow {
     width: 60px;
@@ -1853,5 +1878,38 @@ footer {
   #footerArrow_avg {
     width: 40%;
   }
+  
+  #footerComElems {
+    /* border: 1px solid blue;
+    order: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; */
+  }
 
+  #footerFlex {
+    border: 3px solid orange;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #footerArrowDiv {
+    padding: 0;
+    order: 2;
+  }
+
+  #footerCom {
+    margin-bottom: 0;
+  }
+}
+
+@media all and (min-width: 795px) {
+  #footerComElems {
+    border: 1px solid blue;
+    order: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }
