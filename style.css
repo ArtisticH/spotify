@@ -1117,19 +1117,24 @@ main {
 /* --------------------------------------------------------------------------------- */
 /* SECTION INBOX */
 
-#sec4 {
+#inbox {
   background: #171313;
+  padding-top: 6rem;
+  padding-bottom: 3rem;
+}
+
+#inboxTitles_box {
+  border: 1px solid white;
   display: flex;
   justify-content: center;
-  padding: 5rem 0 3rem 0;
+  align-items: center;
 }
 
-.sec4_que {
+#inboxTitles {
+  border: 1px solid red;
   text-align: center;
-}
+  width: 70%;
 
-.que_detail {
-  display: inline-block;
   color: #fff;
   font-family: 'Circular-medium';
   font-size: 2.5rem;
@@ -1137,38 +1142,25 @@ main {
   line-height: 1.1;
 }
 
-.sec4_exp {
-  color: #837e7e;
-  font-family: 'AvenirLTStd-Light';
-  font-size: 0.8rem;
-  text-align: center;
-  line-height: 1.3;
-  letter-spacing: -0.5px;
-}
-
-#form {
+#inboxInput_box {
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 4rem 0 6rem 0;
 }
 
-.input_display {
-  display: flex;
-  justify-content: center;
+#inboxInput {
+  border: 1px solid red;
+
 }
 
-.input_box {
+#inboxInput_display {
+  /* width: 453px */
   width: 448px;
   display: flex;
   justify-content: space-between;
   position: relative;
-}
-
-.input_line {
-  height: 1px;
-  width: 100%;
-  background: #fff;
-  position: absolute;
-  left: 0;
-  bottom: -6px;
 }
 
 #email {
@@ -1181,7 +1173,7 @@ main {
   letter-spacing: -1.5px;
   color: #fff;
 }
-/* input 밑에 뜨는 이메일 주소 선택했을 때 배경이 흰색인 효과 없애야 함 */
+
 #email:focus {
   outline: none;
 }
@@ -1193,7 +1185,7 @@ main {
   letter-spacing: -1.5px;
 }
 
-button {
+#inputButton {
   background: transparent;
   color: #fff;
   font-family: 'Circular-medium';
@@ -1201,10 +1193,120 @@ button {
   text-align: center;
 }
 
-#inbox {
-  display: inline-block;
-  position: relative;
+#inboxInput_underline {
+  height: 1px;
+  width: 100%;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  bottom: -6px;
 }
+
+#inboxExp_box {
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#inboxExp {
+  border: 1px solid red;
+  width: 95%;
+  color: #837e7e;
+  font-family: 'AvenirLTStd-Light';
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+
+}
+
+@media all and (min-width: 600px) {
+  #inbox {
+    padding-top: 10rem;
+    padding-bottom: 5rem;
+  }
+
+  #inboxTitles {
+    font-size: 3.5rem;
+    letter-spacing: -4px;
+    line-height: 1.1;
+  }
+
+  #inboxInput_box {
+    padding: 6rem 0 13rem 0;
+  }  
+
+  #email {
+    font-size: 1.3rem;
+    letter-spacing: -1.5px;
+  }
+    
+  #email::placeholder {
+    font-size: 1.3rem;
+    letter-spacing: -1.5px;
+  }
+
+  #inboxExp {
+    width: 80%;
+  }
+}
+
+
+@media all and (min-width: 1024px) {
+  #inboxTitles_box {
+    justify-content: flex-start;
+  }
+
+  #inboxTitles {
+    font-size: 4rem;
+    text-align: left;
+    width: 85%;
+  }
+  
+  #inboxInput_box { 
+    padding: 12rem 0 9rem 0;
+    justify-content: flex-end;
+  }  
+
+  #inboxInput {
+    border: 1px solid blue;
+  }
+
+  #inboxInput_display {
+    width: 410px;
+    /* max-width: 530px;
+    width: 100%; */
+  }
+  
+  #email {
+    font-size: 1.5rem;
+    letter-spacing: -1.5px;
+  }
+    
+  #email::placeholder {
+    font-size: 1.5rem;
+    letter-spacing: -1.5px;
+  }  
+
+  #inboxExp_box {
+    justify-content: flex-end;
+  }
+  
+  #inboxExp {
+    width: 410px;
+    text-align: left;
+  }
+
+  
+}
+/* 
+ */
+
+/* input 밑에 뜨는 이메일 주소 선택했을 때 배경이 흰색인 효과 없애야 함 */
+
+/* 
 
 #inbox_svg1 {
   position: absolute;
@@ -1255,17 +1357,20 @@ button {
   0% {stroke-dashoffset: 295;}
   25% {stroke-dashoffset: 295;}
   100% {stroke-dashoffset: 0;}
-}
+} */
+
 /* 화살표가 늘어나는 효과! input 상자를 연결하는 듯한 */
 /* 화살표머리 */
-.path1_svg2 {
+
+/* .path1_svg2 {
   visibility: hidden;
   stroke-dasharray: 49;
   stroke-dashoffset: 49;
-}
+} */
 
 /* 화살표몸통 */
-.path2_svg2 {
+
+/* .path2_svg2 {
   visibility: hidden;
   stroke-dasharray: 196;
   stroke-dashoffset: 196;
@@ -1311,7 +1416,7 @@ button {
     line-height: 1.1;
   }
   
-  .sec4_exp_box {
+  #inboxExp_box {
     display: flex;
     justify-content: center;
   }
@@ -1320,7 +1425,7 @@ button {
     width: 95%;
   }
 
-  .sec4_que_box {
+  #inboxTitles_box {
     display: flex;
     justify-content: center;
   }
@@ -1353,7 +1458,7 @@ button {
     width: 90%;
   }
 
-  .sec4_que_box {
+  #inboxTitles_box {
     justify-content: flex-start;
   }
   
@@ -1392,7 +1497,7 @@ button {
     letter-spacing: -1.5px;
   }  
 
-  .sec4_exp_box {
+  #inboxExp_box {
     display: flex;
     justify-content: flex-end;
   }
@@ -1405,7 +1510,7 @@ button {
   #inbox_svg2 {
     display: block;
   }
-}
+} */
 
 
 
