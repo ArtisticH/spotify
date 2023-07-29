@@ -1263,11 +1263,11 @@ main {
 
 #inboxArrowSvg {
   position: absolute;
-  top: 145%;
-  left: 35%;
-  width: 75%;
   display: none;
-  transform: rotate(47deg);
+  top: 6.5rem;
+  left: 3.5rem;
+  width: 75%;
+  transform: rotate(55deg);
 }
 
 /* 화살표머리 */
