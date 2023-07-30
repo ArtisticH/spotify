@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------------
-// SEC 1 - RELEASE
+// RELEASE
 
 const $imgBox = document.querySelectorAll('.imgBox');
 
@@ -53,12 +53,7 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
     $invert.classList.remove('hover');
     $secondLine.classList.replace('hover', 'rewind');
 
-    // 왜 타이머 함수의 delay를 300으로 맞춰야 할까?
-    /* hover out 시 
-      transition: 0.3s ease-in-out;
-      2초 동안 효과가 나타나고 
-      그 다음에 바로 'rewind' 사라지기 위해서
-    */
+
     setTimeout(() => {
       $secondLine.classList.remove('rewind');
     }, 300);
@@ -67,7 +62,7 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
 
 
 // ----------------------------------------------------------------------------------
-// SEC 2 - SPOTLIGHT
+// SPOTLIGHT
 
 const $spotImg = document.querySelectorAll('.spotImg');
 const $spotImgRead = document.querySelectorAll('.spotImgRead');
@@ -97,7 +92,7 @@ $spotImg.forEach((img) => {
 });
 
 // ----------------------------------------------------------------------------------
-// SEC 3 - INBOX
+// INBOX
 
 
 const $inbox = document.getElementById('inbox');
@@ -128,21 +123,26 @@ document.addEventListener('scroll', () => {
 
 
 // ----------------------------------------------------------------------------------
-// SEC 5 - JOBS
+// JOBS
 
+const $jobRoles = document.getElementById('jobs_roles');
+const $miamiArrowContainer = document.getElementById('miami_arrow_container');
+const $miamiArrowCircle = document.getElementById('miami_arrow_circle');
+const $miamiArrow = document.getElementById('miami_arrow');
+const $jobsEditorial = document.getElementById('jobs_editorial');
 
-jobs_rols.addEventListener('mouseenter', () => {
-  miami_arrow_container.classList.toggle('hover');
-  miami_arrow_circle.classList.toggle('hover');
-  miami_arrow.classList.toggle('hover');
-  jobs_editorial.classList.toggle('hover');
+$jobRoles.addEventListener('mouseenter', () => {
+  $miamiArrowContainer.classList.toggle('hover');
+  $miamiArrowCircle.classList.toggle('hover');
+  $miamiArrow.classList.toggle('hover');
+  $jobsEditorial.classList.toggle('hover');
 });
 
-jobs_rols.addEventListener('mouseleave', () => {
-  miami_arrow_container.classList.toggle('hover');
-  miami_arrow_circle.classList.toggle('hover');
-  miami_arrow.classList.toggle('hover');
-  jobs_editorial.classList.toggle('hover');
+$jobRoles.addEventListener('mouseleave', () => {
+  $miamiArrowContainer.classList.toggle('hover');
+  $miamiArrowCircle.classList.toggle('hover');
+  $miamiArrow.classList.toggle('hover');
+  $jobsEditorial.classList.toggle('hover');
 });
 
 // ----------------------------------------------------------------------------------

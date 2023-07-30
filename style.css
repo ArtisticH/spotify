@@ -593,7 +593,6 @@ main {
 
 .forwidth {
   width: 94%;
-  border: 4px solid black;
 }
 
 .heading {
@@ -607,7 +606,7 @@ main {
 .imgBox {
   cursor: pointer;
   margin-bottom: 2.5rem;
-  border: 2px solid salmon;
+  /* border: 2px solid salmon; */
 }
 
 .relImg {
@@ -690,6 +689,7 @@ main {
 }
 
 .rightArrow_loc {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -714,12 +714,12 @@ main {
 
 .rightArrow_loc_line {
   position: absolute;
-  bottom: 0.01rem;
+  bottom: -2.5px;
   left: 0;
   width: 0%;
   background: black;
   height: 1px;
-  transition: 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .rightArrow_loc_line.hover {
@@ -770,7 +770,6 @@ main {
   }
 
   .rightArrow {
-    border: 1px solid red;
     position: absolute;
     top: 2.1rem;
     left: 0;
@@ -778,7 +777,6 @@ main {
   }
 
   .forgrid_release {
-    border: 3px solid black;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
@@ -833,7 +831,6 @@ main {
 }
 
 .heading_container {
-  border: 1px solid red;
   padding: 2rem 0;
 }
 
@@ -843,11 +840,10 @@ main {
   font-weight: 500;
   letter-spacing: -1px;
   margin: 0;
-  /* border: 1px solid purple; */
 }
 
 .under_heading {
-  margin-top: -0.3rem;
+  margin-top: 0.3rem;
   font-size: 1.5rem;
   letter-spacing: -1px;
   font-weight: bolder;
@@ -961,7 +957,6 @@ main {
   }
 
   .under_heading {
-    margin-top: -0.3rem;
     font-size: 1.7rem;
     letter-spacing: -1.4px;
   }
@@ -991,7 +986,6 @@ main {
   }
 
   .under_heading {
-    margin-top: -0.3rem;
     font-size: 2rem;
     letter-spacing: -1.7px;
   }
@@ -1444,12 +1438,12 @@ main {
   background-color: #fff;
 }
 
-#jobs_rols {
+#jobs_roles {
   margin-top: -1rem;
+  cursor: pointer;
 }
 
 #miami_container {
-  border: 1px solid black;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -1469,15 +1463,15 @@ main {
   letter-spacing: -0.8px;
 }
 
+#miami_arrow_container {
+  visibility: hidden;
+}
+
 #jobs_editorial {
   font-family: 'Circular-medium';
   font-size: 1.2rem;
   letter-spacing: -1px;
   margin-top: -0.4rem;
-}
-
-#miami_arrow_container {
-  visibility: hidden;
 }
 
 #jobs_editorial.hover {
@@ -1496,7 +1490,7 @@ main {
 
 @media all and (min-width: 1024px) {
 
-  #jobs_rols {
+  #jobs_roles {
     margin-top: -0.6rem;
     position: relative;
   }  
@@ -1536,16 +1530,16 @@ main {
     align-items: center;
     transform: scale(0);
     transition: all 0.3s ease-in-out;  
+    background-color: black;
+
   }
 
   #miami_arrow_circle.hover {
     transform: scale(1);
-    background-color: black;
   }
 
   #miami_arrow {
     width: 70%;
-    transition: 0.1s ease-in-out;  
     transition: all 0.3s ease-in-out;  
   }
 
@@ -1555,21 +1549,9 @@ main {
   
 }
 
-
-
-/* --------------------------------------------------------------------------------- */
-/* SECTION TOOLS & JOBS */
-
-
-
 #toolsAndJobs {
   background-color: #fff;
-  /* border: 4px solid red; */
 } 
-
-#toolsAndJobsGrid {
-  /* border: 4px solid blue; */
-}
 
 @media all and (min-width: 1024px) {
   #toolsAndJobsGrid {
@@ -1578,7 +1560,6 @@ main {
     grid-gap: 6rem;
   }
 }
-
 
 /* --------------------------------------------------------------------------------- */
 /* SECTION TIME */
