@@ -1593,6 +1593,7 @@ main {
 
 #timeLogo_img {
   width: 170px;
+  cursor: pointer;
 }
 
 
@@ -1608,6 +1609,11 @@ main {
   font-weight: bolder;
   font-family: 'AvenirLTStd-Light';
   line-height: 1.7;
+  cursor: pointer;
+}
+
+.timeSns:hover {
+  text-decoration: underline;
 }
 
 .timeTime {
@@ -1780,7 +1786,7 @@ main {
 /* --------------------------------------------------------------------------------- */
 /* FOOTER */
 
-footer {
+#footerFlex {
   padding-bottom: 2rem;
 }
 
@@ -1792,7 +1798,6 @@ footer {
 }
 
 #footerArrowMain {
-  border: 1px solid red;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1836,7 +1841,6 @@ footer {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border: 1px solid red;
 }
 
 .footerelem {
@@ -1844,11 +1848,14 @@ footer {
   font-weight: bolder;
   font-size: 1rem;
   margin-right: 2rem;
-  border: 1px solid green;
+  cursor: pointer;
+}
+
+.footerelem:hover {
+  text-decoration: underline;
 }
 
 #footerCom {
-  border: 1px solid red;
   margin-bottom: 0.7rem;
   display: flex;
   align-items: center;
@@ -1867,7 +1874,6 @@ footer {
   
   #footerFlex {
     padding-top: 2rem;
-    border: 3px solid orange;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1878,17 +1884,25 @@ footer {
     order: 2;
   }
 
-  #footerCom {
-    margin-bottom: 0;
-  }
+  .footerelem {
+    font-size: 1.1rem;
+  }  
 }
 
 @media all and (min-width: 795px) {
   #footerComElems {
-    border: 1px solid blue;
     order: 1;
     display: flex;
     justify-content: flex-start;
     align-items: center;
   }
+
+  #footerCom {
+    margin-bottom: 0;
+  }
+
+  .footerelem {
+    font-size: 1.2rem;
+  }  
+
 }
