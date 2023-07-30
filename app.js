@@ -116,7 +116,7 @@ document.addEventListener('scroll', () => {
   } else if (ratio <= 0.3 || ratio >= 1.17) {
     $path1_inboxCircle.classList.remove('active');
     $path2_inboxCircle.classList.remove('active');
-    $path1_inboxArrow.classList.toggle('active');
+    $path1_inboxArrow.classList.remove('active');
     $path2_inboxArrow.classList.remove('active');
   }
 })

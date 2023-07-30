@@ -1137,17 +1137,14 @@ main {
 }
 
 #inboxTitles_box {
-  border: 1px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #inboxTitles {
-  border: 1px solid red;
   text-align: center;
   width: 72%;
-
   color: #fff;
   font-family: 'Circular-medium';
   font-size: 2.5rem;
@@ -1156,7 +1153,6 @@ main {
 }
 
 #inboxInput_box {
-  border: 1px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1164,9 +1160,7 @@ main {
 }
 
 #inboxInput {
-  border: 1px solid red;
   width: 448px;
-
 }
 
 #inboxInput_display {
@@ -1216,7 +1210,6 @@ main {
 }
 
 #inboxExp_box {
-  border: 1px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1224,7 +1217,6 @@ main {
 }
 
 #inboxExp {
-  border: 1px solid red;
   width: 95%;
   color: #837e7e;
   font-family: 'AvenirLTStd-Light';
@@ -1382,7 +1374,6 @@ main {
   }  
 
   #inboxInput {
-    border: 1px solid blue;
     width: 40%;
   }
 
