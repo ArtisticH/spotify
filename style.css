@@ -1198,6 +1198,7 @@ main {
   font-family: 'Circular-medium';
   border: none;
   text-align: center;
+  cursor: pointer;
 }
 
 #inboxInput_underline {
