@@ -1266,13 +1266,18 @@ main {
   stroke: #ffe818;
 }
 
-#inboxArrowSvg {
+#inboxTitles_box {
+  position: relative;
+}
+
+#inboxArrowSvg_svg {
   position: absolute;
   display: none;
-  top: 6.5rem;
-  left: 3.5rem;
-  width: 75%;
-  transform: rotate(55deg);
+  width: 20%;
+  top: 9rem;
+  left: 37rem;
+  transform: rotate(30deg);
+  transform-origin: left center;
 }
 
 /* 화살표머리 */
@@ -1400,7 +1405,7 @@ main {
     text-align: left;
   }  
 
-  #inboxArrowSvg {
+  #inboxArrowSvg_svg {
     display: block;
   }  
 }
