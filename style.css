@@ -852,19 +852,24 @@ main {
   border: 2px solid greenyellow;
   /* display: flex;
   align-items: center; */
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow-x: scroll;
   overflow-y: hidden;
-  cursor: pointer;
-  padding: 2rem 0;
+  /* padding: 2rem 0; */
   width: 110%;
 }
 
-::-webkit-scrollbar {
+.spot_scroll_container::-webkit-scrollbar {
   display: none;
 }
 
+/* ::-webkit-scrollbar {
+  display: none;
+} */
+
 .spotFlex {
+  padding: 1rem 0;
+  margin-bottom: 1rem;
   width: fit-content;
   border: 2px solid red;
   overflow-x: scroll;
@@ -875,6 +880,7 @@ main {
 }
 
 .spotBox {
+  border: 2px solid purple;
   position: relative;
   /* z-index */
   /* z-index: 0; */
@@ -895,22 +901,27 @@ main {
   width: 240px;
 }
 
+.spotImg_container {
+  border: 2px solid orange;
+}
+
 .spotImg {
   width: 100%;
-  position: relative;
+  /* position: relative; */
   /* z-index */
   z-index: 2;
 }
 
 .spot_up_heading {
   font-family: 'Circular-medium';
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
   letter-spacing: -0.8px;
+  margin-bottom: 0.5rem;
 }
 
 .spot_under_heading {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   letter-spacing: -0.8px;
   font-weight: bolder;
   font-family: 'AvenirLTStd-Light';
@@ -923,7 +934,6 @@ main {
   transform: translateX(100%) rotate(180deg);
   writing-mode: vertical-lr;
   margin-right: -0.3rem;
-  /* border: 1px solid red; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -959,8 +969,18 @@ main {
     letter-spacing: -1.4px;
   }
 
+  .spot_up_heading {
+    font-size: 1.3rem;
+    letter-spacing: -1px;
+  }
+  
+  .spot_under_heading {
+    font-size: 1.3rem;
+    letter-spacing: -1px;
+  }  
+
   .spotBox {
-    margin-right: 5rem;
+    margin-right: 4.5rem;
   }  
 
   .spotBox.wf {
@@ -1003,16 +1023,15 @@ main {
   .spotBox.wt {
     width: 424px;
   }
-  
 
   .spot_up_heading {
     font-size: 1.5rem;
-    letter-spacing: -0.8px;
+    letter-spacing: -1px;
   }
   
   .spot_under_heading {
     font-size: 1.5rem;
-    letter-spacing: -0.8px;
+    letter-spacing: -1px;
   }  
 
   .spotImg_container {
