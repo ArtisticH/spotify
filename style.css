@@ -42,7 +42,6 @@ body {
 
 .forwidth {
   width: 94%;
-  border: 4px solid black;
 }
 
 @media all and (min-width: 600px) {
@@ -230,7 +229,6 @@ main {
 
 .forwidth {
   width: 94%;
-  border: 1px solid white;
 }
 
 #imgMain {
@@ -1479,6 +1477,9 @@ main {
 }
 
 @media all and (min-width: 600px) {
+  #jobs {
+    padding-bottom: 4rem;
+  }
 
   #jobs_editorial {
     font-family: 'Circular-medium';
@@ -1489,6 +1490,10 @@ main {
 }
 
 @media all and (min-width: 1024px) {
+
+  #jobs {
+    padding-bottom: 0rem;
+  }
 
   #jobs_roles {
     margin-top: -0.6rem;
@@ -1565,7 +1570,6 @@ main {
 /* SECTION TIME */
 
 #lower {
-  /* border: 4px solid darkblue; */
   position: relative;
 }
 
@@ -1577,12 +1581,10 @@ main {
 }
 
 #time {
-  border: 2px solid red;
   padding-top: 3.5rem;
 }
 
 #timeLogo {
-  border: 1px solid lime;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -1590,7 +1592,6 @@ main {
 }
 
 #timeLogo_img {
-  border: 1px solid salmon;
   width: 170px;
 }
 
@@ -1601,10 +1602,6 @@ main {
   align-items: flex-start;
 }
 
-#timeSns {
-  border: 2px solid blue;
-}
-
 .timeSns {
   font-size: 1.1rem;
   letter-spacing: -0.5px;
@@ -1613,19 +1610,14 @@ main {
   line-height: 1.7;
 }
 
-#timeTime {
-  border: 1px solid purple;
-}
-
 .timeTime {
-  /* border: 1px solid red; */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .timeTime_left {
-  border: 1px solid lime;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -1640,10 +1632,9 @@ main {
 }
 
 .timeCountry {
-  /* border: 1px solid purple; */
   font-family: 'Circular-medium';
   font-weight: bolder;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .timeCities {
@@ -1651,11 +1642,9 @@ main {
 }
 
 .timeClock {
-  /* border: 1px solid purple; */
-  /* border: 2px solid yellow; */
   font-family: 'AvenirLTStd-Light';
   font-weight: bolder;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1663,13 +1652,11 @@ main {
 }
 
 .hour {
-  /* border: 1px solid purple; */
   padding-right: 0.1rem;
 }
 
 .min {
   padding: 0 0.1rem;
-  /* border: 1px solid purple; */
 }
 
 .sec {
@@ -1678,7 +1665,6 @@ main {
 
 @media all and (min-width: 600px) {
   #timeSns {
-    border: 2px solid blue;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -1690,15 +1676,10 @@ main {
   }
 
   #timeTimeFlex {
-    border: 2px solid purple;
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
     width: 40%;
-  }
-
-  .timeSns_Insta {
-    border: 1px solid red;
   }
 
   #timeLogo_img {
@@ -1706,7 +1687,7 @@ main {
   }
 
   .timeSns {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   .timeCircle {
@@ -1716,19 +1697,16 @@ main {
   }
   
   .timeCountry {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     letter-spacing: -0.5px;
-    border: 1px solid blue;
-
+    margin-right: 0.4rem;
   }
   
   .timeCities {
     display: block;
-    border: 1px solid red;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* margin-right: 1.5rem; */
   }
 
   .timeCity {
@@ -1745,7 +1723,7 @@ main {
   }
   
   .timeClock {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }  
   
 }
@@ -1759,26 +1737,28 @@ main {
 
   #timeLogo {
     width: 33%;
-    border: 1px solid lime;
     align-items: flex-start;
     padding-bottom: 0rem;
   }
-  
+
+  .timeTime {
+    margin-bottom: 0.6rem;
+  }  
+
   #timeLogo_img {
     width: 230px;
   }
 
   #timeFlex {
     width: 67%;
-    border: 2px solid black;
   }
 
   .timeSns {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
   
   .timeCountry {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     letter-spacing: -0.7px;
   }
 
@@ -1788,11 +1768,10 @@ main {
   }
   
   .timeClock {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }  
 
   #time {
-    border: 2px solid red;
     padding-bottom: 12rem;
   }
   
@@ -1802,7 +1781,6 @@ main {
 /* FOOTER */
 
 footer {
-  border: 2px solid fuchsia;
   padding-bottom: 2rem;
 }
 
