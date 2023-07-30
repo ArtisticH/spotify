@@ -1549,7 +1549,18 @@ main {
   background-color: #fff;
 } 
 
+@media all and (min-width: 600px) {
+  #toolsAndJobs {
+    padding-top: 1.5rem;
+  }   
+}
+
 @media all and (min-width: 1024px) {
+
+  #toolsAndJobs {
+    padding-top: 2rem;
+  }   
+
   #toolsAndJobsGrid {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
