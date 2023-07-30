@@ -40,6 +40,23 @@ body {
   justify-content: center;
 }
 
+.forwidth {
+  width: 94%;
+  border: 4px solid black;
+}
+
+@media all and (min-width: 600px) {
+  .forwidth {
+    width: 93%;
+  }
+}
+
+@media all and (min-width: 1024px) {
+  .forwidth {
+    width: 88%;
+  }
+}
+
 /* --------------------------------------------------------------------------------- */
 /* INTRO */
 
@@ -569,8 +586,14 @@ main {
   background-color: #fff;
 }
 
+.fordisplay {
+  display: flex;
+  justify-content: center;
+}
+
 .forwidth {
-  border: 1px solid black;
+  width: 94%;
+  border: 4px solid black;
 }
 
 .heading {
@@ -579,7 +602,6 @@ main {
   font-weight: 500;
   letter-spacing: -1px;
   padding: 1.6rem 0;
-  /* border: 1px solid red; */
 }
 
 .imgBox {
@@ -664,7 +686,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  /* border: 1px solid blue; */
+  padding-bottom: 2rem;
 }
 
 .rightArrow_loc {
@@ -683,7 +705,7 @@ main {
   font-family: 'Circular-medium';
   font-weight: bold;
   letter-spacing: -0.7px;
-  transition: 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 .rightArrow_loc_title.hover {
@@ -718,7 +740,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 .rightArrow_loc_circle.hover {
@@ -727,7 +749,7 @@ main {
 
 .rightArrow_loc_arrow {
   width: 70%;
-  transition: 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 .rightArrow_loc_arrow.hover {
@@ -748,7 +770,7 @@ main {
   }
 
   .rightArrow {
-    /* border: 1px solid red; */
+    border: 1px solid red;
     position: absolute;
     top: 2.1rem;
     left: 0;
@@ -781,7 +803,6 @@ main {
   }
 
   .rightArrow {
-    /* border: 1px solid red; */
     top: 2.3rem;
   }
 
