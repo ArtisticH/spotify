@@ -67,6 +67,11 @@ const $hoverArea = document.querySelectorAll('.rightArrow_loc');
 const $spotImg = document.querySelectorAll('.spotImg');
 const $spotImgRead = document.querySelectorAll('.spotImgRead');
 const $spotFlex = document.querySelector('.spotFlex');
+const $spotCursor = document.getElementById('spotCursor');
+const $spotCursorCircle = document.getElementById('spotCursor_circle');
+const $spotCursorCircleLeft = document.getElementById('spotCursor_circle_left');
+const $spotCursorCircleRight = document.getElementById('spotCursor_circle_right');
+
 
 $spotImg.forEach((img) => {
 
@@ -79,6 +84,11 @@ $spotImg.forEach((img) => {
       // spotSvg.classList.add('hover');
       $spotImgRead[index].classList.add('hover');
     }
+    $spotCursorCircle.style.width = '30px';
+    $spotCursorCircle.style.height = '30px';
+    $spotCursorCircleLeft.style.transform = 'rotate(180deg) scale(0)';
+    $spotCursorCircleRight.style.transform = 'rotate(180deg) scale(0)';
+    $spotFlex.style.cursor = 'pointer';
   });
 
 
@@ -88,12 +98,41 @@ $spotImg.forEach((img) => {
       // spotSvg.classList.remove('hover');
       $spotImgRead[index].classList.remove('hover');
     }
+
+    $spotCursorCircle.style.width = '';
+    $spotCursorCircle.style.height = '';
+    $spotCursorCircleLeft.style.transform = '';
+    $spotCursorCircleRight.style.transform = '';
+    $spotFlex.style.cursor = '';
   });
 });
 
-$spotFlex.addEventListener('mouseenter', () => {
+$spotFlex.addEventListener('mouseenter', (event) => {
+  $spotCursor.classList.add('active');
+
+  animate({
+    duration: 400,
+    timing: function quad(timeFraction) {
+      return Math.pow(timeFraction, 2)
+    },
+    draw: function(progress) {
+      $spotCursor.style.opacity = progress + '';
+    }
+  });
   
-})
+  $spotFlex.addEventListener('mousemove', (e) => {
+    
+    let width = $spotCursor.offsetWidth;
+    let height = $spotCursor.offsetHeight;
+    $spotCursor.style.top = e.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
+    $spotCursor.style.left = e.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';
+  });
+  
+  $spotFlex.addEventListener('mouseleave', () => {
+     $spotCursor.classList.remove('active');
+  });
+});
+
 // ----------------------------------------------------------------------------------
 // INBOX
 
