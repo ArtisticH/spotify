@@ -874,6 +874,7 @@ main {
   padding: 1rem 0;
   margin-bottom: 1rem;
   width: fit-content;
+  width: 9999px;
   border: 2px solid red;
   /* overflow-x: scroll;
   overflow-y: hidden; */

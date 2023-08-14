@@ -83,8 +83,6 @@ $spotFlex.addEventListener('mouseover', (e) => {
   if(!imgElem) return;
   if(e.relatedTarget.classList.contains('spotImgRead')) return;
 
-  console.log('hi', e.target)
-
   $spotFlex.style.cursor = 'pointer';
   let svgElem = imgElem.closest('.spotImg_container').lastElementChild;
   let imgReadElem = imgElem.nextElementSibling;
@@ -101,9 +99,7 @@ $spotFlex.addEventListener('mouseover', (e) => {
   });
 
   imgElem.addEventListener('mouseout', (event) => {
-    console.log(event.relatedTarget.classList.contains('spotImgRead'))
     if(event.relatedTarget.classList.contains('spotImgRead')) return;
-    console.log('bye', event.target, event.relatedTarget)
     $spotFlex.style.cursor = '';
     imgReadElem.classList.remove('hover');
 
