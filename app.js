@@ -81,6 +81,7 @@ $spotImg.forEach(img => {
 $spotFlex.addEventListener('mouseover', (e) => {
   let imgElem = e.target.closest('.spotImg');
   if(!imgElem) return;
+
   $spotFlex.style.cursor = 'pointer';
   let svgElem = imgElem.closest('.spotImg_container').lastElementChild;
 
@@ -93,8 +94,26 @@ $spotFlex.addEventListener('mouseover', (e) => {
       svgElem.style.width = progress * 250 + '%';
     }
   });
+
+
+  imgElem.addEventListener('mouseout', () => {
+
+    animate({
+      duration: 400,
+      timing: function quad(timeFraction) {
+        return Math.pow(timeFraction, 2)
+      },
+      draw: function(progress) {
+        svgElem.style.width = (1 - progress) * 250 + '%';
+      }
+    });
+  
+  });
+  
   }
 )
+
+
 
 // $spotImg.forEach((img) => {
 
