@@ -853,10 +853,13 @@ main {
   /* display: flex;
   align-items: center; */
   /* white-space: nowrap; */
-  overflow-x: scroll;
-  overflow-y: hidden;
+  /* overflow-x: scroll;
+  overflow-y: hidden; */
   /* padding: 2rem 0; */
   width: 110%;
+  overflow: visible;
+  z-index: 1;
+
 }
 
 .spot_scroll_container::-webkit-scrollbar {
@@ -872,13 +875,16 @@ main {
   margin-bottom: 1rem;
   width: fit-content;
   border: 2px solid red;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  /* overflow-x: scroll;
+  overflow-y: hidden; */
   display: flex;
   align-items: center;
   justify-content: flex-start;
   cursor: grab;
   position: relative;
+  overflow: visible;
+  z-index: 1;
+
 }
 
 .spotImg_container {
@@ -888,16 +894,12 @@ main {
 .spotSvg {
   border: 2px solid hotpink;
   position: absolute;
-  transform: translate(-50%, -50%) scale(0);
+  transform: translate(-50%, -50%);
+  width: 0%;
   top: 50%;
   left: 50%;
-  transition: transform 0.5s ease;
+  z-index: -1;
 }
-
-.spotSvg.active {
-  transform: translate(-50%, -50%) scale(1.3);
-}
-
 
 #spotCursor {
   position: absolute;
@@ -944,6 +946,7 @@ main {
   /* border: 3px solid hotpink; */
   display: inline-block;
   margin-right: 3rem;
+  z-index: 1;
 }
 
 .spotBox.wf {
@@ -966,7 +969,6 @@ main {
   width: 100%;
   /* position: relative; */
   /* z-index */
-  z-index: 2;
 }
 
 .spot_up_heading {
