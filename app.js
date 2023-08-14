@@ -81,9 +81,14 @@ $spotImg.forEach(img => {
 $spotFlex.addEventListener('mouseover', (e) => {
   let imgElem = e.target.closest('.spotImg');
   if(!imgElem) return;
+  if(e.relatedTarget.classList.contains('spotImgRead')) return;
+
+  console.log('hi', e.target)
 
   $spotFlex.style.cursor = 'pointer';
   let svgElem = imgElem.closest('.spotImg_container').lastElementChild;
+  let imgReadElem = imgElem.nextElementSibling;
+  imgReadElem.classList.add('hover');
 
   animate({
     duration: 400,
@@ -95,8 +100,12 @@ $spotFlex.addEventListener('mouseover', (e) => {
     }
   });
 
-
-  imgElem.addEventListener('mouseout', () => {
+  imgElem.addEventListener('mouseout', (event) => {
+    console.log(event.relatedTarget.classList.contains('spotImgRead'))
+    if(event.relatedTarget.classList.contains('spotImgRead')) return;
+    console.log('bye', event.target, event.relatedTarget)
+    $spotFlex.style.cursor = '';
+    imgReadElem.classList.remove('hover');
 
     animate({
       duration: 400,
@@ -107,12 +116,41 @@ $spotFlex.addEventListener('mouseover', (e) => {
         svgElem.style.width = (1 - progress) * 250 + '%';
       }
     });
+    
   
   });
   
   }
-)
+);
 
+
+// $spotFlex.addEventListener('mouseenter', () => {
+//   $spotCursor.classList.add('active');
+
+//   animate({
+//     duration: 400,
+//     timing: function quad(timeFraction) {
+//       return Math.pow(timeFraction, 2)
+//     },
+//     draw: function(progress) {
+//       $spotCursor.style.opacity = progress + '';
+//     }
+//   });
+
+//   $spotFlex.addEventListener('mousemove', (e) => {
+//     let width = $spotCursor.offsetWidth;
+//     let height = $spotCursor.offsetHeight;
+//     $spotCursor.style.top = e.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
+//     $spotCursor.style.left = e.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';  
+  
+//   });
+
+//   $spotFlex.addEventListener('mouseleave', () => {
+//     $spotCursor.classList.remove('active');
+//   });
+  
+
+// })
 
 
 // $spotImg.forEach((img) => {
