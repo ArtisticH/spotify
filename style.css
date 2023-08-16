@@ -885,7 +885,7 @@ main {
   position: relative;
   overflow: visible;
   z-index: 1;
-
+  /* margin-left: -304px; */
 }
 
 .spotImg_container {

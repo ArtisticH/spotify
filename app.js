@@ -88,6 +88,7 @@ $spotFlex.addEventListener('mouseover', (e) => {
   let imgReadElem = imgElem.nextElementSibling;
   imgReadElem.classList.add('hover');
 
+  // 이 부분 css에서 해결, 왜냐면 svg width가 다양해서
   animate({
     duration: 400,
     timing: function quad(timeFraction) {
@@ -118,6 +119,32 @@ $spotFlex.addEventListener('mouseover', (e) => {
   
   }
 );
+console.log($spotImg[0].getBoundingClientRect().left)
+
+console.log($spotImg[1].getBoundingClientRect().left)
+
+document.addEventListener('keydown', (e) => {
+  if(e.key == 'ArrowRight') {
+    console.log('hi')
+    animate({
+      duration: 200,
+      timing: function linear(timeFraction) {
+        return timeFraction
+      },
+      draw: function(progress) {
+        $spotFlex.style.marginLeft =  -progress * 304 + 'px';
+      }
+    });
+
+  }
+})
+
+// let observer = new IntersectionObserver((e) => {
+//   e.addEventListener('keydown', (event) => {
+//     console.log(event.key);
+//   })
+// });
+// observer.observe($spotFlex);
 
 
 // $spotFlex.addEventListener('mouseenter', () => {
