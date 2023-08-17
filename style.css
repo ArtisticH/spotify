@@ -893,7 +893,7 @@ main {
   position: relative;
 }
 
-.spotSvg {
+.spotSvg1, .spotSvg2 {
   border: 2px solid hotpink;
   position: absolute;
   transform: translate(-50%, -50%);
@@ -901,6 +901,15 @@ main {
   top: 50%;
   left: 50%;
   z-index: -1;
+  transition: width 0.8s cubic-bezier(0.0, 0.5, 0.5 ,1.0);
+}
+
+.spotSvg1.hover {
+  width: 620px;
+}
+
+.spotSvg2.hover {
+  width: 620px;
 }
 
 #spotCursor {
@@ -1054,6 +1063,14 @@ main {
   
   .spotBox.wt {
     width: 292px;
+  }
+
+  .spotSvg1.hover {
+    width: 800px;
+  }
+  
+  .spotSvg2.hover {
+    width: 830px;
   }
   
 }

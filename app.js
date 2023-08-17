@@ -87,32 +87,34 @@ $spotFlex.addEventListener('mouseover', (e) => {
   let svgElem = imgElem.closest('.spotImg_container').lastElementChild;
   let imgReadElem = imgElem.nextElementSibling;
   imgReadElem.classList.add('hover');
+  svgElem.classList.add('hover');
 
   // 이 부분 css에서 해결, 왜냐면 svg width가 다양해서
-  animate({
-    duration: 800,
-    timing: function quad(timeFraction) {
-      return Math.pow(timeFraction, 2)
-    },
-    draw: function(progress) {
-      svgElem.style.width = progress * 250 + '%';
-    }
-  });
+  // animate({
+  //   duration: 800,
+  //   timing: function quad(timeFraction) {
+  //     return Math.pow(timeFraction, 2)
+  //   },
+  //   draw: function(progress) {
+  //     svgElem.style.width = progress * 250 + '%';
+  //   }
+  // });
 
   imgElem.addEventListener('mouseout', (event) => {
     if(event.relatedTarget.classList.contains('spotImgRead')) return;
     $spotFlex.style.cursor = '';
     imgReadElem.classList.remove('hover');
+    svgElem.classList.remove('hover');
 
-    animate({
-      duration: 400,
-      timing: function quad(timeFraction) {
-        return Math.pow(timeFraction, 2)
-      },
-      draw: function(progress) {
-        svgElem.style.width = (1 - progress) * 250 + '%';
-      }
-    });
+    // animate({
+    //   duration: 400,
+    //   timing: function quad(timeFraction) {
+    //     return Math.pow(timeFraction, 2)
+    //   },
+    //   draw: function(progress) {
+    //     svgElem.style.width = (1 - progress) * 250 + '%';
+    //   }
+    // });
     
   
   });
