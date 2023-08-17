@@ -175,59 +175,6 @@ document.addEventListener('keydown', (e) => {
 // });
 // observer.observe($spotFlex);
 
-
-// $spotFlex.addEventListener('mouseenter', () => {
-//   $spotCursor.classList.add('active');
-
-  // animate({
-  //   duration: 400,
-  //   timing: function quad(timeFraction) {
-  //     return Math.pow(timeFraction, 2)
-  //   },
-  //   draw: function(progress) {
-  //     $spotCursor.style.opacity = progress + '';
-  //   }
-  // });
-
-  // $spotFlex.addEventListener('mousemove', (e) => {
-  //   let width = $spotCursor.offsetWidth;
-  //   let height = $spotCursor.offsetHeight;
-  //   $spotCursor.style.top = e.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
-  //   $spotCursor.style.left = e.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';  
-  
-  // });
-
-//   $spotFlex.addEventListener('mouseleave', () => {
-//     $spotCursor.classList.remove('active');
-//   });
-  
-
-// })
-
-
-// $spotImg.forEach((img) => {
-
-//   img.addEventListener('mouseenter', (e) => {
-//     let index = [...$spotImg].indexOf(img);
-//     [...$spotImgRead].forEach((item) => {
-//       item.classList.remove('hover');
-//     });
-//     if(e.target === $spotImg[index] && (e.relatedTarget === $spotFlex || e.relatedTarget === e.target.parentNode)) {
-//       // spotSvg.classList.add('hover');
-//       $spotImgRead[index].classList.add('hover');
-//     }
-
-//     img.addEventListener('mouseleave', (e) => {
-//       let index = [...$spotImg].indexOf(img);
-//       if((e.target === $spotImg[index]) && (e.relatedTarget === $spotFlex || e.relatedTarget === e.target.parentNode)) {
-//         // spotSvg.classList.remove('hover');
-//         $spotImgRead[index].classList.remove('hover');
-//       }
-//     });
-  
-//   });
-
-
 // });
 
 // $spotFlex.addEventListener('mouseover', (event) => {
