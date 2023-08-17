@@ -79,6 +79,30 @@ $spotImg.forEach(img => {
 })
 
 $spotFlex.addEventListener('mouseover', (e) => {
+  console.log(e.target)
+  $spotCursor.classList.add('active');
+
+  animate({
+    duration: 400,
+    timing: function quad(timeFraction) {
+      return Math.pow(timeFraction, 2)
+    },
+    draw: function(progress) {
+      $spotCursor.style.opacity = progress + '';
+    }
+  });
+
+  $spotFlex.addEventListener('mousemove', (event) => {
+    let width = $spotCursor.offsetWidth;
+    let height = $spotCursor.offsetHeight;
+    $spotCursor.style.top = event.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
+    $spotCursor.style.left = event.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';  
+  
+  });
+
+
+
+
   let imgElem = e.target.closest('.spotImg');
   if(!imgElem) return;
   if(e.relatedTarget.classList.contains('spotImgRead')) return;
@@ -89,33 +113,11 @@ $spotFlex.addEventListener('mouseover', (e) => {
   imgReadElem.classList.add('hover');
   svgElem.classList.add('hover');
 
-  // 이 부분 css에서 해결, 왜냐면 svg width가 다양해서
-  // animate({
-  //   duration: 800,
-  //   timing: function quad(timeFraction) {
-  //     return Math.pow(timeFraction, 2)
-  //   },
-  //   draw: function(progress) {
-  //     svgElem.style.width = progress * 250 + '%';
-  //   }
-  // });
-
   imgElem.addEventListener('mouseout', (event) => {
     if(event.relatedTarget.classList.contains('spotImgRead')) return;
     $spotFlex.style.cursor = '';
     imgReadElem.classList.remove('hover');
     svgElem.classList.remove('hover');
-
-    // animate({
-    //   duration: 400,
-    //   timing: function quad(timeFraction) {
-    //     return Math.pow(timeFraction, 2)
-    //   },
-    //   draw: function(progress) {
-    //     svgElem.style.width = (1 - progress) * 250 + '%';
-    //   }
-    // });
-    
   
   });
   
@@ -124,7 +126,7 @@ $spotFlex.addEventListener('mouseover', (e) => {
 
 let count = 0;
 let position = 0;
-
+// $spotFlex일때만 활성화되게끔
 document.addEventListener('keydown', (e) => {
   if(e.key == 'ArrowRight') {
     if(count >= 10) {
@@ -164,23 +166,23 @@ document.addEventListener('keydown', (e) => {
 // $spotFlex.addEventListener('mouseenter', () => {
 //   $spotCursor.classList.add('active');
 
-//   animate({
-//     duration: 400,
-//     timing: function quad(timeFraction) {
-//       return Math.pow(timeFraction, 2)
-//     },
-//     draw: function(progress) {
-//       $spotCursor.style.opacity = progress + '';
-//     }
-//   });
+  // animate({
+  //   duration: 400,
+  //   timing: function quad(timeFraction) {
+  //     return Math.pow(timeFraction, 2)
+  //   },
+  //   draw: function(progress) {
+  //     $spotCursor.style.opacity = progress + '';
+  //   }
+  // });
 
-//   $spotFlex.addEventListener('mousemove', (e) => {
-//     let width = $spotCursor.offsetWidth;
-//     let height = $spotCursor.offsetHeight;
-//     $spotCursor.style.top = e.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
-//     $spotCursor.style.left = e.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';  
+  // $spotFlex.addEventListener('mousemove', (e) => {
+  //   let width = $spotCursor.offsetWidth;
+  //   let height = $spotCursor.offsetHeight;
+  //   $spotCursor.style.top = e.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
+  //   $spotCursor.style.left = e.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';  
   
-//   });
+  // });
 
 //   $spotFlex.addEventListener('mouseleave', () => {
 //     $spotCursor.classList.remove('active');
