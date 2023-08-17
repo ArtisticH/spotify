@@ -922,7 +922,20 @@ main {
 
 #spotCursor.active {
   display: block;
+  opacity: 1;
   visibility: visible;
+  animation: opacityEffect 1s;
+}
+
+@keyframes opacityEffect {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 #spotCursor_circle {

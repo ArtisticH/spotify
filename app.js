@@ -79,35 +79,14 @@ $spotImg.forEach(img => {
 })
 
 $spotFlex.addEventListener('mouseover', (e) => {
-  console.log(e.target)
+
   $spotCursor.classList.add('active');
-
-  animate({
-    duration: 400,
-    timing: function quad(timeFraction) {
-      return Math.pow(timeFraction, 2)
-    },
-    draw: function(progress) {
-      $spotCursor.style.opacity = progress + '';
-    }
-  });
-
-  $spotFlex.addEventListener('mousemove', (event) => {
-    let width = $spotCursor.offsetWidth;
-    let height = $spotCursor.offsetHeight;
-    $spotCursor.style.top = event.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
-    $spotCursor.style.left = event.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';  
-  
-  });
-
-
-
 
   let imgElem = e.target.closest('.spotImg');
   if(!imgElem) return;
   if(e.relatedTarget.classList.contains('spotImgRead')) return;
 
-  $spotFlex.style.cursor = 'pointer';
+  imgElem.style.cursor = 'pointer';
   let svgElem = imgElem.closest('.spotImg_container').lastElementChild;
   let imgReadElem = imgElem.nextElementSibling;
   imgReadElem.classList.add('hover');
@@ -115,14 +94,48 @@ $spotFlex.addEventListener('mouseover', (e) => {
 
   imgElem.addEventListener('mouseout', (event) => {
     if(event.relatedTarget.classList.contains('spotImgRead')) return;
-    $spotFlex.style.cursor = '';
+    imgElem.style.cursor = '';
     imgReadElem.classList.remove('hover');
-    svgElem.classList.remove('hover');
-  
+    svgElem.classList.remove('hover');  
   });
-  
   }
 );
+
+$spotFlex.addEventListener('mousemove', (event) => {
+  let width = $spotCursor.offsetWidth;
+  let height = $spotCursor.offsetHeight;
+  $spotCursor.style.top = event.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
+  $spotCursor.style.left = event.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';
+});
+
+
+
+
+
+
+
+// $spotFlex.addEventListener('mouseenter', (e) => {
+//   $spotCursor.classList.add('active');
+
+//   animate({
+//     duration: 400,
+//     timing: function quad(timeFraction) {
+//       return Math.pow(timeFraction, 2)
+//     },
+//     draw: function(progress) {
+//       $spotCursor.style.opacity = progress + '';
+//     }
+//   });
+
+//   $spotFlex.addEventListener('mousemove', (event) => {
+//     event.stopPropagation();
+//     let width = $spotCursor.offsetWidth;
+//     let height = $spotCursor.offsetHeight;
+//     $spotCursor.style.top = event.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
+//     $spotCursor.style.left = event.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';  
+//   });
+// });
+
 
 let count = 0;
 let position = 0;
@@ -243,21 +256,21 @@ document.addEventListener('keydown', (e) => {
 
 //   if(event.target.closest('.spotImg')) {
 //     console.log(9)
-//     $spotCursorCircle.style.width = '30px';
-//     $spotCursorCircle.style.height = '30px';
-//     $spotCursorCircleLeft.style.transform = 'rotate(180deg) scale(0)';
-//     $spotCursorCircleRight.style.transform = 'rotate(180deg) scale(0)';
+    // $spotCursorCircle.style.width = '30px';
+    // $spotCursorCircle.style.height = '30px';
+    // $spotCursorCircleLeft.style.transform = 'rotate(180deg) scale(0)';
+    // $spotCursorCircleRight.style.transform = 'rotate(180deg) scale(0)';
 //     $spotFlex.style.cursor = 'pointer';    
 //   }
   
 //   $spotFlex.addEventListener('mouseout', () => {
 
 //     if(event.target.closest('.spotImg')) {
-//       $spotCursorCircle.style.width = '';
-//       $spotCursorCircle.style.height = '';
-//       $spotCursorCircleLeft.style.transform = '';
-//       $spotCursorCircleRight.style.transform = '';
-//       $spotFlex.style.cursor = '';    
+      // $spotCursorCircle.style.width = '';
+      // $spotCursorCircle.style.height = '';
+      // $spotCursorCircleLeft.style.transform = '';
+      // $spotCursorCircleRight.style.transform = '';
+      // $spotFlex.style.cursor = '';    
 //     }
 //      $spotCursor.classList.remove('active');
 //   });
