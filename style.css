@@ -885,6 +885,7 @@ main {
   position: relative;
   overflow: visible;
   z-index: 1;
+  transition: margin-left 0.2s ease-in;
   /* margin-left: -304px; */
 }
 

@@ -119,23 +119,17 @@ $spotFlex.addEventListener('mouseover', (e) => {
   
   }
 );
-console.log($spotImg[0].getBoundingClientRect().left)
-
-console.log($spotImg[1].getBoundingClientRect().left)
-
+let count = 0;
+let position = 0;
 document.addEventListener('keydown', (e) => {
   if(e.key == 'ArrowRight') {
-    console.log('hi')
-    animate({
-      duration: 200,
-      timing: function linear(timeFraction) {
-        return timeFraction
-      },
-      draw: function(progress) {
-        $spotFlex.style.marginLeft =  -progress * 304 + 'px';
-      }
-    });
-
+    count++;
+    let afterLeft = $spotImg[count].getBoundingClientRect().left;
+    let beforeLeft = $spotImg[count - 1].getBoundingClientRect().left;
+    let movedMarginLeft = afterLeft - beforeLeft;
+    position += movedMarginLeft;
+    $spotFlex.style.marginLeft = -position + 'px';
+    console.log(count, afterLeft, beforeLeft, movedMarginLeft, position);
   }
 })
 
