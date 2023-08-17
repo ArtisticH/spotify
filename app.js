@@ -90,7 +90,7 @@ $spotFlex.addEventListener('mouseover', (e) => {
 
   // 이 부분 css에서 해결, 왜냐면 svg width가 다양해서
   animate({
-    duration: 400,
+    duration: 800,
     timing: function quad(timeFraction) {
       return Math.pow(timeFraction, 2)
     },
@@ -119,19 +119,37 @@ $spotFlex.addEventListener('mouseover', (e) => {
   
   }
 );
+
 let count = 0;
 let position = 0;
+
 document.addEventListener('keydown', (e) => {
   if(e.key == 'ArrowRight') {
-    count++;
+    if(count >= 10) {
+      $spotFlex.style.marginLeft = -position + 'px';  
+    } else {
+      count++;
+      let afterLeft = $spotImg[count].getBoundingClientRect().left;
+      let beforeLeft = $spotImg[count - 1].getBoundingClientRect().left;
+      let movedMarginLeft = afterLeft - beforeLeft;
+      position += movedMarginLeft;
+      $spotFlex.style.marginLeft = -position + 'px';  
+    }
+  }
+})
+
+document.addEventListener('keydown', (e) => {
+  if(e.key == 'ArrowLeft') {
     let afterLeft = $spotImg[count].getBoundingClientRect().left;
     let beforeLeft = $spotImg[count - 1].getBoundingClientRect().left;
     let movedMarginLeft = afterLeft - beforeLeft;
-    position += movedMarginLeft;
+    position -= movedMarginLeft;
     $spotFlex.style.marginLeft = -position + 'px';
+    count--;
     console.log(count, afterLeft, beforeLeft, movedMarginLeft, position);
   }
 })
+
 
 // let observer = new IntersectionObserver((e) => {
 //   e.addEventListener('keydown', (event) => {
