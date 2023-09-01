@@ -849,7 +849,7 @@ main {
 }
 
 .spot_scroll_container {
-  border: 2px solid greenyellow;
+  /* border: 2px solid greenyellow; */
   /* display: flex;
   align-items: center; */
   /* white-space: nowrap; */
@@ -875,7 +875,7 @@ main {
   margin-bottom: 1rem;
   width: fit-content;
   width: 9999px;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   /* overflow-x: scroll;
   overflow-y: hidden; */
   display: flex;
@@ -894,7 +894,7 @@ main {
 }
 
 .spotSvg1, .spotSvg2 {
-  border: 2px solid hotpink;
+  /* border: 2px solid hotpink; */
   position: absolute;
   transform: translate(-50%, -50%);
   width: 0%;
@@ -963,7 +963,7 @@ main {
 }
 
 .spotBox {
-  border: 2px solid purple;
+  /* border: 2px solid purple; */
   position: relative;
   /* z-index */
   /* z-index: 0; */
@@ -986,7 +986,7 @@ main {
 }
 
 .spotImg_container {
-  border: 2px solid orange;
+  /* border: 2px solid orange; */
 }
 
 .spotImg {
