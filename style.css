@@ -13,15 +13,33 @@
   src: url('./font/CircularSpotifyTxT-Bold.woff2') format('woff2');
 }
 
-@font-face {
-  font-family: 'ProductSans-Light';
-  src: url('./font/ProductSans-Light.ttf') format('opentype');
+:root {
+  --main-small-font: 'Inter', sans-serif;
 }
 
-@font-face {
-  font-family: 'AvenirLTStd-Light';
-  src: url('./font/AvenirLTStd-Light.otf') format('opentype');
-}
+/*
+font-family: 'Amatic SC', cursive;
+font-family: 'Anton', sans-serif;
+font-family: 'Architects Daughter', cursive;
+font-family: 'Gruppo', sans-serif;
+font-family: 'Indie Flower', cursive;
+font-family: 'Inter', sans-serif;
+font-family: 'Jost', sans-serif;
+font-family: 'Montserrat', sans-serif;
+font-family: 'Montserrat Alternates', sans-serif;
+font-family: 'Oswald', sans-serif;
+font-family: 'Permanent Marker', cursive;
+font-family: 'Poiret One', cursive;
+font-family: 'PT Serif', serif;
+font-family: 'Raleway', sans-serif;
+font-family: 'REM', sans-serif;
+font-family: 'Righteous', cursive;
+font-family: 'Satisfy', cursive;
+font-family: 'Sedgwick Ave Display', cursive;
+font-family: 'Shadows Into Light', cursive;
+font-family: 'Source Serif 4', serif;
+font-family: 'Zeyada', cursive;
+*/
 
 * {
   margin: 0;
@@ -644,10 +662,11 @@ main {
 }
 
 .img_exp {
-  font-family: 'AvenirLTStd-Light';
+  font-family: var(--main-small-font);
+  /* font-weight: ; */
   letter-spacing: -0.6px;
   font-size: 0.9rem;
-  font-weight: bolder;
+  /* font-weight: bolder; */
   line-height: 1.2;
   margin-top: 0.3rem;
 }
@@ -844,8 +863,7 @@ main {
   margin-top: 0.3rem;
   font-size: 1.5rem;
   letter-spacing: -1px;
-  font-weight: bolder;
-  font-family: 'AvenirLTStd-Light';
+  font-family: var(--main-small-font);
 }
 
 .spot_scroll_container {
@@ -1006,8 +1024,7 @@ main {
 .spot_under_heading {
   font-size: 1.1rem;
   letter-spacing: -0.8px;
-  font-weight: bolder;
-  font-family: 'AvenirLTStd-Light';
+  font-family: var(--main-small-font);
 }
 
 .spot_side {
@@ -1140,9 +1157,8 @@ main {
     padding: 2rem;
     font-size: 1.5rem;
     white-space: normal;
-    font-family: 'AvenirLTStd-Light';
+    font-family: var(--main-small-font);
     letter-spacing: -1.5px;
-    font-weight: bolder;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease-in;
@@ -1265,7 +1281,7 @@ main {
 }
 
 #email {
-  font-family: 'AvenirLTStd-Light';
+  font-family: var(--main-small-font);
   background: transparent;
   border: none;
   width: 85%;
@@ -1282,7 +1298,7 @@ main {
 #email::placeholder {
   color: #fff;
   font-size: 1.2rem;
-  font-family: 'AvenirLTStd-Light';
+  font-family: var(--main-small-font);
   letter-spacing: -1.5px;
 }
 
@@ -1314,7 +1330,7 @@ main {
 #inboxExp {
   width: 95%;
   color: #837e7e;
-  font-family: 'AvenirLTStd-Light';
+  font-family: var(--main-small-font);  
   font-size: 0.9rem;
   text-align: center;
   line-height: 1.3;
@@ -1708,8 +1724,7 @@ main {
 .timeSns {
   font-size: 1.1rem;
   letter-spacing: -0.5px;
-  font-weight: bolder;
-  font-family: 'AvenirLTStd-Light';
+  font-family: var(--main-small-font);
   line-height: 1.7;
   cursor: pointer;
 }
@@ -1750,8 +1765,7 @@ main {
 }
 
 .timeClock {
-  font-family: 'AvenirLTStd-Light';
-  font-weight: bolder;
+  font-family: var(--main-small-font);
   font-size: 1.2rem;
   display: flex;
   justify-content: center;
@@ -1946,8 +1960,7 @@ main {
 }
 
 .footerelem {
-  font-family: 'AvenirLTStd-Light';
-  font-weight: bolder;
+  font-family: var(--main-small-font);
   font-size: 1rem;
   margin-right: 2rem;
   cursor: pointer;
