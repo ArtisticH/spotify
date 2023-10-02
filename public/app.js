@@ -2,17 +2,14 @@
 // 공통 
 
 const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents');
-
+// rewind 안 끝난 상태에서 mouseenter했을때 효과 깨지는 거 고쳐야 함!
 [...$rightArrowContents].forEach(rightArrowContent => {
   let $firstUnderline;
   let $backgroundBlack;
   let $invert;
   let $secondUnderline;
-  let rightArrowCount = 0;
 
   rightArrowContent.addEventListener('mouseenter', () => {
-    // 짝수면 통과, 홀수면 통과 안됌
-    if(rightArrowCount % 2) return;
 
     $firstUnderline = rightArrowContent.querySelector('.js-right-arrow__contents__title-box__title');
     $backgroundBlack = rightArrowContent.querySelector('.js-right-arrow__contents__arrow-circle');
@@ -24,7 +21,6 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
     $invert.classList.add('--invert');
     $secondUnderline.classList.add('hover');
 
-    rightArrowCount++;
   });
 
   rightArrowContent.addEventListener('mouseleave', async () => {
@@ -40,8 +36,6 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
     });
 
     $secondUnderline.classList.remove('rewind');
-    // 여기까지 다 거쳐야 짝수가 됌.
-    rightArrowCount++;
   });
 });
 

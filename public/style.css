@@ -759,7 +759,7 @@ main {
 
   .right-arrow {
     position: absolute;
-    top: 2.1rem;
+    top: 2.7rem;
     right: 0;
   }
 
@@ -783,7 +783,7 @@ main {
   }
 
   .right-arrow {
-    top: 2.3rem;
+    top: 3rem;
   }
 
   .release--grid {
@@ -805,23 +805,18 @@ main {
 /* --------------------------------------------------------------------------------- */
 /* SECTION SPOTLIGHT */
 
-#spotlight {
-  background-color: #fff;
+.heading-box {
+  padding: 3rem 0 1rem 0;
 }
 
-.heading_container {
-  padding: 2rem 0;
-}
-
-.up_heading {
-  font-family: 'Circular-medium';
+.heading-box--bold {
+  font-family: var(--main-font-family-medium);
   font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: -1px;
-  margin: 0;
 }
 
-.under_heading {
+.heading-box--normal {
   margin-top: 0.3rem;
   font-size: 1.5rem;
   letter-spacing: -1px;
@@ -1021,12 +1016,12 @@ main {
 }
 
 @media all and (min-width: 600px) {
-  .up_heading {
+  .heading-box--bold {
     font-size: 1.7rem;
     letter-spacing: -1.4px;
   }
 
-  .under_heading {
+  .heading-box--normal {
     font-size: 1.7rem;
     letter-spacing: -1.4px;
   }
@@ -1068,12 +1063,12 @@ main {
 }
 
 @media all and (min-width: 1024px) {
-  .up_heading {
+  .heading-box--bold {
     font-size: 2rem;
     letter-spacing: -1.7px;
   }
 
-  .under_heading {
+  .heading-box--normal {
     font-size: 2rem;
     letter-spacing: -1.7px;
   }
@@ -1489,6 +1484,12 @@ main {
 #tools {
   background-color: #fff;
 }
+
+.js-tools__img-box {
+  cursor: pointer;
+  margin-bottom: 2.5rem;
+}
+
 
 @media all and (min-width: 600px) {
   .forgrid_tools {
