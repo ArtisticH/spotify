@@ -71,6 +71,44 @@ const $releaseImgBoxes = document.querySelectorAll('.js-release__img-box');
 // ----------------------------------------------------------------------------------
 // SPOTLIGHT
 
+/*
+        <div class="spotlight__scroll-box">
+          <div class="spotFlex">
+            <div id="spotCursor">
+              <div id="spotCursor_circle">
+                <svg id="spotCursor_circle_left" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24" class=""><path fill="currentColor" d="M20 11.6L6 20V4z"></path></svg>
+                <svg id="spotCursor_circle_right" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24" class=""><path fill="currentColor" d="M20 11.6L6 20V4z"></path></svg>
+              </div>
+            </div>
+            <div class="spotBox wf">
+              <div class="spotImg_container">
+                <img class="spotImg" src="/public/img/spot1.jpeg" alt="spot1">
+                <div class="spotImgRead" id="spot1">"If you’d asked the kid version of me what I wanted to be when I grew up, I would’ve definitely told you “teddy bear surgeon”. If you’d asked me to be serious, I’d tell you “someone who designs things”.Looking back, I guess I wasn’t far off."<div class="spotReadMore">READ MORE</div></div>
+                <img class="spotSvg1" src="/public/svg/spot1.svg" alt="spot1.svg">
+              </div>
+              <div class="spot_up_heading">Tobi Oyadiran</div>
+              <div class="spot_under_heading">Product Designer II</div>    
+              <div class="spot_side">
+                <div class="spot_side_circle"></div>
+                <div class="spot_side_location">STOCKHOLM</div>
+              </div>
+            </div>
+            <div class="spotBox ws">
+              <div class="spotImg_container">
+                <img class="spotImg" src="/public/img/spot2.jpeg" alt="spot2">
+                <div class="spotImgRead" id="spot2">"The art of gathering people and insights are two areas I’d like to master throughout my life and career in service design."<div class="spotReadMore">READ MORE</div></div>
+                <img class="spotSvg2" src="/public/svg/spot2.svg" alt="spot2.svg">
+              </div>
+              <div class="spot_up_heading">Grace Kwon</div>
+              <div class="spot_under_heading">Senior Service Designer</div>    
+              <div class="spot_side">
+                <div class="spot_side_circle"></div>
+                <div class="spot_side_location">NEW YORK</div>
+              </div>
+            </div>
+
+*/
+
 const $spotImg = document.querySelectorAll('.spotImg');
 const $spotImgRead = document.querySelectorAll('.spotImgRead');
 const $spotFlex = document.querySelector('.spotFlex');

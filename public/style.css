@@ -823,76 +823,22 @@ main {
   font-family: var(--main-small-font);
 }
 
-.spot_scroll_container {
-  /* border: 2px solid greenyellow; */
-  /* display: flex;
-  align-items: center; */
-  /* white-space: nowrap; */
-  /* overflow-x: scroll;
-  overflow-y: hidden; */
-  /* padding: 2rem 0; */
-  width: 110%;
-  overflow: visible;
-  z-index: 1;
-
+.spotlight__scroll {
+  border: 2px solid green;
+  padding: 1rem 0 2rem 0;
+  width: 110vw;
+  /* overflow: visible; */
 }
 
-.spot_scroll_container::-webkit-scrollbar {
+.spotlight__scroll::-webkit-scrollbar {
   display: none;
 }
 
-/* ::-webkit-scrollbar {
-  display: none;
-} */
-
-.spotFlex {
-  padding: 1rem 0;
-  margin-bottom: 1rem;
-  width: fit-content;
-  width: 9999px;
-  /* border: 2px solid red; */
-  /* overflow-x: scroll;
-  overflow-y: hidden; */
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: grab;
-  position: relative;
-  overflow: visible;
-  z-index: 1;
-  transition: margin-left 0.2s ease-in;
-  /* margin-left: -304px; */
-}
-
-.spotImg_container {
-  position: relative;
-}
-
-.spotSvg1, .spotSvg2 {
-  /* border: 2px solid hotpink; */
-  position: absolute;
-  transform: translate(-50%, -50%);
-  width: 0%;
-  top: 50%;
-  left: 50%;
-  z-index: -1;
-  transition: width 0.8s cubic-bezier(0.0, 0.5, 0.5 ,1.0);
-}
-
-.spotSvg1.hover {
-  width: 620px;
-}
-
-.spotSvg2.hover {
-  width: 620px;
-}
-
-#spotCursor {
+/* #spotCursor {
   position: absolute;
   visibility: hidden;
   display: none;
   opacity: 0;
-  /* z-index: 2; */
 }
 
 #spotCursor.active {
@@ -935,56 +881,90 @@ main {
 
 #spotCursor_circle_left, #spotCursor_circle_right {
   background: transparent;
+} */
+
+.spotlight__scroll__inner {
+  border: 2px solid red;
+  width: fit-content;
+  width: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: grab;
+  /* margin-left 때문에? */
+  position: relative;
+  /* overflow: visible; */
+  transition: margin-left 0.2s ease-out;
+  /* margin-left: -304px; */
 }
 
-.spotBox {
-  /* border: 2px solid purple; */
+.spotlight__scroll__item {
+  /* 이거는 오른쪽 도시 이름 때문에 */
   position: relative;
-  /* z-index */
-  /* z-index: 0; */
-  /* border: 3px solid hotpink; */
   display: inline-block;
   margin-right: 3rem;
-  z-index: 1;
 }
 
-.spotBox.wf {
+.spotlight__scroll__item--width-first {
   width: 256px;
 }
 
-.spotBox.ws {
+.spotlight__scroll__item--width-second {
   width: 185px;
 }
 
-.spotBox.wt {
+.spotlight__scroll__item--width-third {
   width: 240px;
 }
 
-.spotImg_container {
-  /* border: 2px solid orange; */
+.spotlight__scroll__item__img-box {
+  /* 이거는 svg랑 read때문에 */
+  position: relative;
 }
 
-.spotImg {
+.spotlight__scroll__item__img-box__img {
+  display: block;
   width: 100%;
-  /* position: relative; */
-  /* z-index */
 }
 
-.spot_up_heading {
-  font-family: 'Circular-medium';
+.spotlight__scroll__item__img-box__read {
+  display: none;
+}
+
+.spotlight__scroll__item__img-box__svg1, .spotlight__scroll__item__img-box__svg2 {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 0%;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  transition: width 0.8s cubic-bezier(0.0, 0.5, 0.5 ,1.0);
+}
+
+.spotlight__scroll__item__img-box__svg1.hover {
+  width: 620px;
+}
+
+.spotlight__scroll__item__img-box__svg2.hover {
+  width: 620px;
+}
+
+.spotlight__scroll__item__heading--bold {
+  font-family: var(--main-font-family-medium);
   font-size: 1.1rem;
   font-weight: 500;
   letter-spacing: -0.8px;
   margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
 
-.spot_under_heading {
+.spotlight__scroll__item__heading--normal {
   font-size: 1.1rem;
   letter-spacing: -0.8px;
   font-family: var(--main-small-font);
 }
 
-.spot_side {
+.spotlight__scroll__item__side-box {
   position: absolute;
   top: 0;
   right: 0;
@@ -996,7 +976,7 @@ main {
   align-items: center;
 }
 
-.spot_side_circle {
+.spotlight__scroll__item__side-box__circle {
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -1004,15 +984,11 @@ main {
   margin-bottom: 0.3rem;
 }
 
-.spot_side_location {
-  font-family: 'Circular-medium';
+.spotlight__scroll__item__side-box__city {
+  font-family: var(--main-font-family-medium);
   font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: -0.7px;
-}
-
-.spotImgRead {
-  display: none;
 }
 
 @media all and (min-width: 600px) {
@@ -1026,40 +1002,39 @@ main {
     letter-spacing: -1.4px;
   }
 
-  .spot_up_heading {
+  .spotlight__scroll__item__heading--bold {
     font-size: 1.3rem;
     letter-spacing: -1px;
   }
   
-  .spot_under_heading {
+  .spotlight__scroll__item__heading--normal {
     font-size: 1.3rem;
     letter-spacing: -1px;
   }  
 
-  .spotBox {
+  .spotlight__scroll__item {
     margin-right: 4.5rem;
   }  
 
-  .spotBox.wf {
+  .spotlight__scroll__item--width-first {
     width: 352px;
   }
   
-  .spotBox.ws {
+  .spotlight__scroll__item--width-second {
     width: 256px;
   }
   
-  .spotBox.wt {
+  .spotlight__scroll__item--width-third {
     width: 292px;
   }
 
-  .spotSvg1.hover {
+  .spotlight__scroll__item__img-box__svg1.hover {
     width: 800px;
   }
   
-  .spotSvg2.hover {
+  .spotlight__scroll__item__img-box__svg2.hover {
     width: 830px;
   }
-  
 }
 
 @media all and (min-width: 1024px) {
@@ -1073,40 +1048,33 @@ main {
     letter-spacing: -1.7px;
   }
 
-  .spotBox {
+  .spotlight__scroll__item {
     margin-right: 10rem;
   }  
 
-  .spotBox.wf {
+  .spotlight__scroll__item--width-first {
     width: 536px;
   }
   
-  .spotBox.ws {
+  .spotlight__scroll__item--width-second {
     width: 312px;
   }
   
-  .spotBox.wt {
+  .spotlight__scroll__item--width-third {
     width: 424px;
   }
 
-  .spot_up_heading {
+  .spotlight__scroll__item__heading--bold {
     font-size: 1.5rem;
     letter-spacing: -1px;
   }
   
-  .spot_under_heading {
+  .spotlight__scroll__item__heading--normal {
     font-size: 1.5rem;
     letter-spacing: -1px;
   }  
 
-  .spotImg_container {
-    /* border: 3px solid red; */
-    position: relative;
-  }
-
-  .spotImgRead {
-    /* z-index */
-    /* z-index: 1; */
+  .spotlight__scroll__item__img-box__read {
     color: #fff;
     background-color: #000;
     display: block;
@@ -1124,12 +1092,12 @@ main {
     justify-content: space-between;
   }
 
-  .spotImgRead.hover {
+  .spotlight__scroll__item__img-box__read.hover {
     opacity: 1;
     visibility: visible;
   }
 
-  .spotReadMore {
+  .spotlight__scroll__item__img-box__read__more {
     text-decoration: underline;
     font-size: 0.9rem;
     font-family: 'Circular-medium'; 
@@ -1652,13 +1620,13 @@ main {
 
 #lower {
   position: relative;
+  background-color: #ffd0d5;
 }
 
 #footerFlowerSvg {
   position: absolute;
   right: 0;
   bottom: 0;
-  z-index: -1;
 }
 
 #time {
