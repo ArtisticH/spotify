@@ -1,62 +1,75 @@
+// ----------------------------------------------------------------------------------
+// 공통 
+
+const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents');
+
+[...$rightArrowContents].forEach(rightArrowContent => {
+  let $firstUnderline;
+  let $backgroundBlack;
+  let $invert;
+  let $secondUnderline;
+  let rightArrowCount = 0;
+
+  rightArrowContent.addEventListener('mouseenter', () => {
+    // 짝수면 통과, 홀수면 통과 안됌
+    if(rightArrowCount % 2) return;
+
+    $firstUnderline = rightArrowContent.querySelector('.js-right-arrow__contents__title-box__title');
+    $backgroundBlack = rightArrowContent.querySelector('.js-right-arrow__contents__arrow-circle');
+    $invert = rightArrowContent.querySelector('.js-right-arrow__contents__arrow-circle__arrow-img');
+    $secondUnderline = rightArrowContent.querySelector('.js-right-arrow__contents__title-box__second-line');
+
+    $firstUnderline.classList.add('--underline');
+    $backgroundBlack.classList.add('--background-color');
+    $invert.classList.add('--invert');
+    $secondUnderline.classList.add('hover');
+
+    rightArrowCount++;
+  });
+
+  rightArrowContent.addEventListener('mouseleave', async () => {
+    $firstUnderline.classList.remove('--underline');
+    $backgroundBlack.classList.remove('--background-color');
+    $invert.classList.remove('--invert');
+    $secondUnderline.classList.replace('hover', 'rewind');
+
+    await new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 300);
+    });
+
+    $secondUnderline.classList.remove('rewind');
+    // 여기까지 다 거쳐야 짝수가 됌.
+    rightArrowCount++;
+  });
+});
 
 // ----------------------------------------------------------------------------------
 // RELEASE
 
-const $imgBox = document.querySelectorAll('.imgBox');
+const $releaseImgBoxes = document.querySelectorAll('.js-release__img-box');
 
-[...$imgBox].forEach(item => {
-  item.addEventListener('mouseenter', () => {
-    const $topic = item.querySelector('.img_topic');
-    $topic.classList.add('hover');
+[...$releaseImgBoxes].forEach(imgBox => {
+  let $title;
+  let $playButton;
 
-    if(item.firstElementChild.id === 'forPlaySvg') {
-      const $play = item.querySelector('#playLoc');
-      $play.classList.add('hover');
+  imgBox.addEventListener('mouseenter', () => {
+    $title = imgBox.querySelector('.js-img-box__title');
+    $title.classList.add('--underline');
+
+    if(imgBox.firstElementChild.classList.contains('js-release__img-box__play-box')) {
+      $playButton = imgBox.querySelector('.js-release__img-box__play-box__play-button');
+      $playButton.classList.add('--background');
     }
   });
 
-  item.addEventListener('mouseleave', () => {
-    const $topic = item.querySelector('.img_topic');
-    $topic.classList.remove('hover');
+  imgBox.addEventListener('mouseleave', () => {
+    $title.classList.remove('--underline');
 
-    if(item.firstElementChild.id === 'forPlaySvg') {
-      const $play = item.querySelector('#playLoc');
-      $play.classList.remove('hover');
+    if(imgBox.firstElementChild.classList.contains('js-release__img-box__play-box')) {
+      $playButton.classList.remove('--background');
     }
-  });
-});
-
-
-const $hoverArea = document.querySelectorAll('.rightArrow_loc');
-
-[...$hoverArea].forEach(item => {
-  item.addEventListener('mouseenter', () => {
-    const $firstLine = item.querySelector('.rightArrow_loc_title');
-    const $backBlack = item.querySelector('.rightArrow_loc_circle');
-    const $invert = item.querySelector('.rightArrow_loc_arrow');
-    const $secondLine = item.querySelector('.rightArrow_loc_line');
-
-    $firstLine.classList.add('hover');
-    $backBlack.classList.add('hover');
-    $invert.classList.add('hover');
-    $secondLine.classList.add('hover');
-  });
-
-  item.addEventListener('mouseleave', () => {
-    const $firstLine = item.querySelector('.rightArrow_loc_title');
-    const $backBlack = item.querySelector('.rightArrow_loc_circle');
-    const $invert = item.querySelector('.rightArrow_loc_arrow');
-    const $secondLine = item.querySelector('.rightArrow_loc_line');
-
-    $firstLine.classList.remove('hover');
-    $backBlack.classList.remove('hover');
-    $invert.classList.remove('hover');
-    $secondLine.classList.replace('hover', 'rewind');
-
-
-    setTimeout(() => {
-      $secondLine.classList.remove('rewind');
-    }, 300);
   });
 });
 
