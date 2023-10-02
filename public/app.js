@@ -2,7 +2,7 @@
 // 공통 
 
 const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents');
-// rewind 안 끝난 상태에서 mouseenter했을때 효과 깨지는 거 고쳐야 함!
+// rewind 안 끝난 상태에서 mouseenter 했을때 효과 깨지는 거 고쳐야 함!
 [...$rightArrowContents].forEach(rightArrowContent => {
   let $firstUnderline;
   let $backgroundBlack;
@@ -71,202 +71,62 @@ const $releaseImgBoxes = document.querySelectorAll('.js-release__img-box');
 // ----------------------------------------------------------------------------------
 // SPOTLIGHT
 
-/*
-        <div class="spotlight__scroll-box">
-          <div class="spotFlex">
-            <div id="spotCursor">
-              <div id="spotCursor_circle">
-                <svg id="spotCursor_circle_left" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24" class=""><path fill="currentColor" d="M20 11.6L6 20V4z"></path></svg>
-                <svg id="spotCursor_circle_right" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24" class=""><path fill="currentColor" d="M20 11.6L6 20V4z"></path></svg>
-              </div>
-            </div>
-            <div class="spotBox wf">
-              <div class="spotImg_container">
-                <img class="spotImg" src="/public/img/spot1.jpeg" alt="spot1">
-                <div class="spotImgRead" id="spot1">"If you’d asked the kid version of me what I wanted to be when I grew up, I would’ve definitely told you “teddy bear surgeon”. If you’d asked me to be serious, I’d tell you “someone who designs things”.Looking back, I guess I wasn’t far off."<div class="spotReadMore">READ MORE</div></div>
-                <img class="spotSvg1" src="/public/svg/spot1.svg" alt="spot1.svg">
-              </div>
-              <div class="spot_up_heading">Tobi Oyadiran</div>
-              <div class="spot_under_heading">Product Designer II</div>    
-              <div class="spot_side">
-                <div class="spot_side_circle"></div>
-                <div class="spot_side_location">STOCKHOLM</div>
-              </div>
-            </div>
-            <div class="spotBox ws">
-              <div class="spotImg_container">
-                <img class="spotImg" src="/public/img/spot2.jpeg" alt="spot2">
-                <div class="spotImgRead" id="spot2">"The art of gathering people and insights are two areas I’d like to master throughout my life and career in service design."<div class="spotReadMore">READ MORE</div></div>
-                <img class="spotSvg2" src="/public/svg/spot2.svg" alt="spot2.svg">
-              </div>
-              <div class="spot_up_heading">Grace Kwon</div>
-              <div class="spot_under_heading">Senior Service Designer</div>    
-              <div class="spot_side">
-                <div class="spot_side_circle"></div>
-                <div class="spot_side_location">NEW YORK</div>
-              </div>
-            </div>
+const $spotlightScrollItem = document.querySelectorAll('.spotlight__scroll__item');
+const $spotlightScrollInner = document.querySelector('.spotlight__scroll__inner');
+const $spotlightImg = document.querySelectorAll('.spotlight__scroll__item__img-box__img');
+const $spotlightRead = document.querySelectorAll('.spotlight__scroll__item__img-box__read');
 
-*/
+document.ondragstart = () => {
+  return false;
+}
 
-const $spotImg = document.querySelectorAll('.spotImg');
-const $spotImgRead = document.querySelectorAll('.spotImgRead');
-const $spotFlex = document.querySelector('.spotFlex');
-const $spotCursor = document.getElementById('spotCursor');
-const $spotCursorCircle = document.getElementById('spotCursor_circle');
-const $spotCursorCircleLeft = document.getElementById('spotCursor_circle_left');
-const $spotCursorCircleRight = document.getElementById('spotCursor_circle_right');
+let spotlightCount = 0;
 
-$spotImg.forEach(img => {
-  img.ondragstart = () => {
-    return false;
-  }
-})
-
-$spotFlex.addEventListener('mouseover', (e) => {
-
-  $spotCursor.classList.add('active');
-
-  let imgElem = e.target.closest('.spotImg');
-  if(!imgElem) return;
-  if(e.relatedTarget.classList.contains('spotImgRead')) return;
-
-  imgElem.style.cursor = 'pointer';
-  let svgElem = imgElem.closest('.spotImg_container').lastElementChild;
-  let imgReadElem = imgElem.nextElementSibling;
-  imgReadElem.classList.add('hover');
-  svgElem.classList.add('hover');
-
-  imgElem.addEventListener('mouseout', (event) => {
-    if(event.relatedTarget.classList.contains('spotImgRead')) return;
-    imgElem.style.cursor = '';
-    imgReadElem.classList.remove('hover');
-    svgElem.classList.remove('hover');  
-  });
-  }
-);
-
-$spotFlex.addEventListener('mousemove', (event) => {
-  let width = $spotCursor.offsetWidth;
-  let height = $spotCursor.offsetHeight;
-  $spotCursor.style.top = event.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
-  $spotCursor.style.left = event.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';
-});
-
-
-
-
-
-
-
-// $spotFlex.addEventListener('mouseenter', (e) => {
-//   $spotCursor.classList.add('active');
-
-//   animate({
-//     duration: 400,
-//     timing: function quad(timeFraction) {
-//       return Math.pow(timeFraction, 2)
-//     },
-//     draw: function(progress) {
-//       $spotCursor.style.opacity = progress + '';
-//     }
-//   });
-
-//   $spotFlex.addEventListener('mousemove', (event) => {
-//     event.stopPropagation();
-//     let width = $spotCursor.offsetWidth;
-//     let height = $spotCursor.offsetHeight;
-//     $spotCursor.style.top = event.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
-//     $spotCursor.style.left = event.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';  
-//   });
-// });
-
-
-let count = 0;
-let position = 0;
-// $spotFlex일때만 활성화되게끔
 document.addEventListener('keydown', (e) => {
   if(e.key == 'ArrowRight') {
-    if(count >= 10) {
-      $spotFlex.style.marginLeft = -position + 'px';  
-    } else {
-      count++;
-      let afterLeft = $spotImg[count].getBoundingClientRect().left;
-      let beforeLeft = $spotImg[count - 1].getBoundingClientRect().left;
-      let movedMarginLeft = afterLeft - beforeLeft;
-      position += movedMarginLeft;
-      $spotFlex.style.marginLeft = -position + 'px';  
-    }
-  }
-})
+    if(spotlightCount >= 10) return;
 
-document.addEventListener('keydown', (e) => {
+    const leftOfNextSpotlightScrollItem = $spotlightScrollItem[spotlightCount + 1].offsetLeft;
+    $spotlightScrollInner.style.marginLeft = -leftOfNextSpotlightScrollItem + 'px';
+    spotlightCount++;
+  }
+
   if(e.key == 'ArrowLeft') {
-    let afterLeft = $spotImg[count].getBoundingClientRect().left;
-    let beforeLeft = $spotImg[count - 1].getBoundingClientRect().left;
-    let movedMarginLeft = afterLeft - beforeLeft;
-    position -= movedMarginLeft;
-    $spotFlex.style.marginLeft = -position + 'px';
-    count--;
-    console.log(count, afterLeft, beforeLeft, movedMarginLeft, position);
+    if(spotlightCount <= 0) return;
+
+    const leftOfBeforeSpotlightScrollItem = $spotlightScrollItem[spotlightCount - 1].offsetLeft;
+    $spotlightScrollInner.style.marginLeft = -leftOfBeforeSpotlightScrollItem + 'px';
+    spotlightCount--;
   }
 })
 
+window.addEventListener('resize', () => {
+  $spotlightScrollInner.style.marginLeft = -$spotlightScrollItem[spotlightCount].offsetLeft + 'px';
+})
 
-// let observer = new IntersectionObserver((e) => {
-//   e.addEventListener('keydown', (event) => {
-//     console.log(event.key);
-//   })
-// });
-// observer.observe($spotFlex);
+Array.from($spotlightImg).forEach(item => {
+  item.addEventListener('mouseenter', (e) => {
+    const svgElem = item.parentNode.lastElementChild;
+    const readElem = item.parentNode.querySelector('.spotlight__scroll__item__img-box__read');
+    const readElemText = readElem.firstElementChild;
 
-// });
+    svgElem.classList.add('bloom');
+    readElem.classList.add('show');
+    readElemText.classList.add('show');
 
-// $spotFlex.addEventListener('mouseover', (event) => {
-//   if(event.target.closest('.spotFlex')) {
-//     $spotCursor.classList.add('active');
+    item.addEventListener('mouseleave', async () => {
+      svgElem.classList.replace('bloom', 'shrink');
 
-//     animate({
-//       duration: 400,
-//       timing: function quad(timeFraction) {
-//         return Math.pow(timeFraction, 2)
-//       },
-//       draw: function(progress) {
-//         $spotCursor.style.opacity = progress + '';
-//       }
-//     });
-//   }
+      await new Promise(resolve => {
+        setTimeout(() => {
+          svgElem.classList.remove('shrink');
+          resolve();
+        }, 1000);
+      });
 
-//   $spotFlex.addEventListener('mousemove', (e) => {
-
-//     let width = $spotCursor.offsetWidth;
-//     let height = $spotCursor.offsetHeight;
-//     $spotCursor.style.top = e.clientY - $spotFlex.getBoundingClientRect().top - height / 2 + 'px';
-//     $spotCursor.style.left = e.clientX - $spotFlex.getBoundingClientRect().left - width / 2 + 'px';
-        
-//   });
-
-//   if(event.target.closest('.spotImg')) {
-//     console.log(9)
-    // $spotCursorCircle.style.width = '30px';
-    // $spotCursorCircle.style.height = '30px';
-    // $spotCursorCircleLeft.style.transform = 'rotate(180deg) scale(0)';
-    // $spotCursorCircleRight.style.transform = 'rotate(180deg) scale(0)';
-//     $spotFlex.style.cursor = 'pointer';    
-//   }
-  
-//   $spotFlex.addEventListener('mouseout', () => {
-
-//     if(event.target.closest('.spotImg')) {
-      // $spotCursorCircle.style.width = '';
-      // $spotCursorCircle.style.height = '';
-      // $spotCursorCircleLeft.style.transform = '';
-      // $spotCursorCircleRight.style.transform = '';
-      // $spotFlex.style.cursor = '';    
-//     }
-//      $spotCursor.classList.remove('active');
-//   });
-// });
+    });
+  })
+})
 
 // ----------------------------------------------------------------------------------
 // INBOX
