@@ -21,6 +21,7 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
     $invert.classList.add('--invert');
     $secondUnderline.classList.add('hover');
 
+
   });
 
   rightArrowContent.addEventListener('mouseleave', async () => {
@@ -147,9 +148,40 @@ Array.from($spotlightImg).forEach(item => {
   });
 });
 
+const $spotlightCursor = document.querySelector('.spotlight-cursor');
+const $spotlightCursorCircle = document.querySelector('.spotlight-cursor__circle');
+
 $spotlightScrollInner.addEventListener('mouseover', (e) => {
-  console.log('target', e.target);
+  $spotlightScrollInner.appendChild($spotlightCursor);
+  $spotlightCursor.className = 'spotlight-cursor show';
+
+  const imgClassList = e.target.className;
+
+  if(imgClassList === 'spotlight__scroll__item__img-box__img') {
+    $spotlightCursor.className = 'spotlight-cursor scale';
+    $spotlightCursorCircle.classList.add('scale');
+  }
+
+  $spotlightScrollInner.addEventListener('mousemove', (e) => {
+    const topOfCursor = e.clientY - $spotlightScrollInner.getBoundingClientRect().top - ($spotlightCursor.offsetHeight / 2);
+    const leftOfCursor = e.clientX - $spotlightScrollInner.getBoundingClientRect().left - ($spotlightCursor.offsetWidth / 2);
+
+    $spotlightCursor.style.top = topOfCursor + 'px';
+    $spotlightCursor.style.left = leftOfCursor + 'px'; 
+  });
+
+
+
+  $spotlightScrollInner.addEventListener('mouseout', (e) => {
+    $spotlightCursor.className = 'spotlight-cursor';
+
+    if(imgClassList === 'spotlight__scroll__item__img-box__img') {
+      $spotlightCursor.className = 'spotlight-cursor show';
+      $spotlightCursorCircle.classList.remove('scale');
+    }  
+  })
 });
+
 
 // ----------------------------------------------------------------------------------
 // INBOX
