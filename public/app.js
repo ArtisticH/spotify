@@ -105,8 +105,7 @@ window.addEventListener('resize', () => {
 
 Array.from($spotlightImg).forEach(item => {
   item.addEventListener('mouseenter', async (e) => {
-    console.log(e.target, e.currentTarget);
-    
+
     const svgElem = item.parentNode.lastElementChild;
     const readElem = item.parentNode.querySelector('.spotlight__scroll__item__img-box__read');
     const readElemText = readElem.querySelector('.spotlight__scroll__item__img-box__read__text');
@@ -145,8 +144,12 @@ Array.from($spotlightImg).forEach(item => {
       });
 
     });
-  })
-})
+  });
+});
+
+$spotlightScrollInner.addEventListener('mouseover', (e) => {
+  console.log('target', e.target);
+});
 
 // ----------------------------------------------------------------------------------
 // INBOX
