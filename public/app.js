@@ -9,7 +9,7 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
   let $invert;
   let $secondUnderline;
 
-  rightArrowContent.addEventListener('mouseenter', () => {
+  rightArrowContent.addEventListener('pointerenter', () => {
 
     $firstUnderline = rightArrowContent.querySelector('.js-right-arrow__contents__title-box__title');
     $backgroundBlack = rightArrowContent.querySelector('.js-right-arrow__contents__arrow-circle');
@@ -24,7 +24,7 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
 
   });
 
-  rightArrowContent.addEventListener('mouseleave', async () => {
+  rightArrowContent.addEventListener('pointerleave', async () => {
     $firstUnderline.classList.remove('--underline');
     $backgroundBlack.classList.remove('--background-color');
     $invert.classList.remove('--invert');
@@ -49,7 +49,7 @@ const $releaseImgBoxes = document.querySelectorAll('.js-release__img-box');
   let $title;
   let $playButton;
 
-  imgBox.addEventListener('mouseenter', () => {
+  imgBox.addEventListener('pointerenter', () => {
     $title = imgBox.querySelector('.js-img-box__title');
     $title.classList.add('--underline');
 
@@ -59,7 +59,7 @@ const $releaseImgBoxes = document.querySelectorAll('.js-release__img-box');
     }
   });
 
-  imgBox.addEventListener('mouseleave', () => {
+  imgBox.addEventListener('pointerleave', () => {
     $title.classList.remove('--underline');
 
     if(imgBox.firstElementChild.classList.contains('js-release__img-box__play-box')) {
@@ -105,7 +105,7 @@ window.addEventListener('resize', () => {
 })
 
 Array.from($spotlightImg).forEach(item => {
-  item.addEventListener('mouseenter', async (e) => {
+  item.addEventListener('pointerenter', async (e) => {
 
     const svgElem = item.parentNode.lastElementChild;
     const readElem = item.parentNode.querySelector('.spotlight__scroll__item__img-box__read');
@@ -131,7 +131,7 @@ Array.from($spotlightImg).forEach(item => {
 
     readElemMore.classList.add('show');
 
-    item.addEventListener('mouseleave', async () => {
+    item.addEventListener('pointerleave', async () => {
       svgElem.classList.replace('bloom', 'shrink');
       readElem.classList.remove('show');
       readElemText.classList.remove('show');
@@ -150,19 +150,20 @@ Array.from($spotlightImg).forEach(item => {
 
 const $spotlightCursor = document.querySelector('.spotlight-cursor');
 const $spotlightCursorCircle = document.querySelector('.spotlight-cursor__circle');
+let firstPointerDown;
 
-$spotlightScrollInner.addEventListener('mouseover', (e) => {
+$spotlightScrollInner.addEventListener('pointerover', (e) => {
   $spotlightScrollInner.appendChild($spotlightCursor);
   $spotlightCursor.className = 'spotlight-cursor show';
 
   const imgClassList = e.target.className;
 
   if(imgClassList === 'spotlight__scroll__item__img-box__img') {
-    $spotlightCursor.className = 'spotlight-cursor scale';
-    $spotlightCursorCircle.classList.add('scale');
+    $spotlightCursor.className = 'spotlight-cursor show scale';
+    $spotlightCursorCircle.className = 'spotlight-cursor__circle scale';
   }
 
-  $spotlightScrollInner.addEventListener('mousemove', (e) => {
+  $spotlightScrollInner.addEventListener('pointermove', (e) => {
     const topOfCursor = e.clientY - $spotlightScrollInner.getBoundingClientRect().top - ($spotlightCursor.offsetHeight / 2);
     const leftOfCursor = e.clientX - $spotlightScrollInner.getBoundingClientRect().left - ($spotlightCursor.offsetWidth / 2);
 
@@ -170,18 +171,46 @@ $spotlightScrollInner.addEventListener('mouseover', (e) => {
     $spotlightCursor.style.left = leftOfCursor + 'px'; 
   });
 
+  $spotlightScrollInner.addEventListener('pointerdown', (e) => {
+
+    $spotlightCursor.classList.add('pointerdown');
+    $spotlightCursorCircle.className = 'spotlight-cursor__circle scale';
+
+    firstPointerDown = e.clientX;
+
+    $spotlightScrollInner.addEventListener('pointermove', dragEvent);
+
+    $spotlightScrollInner.addEventListener('pointerup', () => {
+
+      $spotlightCursor.classList.remove('pointerdown');
+      $spotlightCursorCircle.className = 'spotlight-cursor__circle';
+      
+      $spotlightScrollInner.removeEventListener('pointermove', dragEvent);
+    })
+  })
 
 
-  $spotlightScrollInner.addEventListener('mouseout', (e) => {
+
+  $spotlightScrollInner.addEventListener('pointerout', (e) => {
     $spotlightCursor.className = 'spotlight-cursor';
 
     if(imgClassList === 'spotlight__scroll__item__img-box__img') {
       $spotlightCursor.className = 'spotlight-cursor show';
-      $spotlightCursorCircle.classList.remove('scale');
+      $spotlightCursorCircle.className = 'spotlight-cursor__circle';
     }  
   })
 });
 
+function dragEvent(e) {
+  const xValue = e.clientX - firstPointerDown;
+  console.log('거리', xValue);
+  // console.log(document.elementFromPoint(e.clientX, e.clientY))
+  // console.log($spotlightImg[0].getBoundingClientRect().left);
+
+  // translate3d는 0, 0부터 다시 시작하니까 deep dive 보고 조치, 
+  $spotlightScrollInner.style.transform = `translate3d(${xValue}px, 0px, 0px)`;
+
+}
 
 // ----------------------------------------------------------------------------------
 // INBOX
