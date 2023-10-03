@@ -74,7 +74,6 @@ const $releaseImgBoxes = document.querySelectorAll('.js-release__img-box');
 const $spotlightScrollItem = document.querySelectorAll('.spotlight__scroll__item');
 const $spotlightScrollInner = document.querySelector('.spotlight__scroll__inner');
 const $spotlightImg = document.querySelectorAll('.spotlight__scroll__item__img-box__img');
-const $spotlightRead = document.querySelectorAll('.spotlight__scroll__item__img-box__read');
 
 document.ondragstart = () => {
   return false;
@@ -105,17 +104,38 @@ window.addEventListener('resize', () => {
 })
 
 Array.from($spotlightImg).forEach(item => {
-  item.addEventListener('mouseenter', (e) => {
+  item.addEventListener('mouseenter', async (e) => {
+    console.log(e.target, e.currentTarget);
+    
     const svgElem = item.parentNode.lastElementChild;
     const readElem = item.parentNode.querySelector('.spotlight__scroll__item__img-box__read');
-    const readElemText = readElem.firstElementChild;
+    const readElemText = readElem.querySelector('.spotlight__scroll__item__img-box__read__text');
+    const readElemMore = readElem.querySelector('.spotlight__scroll__item__img-box__read__more');
 
     svgElem.classList.add('bloom');
     readElem.classList.add('show');
+
+    await new Promise(resolve => {
+      setTimeout(() => {
+        resolve()
+      }, 100)
+    })
+
     readElemText.classList.add('show');
+
+    await new Promise(resolve => {
+      setTimeout(() => {
+        resolve()
+      }, 100)
+    })
+
+    readElemMore.classList.add('show');
 
     item.addEventListener('mouseleave', async () => {
       svgElem.classList.replace('bloom', 'shrink');
+      readElem.classList.remove('show');
+      readElemText.classList.remove('show');
+      readElemMore.classList.remove('show');
 
       await new Promise(resolve => {
         setTimeout(() => {

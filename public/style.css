@@ -1087,24 +1087,6 @@ main {
     letter-spacing: -1px;
   }  
 
-  /* .spotlight__scroll__item__img-box__read {
-    color: #fff;
-    background-color: #000;
-    display: block;
-    position: absolute;
-    padding: 2rem;
-    font-size: 1.5rem;
-    white-space: normal;
-    font-family: var(--main-small-font);
-    letter-spacing: -1px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease-out;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  } */
-
   .spotlight__scroll__item__img-box__read {
     background-color: #000;
     display: block;
@@ -1112,13 +1094,19 @@ main {
     padding: 2rem;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.6s ease-out;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: all 0.3s ease-out;
+    pointer-events: none;
   }
 
-  .spotlight__scroll__item__img-box__read > div {
+  .spotlight__scroll__item__img-box__read.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .spotlight__scroll__item__img-box__read__text {
     color: #fff;
     font-size: 1.5rem;
     white-space: normal;
@@ -1126,19 +1114,16 @@ main {
     letter-spacing: -1px;
     opacity: 0;
     visibility: hidden;
+    position: relative;
+    top: 5%;
+    left: 0;
   }
 
-  .spotlight__scroll__item__img-box__read > div.show {
+  .spotlight__scroll__item__img-box__read__text.show {
     opacity: 1;
     visibility: visible;
-    transition: all 0.6s ease-out -0.4s;
-
-  }
-
-
-  .spotlight__scroll__item__img-box__read.show {
-    opacity: 1;
-    visibility: visible;
+    transition: all 0.1s ease-out;
+    top: 0;
   }
 
   .spotlight__scroll__item__img-box__read__more {
@@ -1146,6 +1131,15 @@ main {
     font-size: 0.9rem;
     font-family: var(--main-font-family-medium);
     letter-spacing: -0.5px;
+    color: #fff;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .spotlight__scroll__item__img-box__read__more.show {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.6s ease-out;
   }
 
   #spot1 {
