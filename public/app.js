@@ -81,32 +81,57 @@ document.ondragstart = () => {
 }
 
 let spotlightCount = 0;
+let rightCurrentOffsetLeft = 0;
 
 document.addEventListener('keydown', (e) => {
   if(e.key == 'ArrowRight') {
     if(spotlightCount >= 10) return;
 
-    const leftOfNextSpotlightScrollItem = $spotlightScrollItem[spotlightCount + 1].offsetLeft;
-    $spotlightScrollInner.style.marginLeft = -leftOfNextSpotlightScrollItem + 'px';
-    spotlightCount++;
-    console.log('키보드오른쪽', spotlightCount, leftOfNextSpotlightScrollItem, getComputedStyle($spotlightScrollInner).marginLeft)
+    const rightGoalOffsetLeft = $spotlightScrollItem[spotlightCount + 1].offsetLeft; // 양수
+    const neededValue = rightCurrentOffsetLeft - rightGoalOffsetLeft; // 음수
+    
+    animate({
+      duration: 300,
+      timing: function linear(timeFraction) {
+        return timeFraction;
+      },
+      draw: function(progress) {
+        $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft + neededValue * progress}px, 0px, 0px)`;
+        if(progress >= 1) {
+          spotlightCount++;
+          rightCurrentOffsetLeft = rightGoalOffsetLeft;
+        } 
+      }
+    });
   }
 
   if(e.key == 'ArrowLeft') {
     if(spotlightCount <= 0) return;
 
-    const leftOfBeforeSpotlightScrollItem = $spotlightScrollItem[spotlightCount - 1].offsetLeft;
-    $spotlightScrollInner.style.marginLeft = -leftOfBeforeSpotlightScrollItem + 'px';
-    spotlightCount--;
-    console.log('키보드왼쪽', spotlightCount, leftOfBeforeSpotlightScrollItem, getComputedStyle($spotlightScrollInner).marginLeft)
+    const leftGoalOffsetLeft = $spotlightScrollItem[spotlightCount - 1].offsetLeft; // 양수
+    const neededValue = leftGoalOffsetLeft - rightCurrentOffsetLeft; // 음수
 
+    animate({
+      duration: 300,
+      timing: function linear(timeFraction) {
+        return timeFraction;
+      },
+      draw: function(progress) {
+        $spotlightScrollInner.style.transform = `translate3d(${-leftGoalOffsetLeft + (neededValue * (1 - progress))}px, 0px, 0px)`;
+        if(progress >= 1) {
+          spotlightCount--;
+          rightCurrentOffsetLeft = leftGoalOffsetLeft;
+        } 
+      }
+    });
   }
-})
-
-window.addEventListener('resize', () => {
-  $spotlightScrollInner.style.marginLeft = -$spotlightScrollItem[spotlightCount].offsetLeft + 'px';
 });
 
+window.addEventListener('resize', () => {
+  $spotlightScrollInner.style.transform = `translate3d(${-$spotlightScrollItem[spotlightCount].offsetLeft}px, 0px, 0px)`;
+});
+
+// 여러개 선택되는 거 없애기
 Array.from($spotlightImg).forEach(item => {
   item.addEventListener('pointerenter', async (e) => {
 
@@ -207,7 +232,6 @@ $spotlightScrollInner.addEventListener('pointerup', () => {
 });
 
 
-
 function moveEvent(e) {
   xValue = e.clientX - firstPointerDown;
   $spotlightScrollInner.style.transform = `translate3d(${xValue}px, 0px, 0px)`;
@@ -240,9 +264,12 @@ function bounceEvent() {
         return timeFraction;
       },
       draw: function(progress) {
+        console.log(xValue + neededValue * progress)
         $spotlightScrollInner.style.transform = `translate3d(${xValue + neededValue * progress}px, 0px, 0px)`;
       }
     });
+
+    spotlightCount++;
   }
 }
 // ----------------------------------------------------------------------------------
