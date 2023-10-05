@@ -131,9 +131,11 @@ window.addEventListener('resize', () => {
   $spotlightScrollInner.style.transform = `translate3d(${-$spotlightScrollItem[spotlightCount].offsetLeft}px, 0px, 0px)`;
 });
 
+const spotlightImgArr = Array.from($spotlightImg);
+
 // 여러개 선택되는 거 없애기
-Array.from($spotlightImg).forEach(item => {
-  item.addEventListener('pointerenter', async (e) => {
+spotlightImgArr.forEach(item => 
+  item.addEventListener('pointerenter', async () => {
 
     const svgElem = item.parentNode.lastElementChild;
     const readElem = item.parentNode.querySelector('.spotlight__scroll__item__img-box__read');
@@ -147,7 +149,7 @@ Array.from($spotlightImg).forEach(item => {
       setTimeout(() => {
         resolve()
       }, 100)
-    })
+    });
 
     readElemText.classList.add('show');
 
@@ -155,7 +157,7 @@ Array.from($spotlightImg).forEach(item => {
       setTimeout(() => {
         resolve()
       }, 100)
-    })
+    });
 
     readElemMore.classList.add('show');
 
@@ -173,8 +175,8 @@ Array.from($spotlightImg).forEach(item => {
       });
 
     });
-  });
-});
+  })
+);
 
 const $spotlightCursor = document.querySelector('.spotlight-cursor');
 const $spotlightCursorCircle = document.querySelector('.spotlight-cursor__circle');
