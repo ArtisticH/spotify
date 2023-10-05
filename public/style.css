@@ -824,7 +824,6 @@ main {
 }
 
 .spotlight__scroll {
-  border: 2px solid green;
   padding: 1rem 0 2rem 0;
   width: 110vw;
   /* overflow: visible; */
@@ -835,8 +834,6 @@ main {
 }
 
 .spotlight__scroll__inner {
-  border: 1px solid red;
-
   width: fit-content;
   width: 9999px;
   display: flex;

@@ -127,6 +127,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// 사이즈 새로고침 했을 때 끝에서부터 반복되는거?
 window.addEventListener('resize', () => {
   $spotlightScrollInner.style.transform = `translate3d(${-$spotlightScrollItem[spotlightCount].offsetLeft}px, 0px, 0px)`;
 });
@@ -218,13 +219,15 @@ $spotlightScrollInner.addEventListener('pointerdown', (e) => {
   $spotlightCursorCircle.className = 'spotlight-cursor__circle scale';
 
   firstPointerDown = e.clientX - xValue;
+  console.log('pointerdown', 'firstPointerDown', firstPointerDown, 'rightCurrentOffsetLeft', rightCurrentOffsetLeft, 'xValue', xValue)
 
   $spotlightScrollInner.addEventListener('pointermove', moveEvent);
 
 });
 
-$spotlightScrollInner.addEventListener('pointerup', () => {
+$spotlightScrollInner.addEventListener('pointerup', (e) => {
 
+  console.log('pointerup')
   $spotlightCursor.classList.remove('pointerdown');
   $spotlightCursorCircle.className = 'spotlight-cursor__circle';
   
@@ -236,42 +239,52 @@ $spotlightScrollInner.addEventListener('pointerup', () => {
 
 function moveEvent(e) {
   xValue = e.clientX - firstPointerDown;
-  $spotlightScrollInner.style.transform = `translate3d(${xValue}px, 0px, 0px)`;
+  console.log('moveEvent', xValue)
+
+  $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft + xValue}px, 0px, 0px)`;
 }
 
 function bounceEvent() {
-  const standard = $spotlightScrollItem[1].getBoundingClientRect().left - $spotlightScrollItem[0].getBoundingClientRect().right;
+  console.log('bounceEvent', xValue)
+
+  const standard = $spotlightScrollItem[spotlightCount+1].getBoundingClientRect().left - $spotlightScrollItem[spotlightCount].getBoundingClientRect().right;
   const absolutexValue = Math.abs(xValue);
 
   // 왼쪽으로 마우스 드래그 할 때
+  // 한번 absolutexValue > standard * 2.5 이면 클릭할 때마다 바로 else 구문으로 넘어가기 때문에 조치 필요.
   if(absolutexValue < standard * 2.5) {
-
+    console.log('적어')
     animate({
-      duration: 200,
+      duration: 1000,
       timing: function linear(timeFraction) {
         return timeFraction;
       },
       draw: function(progress) {
-        $spotlightScrollInner.style.transform = `translate3d(${xValue * (1 - progress)}px, 0px, 0px)`;
+        $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft +  xValue * (1 - progress)}px, 0px, 0px)`;
       }
     });
 
   } else {
-    const offsetLeftToTranslate = $spotlightScrollItem[spotlightCount + 1].offsetLeft;
-    const neededValue = (-xValue) - offsetLeftToTranslate;
+    console.log('많아')
+
+    const offsetLeftToTranslate = $spotlightScrollItem[spotlightCount + 1].offsetLeft; // 양수
+    const neededValue = -rightCurrentOffsetLeft + xValue + offsetLeftToTranslate; // 음수
 
     animate({
-      duration: 200,
+      duration: 1000,
       timing: function linear(timeFraction) {
         return timeFraction;
       },
       draw: function(progress) {
-        console.log(xValue + neededValue * progress)
-        $spotlightScrollInner.style.transform = `translate3d(${xValue + neededValue * progress}px, 0px, 0px)`;
+        console.log(-rightCurrentOffsetLeft + xValue + -neededValue * progress)
+        $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft + xValue + -neededValue * progress}px, 0px, 0px)`;
+
+        if(progress >= 1) {
+          spotlightCount++;
+          rightCurrentOffsetLeft = offsetLeftToTranslate;      
+        }
       }
     });
-
-    spotlightCount++;
   }
 }
 // ----------------------------------------------------------------------------------
