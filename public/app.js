@@ -89,6 +89,7 @@ document.addEventListener('keydown', (e) => {
     const leftOfNextSpotlightScrollItem = $spotlightScrollItem[spotlightCount + 1].offsetLeft;
     $spotlightScrollInner.style.marginLeft = -leftOfNextSpotlightScrollItem + 'px';
     spotlightCount++;
+    console.log('키보드오른쪽', spotlightCount, leftOfNextSpotlightScrollItem, getComputedStyle($spotlightScrollInner).marginLeft)
   }
 
   if(e.key == 'ArrowLeft') {
@@ -97,6 +98,8 @@ document.addEventListener('keydown', (e) => {
     const leftOfBeforeSpotlightScrollItem = $spotlightScrollItem[spotlightCount - 1].offsetLeft;
     $spotlightScrollInner.style.marginLeft = -leftOfBeforeSpotlightScrollItem + 'px';
     spotlightCount--;
+    console.log('키보드왼쪽', spotlightCount, leftOfBeforeSpotlightScrollItem, getComputedStyle($spotlightScrollInner).marginLeft)
+
   }
 })
 
@@ -172,26 +175,6 @@ $spotlightScrollInner.addEventListener('pointerover', (e) => {
     $spotlightCursor.style.left = leftOfCursor + 'px'; 
   });
 
-  $spotlightScrollInner.addEventListener('pointerdown', (e) => {
-
-    $spotlightCursor.classList.add('pointerdown');
-    $spotlightCursorCircle.className = 'spotlight-cursor__circle scale';
-
-    firstPointerDown = e.clientX - xValue;
-
-    $spotlightScrollInner.addEventListener('pointermove', dragEvent);
-
-    $spotlightScrollInner.addEventListener('pointerup', () => {
-
-      $spotlightCursor.classList.remove('pointerdown');
-      $spotlightCursorCircle.className = 'spotlight-cursor__circle';
-      
-      $spotlightScrollInner.removeEventListener('pointermove', dragEvent);
-
-      bounceEvent();
-    });
-  })
-
   $spotlightScrollInner.addEventListener('pointerout', (e) => {
     $spotlightCursor.className = 'spotlight-cursor';
 
@@ -202,36 +185,66 @@ $spotlightScrollInner.addEventListener('pointerover', (e) => {
   })
 });
 
-function dragEvent(e) {
+$spotlightScrollInner.addEventListener('pointerdown', (e) => {
+
+  $spotlightCursor.classList.add('pointerdown');
+  $spotlightCursorCircle.className = 'spotlight-cursor__circle scale';
+
+  firstPointerDown = e.clientX - xValue;
+
+  $spotlightScrollInner.addEventListener('pointermove', moveEvent);
+
+});
+
+$spotlightScrollInner.addEventListener('pointerup', () => {
+
+  $spotlightCursor.classList.remove('pointerdown');
+  $spotlightCursorCircle.className = 'spotlight-cursor__circle';
+  
+  $spotlightScrollInner.removeEventListener('pointermove', moveEvent);
+
+  bounceEvent();
+});
+
+
+
+function moveEvent(e) {
   xValue = e.clientX - firstPointerDown;
   $spotlightScrollInner.style.transform = `translate3d(${xValue}px, 0px, 0px)`;
-  // console.log(document.elementFromPoint(10, e.clientY));
 }
 
 function bounceEvent() {
   const standard = $spotlightScrollItem[1].getBoundingClientRect().left - $spotlightScrollItem[0].getBoundingClientRect().right;
   const absolutexValue = Math.abs(xValue);
 
-  // if(absolutexValue < standard * 3.2) {
-  //   $spotlightScrollInner.style.marginLeft = -$spotlightScrollItem[spotlightCount].offsetLeft+ 'px';
-  // }
+  // 왼쪽으로 마우스 드래그 할 때
+  if(absolutexValue < standard * 2.5) {
 
-  if(absolutexValue < standard * 2) {
-    $spotlightScrollInner.style.transform = `translate3d(${0}px, 0px, 0px)`;
+    animate({
+      duration: 200,
+      timing: function linear(timeFraction) {
+        return timeFraction;
+      },
+      draw: function(progress) {
+        $spotlightScrollInner.style.transform = `translate3d(${xValue * (1 - progress)}px, 0px, 0px)`;
+      }
+    });
+
   } else {
-    console.log(spotlightCount, $spotlightScrollItem[spotlightCount])
     const offsetLeftToTranslate = $spotlightScrollItem[spotlightCount + 1].offsetLeft;
-    $spotlightScrollInner.style.transform = `translate3d(${-offsetLeftToTranslate}px, 0px, 0px)`;
-    // $spotlightScrollInner.style.marginLeft = -$spotlightScrollItem[spotlightCount + 1].offsetLeft+ 'px';
+    const neededValue = (-xValue) - offsetLeftToTranslate;
+
+    animate({
+      duration: 200,
+      timing: function linear(timeFraction) {
+        return timeFraction;
+      },
+      draw: function(progress) {
+        $spotlightScrollInner.style.transform = `translate3d(${xValue + neededValue * progress}px, 0px, 0px)`;
+      }
+    });
   }
-
 }
-/*
-왼쪽으로 이동할때, 
-지나간 거리가 이미지 사이 간격의 몇 배 미만이면 원래 그림으로 튕기고, 
-그 이상이면 다름 그림으로 튕긴다. -> 이거랑 키보드 효과랑 연관지어서
-*/
-
 // ----------------------------------------------------------------------------------
 // INBOX
 
