@@ -144,10 +144,14 @@ window.addEventListener('resize', () => {
 });
 
 const spotlightImgArr = Array.from($spotlightImg);
+let currentElem = null;
 
 // 여러개 선택되는 거 없애기
 spotlightImgArr.forEach(item => 
   item.addEventListener('pointerenter', async () => {
+
+    if (currentElem) return;
+    currentElem = item;
 
     const svgElem = item.parentNode.lastElementChild;
     const readElem = item.parentNode.querySelector('.spotlight__scroll__item__img-box__read');
@@ -179,13 +183,14 @@ spotlightImgArr.forEach(item =>
       readElemText.classList.remove('show');
       readElemMore.classList.remove('show');
 
+      currentElem = null;
+
       await new Promise(resolve => {
         setTimeout(() => {
           svgElem.classList.remove('shrink');
           resolve();
         }, 1000);
       });
-
     });
   })
 );
@@ -224,7 +229,6 @@ $spotlightScrollInner.addEventListener('pointerover', (e) => {
 });
 
 let firstPointerDown;
-// let xValue = 0;
 let xValue;
 
 // 드래그 앤 드롭
