@@ -235,6 +235,7 @@ $spotlightScrollInner.addEventListener('pointerdown', (e) => {
 
   firstPointerDown = e.clientX - xValue;
   console.log(
+    ['pointerdown'],
     ['firstPointerDown', firstPointerDown],
     ['e.clientX', e.clientX],
     ['xValue', xValue]
@@ -256,6 +257,7 @@ $spotlightScrollInner.addEventListener('pointerup', () => {
 
 
 function moveEvent(e) {
+  // xValue는 왼쪽으로 드래그 할때는 음수, 오른쪽으로 드래그 할 때는 양수
   xValue = e.clientX - firstPointerDown;
   console.log(
     ['moveEvent'],
@@ -265,6 +267,7 @@ function moveEvent(e) {
     ['rightCurrentOffsetLeft', rightCurrentOffsetLeft],
     ['-rightCurrentOffsetLeft + xValue', -rightCurrentOffsetLeft + xValue]
   );
+  // 왼쪽 오른쪽 둘 다 적용
   $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft + xValue}px, 0px, 0px)`;
 }
 
@@ -272,22 +275,28 @@ function bounceEvent() {
   const standard = $spotlightScrollItem[spotlightCount+1].getBoundingClientRect().left - $spotlightScrollItem[spotlightCount].getBoundingClientRect().right;
   const absolutexValue = Math.abs(xValue);
 
-  // 왼쪽으로 마우스 드래그 할 때
-  // 한번 absolutexValue > standard * 2.5 이면 클릭할 때마다 바로 else 구문으로 넘어가기 때문에 조치 필요.
+  // 한번 absolutexValue > standard * 2.5 이면 클릭할 때마다 바로 else 구문으로 넘어간다.
   if(absolutexValue < standard * 2.5) {
-    console.log('적어')
-    animate({
-      duration: 1000,
+      animate({
+      duration: 200,
       timing: function linear(timeFraction) {
         return timeFraction;
       },
       draw: function(progress) {
+        // 왼쪽 오른쪽 둘 다 적용, xValue가 소멸하면서 원래 자리로 돌아오는 효과
+
+        console.log(
+          ['튕길 때'],
+          ['xValue', xValue],
+          ['rightCurrentOffsetLeft', rightCurrentOffsetLeft],
+          ['-rightCurrentOffsetLeft +  xValue * (1 - progress)', -rightCurrentOffsetLeft +  xValue * (1 - progress)]
+        );
+    
         $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft +  xValue * (1 - progress)}px, 0px, 0px)`;
       }
     });
 
   } else {
-    console.log('많아')
 
     const offsetLeftToTranslate = $spotlightScrollItem[spotlightCount + 1].offsetLeft; // 양수
     const neededValue = -rightCurrentOffsetLeft + xValue + offsetLeftToTranslate; // 음수
@@ -298,7 +307,14 @@ function bounceEvent() {
         return timeFraction;
       },
       draw: function(progress) {
-        console.log(-rightCurrentOffsetLeft + xValue + -neededValue * progress)
+        console.log(
+          ['다음 이미지로'],
+          ['xValue', xValue],
+          ['neededValue', neededValue],
+          ['offsetLeftToTranslate', offsetLeftToTranslate]
+          ['-rightCurrentOffsetLeft + xValue + -neededValue * progress', -rightCurrentOffsetLeft + xValue + -neededValue * progress]
+        );
+
         $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft + xValue + -neededValue * progress}px, 0px, 0px)`;
 
         if(progress >= 1) {
@@ -309,6 +325,8 @@ function bounceEvent() {
     });
   }
 }
+
+
 // ----------------------------------------------------------------------------------
 // INBOX
 
