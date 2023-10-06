@@ -71,7 +71,11 @@ const $releaseImgBoxes = document.querySelectorAll('.js-release__img-box');
 
 // ----------------------------------------------------------------------------------
 // SPOTLIGHT
-
+/*
+translate3d는 항상 어디에서 어디 가는지를 명시해줘야 자연스럽게 되지, 
+안 그럼 0, 0에서 출발
+예를 들면 -452에서 -700을 가려면 -452에서 -700가는 걸 명시해줘야지, 그냥 띡하니 -700하면 0에서 -700으로 출발한다.
+*/
 const $spotlightScrollItem = document.querySelectorAll('.spotlight__scroll__item');
 const $spotlightScrollInner = document.querySelector('.spotlight__scroll__inner');
 const $spotlightImg = document.querySelectorAll('.spotlight__scroll__item__img-box__img');
@@ -83,6 +87,7 @@ document.ondragstart = () => {
 let spotlightCount = 0;
 let rightCurrentOffsetLeft = 0;
 
+// 키보드 
 document.addEventListener('keydown', (e) => {
   if(e.key == 'ArrowRight') {
     if(spotlightCount >= 10) return;
@@ -91,11 +96,13 @@ document.addEventListener('keydown', (e) => {
     const neededValue = rightCurrentOffsetLeft - rightGoalOffsetLeft; // 음수
     
     animate({
-      duration: 300,
+      duration: 200,
       timing: function linear(timeFraction) {
         return timeFraction;
       },
       draw: function(progress) {
+        // progress가 음수일 수도 있다.
+        if(progress <= 0) return;
         $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft + neededValue * progress}px, 0px, 0px)`;
         if(progress >= 1) {
           spotlightCount++;
@@ -112,11 +119,13 @@ document.addEventListener('keydown', (e) => {
     const neededValue = leftGoalOffsetLeft - rightCurrentOffsetLeft; // 음수
 
     animate({
-      duration: 300,
+      duration: 200,
       timing: function linear(timeFraction) {
         return timeFraction;
       },
       draw: function(progress) {
+        if(progress <= 0) return;
+        console.log(-leftGoalOffsetLeft + (neededValue * (1 - progress)), leftGoalOffsetLeft, spotlightCount, rightCurrentOffsetLeft, neededValue)
         $spotlightScrollInner.style.transform = `translate3d(${-leftGoalOffsetLeft + (neededValue * (1 - progress))}px, 0px, 0px)`;
         if(progress >= 1) {
           spotlightCount--;
@@ -127,8 +136,11 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// 사이즈 새로고침 했을 때 끝에서부터 반복되는거?
+// 사이즈 새로고침 했을 때 끝에서부터 반복되는거? -> 
+// 브라우저 사이즈가 변경될 때마다 예를 들어 $spotlightScrollItem[1].offsetLeft의 값이 364, 424, 696으로 바뀌기 때문에 
+// 현재 기준으로 rightCurrentOffsetLeft을 계산해야 한다. 
 window.addEventListener('resize', () => {
+  rightCurrentOffsetLeft = $spotlightScrollItem[spotlightCount].offsetLeft;
   $spotlightScrollInner.style.transform = `translate3d(${-$spotlightScrollItem[spotlightCount].offsetLeft}px, 0px, 0px)`;
 });
 
@@ -181,9 +193,8 @@ spotlightImgArr.forEach(item =>
 
 const $spotlightCursor = document.querySelector('.spotlight-cursor');
 const $spotlightCursorCircle = document.querySelector('.spotlight-cursor__circle');
-let firstPointerDown = 0;
-let xValue = 0;
 
+// 마우스 커서
 $spotlightScrollInner.addEventListener('pointerover', (e) => {
   $spotlightScrollInner.appendChild($spotlightCursor);
   $spotlightCursor.className = 'spotlight-cursor show';
@@ -213,40 +224,51 @@ $spotlightScrollInner.addEventListener('pointerover', (e) => {
   })
 });
 
+let firstPointerDown = 0;
+let xValue = 0;
+
+// 드래그 앤 드롭
 $spotlightScrollInner.addEventListener('pointerdown', (e) => {
 
   $spotlightCursor.classList.add('pointerdown');
   $spotlightCursorCircle.className = 'spotlight-cursor__circle scale';
 
   firstPointerDown = e.clientX - xValue;
-  console.log('pointerdown', 'firstPointerDown', firstPointerDown, 'rightCurrentOffsetLeft', rightCurrentOffsetLeft, 'xValue', xValue)
-
+  console.log(
+    ['firstPointerDown', firstPointerDown],
+    ['e.clientX', e.clientX],
+    ['xValue', xValue]
+  );
+  // 슬라이드가 드래그 되는 효과
   $spotlightScrollInner.addEventListener('pointermove', moveEvent);
-
 });
 
-$spotlightScrollInner.addEventListener('pointerup', (e) => {
+$spotlightScrollInner.addEventListener('pointerup', () => {
 
-  console.log('pointerup')
   $spotlightCursor.classList.remove('pointerdown');
   $spotlightCursorCircle.className = 'spotlight-cursor__circle';
   
   $spotlightScrollInner.removeEventListener('pointermove', moveEvent);
 
+  // 슬라이드가 튕기거나 혹은 다음 이미지로 움직이거나
   bounceEvent();
 });
 
 
 function moveEvent(e) {
   xValue = e.clientX - firstPointerDown;
-  console.log('moveEvent', xValue)
-
+  console.log(
+    ['moveEvent'],
+    ['xValue', xValue],
+    ['e.clientX', e.clientX],
+    ['firstPointerDown', firstPointerDown],
+    ['rightCurrentOffsetLeft', rightCurrentOffsetLeft],
+    ['-rightCurrentOffsetLeft + xValue', -rightCurrentOffsetLeft + xValue]
+  );
   $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft + xValue}px, 0px, 0px)`;
 }
 
 function bounceEvent() {
-  console.log('bounceEvent', xValue)
-
   const standard = $spotlightScrollItem[spotlightCount+1].getBoundingClientRect().left - $spotlightScrollItem[spotlightCount].getBoundingClientRect().right;
   const absolutexValue = Math.abs(xValue);
 
