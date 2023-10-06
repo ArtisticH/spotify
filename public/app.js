@@ -76,9 +76,9 @@ translate3d는 항상 어디에서 어디 가는지를 명시해줘야 자연스
 안 그럼 0, 0에서 출발
 예를 들면 -452에서 -700을 가려면 -452에서 -700가는 걸 명시해줘야지, 그냥 띡하니 -700하면 0에서 -700으로 출발한다.
 */
-const $spotlightScrollItem = document.querySelectorAll('.spotlight__scroll__item');
-const $spotlightScrollInner = document.querySelector('.spotlight__scroll__inner');
-const $spotlightImg = document.querySelectorAll('.spotlight__scroll__item__img-box__img');
+const $spotlightScrollItem = document.querySelectorAll('.js-spotlight__scroll__item');
+const $spotlightScrollInner = document.querySelector('.js-spotlight__scroll__inner');
+const $spotlightImg = document.querySelectorAll('.js-spotlight__scroll__item__img-box__img');
 
 document.ondragstart = () => {
   return false;
@@ -151,7 +151,7 @@ let readElemMore;
 
 $spotlightScrollInner.addEventListener('pointerover', async (e) => {
   if(currentElem) return;
-  if(e.target.className !== 'spotlight__scroll__item__img-box__img') return;
+  if(e.target.className !== 'js-spotlight__scroll__item__img-box__img') return;
   currentElem = e.target;
 
   svgElem = currentElem.parentNode.lastElementChild;
@@ -197,19 +197,19 @@ $spotlightScrollInner.addEventListener('pointerout', async (e) => {
   });
 });
 
-const $spotlightCursor = document.querySelector('.spotlight-cursor');
-const $spotlightCursorCircle = document.querySelector('.spotlight-cursor__circle');
+const $spotlightCursor = document.querySelector('.js-spotlight-cursor');
+const $spotlightCursorCircle = document.querySelector('.js-spotlight-cursor__circle');
 
 // 마우스 커서
 $spotlightScrollInner.addEventListener('pointerover', (e) => {
   $spotlightScrollInner.appendChild($spotlightCursor);
-  $spotlightCursor.className = 'spotlight-cursor show';
+  $spotlightCursor.className = 'js-spotlight-cursor show';
 
   const imgClassList = e.target.className;
 
   if(imgClassList === 'spotlight__scroll__item__img-box__img') {
-    $spotlightCursor.className = 'spotlight-cursor show scale';
-    $spotlightCursorCircle.className = 'spotlight-cursor__circle scale';
+    $spotlightCursor.className = 'js-spotlight-cursor show scale';
+    $spotlightCursorCircle.className = 'js-spotlight-cursor__circle scale';
   }
 
   $spotlightScrollInner.addEventListener('pointermove', (e) => {
@@ -221,11 +221,11 @@ $spotlightScrollInner.addEventListener('pointerover', (e) => {
   });
 
   $spotlightScrollInner.addEventListener('pointerout', (e) => {
-    $spotlightCursor.className = 'spotlight-cursor';
+    $spotlightCursor.className = 'js-spotlight-cursor';
 
     if(imgClassList === 'spotlight__scroll__item__img-box__img') {
-      $spotlightCursor.className = 'spotlight-cursor show';
-      $spotlightCursorCircle.className = 'spotlight-cursor__circle';
+      $spotlightCursor.className = 'js-spotlight-cursor show';
+      $spotlightCursorCircle.className = 'js-spotlight-cursor__circle';
     }  
   })
 });
@@ -237,7 +237,7 @@ let xValue;
 $spotlightScrollInner.addEventListener('pointerdown', (e) => {
 
   $spotlightCursor.classList.add('pointerdown');
-  $spotlightCursorCircle.className = 'spotlight-cursor__circle scale';
+  $spotlightCursorCircle.className = 'js-spotlight-cursor__circle scale';
 
 
   firstPointerDown = 0;
@@ -256,7 +256,7 @@ $spotlightScrollInner.addEventListener('pointerdown', (e) => {
 $spotlightScrollInner.addEventListener('pointerup', () => {
 
   $spotlightCursor.classList.remove('pointerdown');
-  $spotlightCursorCircle.className = 'spotlight-cursor__circle';
+  $spotlightCursorCircle.className = 'js-spotlight-cursor__circle';
   
   $spotlightScrollInner.removeEventListener('pointermove', moveEvent);
 
@@ -284,7 +284,7 @@ function bounceEvent() {
   const standard = $spotlightScrollItem[spotlightCount+1].getBoundingClientRect().left - $spotlightScrollItem[spotlightCount].getBoundingClientRect().right;
   const absolutexValue = Math.abs(xValue);
 
-  if(absolutexValue < standard * 2.5) {
+  if(absolutexValue < standard * 2.5 || spotlightCount == 0 || spotlightCount == 10) {
       animate({
       duration: 200,
       timing: function linear(timeFraction) {
@@ -308,6 +308,8 @@ function bounceEvent() {
 
   // 왼쪽으로 드래그
   if(absolutexValue >= standard * 2.5 && xValue < 0) {
+
+    if(spotlightCount == 10) return;
 
     const nextImgOffsetLeft = $spotlightScrollItem[spotlightCount + 1].offsetLeft; // 양수
     const neededValue = nextImgOffsetLeft + (-rightCurrentOffsetLeft + xValue); // 양수
@@ -339,6 +341,7 @@ function bounceEvent() {
   // 오른쪽으로 드래그
   if(absolutexValue >= standard * 2.5 && xValue > 0) {
 
+    if(spotlightCount == 0) return;
     const beforeImgOffsetLeft = $spotlightScrollItem[spotlightCount - 1].offsetLeft; // 양수
     const neededValue = rightCurrentOffsetLeft - xValue - beforeImgOffsetLeft; // 양수
 
@@ -418,11 +421,11 @@ const $toolsImgBoxes = document.querySelectorAll('.js-tools__img-box');
   });
 });
 
-const $jobs = document.querySelector('.jobs');
-const $jobsMiamiArrow = document.querySelector('.jobs__miami__arrow');
-const $jobsMiamiArrowCircle = document.querySelector('.jobs__miami__arrow__circle');
-const $jobsMiamiArrowCircleArrow = document.querySelector('.jobs__miami__arrow__circle__arrow');
-const $jobsEditorial = document.querySelector('jobs__editorial');
+const $jobs = document.querySelector('.js-jobs');
+const $jobsMiamiArrow = document.querySelector('.js-jobs__miami__arrow');
+const $jobsMiamiArrowCircle = document.querySelector('.js-jobs__miami__arrow__circle');
+const $jobsMiamiArrowCircleArrow = document.querySelector('.js-jobs__miami__arrow__circle__arrow');
+const $jobsEditorial = document.querySelector('js-jobs__editorial');
 
 $jobs.addEventListener('mouseenter', () => {
   jobsAdd($jobsMiamiArrow, $jobsMiamiArrowCircle, $jobsMiamiArrowCircleArrow, $jobsEditorial)

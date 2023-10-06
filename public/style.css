@@ -842,7 +842,7 @@ main {
   display: none;
 }
 
-.spotlight__scroll__inner {
+.js-spotlight__scroll__inner {
   width: fit-content;
   width: 9999px;
   display: flex;
@@ -855,7 +855,7 @@ main {
   transition: margin-left 0.2s ease-out;
 }
 
-.spotlight__scroll__item {
+.js-spotlight__scroll__item {
   /* 이거는 오른쪽 도시 이름 때문에 */
   position: relative;
   display: inline-block;
@@ -879,7 +879,7 @@ main {
   position: relative;
 }
 
-.spotlight__scroll__item__img-box__img {
+.js-spotlight__scroll__item__img-box__img {
   display: block;
   width: 100%;
   cursor: pointer;
@@ -960,7 +960,7 @@ main {
   letter-spacing: -0.7px;
 }
 
-.spotlight-cursor {
+.js-spotlight-cursor {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -971,7 +971,7 @@ main {
   pointer-events: none;
 }
 
-.spotlight-cursor__circle {
+.js-spotlight-cursor__circle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1037,20 +1037,20 @@ main {
     width: 830px;
   }
 
-  .spotlight-cursor.show {
+  .js-spotlight-cursor.show {
     display: block;
   }
     
-  .spotlight-cursor.show.scale {
+  .js-spotlight-cursor.show.scale {
     transform: scale(0.25);
     border: none;
   }
   
-  .spotlight-cursor__circle.scale {
+  .js-spotlight-cursor__circle.scale {
     transform: scale(0);
   }  
 
-  .spotlight-cursor.show.pointerdown {
+  .js-spotlight-cursor.show.pointerdown {
     transform: scale(0.5);
     border: 25px solid rgba(0,0,0, 0.1);
     transform-origin: center;
@@ -1541,7 +1541,7 @@ main {
 /* --------------------------------------------------------------------------------- */
 /* SECTION JOBS */
 
-.jobs {
+.js-jobs {
   cursor: pointer;
   margin-bottom: 3rem;
   padding-bottom: 1rem;
@@ -1569,7 +1569,7 @@ main {
   letter-spacing: -0.8px;
 }
 
-.jobs__miami__arrow {
+.js-jobs__miami__arrow {
   visibility: hidden;
   position: absolute;
   top: 0;
@@ -1578,7 +1578,7 @@ main {
   transition: all 0.3s ease-out;
 }
 
-.jobs__miami__arrow__circle {
+.js-jobs__miami__arrow__circle {
   width: 29px;
   height: 29px;
   border-radius: 50%;
@@ -1591,38 +1591,38 @@ main {
   background-color: black;
 }
 
-.jobs__miami__arrow__circle.hover {
+.js-jobs__miami__arrow__circle.hover {
   transform: scale(1);
 }
 
-.jobs__miami__arrow__circle__arrow {
+.js-jobs__miami__arrow__circle__arrow {
   width: 70%;
   transition: all 0.3s ease-out; 
 }
 
-.jobs__miami__arrow__circle__arrow.hover {
+.js-jobs__miami__arrow__circle__arrow.hover {
   filter: invert(1);
 }
 
-.jobs__editorial {
+.js-jobs__editorial {
   font-family: var(--main-font-family-medium);
   font-size: 1.2rem;
   letter-spacing: -1px;
 }
 
-.jobs__editorial.hover {
+.js-jobs__editorial.hover {
   text-decoration: underline;
 }
 
 @media all and (min-width: 600px) {
-  .jobs__editorial {
+  .js-jobs__editorial {
     font-size: 1.3rem;
     letter-spacing: -1px;
   }
 }
 
 @media all and (min-width: 1024px) {
-  .jobs {
+  .js-jobs {
     position: relative;
     margin-top: 0.5rem;
   }  
@@ -1632,12 +1632,12 @@ main {
     letter-spacing: -0.8px;
   }
   
-  .jobs__miami__arrow.hover {
+  .js-jobs__miami__arrow.hover {
     opacity: 1;
     visibility: visible;
   }  
 
-  .jobs__editorial {
+  .js-jobs__editorial {
     font-size: 1.5rem;
     letter-spacing: -1px;
   }
