@@ -143,57 +143,59 @@ window.addEventListener('resize', () => {
   $spotlightScrollInner.style.transform = `translate3d(${-$spotlightScrollItem[spotlightCount].offsetLeft}px, 0px, 0px)`;
 });
 
-const spotlightImgArr = Array.from($spotlightImg);
 let currentElem = null;
+let svgElem;
+let readElem;
+let readElemText; 
+let readElemMore;
 
-// 여러개 선택되는 거 없애기
-spotlightImgArr.forEach(item => 
-  item.addEventListener('pointerenter', async () => {
+$spotlightScrollInner.addEventListener('pointerover', async (e) => {
+  if(currentElem) return;
+  if(e.target.className !== 'spotlight__scroll__item__img-box__img') return;
+  currentElem = e.target;
 
-    if (currentElem) return;
-    currentElem = item;
+  svgElem = currentElem.parentNode.lastElementChild;
+  readElem = currentElem.parentNode.querySelector('.spotlight__scroll__item__img-box__read');
+  readElemText = readElem.querySelector('.spotlight__scroll__item__img-box__read__text');
+  readElemMore = readElem.querySelector('.spotlight__scroll__item__img-box__read__more');
 
-    const svgElem = item.parentNode.lastElementChild;
-    const readElem = item.parentNode.querySelector('.spotlight__scroll__item__img-box__read');
-    const readElemText = readElem.querySelector('.spotlight__scroll__item__img-box__read__text');
-    const readElemMore = readElem.querySelector('.spotlight__scroll__item__img-box__read__more');
+  svgElem.classList.add('bloom');
+  readElem.classList.add('show');
 
-    svgElem.classList.add('bloom');
-    readElem.classList.add('show');
+  await new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, 100)
+  });
 
-    await new Promise(resolve => {
-      setTimeout(() => {
-        resolve()
-      }, 100)
-    });
+  readElemText.classList.add('show');
 
-    readElemText.classList.add('show');
+  await new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, 100)
+  });
 
-    await new Promise(resolve => {
-      setTimeout(() => {
-        resolve()
-      }, 100)
-    });
+  readElemMore.classList.add('show');
+});
 
-    readElemMore.classList.add('show');
+$spotlightScrollInner.addEventListener('pointerout', async (e) => {
+  if (!currentElem) return;
 
-    item.addEventListener('pointerleave', async () => {
-      svgElem.classList.replace('bloom', 'shrink');
-      readElem.classList.remove('show');
-      readElemText.classList.remove('show');
-      readElemMore.classList.remove('show');
+  svgElem.classList.replace('bloom', 'shrink');
+  readElem.classList.remove('show');
+  readElemText.classList.remove('show');
+  readElemMore.classList.remove('show');
 
-      currentElem = null;
+  currentElem = null;
 
-      await new Promise(resolve => {
-        setTimeout(() => {
-          svgElem.classList.remove('shrink');
-          resolve();
-        }, 1000);
-      });
-    });
-  })
-);
+  await new Promise(resolve => {
+    setTimeout(() => {
+      svgElem.classList.remove('shrink');
+      resolve();
+    }, 1000);
+  });
+});
 
 const $spotlightCursor = document.querySelector('.spotlight-cursor');
 const $spotlightCursorCircle = document.querySelector('.spotlight-cursor__circle');
@@ -364,7 +366,6 @@ function bounceEvent() {
       }
     });
   }
-
 }
 
 
@@ -402,25 +403,48 @@ document.addEventListener('scroll', () => {
 // ----------------------------------------------------------------------------------
 // JOBS
 
-const $jobRoles = document.getElementById('jobs_roles');
-const $miamiArrowContainer = document.getElementById('miami_arrow_container');
-const $miamiArrowCircle = document.getElementById('miami_arrow_circle');
-const $miamiArrow = document.getElementById('miami_arrow');
-const $jobsEditorial = document.getElementById('jobs_editorial');
+const $toolsImgBoxes = document.querySelectorAll('.js-tools__img-box');
 
-$jobRoles.addEventListener('mouseenter', () => {
-  $miamiArrowContainer.classList.toggle('hover');
-  $miamiArrowCircle.classList.toggle('hover');
-  $miamiArrow.classList.toggle('hover');
-  $jobsEditorial.classList.toggle('hover');
+[...$toolsImgBoxes].forEach(imgBox => {
+  let title;
+
+  imgBox.addEventListener('pointerenter', () => {
+    title = imgBox.querySelector('.js-img-box__title');
+    title.classList.add('--underline');
+  });
+
+  imgBox.addEventListener('pointerleave', () => {
+    title.classList.remove('--underline');
+  });
 });
 
-$jobRoles.addEventListener('mouseleave', () => {
-  $miamiArrowContainer.classList.toggle('hover');
-  $miamiArrowCircle.classList.toggle('hover');
-  $miamiArrow.classList.toggle('hover');
-  $jobsEditorial.classList.toggle('hover');
+const $jobs = document.querySelector('.jobs');
+const $jobsMiamiArrow = document.querySelector('.jobs__miami__arrow');
+const $jobsMiamiArrowCircle = document.querySelector('.jobs__miami__arrow__circle');
+const $jobsMiamiArrowCircleArrow = document.querySelector('.jobs__miami__arrow__circle__arrow');
+const $jobsEditorial = document.querySelector('jobs__editorial');
+
+$jobs.addEventListener('mouseenter', () => {
+  jobsAdd($jobsMiamiArrow, $jobsMiamiArrowCircle, $jobsMiamiArrowCircleArrow, $jobsEditorial)
 });
+
+$jobs.addEventListener('mouseleave', () => {
+  jobsRemove($jobsMiamiArrow, $jobsMiamiArrowCircle, $jobsMiamiArrowCircleArrow, $jobsEditorial)
+});
+
+function jobsAdd(item1, item2, item3, item4) {
+  item1.classList.add('hover');
+  item2.classList.add('hover');
+  item3.classList.add('hover');
+  item4.classList.add('hover');
+}
+
+function jobsRemove(item1, item2, item3, item4) {
+  item1.classList.remove('hover');
+  item2.classList.remove('hover');
+  item3.classList.remove('hover');
+  item4.classList.remove('hover');
+}
 
 // ----------------------------------------------------------------------------------
 // TIME
