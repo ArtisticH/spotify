@@ -425,7 +425,7 @@ const $jobs = document.querySelector('.js-jobs');
 const $jobsMiamiArrow = document.querySelector('.js-jobs__miami__arrow');
 const $jobsMiamiArrowCircle = document.querySelector('.js-jobs__miami__arrow__circle');
 const $jobsMiamiArrowCircleArrow = document.querySelector('.js-jobs__miami__arrow__circle__arrow');
-const $jobsEditorial = document.querySelector('js-jobs__editorial');
+const $jobsEditorial = document.querySelector('.js-jobs__editorial');
 
 $jobs.addEventListener('mouseenter', () => {
   jobsAdd($jobsMiamiArrow, $jobsMiamiArrowCircle, $jobsMiamiArrowCircleArrow, $jobsEditorial)
@@ -451,6 +451,20 @@ function jobsRemove(item1, item2, item3, item4) {
 
 // ----------------------------------------------------------------------------------
 // TIME
+
+const $timeLinks = document.querySelectorAll('.js-time__main-box__links__link');
+
+[...$timeLinks].forEach(item => {
+  item.addEventListener('pointerenter', () => {
+    console.log(item)
+
+    item.style.textDecoration = 'underline';
+
+    item.addEventListener('pointerleave', () => {
+      item.style.textDecoration = '';
+    })
+  })
+})
 
 // SE -> UK -> US
 const $hours = document.querySelectorAll('.hour');

@@ -1646,9 +1646,11 @@ main {
 /* --------------------------------------------------------------------------------- */
 /* SECTION TIME */
 
-#lower {
+.time-footer {
   position: relative;
   background-color: #ffd0d5;
+
+  border: 1px solid red;
 }
 
 #footerFlowerSvg {
@@ -1657,39 +1659,48 @@ main {
   bottom: 0;
 }
 
-#time {
+.time {
+  border: 1px solid blue;
+
   padding-top: 3.5rem;
 }
 
-#timeLogo {
+.time--flex {
+  border: 1px solid green;
+}
+
+.time__logo {
+  border: 1px solid purple;
+
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding-bottom: 2.5rem;
 }
 
-#timeLogo_img {
+.time__logo__img {
+  border: 1px solid white;
+
   width: 170px;
   cursor: pointer;
 }
 
 
-#timeFlex {
+.time__main-box {
+  border: 1px solid red;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.timeSns {
+.js-time__main-box__links__link {
   font-size: 1.1rem;
   letter-spacing: -0.5px;
   font-family: var(--main-small-font);
   line-height: 1.7;
   cursor: pointer;
-}
 
-.timeSns:hover {
-  text-decoration: underline;
+  border: 2px solid red;
 }
 
 .timeTime {
@@ -1745,14 +1756,17 @@ main {
 }
 
 @media all and (min-width: 600px) {
-  #timeSns {
+  .time__main-box__links {
+    border: 1px solid orange;
+
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     width: 60%;
   }
 
-  .timeSns_notInsta {
+  .time__main-box__links__newsroom {
+    border: 1px solid green;
     margin-right: 10%;
   }
 
@@ -1763,11 +1777,11 @@ main {
     width: 40%;
   }
 
-  #timeLogo_img {
+  .time__logo__img {
     width: 190px;
   }
 
-  .timeSns {
+  .js-time__main-box__links__link {
     font-size: 1.3rem;
   }
 
@@ -1810,13 +1824,19 @@ main {
 }
 
 @media all and (min-width: 1024px) {
-  #overallTimeFlex {
+  .time {
+    padding-bottom: 12rem;
+  }
+
+  .time--flex {
+    border: 1px solid green;
+
     display: flex;
     align-items: flex-start;
 
   }
 
-  #timeLogo {
+ .time__logo {
     width: 33%;
     align-items: flex-start;
     padding-bottom: 0rem;
@@ -1826,15 +1846,15 @@ main {
     margin-bottom: 0.6rem;
   }  
 
-  #timeLogo_img {
+  .time__logo__img {
     width: 230px;
   }
 
-  #timeFlex {
+  .time__main-box {
     width: 67%;
   }
 
-  .timeSns {
+  .js-time__main-box__links__link {
     font-size: 1.6rem;
   }
   
@@ -1850,12 +1870,7 @@ main {
   
   .timeClock {
     font-size: 1.6rem;
-  }  
-
-  #time {
-    padding-bottom: 12rem;
-  }
-  
+  }    
 }
 
 /* --------------------------------------------------------------------------------- */
