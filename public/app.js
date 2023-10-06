@@ -451,21 +451,6 @@ function jobsRemove(item1, item2, item3, item4) {
 
 // ----------------------------------------------------------------------------------
 // TIME
-
-const $timeLinks = document.querySelectorAll('.js-time__main-box__links__link');
-
-[...$timeLinks].forEach(item => {
-  item.addEventListener('pointerenter', () => {
-    console.log(item)
-
-    item.style.textDecoration = 'underline';
-
-    item.addEventListener('pointerleave', () => {
-      item.style.textDecoration = '';
-    })
-  })
-})
-
 // SE -> UK -> US
 const $hours = document.querySelectorAll('.hour');
 const $mins = document.querySelectorAll('.min');
