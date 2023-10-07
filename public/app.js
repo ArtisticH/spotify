@@ -104,62 +104,64 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
 // ----------------------------------------------------------------------------------
 // HEADER
 
-// const triFirst = document.querySelector('.triangle.first');
-// const triSec = document.querySelector('.triangle.second');
-// const triThird = document.querySelector('.triangle.third');
+const $menuLines = document.querySelector('.header__menu-lines');
+const $menuLinesFirst = document.querySelector('.header__menu-lines__line--first');
+const $menuLinesSecond = document.querySelector('.header__menu-lines__line--second');
+const $menuLinesThird = document.querySelector('.header__menu-lines__line--third');
 
-// menuTriangle.onclick = () => {
-//   triFirst.classList.toggle('active');
-//   triSec.classList.toggle('active');
-//   triThird.classList.toggle('active');
-// };
+$menuLines.onclick = () => {
+  $menuLinesFirst.classList.toggle('active');
+  $menuLinesSecond.classList.toggle('active');
+  $menuLinesThird.classList.toggle('active');
+};
 
-// const $menuFour = document.querySelectorAll('.menuFour');
-// const $menuFourCircle = document.querySelector('.menuFour_circle');
-// const $menuFourTitle = document.querySelector('.menuFour_title');
+const $menuTextBox = document.querySelectorAll('.header__menu-texts__text-box');
 
-// [...$menuFour].forEach(item => {
-//   item.addEventListener('mouseenter', () => {
-//     item.querySelector('.menuFour_circle').classList.toggle('hover');
-//     item.querySelector('.menuFour_title').classList.toggle('hover');
-//   });
+[...$menuTextBox].forEach(item => {
+  item.addEventListener('pointerenter', () => {
+    item.querySelector('.header__menu-texts__text-box__circle').classList.toggle('hover');
+    item.querySelector('.header__menu-texts__text-box__text').classList.toggle('hover');
+  });
 
-//   item.addEventListener('mouseleave', () => {
-//     item.querySelector('.menuFour_circle').classList.toggle('hover');
-//     item.querySelector('.menuFour_title').classList.toggle('hover');
-//   });
-
-// })
+  item.addEventListener('pointerleave', () => {
+    item.querySelector('.header__menu-texts__text-box__circle').classList.toggle('hover');
+    item.querySelector('.header__menu-texts__text-box__text').classList.toggle('hover');
+  });
+});
 
 // ----------------------------------------------------------------------------------
 // MAIN
 
-// scrollMain.onclick = () => {
-//   const start = window.pageYOffset; 
-//   const end = release.getBoundingClientRect().top + window.pageYOffset; 
+const $mainScrollDown = document.querySelector('.main__progress-scroll__scroll');
+const $mainScrollDownCircle = document.querySelector('.main__progress-scroll__scroll__circle');
+const $mainScrollDownCircleArrow = document.querySelector('.main__progress-scroll__scroll__circle__arrow');
+const $release = document.querySelector('.release');
 
-//   animate({
-//     duration: 400,
-//     timing: function quad(timeFraction) {
-//       return Math.pow(timeFraction, 2)
-//     },
-//     draw: function(progress) {
-//       window.scrollTo(0, start + (end - start) * progress);
-//     }
-//   });
-// }
+$mainScrollDown.onclick = () => {
+  const start = window.pageYOffset; 
+  const end = $release.getBoundingClientRect().top + window.pageYOffset; 
 
-// const $downArrow = document.querySelector('.down_arrow');
+  animate({
+    duration: 300,
+    timing: function linear(timeFraction) {
+      return timeFraction;
+    },
+    draw: function(progress) {
+      if(progress <= 0) return;
+      window.scrollTo(0, start + (end - start) * progress);
+    }
+  });
+}
 
-// scrollMain.addEventListener('mouseenter', () => {
-//   scrollArrow.classList.toggle('hover');
-//   $downArrow.classList.toggle('hover');
-// });
+$mainScrollDown.addEventListener('pointerenter', () => {
+  $mainScrollDownCircle.classList.toggle('hover');
+  $mainScrollDownCircleArrow.classList.toggle('hover');
+});
 
-// scrollMain.addEventListener('mouseleave', () => {
-//   scrollArrow.classList.toggle('hover');
-//   $downArrow.classList.toggle('hover');
-// });
+$mainScrollDown.addEventListener('pointerleave', () => {
+  $mainScrollDownCircle.classList.toggle('hover');
+  $mainScrollDownCircleArrow.classList.toggle('hover');
+});
 
 // ----------------------------------------------------------------------------------
 // RELEASE
