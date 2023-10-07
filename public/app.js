@@ -207,7 +207,7 @@ $spotlightScrollInner.addEventListener('pointerover', (e) => {
 
   const imgClassList = e.target.className;
 
-  if(imgClassList === 'spotlight__scroll__item__img-box__img') {
+  if(imgClassList === 'js-spotlight__scroll__item__img-box__img') {
     $spotlightCursor.className = 'js-spotlight-cursor show scale';
     $spotlightCursorCircle.className = 'js-spotlight-cursor__circle scale';
   }
@@ -223,7 +223,7 @@ $spotlightScrollInner.addEventListener('pointerover', (e) => {
   $spotlightScrollInner.addEventListener('pointerout', (e) => {
     $spotlightCursor.className = 'js-spotlight-cursor';
 
-    if(imgClassList === 'spotlight__scroll__item__img-box__img') {
+    if(imgClassList === 'js-spotlight__scroll__item__img-box__img') {
       $spotlightCursor.className = 'js-spotlight-cursor show';
       $spotlightCursorCircle.className = 'js-spotlight-cursor__circle';
     }  
@@ -452,9 +452,9 @@ function jobsRemove(item1, item2, item3, item4) {
 // ----------------------------------------------------------------------------------
 // TIME
 // SE -> UK -> US
-const $hours = document.querySelectorAll('.hour');
-const $mins = document.querySelectorAll('.min');
-const $secs = document.querySelectorAll('.sec');
+const $hours = document.querySelectorAll('.time__main-box__times__time__clock__hour');
+const $mins = document.querySelectorAll('.time__main-box__times__time__clock__minute');
+const $secs = document.querySelectorAll('.time__main-box__times__time__clock__second');
 
 function setTime(string, timezone, number) {
   let date = new Date().toLocaleString(string, {
@@ -492,6 +492,35 @@ setInterval(() => {
 // ----------------------------------------------------------------------------------
 // FOOTER
 
+const $backToTopContents = document.querySelector('.js-footer__back-to-top__contents');
+const $backToTopContentsArrow = document.querySelector('.js-footer__back-to-top__contents__arrow');
+const $backToTopContentsArrowImg = document.querySelector('.js-footer__back-to-top__contents__arrow_img');
+
+$backToTopContents.onclick = () => {
+  const start = window.pageYOffset; 
+
+  animate({
+    duration: 400,
+    timing: function quad(timeFraction) {
+      return Math.pow(timeFraction, 2)
+    },
+    draw: function(progress) {
+      window.scrollTo(0, start * (1 - progress));
+    }
+  });
+}
+
+$backToTopContents.addEventListener('pointerenter', () => {
+  $backToTopContentsArrow.classList.toggle('hover');
+  $backToTopContentsArrowImg.classList.toggle('hover');
+});
+
+$backToTopContents.addEventListener('pointerleave', () => {
+  $backToTopContentsArrow.classList.toggle('hover');
+  $backToTopContentsArrowImg.classList.toggle('hover');
+});
+
+
 function animate({timing, draw, duration}) {
 
   let start = performance.now();
@@ -509,40 +538,3 @@ function animate({timing, draw, duration}) {
     }
   });
 }
-
-
-const $footerArrowMain = document.getElementById('footerArrowMain');
-const $footerArrow = document.getElementById('footerArrow');
-const $footerArrow_avg = document.getElementById('footerArrow_avg');
-
-$footerArrowMain.onclick = () => {
-  const start = window.pageYOffset; 
-
-  animate({
-    duration: 400,
-    timing: function quad(timeFraction) {
-      return Math.pow(timeFraction, 2)
-    },
-    draw: function(progress) {
-      window.scrollTo(0, start * (1 - progress));
-    }
-  });
-}
-
-$footerArrowMain.addEventListener('mouseenter', () => {
-  $footerArrow.classList.toggle('hover');
-  $footerArrow_avg.classList.toggle('hover');
-});
-
-$footerArrowMain.addEventListener('mouseleave', () => {
-  $footerArrow.classList.toggle('hover');
-  $footerArrow_avg.classList.toggle('hover');
-});
-
-
-
-/*
-git remote add origin https://github.com/ArtisticH/Spotify-Clone.git
-git branch -M main
-git push -u origin main
-*/
