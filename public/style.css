@@ -1676,11 +1676,6 @@ main {
   align-items: flex-start;
 }
 
-.time__main-box__links__newsroom,
-.time__main-box__links__instagram {
-  z-index: 1;
-}
-
 .time__main-box__links__link {
   font-size: 1.1rem;
   letter-spacing: -0.5px;
@@ -1690,12 +1685,18 @@ main {
   width: max-content;
 }
 
+.time__main-box__links__newsroom,
+.time__main-box__links__instagram {
+  z-index: 1;
+}
+
 .time__main-box__links__link:hover {
   text-decoration: underline;
 }
 
 .time__main-box__times {
   z-index: 1;
+  width: 150px;
 }
 
 .time__main-box__times__time {
@@ -1709,6 +1710,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  z-index: 1;
 }
 
 .time__main-box__times__time__country__circle {
@@ -1716,13 +1718,13 @@ main {
   height: 4px;
   background: black;
   border-radius: 50%;
-  margin-right: 0.5rem;
+  margin-right: 0.7rem;
 }
 
 .time__main-box__times__time__country__country-name {
   font-family: var(--main-font-family-medium);
   font-weight: bolder;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .time__main-box__times__time__country__city {
@@ -1731,23 +1733,23 @@ main {
 
 .time__main-box__times__time__clock {
   font-family: var(--main-small-font);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  margin-left: 1.3rem;
+  z-index: 1;
 }
 
-.time__main-box__times__time__clock {
-  padding-right: 0.1rem;
+.time__main-box__times__time__clock__hour {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.time__main-box__times__time__clock__minute {
-  padding: 0 0.1rem;
-}
-
+.time__main-box__times__time__clock__hour,
+.time__main-box__times__time__clock__minute,
 .time__main-box__times__time__clock__second {
-  padding-left: 0.1rem;
+  width: 28px;
 }
 
 @media all and (min-width: 600px) {
@@ -1757,36 +1759,28 @@ main {
 
   .time__main-box__links {
     display: flex;
-    justify-content: flex-start;
     align-items: flex-start;
-    width: 60%;
-  }
-
-  .time__main-box__links__newsroom {
-    margin-right: 10%;
+    width: 44%;
+    justify-content: space-between;
   }
 
   .time__main-box__links__link {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
-  .time__main-box__times--flex {   
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    width: 40%;
+  .time__main-box__times {
+    width: 230px;
   }
-
-  .time__main-box__times__time__city__circle {
+      
+  .time__main-box__times__time__country__circle {
     width: 7px; 
     height: 7px;
-    margin-right: 0.2rem;
+    margin-right: 0.4rem;
   }
   
   .time__main-box__times__time__country__country-name {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     letter-spacing: -0.5px;
-    margin-right: 0.4rem;
   }
   
   .time__main-box__times__time__country__city {
@@ -1810,8 +1804,15 @@ main {
   }
   
   .time__main-box__times__time__clock {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    z-index: 1;
   }  
+
+  .time__main-box__times__time__clock__hour,
+  .time__main-box__times__time__clock__minute,
+  .time__main-box__times__time__clock__second {
+    width: 29px;
+  }
 }
 
 @media all and (min-width: 1024px) {
@@ -1822,36 +1823,41 @@ main {
   .time--flex {
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
   }
 
- .time__logo {
-    width: 33%;
+  .time__logo {
+    width: 30%;
     align-items: flex-start;
     padding-bottom: 0rem;
   }
-
-  .time__main-box__links__newsroom {
-    margin-right: 0px;
-  }
-
-  .time__main-box__times__time {
-    margin-bottom: 0.6rem;
-  }  
 
   .time__logo__img {
     width: 230px;
   }
 
   .time__main-box {
-    width: 67%;
+    width: 70%;
+  }
+
+  .time__main-box__links {
+    width: 50%;
   }
 
   .time__main-box__links__link {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
+
+  .time__main-box__times {
+    width: 270px;
+  }
+
+  .time__main-box__times__time {
+    margin-bottom: 0.6rem;
+  }  
   
   .time__main-box__times__time__country__country-name {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     letter-spacing: -0.7px;
   }
 
@@ -1861,8 +1867,14 @@ main {
   }
   
   .time__main-box__times__time__clock {
-    font-size: 1.6rem;
-  }    
+    font-size: 1.4rem;
+  }
+  
+  .time__main-box__times__time__clock__hour,
+  .time__main-box__times__time__clock__minute,
+  .time__main-box__times__time__clock__second {
+    width: 30px;
+  }
 } 
 
 /* --------------------------------------------------------------------------------- */
