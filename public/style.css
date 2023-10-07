@@ -470,10 +470,6 @@ main {
   .forwidth.main {
     position: static;
   }
-
-  .mainimg_container {
-    /* visibility: hidden; */
-  }
   
   #shuffleMain {
     position: static;
@@ -1220,7 +1216,7 @@ main {
 /* --------------------------------------------------------------------------------- */
 /* SECTION INBOX */
 
-.inbox {
+.js-inbox {
   background: #171313;
   padding-top: 6rem;
   padding-bottom: 3rem;
@@ -1230,6 +1226,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* svg-arrow에 대해 */
   position: relative;
 }
 
@@ -1318,47 +1315,61 @@ main {
   letter-spacing: -0.5px;
 }
 
-#inboxSvg {
+.inbox__title__text-box__svg-circle--relative {
   position: relative;
 }
 
-#inboxCircleSvg {
+.inbox__title__text-box__svg-circle--absolute {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
 }
 
-#path1_inboxCircle {
+.js-inbox__title__text-box__svg-circle__path1 {
   visibility: hidden;
   stroke-dasharray: 245;
   stroke-dashoffset: 245;
 }
 
-#path2_inboxCircle {
+.js-inbox__title__text-box__svg-circle__path1.active {
+  visibility: visible;
+  animation: svg-circle__path1 0.6s linear;
+  stroke-dashoffset: 0;
+}
+
+@keyframes svg-circle__path1 {
+  0% {stroke-dashoffset: 245;}
+  100% {stroke-dashoffset: 0;}
+}
+
+.js-inbox__title__text-box__svg-circle__path2 {
   visibility: hidden;
   stroke-dasharray: 295;
   stroke-dashoffset: 295;
 }
 
-#path1_inboxCircle.active {
+.js-inbox__title__text-box__svg-circle__path2.active {
   visibility: visible;
-  animation: path1_inboxCircle 0.6s linear;
+  animation: svg-circle__path2 0.8s linear;
   stroke-dashoffset: 0;
 }
 
-#path2_inboxCircle.active {
-  visibility: visible;
-  animation: path2_inboxCircle 0.8s linear;
-  stroke-dashoffset: 0;
+@keyframes svg-circle__path2 {
+  0% {stroke-dashoffset: 295;}
+  25% {stroke-dashoffset: 295;}
+  100% {stroke-dashoffset: 0;}
 }
 
-#path1_inboxCircle, #path2_inboxCircle, #path1_inboxArrow, #path2_inboxArrow {
+.js-inbox__title__text-box__svg-circle__path1, 
+.js-inbox__title__text-box__svg-circle__path2, 
+.js-inbox__title__svg-arrow__path1, 
+.js-inbox__title__svg-arrow__path2 {
   fill: none;
   stroke: #ffe818;
 }
 
-#inboxArrowSvg_svg {
+.inbox__title__svg-arrow {
   position: absolute;
   display: none;
   width: 20%;
@@ -1370,56 +1381,45 @@ main {
 
 /* 화살표머리 */
 
-#path1_inboxArrow {
+.js-inbox__title__svg-arrow__path1 {
   visibility: hidden;
   stroke-dasharray: 49;
   stroke-dashoffset: 49;
 }
 
-/* 화살표몸통 */
-
-#path2_inboxArrow {
-  visibility: hidden;
-  stroke-dasharray: 196;
-  stroke-dashoffset: 196;
-}
-
-#path1_inboxArrow.active {
+.js-inbox__title__svg-arrow__path1.active {
   visibility: visible;
-  animation: path1_inboxArrow 0.8s linear;
+  animation: svg-arrow__path1 0.8s linear;
   stroke-dashoffset: 0;
 }
 
-#path2_inboxArrow.active {
-  visibility: visible;
-  animation: path2_inboxArrow 0.6s linear;
-  stroke-dashoffset: 0;
-}
-
-@keyframes path1_inboxCircle {
-  0% {stroke-dashoffset: 245;}
-  100% {stroke-dashoffset: 0;}
-}
-
-@keyframes path2_inboxCircle {
-  0% {stroke-dashoffset: 295;}
-  25% {stroke-dashoffset: 295;}
-  100% {stroke-dashoffset: 0;}
-}
-
-@keyframes path1_inboxArrow {
+@keyframes svg-arrow__path1 {
   0% {stroke-dashoffset: 49;}
   75% {stroke-dashoffset: 49;}
   100% {stroke-dashoffset: 0;}
 }
 
-@keyframes path2_inboxArrow {
+/* 화살표몸통 */
+
+.js-inbox__title__svg-arrow__path2 {
+  visibility: hidden;
+  stroke-dasharray: 196;
+  stroke-dashoffset: 196;
+}
+
+.js-inbox__title__svg-arrow__path2.active {
+  visibility: visible;
+  animation: svg-arrow__path2 0.6s linear;
+  stroke-dashoffset: 0;
+}
+
+@keyframes svg-arrow__path2 {
   0% {stroke-dashoffset: 196;}
   100% {stroke-dashoffset: 0;}
 }
 
 @media all and (min-width: 600px) {
-  .inbox {
+  .js-inbox {
     padding-top: 10rem;
     padding-bottom: 5rem;
   }
@@ -1488,7 +1488,7 @@ main {
     text-align: left;
   }  
 
-  #inboxArrowSvg_svg {
+  .inbox__title__svg-arrow {
     display: block;
   }  
 }

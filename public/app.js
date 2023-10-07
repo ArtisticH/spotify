@@ -85,7 +85,7 @@ document.ondragstart = () => {
 }
 
 let spotlightCount = 0;
-let rightCurrentOffsetLeft = 0;
+let currentOffsetLeft = 0;
 
 // 키보드 
 document.addEventListener('keydown', (e) => {
@@ -93,7 +93,7 @@ document.addEventListener('keydown', (e) => {
     if(spotlightCount >= 10) return;
 
     const rightGoalOffsetLeft = $spotlightScrollItem[spotlightCount + 1].offsetLeft; // 양수
-    const neededValue = rightCurrentOffsetLeft - rightGoalOffsetLeft; // 음수
+    const neededValue = currentOffsetLeft - rightGoalOffsetLeft; // 음수
     
     animate({
       duration: 200,
@@ -103,10 +103,10 @@ document.addEventListener('keydown', (e) => {
       draw: function(progress) {
         // progress가 음수일 수도 있다.
         if(progress <= 0) return;
-        $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft + neededValue * progress}px, 0px, 0px)`;
+        $spotlightScrollInner.style.transform = `translate3d(${-currentOffsetLeft + neededValue * progress}px, 0px, 0px)`;
         if(progress >= 1) {
           spotlightCount++;
-          rightCurrentOffsetLeft = rightGoalOffsetLeft;
+          currentOffsetLeft = rightGoalOffsetLeft;
         } 
       }
     });
@@ -116,7 +116,7 @@ document.addEventListener('keydown', (e) => {
     if(spotlightCount <= 0) return;
 
     const leftGoalOffsetLeft = $spotlightScrollItem[spotlightCount - 1].offsetLeft; // 양수
-    const neededValue = leftGoalOffsetLeft - rightCurrentOffsetLeft; // 음수
+    const neededValue = leftGoalOffsetLeft - currentOffsetLeft; // 음수
 
     animate({
       duration: 200,
@@ -128,7 +128,7 @@ document.addEventListener('keydown', (e) => {
         $spotlightScrollInner.style.transform = `translate3d(${-leftGoalOffsetLeft + (neededValue * (1 - progress))}px, 0px, 0px)`;
         if(progress >= 1) {
           spotlightCount--;
-          rightCurrentOffsetLeft = leftGoalOffsetLeft;
+          currentOffsetLeft = leftGoalOffsetLeft;
         } 
       }
     });
@@ -137,9 +137,9 @@ document.addEventListener('keydown', (e) => {
 
 // 사이즈 새로고침 했을 때 끝에서부터 반복되는거? -> 
 // 브라우저 사이즈가 변경될 때마다 예를 들어 $spotlightScrollItem[1].offsetLeft의 값이 364, 424, 696으로 바뀌기 때문에 
-// 현재 기준으로 rightCurrentOffsetLeft을 계산해야 한다. 
+// 현재 기준으로 currentOffsetLeft을 계산해야 한다. 
 window.addEventListener('resize', () => {
-  rightCurrentOffsetLeft = $spotlightScrollItem[spotlightCount].offsetLeft;
+  currentOffsetLeft = $spotlightScrollItem[spotlightCount].offsetLeft;
   $spotlightScrollInner.style.transform = `translate3d(${-$spotlightScrollItem[spotlightCount].offsetLeft}px, 0px, 0px)`;
 });
 
@@ -273,11 +273,11 @@ function moveEvent(e) {
     ['xValue', xValue],
     ['e.clientX', e.clientX],
     ['firstPointerDown', firstPointerDown],
-    ['rightCurrentOffsetLeft', rightCurrentOffsetLeft],
-    ['-rightCurrentOffsetLeft + xValue', -rightCurrentOffsetLeft + xValue]
+    ['currentOffsetLeft', currentOffsetLeft],
+    ['-currentOffsetLeft + xValue', -currentOffsetLeft + xValue]
   );
   // 왼쪽 오른쪽 둘 다 적용
-  $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft + xValue}px, 0px, 0px)`;
+  $spotlightScrollInner.style.transform = `translate3d(${-currentOffsetLeft + xValue}px, 0px, 0px)`;
 }
 
 function bounceEvent() {
@@ -296,11 +296,11 @@ function bounceEvent() {
         console.log(
           ['튕길 때'],
           ['xValue', xValue],
-          ['rightCurrentOffsetLeft', rightCurrentOffsetLeft],
-          ['-rightCurrentOffsetLeft +  xValue * (1 - progress)', -rightCurrentOffsetLeft +  xValue * (1 - progress)]
+          ['currentOffsetLeft', currentOffsetLeft],
+          ['-currentOffsetLeft +  xValue * (1 - progress)', -currentOffsetLeft +  xValue * (1 - progress)]
         );
     
-        $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft +  xValue * (1 - progress)}px, 0px, 0px)`;
+        $spotlightScrollInner.style.transform = `translate3d(${-currentOffsetLeft +  xValue * (1 - progress)}px, 0px, 0px)`;
       }
     });
 
@@ -312,7 +312,7 @@ function bounceEvent() {
     if(spotlightCount == 10) return;
 
     const nextImgOffsetLeft = $spotlightScrollItem[spotlightCount + 1].offsetLeft; // 양수
-    const neededValue = nextImgOffsetLeft + (-rightCurrentOffsetLeft + xValue); // 양수
+    const neededValue = nextImgOffsetLeft + (-currentOffsetLeft + xValue); // 양수
 
     animate({
       duration: 200,
@@ -325,14 +325,14 @@ function bounceEvent() {
           ['xValue', xValue],
           ['neededValue', neededValue],
           ['nextImgOffsetLeft', nextImgOffsetLeft],
-          ['-rightCurrentOffsetLeft + xValue + -neededValue * progress', -rightCurrentOffsetLeft + xValue + -neededValue * progress]
+          ['-currentOffsetLeft + xValue + -neededValue * progress', -currentOffsetLeft + xValue + -neededValue * progress]
         );
         if(progress <= 0) return;
-        $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft + xValue + -neededValue * progress}px, 0px, 0px)`;
+        $spotlightScrollInner.style.transform = `translate3d(${-currentOffsetLeft + xValue + -neededValue * progress}px, 0px, 0px)`;
 
         if(progress >= 1) {
           spotlightCount++;
-          rightCurrentOffsetLeft = nextImgOffsetLeft;      
+          currentOffsetLeft = nextImgOffsetLeft;      
         }
       }
     });
@@ -343,7 +343,7 @@ function bounceEvent() {
 
     if(spotlightCount == 0) return;
     const beforeImgOffsetLeft = $spotlightScrollItem[spotlightCount - 1].offsetLeft; // 양수
-    const neededValue = rightCurrentOffsetLeft - xValue - beforeImgOffsetLeft; // 양수
+    const neededValue = currentOffsetLeft - xValue - beforeImgOffsetLeft; // 양수
 
     animate({
       duration: 200,
@@ -356,15 +356,15 @@ function bounceEvent() {
           ['xValue', xValue],
           ['neededValue', neededValue],
           ['beforeImgOffsetLeft', beforeImgOffsetLeft],
-          ['-rightCurrentOffsetLeft + xValue + neededValue * progress', -rightCurrentOffsetLeft + xValue + neededValue * progress]
+          ['-currentOffsetLeft + xValue + neededValue * progress', -currentOffsetLeft + xValue + neededValue * progress]
         );
 
         if(progress <= 0) return;
-        $spotlightScrollInner.style.transform = `translate3d(${-rightCurrentOffsetLeft + xValue + neededValue * progress}px, 0px, 0px)`;
+        $spotlightScrollInner.style.transform = `translate3d(${-currentOffsetLeft + xValue + neededValue * progress}px, 0px, 0px)`;
 
         if(progress >= 1) {
           spotlightCount--;
-          rightCurrentOffsetLeft = beforeImgOffsetLeft;      
+          currentOffsetLeft = beforeImgOffsetLeft;      
         }
       }
     });
@@ -376,29 +376,35 @@ function bounceEvent() {
 // INBOX
 
 
-const $inbox = document.querySelector('.inbox');
-const $path1_inboxCircle = document.getElementById('path1_inboxCircle');
-const $path2_inboxCircle = document.getElementById('path2_inboxCircle');
-const $path1_inboxCircle_lenghth = $path1_inboxCircle.getTotalLength();
-const $path2_inboxCircle_length = $path2_inboxCircle.getTotalLength();
-const $path1_inboxArrow = document.getElementById('path1_inboxArrow');
-const $path2_inboxArrow = document.getElementById('path2_inboxArrow');
-const $path1_inboxArrow_length = $path1_inboxArrow.getTotalLength();
-const $path2_inboxArrow_length = $path2_inboxArrow.getTotalLength();
+const $inbox = document.querySelector('.js-inbox');
+const $inboxSvgCirclePath1 = document.querySelector('.js-inbox__title__text-box__svg-circle__path1');
+const $inboxSvgCirclePath2 = document.querySelector('.js-inbox__title__text-box__svg-circle__path2');
+const $inboxSvgCirclePath1_lenghth = $inboxSvgCirclePath1.getTotalLength(); // 244.7532196044922
+const $inboxSvgCirclePath2_length = $inboxSvgCirclePath2.getTotalLength(); // 294.6005859375
+const $inboxSvgArrowPath1 = document.querySelector('.js-inbox__title__svg-arrow__path1');
+const $inboxSvgArrowPath2 = document.querySelector('.js-inbox__title__svg-arrow__path2');
+const $inboxSvgArrowPath1_length = $inboxSvgArrowPath1.getTotalLength(); // 48.15165710449219
+const $inboxSvgArrowPath2_length = $inboxSvgArrowPath2.getTotalLength(); // 195.17434692382812
+
+/*
+window.pageYOffset: 세로 스크롤에 의해 가려진 위쪽 영역 높이
+window.innerHeight: 전체 창 너비
+document.documentElement.clientHeight: 스크롤바가 차지하는 영역을 제외한 창 너비
+*/
 
 document.addEventListener('scroll', () => {
-  const ratio = (window.pageYOffset + window.innerHeight - ($inbox.getBoundingClientRect().top + window.pageYOffset)) / $inbox.offsetHeight;
+  const ratio = (window.pageYOffset + document.documentElement.clientHeight - ($inbox.getBoundingClientRect().top + window.pageYOffset)) / $inbox.offsetHeight;
 
   if (ratio >= 0.4 && ratio < 1.15) {
-    $path1_inboxCircle.classList.add('active');
-    $path2_inboxCircle.classList.add('active');
-    $path1_inboxArrow.classList.add('active');
-    $path2_inboxArrow.classList.add('active');
+    $inboxSvgCirclePath1.classList.add('active');
+    $inboxSvgCirclePath2.classList.add('active');
+    $inboxSvgArrowPath1.classList.add('active');
+    $inboxSvgArrowPath2.classList.add('active');
   } else if (ratio <= 0.3 || ratio >= 1.17) {
-    $path1_inboxCircle.classList.remove('active');
-    $path2_inboxCircle.classList.remove('active');
-    $path1_inboxArrow.classList.remove('active');
-    $path2_inboxArrow.classList.remove('active');
+    $inboxSvgCirclePath1.classList.remove('active');
+    $inboxSvgCirclePath2.classList.remove('active');
+    $inboxSvgArrowPath1.classList.remove('active');
+    $inboxSvgArrowPath2.classList.remove('active');
   }
 })
 
