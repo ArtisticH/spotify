@@ -104,6 +104,7 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
 // ----------------------------------------------------------------------------------
 // HEADER
 
+// 메뉴 세 라인, 클릭 효과
 const $menuLines = document.querySelector('.header__menu-lines');
 const $menuLinesFirst = document.querySelector('.header__menu-lines__line--first');
 const $menuLinesSecond = document.querySelector('.header__menu-lines__line--second');
@@ -115,6 +116,7 @@ $menuLines.onclick = () => {
   $menuLinesThird.classList.toggle('active');
 };
 
+// 메뉴 텍스트, 호버 효과
 const $menuTextBox = document.querySelectorAll('.header__menu-texts__text-box');
 
 [...$menuTextBox].forEach(item => {
@@ -132,6 +134,7 @@ const $menuTextBox = document.querySelectorAll('.header__menu-texts__text-box');
 // ----------------------------------------------------------------------------------
 // MAIN
 
+// 스크롤 다운
 const $mainScrollDown = document.querySelector('.main__progress-scroll__scroll');
 const $mainScrollDownCircle = document.querySelector('.main__progress-scroll__scroll__circle');
 const $mainScrollDownCircleArrow = document.querySelector('.main__progress-scroll__scroll__circle__arrow');
