@@ -1220,37 +1220,46 @@ main {
 /* --------------------------------------------------------------------------------- */
 /* SECTION INBOX */
 
-#inbox {
+.inbox {
   background: #171313;
   padding-top: 6rem;
   padding-bottom: 3rem;
 }
 
-#inboxTitles_box {
+.inbox__title {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+
+  border: 1px solid white;
 }
 
-#inboxTitles {
+.inbox__title__text-box {
   text-align: center;
   width: 72%;
   color: #fff;
-  font-family: 'Circular-medium';
+  font-family: var(--main-font-family-medium);
   font-size: 2.5rem;
   letter-spacing: -2px;
   line-height: 1.1;
+
+  border: 1px solid white;
 }
 
-#inboxInput_box {
+.inbox__email-box {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 4rem 0 6rem 0;
+
+  border: 1px solid blue;
 }
 
-#inboxInput {
+.inbox__email-box--width {
   width: 448px;
+
+  border: 1px solid blue;
 }
 
 #inboxInput_display {
@@ -1305,6 +1314,8 @@ main {
   justify-content: center;
   align-items: center;
 
+  border: 1px solid red;
+
 }
 
 #inboxExp {
@@ -1355,10 +1366,6 @@ main {
 #path1_inboxCircle, #path2_inboxCircle, #path1_inboxArrow, #path2_inboxArrow {
   fill: none;
   stroke: #ffe818;
-}
-
-#inboxTitles_box {
-  position: relative;
 }
 
 #inboxArrowSvg_svg {
@@ -1422,18 +1429,17 @@ main {
 }
 
 @media all and (min-width: 600px) {
-  #inbox {
+  .inbox {
     padding-top: 10rem;
     padding-bottom: 5rem;
   }
 
-  #inboxTitles {
+  .inbox__title__text-box {
     font-size: 3.5rem;
     letter-spacing: -4px;
-    line-height: 1.1;
   }
 
-  #inboxInput_box {
+  .inbox__email-box {
     padding: 6rem 0 13rem 0;
   }  
 
@@ -1454,22 +1460,22 @@ main {
 
 
 @media all and (min-width: 1024px) {
-  #inboxTitles_box {
+  .inbox__title {
     justify-content: flex-start;
   }
 
-  #inboxTitles {
+  .inbox__title__text-box {
     font-size: 4rem;
     text-align: left;
     width: 817px;
   }
   
-  #inboxInput_box { 
+  .inbox__email-box { 
     padding: 12rem 0 9rem 0;
     justify-content: flex-end;
   }  
 
-  #inboxInput {
+  .inbox__email-box--width {
     width: 40%;
   }
 

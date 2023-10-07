@@ -376,7 +376,7 @@ function bounceEvent() {
 // INBOX
 
 
-const $inbox = document.getElementById('inbox');
+const $inbox = document.querySelector('.inbox');
 const $path1_inboxCircle = document.getElementById('path1_inboxCircle');
 const $path2_inboxCircle = document.getElementById('path2_inboxCircle');
 const $path1_inboxCircle_lenghth = $path1_inboxCircle.getTotalLength();
