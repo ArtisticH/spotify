@@ -1740,15 +1740,17 @@ main {
   z-index: 1;
 }
 
-.time__main-box__times__time__clock__hour {
+.js-time__main-box__times__time__clock__hour,
+.js-time__main-box__times__time__clock__minute,
+.js-time__main-box__times__time__clock__second {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.time__main-box__times__time__clock__hour,
-.time__main-box__times__time__clock__minute,
-.time__main-box__times__time__clock__second {
+.js-time__main-box__times__time__clock__hour,
+.js-time__main-box__times__time__clock__minute,
+.js-time__main-box__times__time__clock__second {
   width: 28px;
 }
 
@@ -1808,9 +1810,9 @@ main {
     z-index: 1;
   }  
 
-  .time__main-box__times__time__clock__hour,
-  .time__main-box__times__time__clock__minute,
-  .time__main-box__times__time__clock__second {
+  .js-time__main-box__times__time__clock__hour,
+  .js-time__main-box__times__time__clock__minute,
+  .js-time__main-box__times__time__clock__second {
     width: 29px;
   }
 }
@@ -1870,9 +1872,9 @@ main {
     font-size: 1.4rem;
   }
   
-  .time__main-box__times__time__clock__hour,
-  .time__main-box__times__time__clock__minute,
-  .time__main-box__times__time__clock__second {
+  .js-time__main-box__times__time__clock__hour,
+  .js-time__main-box__times__time__clock__minute,
+  .js-time__main-box__times__time__clock__second {
     width: 30px;
   }
 } 
@@ -1923,7 +1925,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.1s ease-out;
+  transition: all 0.2s ease-out;
   background: transparent;
 }
 
@@ -1933,11 +1935,18 @@ main {
 
 .js-footer__back-to-top__contents__arrow_img {
   width: 35%;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .js-footer__back-to-top__contents__arrow_img.hover {
   filter: invert(1);
+}
+
+.footer__links__company {
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .footer__links__detail {
@@ -1958,14 +1967,23 @@ main {
   text-decoration: underline;
 }
 
-.footer__links__company {
-  margin-bottom: 0.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
 @media all and (min-width: 600px) {
+  .footer {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer__links {
+    order: 1;
+  }
+
+  .footer__back-to-top {
+    padding: 0;
+    order: 2;
+  }
+
   .js-footer__back-to-top__contents__arrow {
     width: 60px;
     height: 60px;
@@ -1975,18 +1993,6 @@ main {
     width: 40%;
   }
   
-  .footer {
-    padding-top: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .footer__back-to-top {
-    padding: 0;
-    order: 2;
-  }
-
   .footer__links--text {
     font-size: 1.1rem;
   }  
@@ -1994,7 +2000,6 @@ main {
 
 @media all and (min-width: 795px) {
   .footer__links {
-    order: 1;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -2007,5 +2012,4 @@ main {
   .footer__links--text {
     font-size: 1.2rem;
   }  
-
 }

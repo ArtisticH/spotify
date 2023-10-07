@@ -452,9 +452,9 @@ function jobsRemove(item1, item2, item3, item4) {
 // ----------------------------------------------------------------------------------
 // TIME
 // SE -> UK -> US
-const $hours = document.querySelectorAll('.time__main-box__times__time__clock__hour');
-const $mins = document.querySelectorAll('.time__main-box__times__time__clock__minute');
-const $secs = document.querySelectorAll('.time__main-box__times__time__clock__second');
+const $hours = document.querySelectorAll('.js-time__main-box__times__time__clock__hour');
+const $mins = document.querySelectorAll('.js-time__main-box__times__time__clock__minute');
+const $secs = document.querySelectorAll('.js-time__main-box__times__time__clock__second');
 
 function setTime(string, timezone, number) {
   let date = new Date().toLocaleString(string, {
