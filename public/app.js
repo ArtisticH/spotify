@@ -41,6 +41,127 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
 });
 
 // ----------------------------------------------------------------------------------
+// 새로고침 -> intro 나와야
+
+// window.addEventListener('beforeunload', () => {
+//   window.scrollTo(0,0);
+// });
+
+// ----------------------------------------------------------------------------------
+// INTRO
+
+// let mainimg_containers = document.querySelectorAll('.mainimg_container');
+// let index = 15;
+// let i = 0;
+
+
+// document.addEventListener('DOMContentLoaded', () => {
+
+//   setTimeout(() => {
+//     introFlower.style.display = 'block';
+//   }, 1500);
+
+//   [...mainimg_containers].forEach(item => {
+//      item.style.zIndex = `${index}`;
+//      index--;
+//    })
+
+//   setTimeout(() => {
+//     let flowerWidth = introFlower.offsetWidth;
+
+//     animate({
+//       duration: 200,
+//       timing: function(timeFraction) {
+//         return timeFraction;
+//       },
+//       draw: function(progress) {
+//         introFlower.style.left = -(flowerWidth * progress) + 'px';
+//         // 118% -> 10% 로 width 변경
+//         introFlower.style.width = 118 - (118 - 10) * progress + '%';
+//       }
+//     })
+
+//     introLogo.remove();
+//     titleMain.style.opacity = '1';
+//     shuffleMain.style.opacity = '1';
+//     progressAndScroll.style.opacity = '1';
+
+//     let intervalId = setInterval(() => {
+
+//        [...mainimg_containers][i].classList.add('stack');
+//        i++;
+
+//        if (i >= mainimg_containers.length) {
+//          clearInterval(intervalId);
+//          forflex.classList.add('active');
+//          document.body.style.overflowY = 'auto';
+//        }
+
+//     }, 30);
+//   }, 4000);
+// });
+
+// ----------------------------------------------------------------------------------
+// HEADER
+
+// const triFirst = document.querySelector('.triangle.first');
+// const triSec = document.querySelector('.triangle.second');
+// const triThird = document.querySelector('.triangle.third');
+
+// menuTriangle.onclick = () => {
+//   triFirst.classList.toggle('active');
+//   triSec.classList.toggle('active');
+//   triThird.classList.toggle('active');
+// };
+
+// const $menuFour = document.querySelectorAll('.menuFour');
+// const $menuFourCircle = document.querySelector('.menuFour_circle');
+// const $menuFourTitle = document.querySelector('.menuFour_title');
+
+// [...$menuFour].forEach(item => {
+//   item.addEventListener('mouseenter', () => {
+//     item.querySelector('.menuFour_circle').classList.toggle('hover');
+//     item.querySelector('.menuFour_title').classList.toggle('hover');
+//   });
+
+//   item.addEventListener('mouseleave', () => {
+//     item.querySelector('.menuFour_circle').classList.toggle('hover');
+//     item.querySelector('.menuFour_title').classList.toggle('hover');
+//   });
+
+// })
+
+// ----------------------------------------------------------------------------------
+// MAIN
+
+// scrollMain.onclick = () => {
+//   const start = window.pageYOffset; 
+//   const end = release.getBoundingClientRect().top + window.pageYOffset; 
+
+//   animate({
+//     duration: 400,
+//     timing: function quad(timeFraction) {
+//       return Math.pow(timeFraction, 2)
+//     },
+//     draw: function(progress) {
+//       window.scrollTo(0, start + (end - start) * progress);
+//     }
+//   });
+// }
+
+// const $downArrow = document.querySelector('.down_arrow');
+
+// scrollMain.addEventListener('mouseenter', () => {
+//   scrollArrow.classList.toggle('hover');
+//   $downArrow.classList.toggle('hover');
+// });
+
+// scrollMain.addEventListener('mouseleave', () => {
+//   scrollArrow.classList.toggle('hover');
+//   $downArrow.classList.toggle('hover');
+// });
+
+// ----------------------------------------------------------------------------------
 // RELEASE
 
 const $releaseImgBoxes = document.querySelectorAll('.js-release__img-box');
