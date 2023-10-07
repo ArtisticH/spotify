@@ -1231,8 +1231,6 @@ main {
   justify-content: center;
   align-items: center;
   position: relative;
-
-  border: 1px solid white;
 }
 
 .inbox__title__text-box {
@@ -1243,8 +1241,6 @@ main {
   font-size: 2.5rem;
   letter-spacing: -2px;
   line-height: 1.1;
-
-  border: 1px solid white;
 }
 
 .inbox__email-box {
@@ -1252,24 +1248,21 @@ main {
   justify-content: center;
   align-items: center;
   padding: 4rem 0 6rem 0;
-
-  border: 1px solid blue;
 }
 
 .inbox__email-box--width {
   width: 448px;
-
-  border: 1px solid blue;
 }
 
-#inboxInput_display {
+.inbox__email-box__form--flex {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  /* underline 위치 */
   position: relative;
 }
 
-#email {
+.inbox__email-box__form__input {
   font-family: var(--main-small-font);
   background: transparent;
   border: none;
@@ -1280,27 +1273,27 @@ main {
   color: #fff;
 }
 
-#email:focus {
+.inbox__email-box__form__input:focus {
   outline: none;
 }
 
-#email::placeholder {
+.inbox__email-box__form__input::placeholder {
   color: #fff;
   font-size: 1.2rem;
   font-family: var(--main-small-font);
   letter-spacing: -1.5px;
 }
 
-#inputButton {
+.inbox__email-box__form__button {
   background: transparent;
   color: #fff;
-  font-family: 'Circular-medium';
+  font-family: var(--main-font-family-medium);
   border: none;
   text-align: center;
   cursor: pointer;
 }
 
-#inboxInput_underline {
+.inbox__email-box__form__underline {
   height: 1px;
   width: 100%;
   background: #fff;
@@ -1309,16 +1302,13 @@ main {
   bottom: -6px;
 }
 
-#inboxExp_box {
+.inbox__explanation {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  border: 1px solid red;
-
 }
 
-#inboxExp {
+.inbox__explanation__text {
   width: 95%;
   color: #837e7e;
   font-family: var(--main-small-font);  
@@ -1443,17 +1433,17 @@ main {
     padding: 6rem 0 13rem 0;
   }  
 
-  #email {
+  .inbox__email-box__form__input {
     font-size: 1.3rem;
     letter-spacing: -1.5px;
   }
     
-  #email::placeholder {
+  .inbox__email-box__form__input::placeholder {
     font-size: 1.3rem;
     letter-spacing: -1.5px;
   }
 
-  #inboxExp {
+  .inbox__explanation__text {
     width: 80%;
   }
 }
@@ -1478,26 +1468,22 @@ main {
   .inbox__email-box--width {
     width: 40%;
   }
-
-  #inboxInput_display {
-    width: 100%;
-  }
   
-  #email {
+  .inbox__email-box__form__input {
     font-size: 1.5rem;
     letter-spacing: -1.5px;
   }
     
-  #email::placeholder {
+  .inbox__email-box__form__input::placeholder {
     font-size: 1.5rem;
     letter-spacing: -1.5px;
   }  
 
-  #inboxExp_box {
+  .inbox__explanation {
     justify-content: flex-end;
   }
   
-  #inboxExp {
+  .inbox__explanation__text {
     width: 40%;
     text-align: left;
   }  
