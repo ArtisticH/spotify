@@ -118,11 +118,12 @@ $menuLines.onclick = () => {
   $menuLinesSecond.classList.toggle('active');
   $menuLinesThird.classList.toggle('active');
   $menuPopUp.classList.toggle('active');
-  document.body.classList.toggle('pop');
+  document.body.classList.toggle('active');
+  $menuPopUpCategoryAbsolute.classList.toggle('active');
 
   // body overflow가 hidden되면 스크롤바가 갑자기 사라지면서 너비가 조정되니까
   // body에 그만큼 오른쪽 패딩을 먹여야 한다.
-  if(document.body.classList.contains('pop')) {
+  if(document.body.classList.contains('active')) {
     document.body.style.paddingRight = paddingToAdd + 'px';
     $menuPopUpCategoryAbsolute.style.paddingRight = paddingToAdd + 'px';
   } else {
@@ -134,10 +135,11 @@ $menuLines.onclick = () => {
 window.addEventListener('resize', () => {
   if(window.innerWidth >= 600) {
     $menuPopUp.classList.remove('active');
-    document.body.classList.remove('pop');
+    document.body.classList.remove('active');
     $menuLinesFirst.classList.remove('active');
     $menuLinesSecond.classList.remove('active');
     $menuLinesThird.classList.remove('active');  
+    $menuPopUpCategoryAbsolute.classList.remove('active');
   
     document.body.style.paddingRight = '';
     $menuPopUpCategoryAbsolute.style.paddingRight = '';

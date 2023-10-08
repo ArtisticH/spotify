@@ -104,7 +104,7 @@ body {
   width: 0vw;
   height: 100vh;
   background-color: white;
-  transition: width 0.3s ease-out;
+  transition: width 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   /* 로고와 메뉴 삼지창은 z-index: 2 */
   z-index: 1;
 }
@@ -113,7 +113,7 @@ body {
   width: 100vw;
 }
 
-body.pop {
+body.active {
   overflow-y: hidden;
 }
 
@@ -133,6 +133,8 @@ body.pop {
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
+  opacity: 0;
+  transform: translateX(20%);
 }
 
 .menu-pop__category:hover {
@@ -152,6 +154,88 @@ body.pop {
   background-color: black;
   margin-right: 0.5rem;
   display: none;
+}
+
+.menu-pop__category--absolute.active {
+  display: flex;
+}
+
+.menu-pop__category--first,
+.menu-pop__category--second,
+.menu-pop__category--third,
+.menu-pop__category--fourth {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.menu-pop__category--first,
+.menu-pop__category--fourth {
+  animation: menu-pop-first-fourth 0.2s linear;
+}
+
+@keyframes menu-pop-first-fourth {
+  0% {
+    opacity: 0;
+    transform: translateX(20%);
+  }
+  25% {
+    opacity: 0;
+    transform: translateX(20%);
+  }
+  75% { 
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+.menu-pop__category--second {
+  animation: menu-pop-second 0.2s linear;
+}
+
+@keyframes menu-pop-second {
+  0% {
+    opacity: 0;
+    transform: translateX(20%);
+  }
+  50% {
+    opacity: 0;
+    transform: translateX(20%);
+  }
+  85% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+.menu-pop__category--third {
+  animation: menu-pop-third 0.2s linear;
+}
+
+@keyframes menu-pop-third {
+  0% {
+    opacity: 0;
+    transform: translateX(20%);
+  }
+  55% {
+    opacity: 0;
+    transform: translateX(20%);
+  }
+  95% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
 }
 
 /* --------------------------------------------------------------------------------- */
