@@ -123,8 +123,8 @@ body.active {
   height: 100vh;
   display: flex;
   align-items: center;
-  z-index: 2;
   display: none;
+  z-index: 2;
 }
 
 .menu-pop__category {
