@@ -110,6 +110,7 @@ const $menuLinesFirst = document.querySelector('.header__menu-lines__line--first
 const $menuLinesSecond = document.querySelector('.header__menu-lines__line--second');
 const $menuLinesThird = document.querySelector('.header__menu-lines__line--third');
 const $menuPopUp = document.querySelector('.menu-pop');
+const $menuPopUpCategoryAbsolute = document.querySelector('.menu-pop__category--absolute');
 const paddingToAdd = window.innerWidth - document.documentElement.clientWidth;
 
 $menuLines.onclick = () => {
@@ -123,10 +124,25 @@ $menuLines.onclick = () => {
   // body에 그만큼 오른쪽 패딩을 먹여야 한다.
   if(document.body.classList.contains('pop')) {
     document.body.style.paddingRight = paddingToAdd + 'px';
+    $menuPopUpCategoryAbsolute.style.paddingRight = paddingToAdd + 'px';
   } else {
     document.body.style.paddingRight = '';
+    $menuPopUpCategoryAbsolute.style.paddingRight = '';
   }
 };
+
+window.addEventListener('resize', () => {
+  if(window.innerWidth >= 600) {
+    $menuPopUp.classList.remove('active');
+    document.body.classList.remove('pop');
+    $menuLinesFirst.classList.remove('active');
+    $menuLinesSecond.classList.remove('active');
+    $menuLinesThird.classList.remove('active');  
+  
+    document.body.style.paddingRight = '';
+    $menuPopUpCategoryAbsolute.style.paddingRight = '';
+  }
+})
 
 // 메뉴 텍스트, 호버 효과
 const $menuTextBox = document.querySelectorAll('.header__menu-texts__text-box');
