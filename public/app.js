@@ -109,11 +109,23 @@ const $menuLines = document.querySelector('.header__menu-lines');
 const $menuLinesFirst = document.querySelector('.header__menu-lines__line--first');
 const $menuLinesSecond = document.querySelector('.header__menu-lines__line--second');
 const $menuLinesThird = document.querySelector('.header__menu-lines__line--third');
+const $menuPopUp = document.querySelector('.menu-pop');
+const paddingToAdd = window.innerWidth - document.documentElement.clientWidth;
 
 $menuLines.onclick = () => {
   $menuLinesFirst.classList.toggle('active');
   $menuLinesSecond.classList.toggle('active');
   $menuLinesThird.classList.toggle('active');
+  $menuPopUp.classList.toggle('active');
+  document.body.classList.toggle('pop');
+
+  // body overflow가 hidden되면 스크롤바가 갑자기 사라지면서 너비가 조정되니까
+  // body에 그만큼 오른쪽 패딩을 먹여야 한다.
+  if(document.body.classList.contains('pop')) {
+    document.body.style.paddingRight = paddingToAdd + 'px';
+  } else {
+    document.body.style.paddingRight = '';
+  }
 };
 
 // 메뉴 텍스트, 호버 효과

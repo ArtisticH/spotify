@@ -95,6 +95,29 @@ body {
 }
 
 /* --------------------------------------------------------------------------------- */
+/* MENU-POP */
+
+.menu-pop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0vw;
+  height: 100vh;
+  background-color: white;
+  transition: width 0.3s ease-out;
+  /* 로고와 메뉴 삼지창은 z-index: 2 */
+  z-index: 1;
+}
+
+.menu-pop.active {
+  width: 100vw;
+}
+
+body.pop {
+  overflow-y: hidden;
+}
+
+/* --------------------------------------------------------------------------------- */
 /* HEADER */
 
 .header {
@@ -119,6 +142,7 @@ body {
 .header__logo,
 .header__menu-lines {
   cursor: pointer;
+  z-index: 2;
 }
 
 .header__menu-lines__line {
@@ -441,7 +465,7 @@ body {
 }
 
 .main__progress-scroll__scroll__text {
-  font-family: var(--main-font-family-medium);
+  font-family: var(--main-small-font);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: -0.5px;
@@ -1953,7 +1977,7 @@ body {
 }
 
 .footer__back-to-top__contents__text {
-  font-family: var(--main-font-family-medium);
+  font-family: var(--main-small-font);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: -0.5px;
