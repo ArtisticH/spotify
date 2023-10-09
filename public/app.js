@@ -41,63 +41,74 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
 });
 
 // ----------------------------------------------------------------------------------
-// 새로고침 -> intro 나와야
+// 새로고침
 
 // window.addEventListener('beforeunload', () => {
-//   window.scrollTo(0,0);
 // });
 
 // ----------------------------------------------------------------------------------
 // INTRO
 
-// let mainimg_containers = document.querySelectorAll('.mainimg_container');
-// let index = 15;
-// let i = 0;
+const $mainImageBoxes = document.querySelectorAll('.main__img-title__images__image-box');
+let indexForZindexofImageBoxes = 15;
+let indexForStack = 0;
+let scalePercentage = 100;
 
+const $introFlower = document.querySelector('.intro__flower');
+const $introLogo = document.querySelector('.intro__logo');
+const $main = document.querySelector('.main');
+const $header = document.querySelector('.header');
+
+
+[...$mainImageBoxes].forEach(imageBox => {
+  imageBox.style.zIndex = `${indexForZindexofImageBoxes}`;
+  imageBox.style.transform = `translate(-50% -50%) scale(${scalePercentage / 100})`;
+  imageBox.classList.add('stack');
+
+  indexForZindexofImageBoxes--;
+  scalePercentage -= 5;
+});
 
 // document.addEventListener('DOMContentLoaded', () => {
+//   window.scrollTo(0, 0);
+
+//   document.body.style.overflowY = 'hidden';
+//   document.body.style.backgroundColor = '#ffd0d5';
+
 
 //   setTimeout(() => {
-//     introFlower.style.display = 'block';
+//     $introFlower.style.display = 'block';
 //   }, 1500);
 
-//   [...mainimg_containers].forEach(item => {
-//      item.style.zIndex = `${index}`;
-//      index--;
-//    })
-
 //   setTimeout(() => {
-//     let flowerWidth = introFlower.offsetWidth;
+//     const introFlowerWidth = $introFlower.offsetWidth;
+
+//     $introLogo.style.display = 'none';
+//     $main.style.visibility = 'visible';
+//     $header.style.visibility = 'visible';
+
+//     document.body.style.overflowY = '';
+//     document.body.style.backgroundColor = '';
 
 //     animate({
-//       duration: 200,
+//       duration: 2000,
 //       timing: function(timeFraction) {
 //         return timeFraction;
 //       },
 //       draw: function(progress) {
-//         introFlower.style.left = -(flowerWidth * progress) + 'px';
-//         // 118% -> 10% 로 width 변경
-//         introFlower.style.width = 118 - (118 - 10) * progress + '%';
+//         $introFlower.style.left = -(introFlowerWidth * progress) + '%';
 //       }
-//     })
-
-//     introLogo.remove();
-//     titleMain.style.opacity = '1';
-//     shuffleMain.style.opacity = '1';
-//     progressAndScroll.style.opacity = '1';
+//     });
 
 //     let intervalId = setInterval(() => {
+//       [...$mainImageBoxes][indexForStack].classList.add('stack');
+//       indexForStack++;
 
-//        [...mainimg_containers][i].classList.add('stack');
-//        i++;
+//       if(indexForStack > $mainImageBoxes.length) {
+//         clearInterval(intervalId);
+//       }
 
-//        if (i >= mainimg_containers.length) {
-//          clearInterval(intervalId);
-//          forflex.classList.add('active');
-//          document.body.style.overflowY = 'auto';
-//        }
-
-//     }, 30);
+//     }, 30)
 //   }, 4000);
 // });
 
