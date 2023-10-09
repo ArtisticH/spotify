@@ -196,6 +196,42 @@ $mainScrollDown.addEventListener('pointerleave', () => {
   $mainScrollDownCircleArrow.classList.toggle('hover');
 });
 
+const mainSubjects = [
+  "BEHIND THE SCENES",
+  "Q+A",
+  "BEHIND THE SCENES",
+  "METHODS",
+  "DESIGN SYSTEMS",
+  "BEHIND THE SCENES",
+  "PRODUCT DESIGN",
+  "PRODUCT DESIGN",
+  "BEHIND THE SCENES",
+  "DESIGN OPS",
+  "PRODUCT DESIGN",
+  "BEHIND THE SCENES",
+  "BEHIND THE SCENES",
+  "Q+A",
+  "PRODUCT DESIGN"
+];
+
+const mainTitles = [
+  "Collaboration Secrets: Design X Engineering",
+  "Ask Spotify Design 07",
+  "Making Moves: Designing Motion for 2022 Wrapped",
+  "Navigating the Discovery Phase",
+  "Can I get an Encore? Spotify’s Design System, Three Years On",
+  "From Web Page to Web Player: How Spotify Designed a New Homepage Experience",
+  "Designing for the World: An Introduction to Localization",
+  "Finding your T-Shape as a Specialist Designer",
+  "Backstage Tickets to the World of Service Design at Spotify",
+  "Growing, Scaling, and Tuning: Meet Spotify’s Global Head of Design Ops",
+  "Finding your T-Shape as a Generalist Designer",
+  "A Designer's Balancing Act: Staying Creative and Organized in Figma",
+  "How to Stand Out as a Spotify Internship Applicant",
+  "Ask Spotify Design 06",
+  'Beyond "Good Job": How to Give Impactful Feedback'
+];
+
 // ----------------------------------------------------------------------------------
 // RELEASE
 

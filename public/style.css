@@ -471,15 +471,6 @@ body.active {
   border: 2px solid lime;
 }
 
-.main__img-title__images {
-  border: 2px solid salmon;
-  height: 450px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
 .main__img-title__title-box {
   border: 2px solid slateblue;
   padding-bottom: 8rem;
@@ -491,9 +482,17 @@ body.active {
   border: 2px solid blue;
 }
 
+.main__img-title__images {
+  border: 2px solid red;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 
-.mainimg_container {
-  /* border: 2px solid red; */
+.main__img-title__images__image-box {
+  border: 2px solid teal;
   width: 83%;
   aspect-ratio: 1 / 1;
   display: flex;
@@ -507,20 +506,12 @@ body.active {
   transition: all 0.2s ease-out;
 }
 
-.mainimg_container.stack {
+.main__img-title__images__image-box.stack {
   left: 50%;
   opacity: 1;
 }
 
-.mainimg_container.first {
-  transform: translate(-50%, -50%) rotate(-5deg);
-}
-
-.mainimg_container.second {
-  transform: translate(-50%, -50%) rotate(5deg);
-}
-
-.mainimg {
+.main__img-title__images__image-box__image {
   width: 100%;
   aspect-ratio: 1 / 1;
 }
@@ -575,6 +566,41 @@ body.active {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.main__progress-scroll__progress__current-number, 
+.main__progress-scroll__progress__total-number {
+  font-family: var(--main-small-font);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.main__progress-scroll__progress__current-number,
+.main__progress-scroll__progress__progress-bar {
+  margin-right: 1rem;
+}
+
+.main__progress-scroll__progress__progress-bar {
+  width: 50px;
+  height: 2px;
+  background-color: rgba(0,0,0, 0.1);
+  position: relative;
+}
+
+.main__progress-scroll__progress__progress-bar__ing {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0%;
+  height: 2px;
+  background-color: black;
+  /* animation: progress-bar 5s linear infinite; */
+}
+
+@keyframes progress-bar {
+  0% { width: 0%; }
+  100% { width: 100% }
 }
 
 .main__progress-scroll__scroll {
@@ -638,8 +664,7 @@ body.active {
     padding-bottom: 5rem;
   }
 
-  .mainimg_container {
-    /* border: 2px solid red; */
+  .main__img-title__images__image-box {
     width: 83%;
     max-width: 436px;
   }  
@@ -722,11 +747,6 @@ body.active {
     transform: translateY(0%);
   }
     
-  .mainimg_container {
-    width: 83%;
-    max-width: 436px;
-  }  
-
   .main__img-title__title-box__box__title {
     font-size: 4rem;
     letter-spacing: -4px;
