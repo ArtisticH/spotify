@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         imgAutoSlide();
       }
 
-    }, 30)
+    }, 30);
   }, 4000);
 });
 
@@ -162,9 +162,16 @@ const backgroundColorBlue = '#a4c8d7';
 const backgroundColorOrange = '#fcba4a';
 
 let progressCurrentNum = 1;
+let countReverse = 14;
 
 function imgAutoSlide() {
-  let progressInterval = setInterval(() => {
+  $progressCurrentNum.textContent = '01';
+  $progressSubject.textContent = mainSubjects[0];
+  $progressTitle.textContent = mainTitles[0];
+  $main.style.backgroundColor = '';
+  $header.style.backgroundColor = '';
+
+  let progressInterval = setInterval(async () => {
     let currentNum = progressCurrentNum + 1 < 10 ? '0' + (progressCurrentNum + 1) : progressCurrentNum + 1;
     $progressCurrentNum.textContent = currentNum
     $progressSubject.textContent = mainSubjects[progressCurrentNum];
@@ -188,11 +195,33 @@ function imgAutoSlide() {
     }
 
     progressCurrentNum++;
-    if(progressCurrentNum == 15) {
-      clearInterval(progressInterval);
+
+    if(progressCurrentNum >= 15) {
+      clearInterval(progressInterval); 
+      progressCurrentNum = 1;
+      console.log('끝', progressCurrentNum)
+      
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 5000)
+      })
+
+      let intervalId = setInterval(() => {
+        [...$mainImageBoxes][countReverse].style.left = '50%';
+        countReverse--;  
+        console.log(countReverse)
+        if(countReverse < 0) {
+          clearInterval(intervalId);
+          countReverse = 14;
+          imgAutoSlide();
+        }
+      }, 30);
+  
       return;
     }
   }, 5000);
+
   return;
 }
 
