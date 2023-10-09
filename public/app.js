@@ -59,58 +59,142 @@ const $introLogo = document.querySelector('.intro__logo');
 const $main = document.querySelector('.main');
 const $header = document.querySelector('.header');
 
-
 [...$mainImageBoxes].forEach(imageBox => {
   imageBox.style.zIndex = `${indexForZindexofImageBoxes}`;
   imageBox.style.transform = `translate(-50% -50%) scale(${scalePercentage / 100})`;
-  imageBox.classList.add('stack');
 
   indexForZindexofImageBoxes--;
   scalePercentage -= 5;
 });
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   window.scrollTo(0, 0);
+/*
+css에서
+.intro__logo display: block <-> none;
+.header, .main visibility: hidden; <-> 없애기
 
-//   document.body.style.overflowY = 'hidden';
-//   document.body.style.backgroundColor = '#ffd0d5';
+위에서 imageBox.classList.add('stack'); 미리 추가해놓고 실제는 없애라
+*/
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.scrollTo(0, 0);
+
+  document.body.style.overflowY = 'hidden';
+  document.body.style.backgroundColor = '#ffd0d5';
 
 
-//   setTimeout(() => {
-//     $introFlower.style.display = 'block';
-//   }, 1500);
+  setTimeout(() => {
+    $introFlower.style.display = 'block';
+  }, 1500);
 
-//   setTimeout(() => {
-//     const introFlowerWidth = $introFlower.offsetWidth;
+  setTimeout(() => {
+    const introFlowerWidth = $introFlower.offsetWidth;
 
-//     $introLogo.style.display = 'none';
-//     $main.style.visibility = 'visible';
-//     $header.style.visibility = 'visible';
+    $introLogo.style.display = 'none';
+    $main.style.visibility = 'visible';
+    $header.style.visibility = 'visible';
 
-//     document.body.style.overflowY = '';
-//     document.body.style.backgroundColor = '';
+    document.body.style.overflowY = '';
+    document.body.style.backgroundColor = '';
 
-//     animate({
-//       duration: 2000,
-//       timing: function(timeFraction) {
-//         return timeFraction;
-//       },
-//       draw: function(progress) {
-//         $introFlower.style.left = -(introFlowerWidth * progress) + '%';
-//       }
-//     });
+    animate({
+      duration: 2000,
+      timing: function(timeFraction) {
+        return timeFraction;
+      },
+      draw: function(progress) {
+        $introFlower.style.left = -(introFlowerWidth * progress) + '%';
+      }
+    });
 
-//     let intervalId = setInterval(() => {
-//       [...$mainImageBoxes][indexForStack].classList.add('stack');
-//       indexForStack++;
+    let intervalId = setInterval(() => {
+      [...$mainImageBoxes][indexForStack].classList.add('stack');
+      indexForStack++;
 
-//       if(indexForStack > $mainImageBoxes.length) {
-//         clearInterval(intervalId);
-//       }
+      if(indexForStack >= $mainImageBoxes.length) {
+        clearInterval(intervalId);
+        imgAutoSlide();
+      }
 
-//     }, 30)
-//   }, 4000);
-// });
+    }, 30)
+  }, 4000);
+});
+
+const mainSubjects = [
+  "BEHIND THE SCENES",
+  "Q+A",
+  "BEHIND THE SCENES",
+  "METHODS",
+  "DESIGN SYSTEMS",
+  "BEHIND THE SCENES",
+  "PRODUCT DESIGN",
+  "PRODUCT DESIGN",
+  "BEHIND THE SCENES",
+  "DESIGN OPS",
+  "PRODUCT DESIGN",
+  "BEHIND THE SCENES",
+  "BEHIND THE SCENES",
+  "Q+A",
+  "PRODUCT DESIGN"
+];
+
+const mainTitles = [
+  "Collaboration Secrets: Design X Engineering",
+  "Ask Spotify Design 07",
+  "Making Moves: Designing Motion for 2022 Wrapped",
+  "Navigating the Discovery Phase",
+  "Can I get an Encore? Spotify’s Design System, Three Years On",
+  "From Web Page to Web Player: How Spotify Designed a New Homepage Experience",
+  "Designing for the World: An Introduction to Localization",
+  "Finding your T-Shape as a Specialist Designer",
+  "Backstage Tickets to the World of Service Design at Spotify",
+  "Growing, Scaling, and Tuning: Meet Spotify’s Global Head of Design Ops",
+  "Finding your T-Shape as a Generalist Designer",
+  "A Designer's Balancing Act: Staying Creative and Organized in Figma",
+  "How to Stand Out as a Spotify Internship Applicant",
+  "Ask Spotify Design 06",
+  'Beyond "Good Job": How to Give Impactful Feedback'
+];
+
+const $progressCurrentNum = document.querySelector('.main__progress-scroll__progress__current-number');
+const $progressSubject = document.querySelector('.main__img-title__title-box__box__subject');
+const $progressTitle = document.querySelector('.main__img-title__title-box__box__title');
+const backgroundColorBlue = '#a4c8d7';
+const backgroundColorOrange = '#fcba4a';
+
+let progressCurrentNum = 1;
+
+function imgAutoSlide() {
+  let progressInterval = setInterval(() => {
+    let currentNum = progressCurrentNum + 1 < 10 ? '0' + (progressCurrentNum + 1) : progressCurrentNum + 1;
+    $progressCurrentNum.textContent = currentNum
+    $progressSubject.textContent = mainSubjects[progressCurrentNum];
+    $progressTitle.textContent = mainTitles[progressCurrentNum];
+    console.log(currentNum, mainSubjects[progressCurrentNum], mainTitles[progressCurrentNum], progressCurrentNum);
+    $mainImageBoxes[progressCurrentNum - 1].style.left = `200%`;
+
+
+    switch(progressCurrentNum) {
+      case 4: case 6: case 7: case 9: case 10: case 14:
+        $main.style.backgroundColor = backgroundColorOrange;
+        $header.style.backgroundColor = backgroundColorOrange;
+        break;
+      case 3:
+        $main.style.backgroundColor = backgroundColorBlue;
+        $header.style.backgroundColor = backgroundColorBlue;
+        break;
+      default:
+        $main.style.backgroundColor = '';
+        $header.style.backgroundColor = '';
+    }
+
+    progressCurrentNum++;
+    if(progressCurrentNum == 15) {
+      clearInterval(progressInterval);
+      return;
+    }
+  }, 5000);
+  return;
+}
 
 // ----------------------------------------------------------------------------------
 // HEADER
@@ -207,41 +291,7 @@ $mainScrollDown.addEventListener('pointerleave', () => {
   $mainScrollDownCircleArrow.classList.toggle('hover');
 });
 
-const mainSubjects = [
-  "BEHIND THE SCENES",
-  "Q+A",
-  "BEHIND THE SCENES",
-  "METHODS",
-  "DESIGN SYSTEMS",
-  "BEHIND THE SCENES",
-  "PRODUCT DESIGN",
-  "PRODUCT DESIGN",
-  "BEHIND THE SCENES",
-  "DESIGN OPS",
-  "PRODUCT DESIGN",
-  "BEHIND THE SCENES",
-  "BEHIND THE SCENES",
-  "Q+A",
-  "PRODUCT DESIGN"
-];
 
-const mainTitles = [
-  "Collaboration Secrets: Design X Engineering",
-  "Ask Spotify Design 07",
-  "Making Moves: Designing Motion for 2022 Wrapped",
-  "Navigating the Discovery Phase",
-  "Can I get an Encore? Spotify’s Design System, Three Years On",
-  "From Web Page to Web Player: How Spotify Designed a New Homepage Experience",
-  "Designing for the World: An Introduction to Localization",
-  "Finding your T-Shape as a Specialist Designer",
-  "Backstage Tickets to the World of Service Design at Spotify",
-  "Growing, Scaling, and Tuning: Meet Spotify’s Global Head of Design Ops",
-  "Finding your T-Shape as a Generalist Designer",
-  "A Designer's Balancing Act: Staying Creative and Organized in Figma",
-  "How to Stand Out as a Spotify Internship Applicant",
-  "Ask Spotify Design 06",
-  'Beyond "Good Job": How to Give Impactful Feedback'
-];
 
 // ----------------------------------------------------------------------------------
 // RELEASE
