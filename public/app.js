@@ -41,12 +41,11 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
 });
 
 // ----------------------------------------------------------------------------------
-// INTRO
+// INTRO + MAIN
 
 const $mainImageBoxes = document.querySelectorAll('.main__img-title__images__image-box');
 let indexForZindexofImageBoxes = 15;
 let indexForStack = 0;
-let scalePercentage = 100;
 
 const $introFlower = document.querySelector('.intro__flower');
 const $introLogo = document.querySelector('.intro__logo');
@@ -55,19 +54,8 @@ const $header = document.querySelector('.header');
 
 [...$mainImageBoxes].forEach(imageBox => {
   imageBox.style.zIndex = `${indexForZindexofImageBoxes}`;
-  imageBox.style.transform = `translate(-50% -50%) scale(${scalePercentage / 100})`;
-
   indexForZindexofImageBoxes--;
-  scalePercentage -= 5;
 });
-
-/*
-css에서
-.intro__logo display: block <-> none;
-.header, .main visibility: hidden; <-> 없애기
-
-위에서 imageBox.classList.add('stack'); 미리 추가해놓고 실제는 없애라
-*/
 
 document.addEventListener('DOMContentLoaded', () => {
   window.scrollTo(0, 0);
@@ -108,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(intervalId);
         imgAutoSlide();
       }
-
     }, 30);
   }, 4000);
 });
