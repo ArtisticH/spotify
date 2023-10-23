@@ -41,12 +41,6 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
 });
 
 // ----------------------------------------------------------------------------------
-// 새로고침
-
-// window.addEventListener('beforeunload', () => {
-// });
-
-// ----------------------------------------------------------------------------------
 // INTRO
 
 const $mainImageBoxes = document.querySelectorAll('.main__img-title__images__image-box');
