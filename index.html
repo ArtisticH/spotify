@@ -237,56 +237,54 @@
 
   <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
   <!-- RELEASE -->
-  <section class="release" id="release">
-    <div class="width">
-      <div class="right-arrow--relative">
-        <h3 class="release__heading">New Releases</h3>
-        <div class="release--grid">
-          <div class="js-release__img-box">
-            <img class='img-box__img' src="/public/img/release/release1.webp" alt="release1">
-            <div class="img-box__subject">BEHIND THE SCENES</div>
-            <p class="js-img-box__title">Collaboration Secrets: Design X Engineering</p>
-            <p class="img-box__explanation">Learn how engineers and designers collaborate at Spotify: what works well, what can go wrong.. and everything in between!</p>
-          </div>
-          <div class="js-release__img-box">
-            <img class='img-box__img' src="/public/img/release/release2.webp" alt="release2">
-            <div class="img-box__subject">Q+A</div>
-            <p class="js-img-box__title">Ask Spotify Design 07</p>
-            <p class="img-box__explanation">How do you choose colors? Prioritize your workload? Govern a design system? Our community panel returns to answer your thoughtful questions.</p>
-          </div> 
-          <div class="js-release__img-box">
-            <img class='img-box__img' src="/public/img/release/release3.webp" alt="release3">
-            <div class="img-box__subject">BEHIND THE SCENES</div>
-            <p class="js-img-box__title">Making Moves: Designing Motion for 2022 Wrapped</p>
-            <p class="img-box__explanation">Simple brief, complex executions: UX Motion Designer Ade shares his journey on bringing 2022 Wrapped's data stories to life.</p>
-          </div> 
-          <div class="js-release__img-box">
-            <div class="js-release__img-box__play-box release__img-box__play-box--relative">
-              <img class='img-box__img' src="/public/img/release/release4.webp" alt="release4">
-              <div class="js-release__img-box__play-box__play-button">
-                <img class='release__img-box__play-box__play-button__img' src="/public/img/svg/play.svg" alt="play">
-              </div>
-            </div>
-            <div class="img-box__subject">LISTEN</div>
-            <div class="img-box__subject img-box__subject--background-change">DANCE</div>
-            <div class="img-box__subject img-box__subject--background-change">AMBIENT</div>
-            <div class="img-box__subject img-box__subject--background-change">ELECTRONIC</div>
-            <p class="js-img-box__title">Zoned 44</p>
-            <p class="img-box__explanation">Journey up and through the cosmic soundscape to join ShroomCat for a misty mountaintop stomp.</p>
-          </div> 
+  <section id="release">
+    <div class="width release">
+      <h3 class="release__heading">New Releases</h3>
+      <div class="release__contents">
+        <div class="release__contents__box" data-pointerover="releaseBox" data-pointerout="releaseBox">
+          <img class="release__contents__box__img" src="/public/img/release/release1.webp" alt="release1">
+          <div class="release__contents__box__subject">BEHIND THE SCENES</div>
+          <p class="release__contents__box__title">Collaboration Secrets: Design X Engineering</p>
+          <p class="release__contents__box__explanation">Learn how engineers and designers collaborate at Spotify: what works well, what can go wrong.. and everything in between!</p>
         </div>
-        <div class="right-arrow">
-          <div class="js-right-arrow__contents">
-            <div class="right-arrow__contents__title-box">
-              <div class="js-right-arrow__contents__title-box__title">VIEW ALL STORIES</div>
-              <div class="js-right-arrow__contents__title-box__second-line"></div>
-            </div>
-            <div class="js-right-arrow__contents__arrow-circle">
-              <img class='js-right-arrow__contents__arrow-circle__arrow-img' src="/public/img/svg/right-arrow.svg" alt="right-arrow">
+        <div class="release__contents__box" data-pointerover="releaseBox" data-pointerout="releaseBox">
+          <img class="release__contents__box__img" src="/public/img/release/release2.webp" alt="release2">
+          <div class="release__contents__box__subject">Q+A</div>
+          <p class="release__contents__box__title">Ask Spotify Design 07</p>
+          <p class="release__contents__box__explanation">How do you choose colors? Prioritize your workload? Govern a design system? Our community panel returns to answer your thoughtful questions.</p>
+        </div> 
+        <div class="release__contents__box" data-pointerover="releaseBox" data-pointerout="releaseBox">
+          <img class="release__contents__box__img" src="/public/img/release/release3.webp" alt="release3">
+          <div class="release__contents__box__subject">BEHIND THE SCENES</div>
+          <p class="release__contents__box__title">Making Moves: Designing Motion for 2022 Wrapped</p>
+          <p class="release__contents__box__explanation">Simple brief, complex executions: UX Motion Designer Ade shares his journey on bringing 2022 Wrapped's data stories to life.</p>
+        </div> 
+        <div class="release__contents__box" data-pointerover="releaseBox" data-pointerout="releaseBox">
+          <div class="release__contents__box__img-box">
+            <img class="release__contents__box__img" src="/public/img/release/release4.webp" alt="release4">
+            <div class="release__contents__box__play-btn"> 
+              <img class="release__contents__box__play-btn__img" src="/public/img/svg/play.svg" alt="play">
             </div>
           </div>
-        </div>    
+          <div class="release__contents__box__subject">LISTEN</div>
+          <div class="release__contents__box__subject release__contents__box__subject--neon">DANCE</div>
+          <div class="release__contents__box__subject release__contents__box__subject--neon">AMBIENT</div>
+          <div class="release__contents__box__subject release__contents__box__subject--neon">ELECTRONIC</div>
+          <p class="release__contents__box__title">Zoned 44</p>
+          <p class="release__contents__box__explanation">Journey up and through the cosmic soundscape to join ShroomCat for a misty mountaintop stomp.</p>
+        </div> 
       </div>
+      <div class="rightarrow">
+        <div class="rightarrow__box" data-pointerover="rightArrow" data-pointerout="rightArrow">
+          <div class="rightarrow__box__title-line">
+            <div class="rightarrow__box__title-line__title">VIEW ALL STORIES</div>
+            <div class="rightarrow__box__title-line__line"></div>
+          </div>
+          <div class="rightarrow__box__arrow">
+            <img class="rightarrow__box__arrow__img" src="/public/img/svg/right-arrow.svg" alt="right-arrow">
+          </div>
+        </div>
+      </div>    
     </div>
   </section>
   <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -521,16 +519,16 @@
           </div>
           <div class="tools--grid">
             <div class="js-tools__img-box">
-              <img class='img-box__img' src="/public/img/tools/tools1.webp" alt="tools1">
-              <div class="img-box__subject">TOOLS</div>
-              <p class="js-img-box__title">Performance Cards: Designing with Meaning and Empathy</p>
-              <p class="img-box__explanation">Challenge the way you think and serve access-constrained users with these cards.</p>
+              <img class="release__contents__box__img" src="/public/img/tools/tools1.webp" alt="tools1">
+              <div class="release__contents__box__subject">TOOLS</div>
+              <p class="release__contents__box__title">Performance Cards: Designing with Meaning and Empathy</p>
+              <p class="release__contents__box__explanation">Challenge the way you think and serve access-constrained users with these cards.</p>
             </div>
             <div class="js-tools__img-box">
-              <img class='img-box__img' src="/public/img/tools/tools2.webp" alt="tools2">
-              <div class="img-box__subject">TOOLS</div>
-              <p class="js-img-box__title">Assessing Constraints: Making Products for all Users</p>
-              <p class="img-box__explanation">The team behind Spotify Lite created this tool to ensure they're building products for the people around the world who face technological challenge.</p>
+              <img class="release__contents__box__img" src="/public/img/tools/tools2.webp" alt="tools2">
+              <div class="release__contents__box__subject">TOOLS</div>
+              <p class="release__contents__box__title">Assessing Constraints: Making Products for all Users</p>
+              <p class="release__contents__box__explanation">The team behind Spotify Lite created this tool to ensure they're building products for the people around the world who face technological challenge.</p>
             </div>  
           </div>
           <div class="right-arrow">

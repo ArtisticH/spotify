@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------------------
 // 공통 
 
-const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents');
+const $rightArrowContents = document.querySelectorAll('.rightarrow__box');
 // rewind 안 끝난 상태에서 mouseenter 했을때 효과 깨지는 거 고쳐야 함!
 [...$rightArrowContents].forEach(rightArrowContent => {
   let $firstUnderline;
@@ -244,7 +244,7 @@ function imgAutoSlide() {
 }
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// HEADER
+// Events
 
 class Events {
   constructor() {
@@ -261,6 +261,9 @@ class Events {
     this.mainScrollStart = null;
     this.mainScrollEnd = null;
     this.$release = document.getElementById('release');
+
+    this.$releaseTitle = null;
+    this.$releasePlay = null;
   }
 
   animate({timing, draw, duration}) {
@@ -357,6 +360,29 @@ class Events {
       });    
     }
   }
+
+  releaseBox(e, target) {
+    this.$releaseTitle = target.querySelector('.release__contents__box__title');
+    if(target.querySelector('.release__contents__box__play-btn')) {
+      this.$releasePlay = target.querySelector('.release__contents__box__play-btn');
+    }
+    if(e.type === 'pointerover') {
+      this.$releaseTitle.classList.add('overed');
+      if(this.$releasePlay) {
+        this.$releasePlay.classList.add('overed');
+      }
+    } else if(e.type === 'pointerout') {
+      this.$releaseTitle.classList.remove('overed');
+      if(this.$releasePlay) {
+        this.$releasePlay.classList.remove('overed');
+        this.$releasePlay = null;
+      }
+    }
+  }
+
+  rightArrow(e, target) {
+
+  }
 }
 
 const events = new Events();
@@ -365,34 +391,7 @@ document.addEventListener('pointerover', events);
 document.addEventListener('pointerout', events);
 window.addEventListener('resize', events);
 
-// ----------------------------------------------------------------------------------
-// RELEASE
-
-const $releaseImgBoxes = document.querySelectorAll('.js-release__img-box');
-
-[...$releaseImgBoxes].forEach(imgBox => {
-  let $title;
-  let $playButton;
-
-  imgBox.addEventListener('pointerenter', () => {
-    $title = imgBox.querySelector('.js-img-box__title');
-    $title.classList.add('--underline');
-
-    if(imgBox.firstElementChild.classList.contains('js-release__img-box__play-box')) {
-      $playButton = imgBox.querySelector('.js-release__img-box__play-box__play-button');
-      $playButton.classList.add('--background');
-    }
-  });
-
-  imgBox.addEventListener('pointerleave', () => {
-    $title.classList.remove('--underline');
-
-    if(imgBox.firstElementChild.classList.contains('js-release__img-box__play-box')) {
-      $playButton.classList.remove('--background');
-    }
-  });
-});
-
+// git remote remove origin
 
 // ----------------------------------------------------------------------------------
 // SPOTLIGHT
