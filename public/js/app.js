@@ -1,45 +1,3 @@
-// ----------------------------------------------------------------------------------
-// 공통 
-
-const $rightArrowContents = document.querySelectorAll('.rightarrow__box');
-// rewind 안 끝난 상태에서 mouseenter 했을때 효과 깨지는 거 고쳐야 함!
-[...$rightArrowContents].forEach(rightArrowContent => {
-  let $firstUnderline;
-  let $backgroundBlack;
-  let $invert;
-  let $secondUnderline;
-
-  rightArrowContent.addEventListener('pointerenter', () => {
-
-    $firstUnderline = rightArrowContent.querySelector('.js-right-arrow__contents__title-box__title');
-    $backgroundBlack = rightArrowContent.querySelector('.js-right-arrow__contents__arrow-circle');
-    $invert = rightArrowContent.querySelector('.js-right-arrow__contents__arrow-circle__arrow-img');
-    $secondUnderline = rightArrowContent.querySelector('.js-right-arrow__contents__title-box__second-line');
-
-    $firstUnderline.classList.add('--underline');
-    $backgroundBlack.classList.add('--background-color');
-    $invert.classList.add('--invert');
-    $secondUnderline.classList.add('hover');
-
-
-  });
-
-  rightArrowContent.addEventListener('pointerleave', async () => {
-    $firstUnderline.classList.remove('--underline');
-    $backgroundBlack.classList.remove('--background-color');
-    $invert.classList.remove('--invert');
-    $secondUnderline.classList.replace('hover', 'rewind');
-
-    await new Promise(resolve => {
-      setTimeout(() => {
-        resolve();
-      }, 300);
-    });
-
-    $secondUnderline.classList.remove('rewind');
-  });
-});
-
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // INTRO + MAIN
 
@@ -379,10 +337,6 @@ class Events {
       }
     }
   }
-
-  rightArrow(e, target) {
-
-  }
 }
 
 const events = new Events();
@@ -391,8 +345,52 @@ document.addEventListener('pointerover', events);
 document.addEventListener('pointerout', events);
 window.addEventListener('resize', events);
 
-// git remote remove origin
+// 오른쪽 화살표 효과
+(async function rightArrows() {
+  const $rightArrows = document.querySelectorAll('.rightarrow__box');
+  let $rightArrowTitle;
+  let $rightArrowLine;
+  let $rightArrowCircle;
+  let $rightArrowImg;
 
+  function enterEvent(e) {
+    $rightArrowTitle = e.target.querySelector('.rightarrow__box__title-line__title');
+    $rightArrowLine = e.target.querySelector('.rightarrow__box__title-line__line');;
+    $rightArrowCircle = e.target.querySelector('.rightarrow__box__arrow');;
+    $rightArrowImg = e.target.querySelector('.rightarrow__box__arrow__img');
+
+    $rightArrowTitle.classList.add('overed');
+    $rightArrowLine.classList.add('overed');
+    $rightArrowCircle.classList.add('overed');
+    $rightArrowImg.classList.add('overed');
+  }
+
+  async function leaveEvent(e) {
+    $rightArrowTitle.classList.remove('overed');
+    $rightArrowLine.classList.replace('overed', 'rewind');
+    $rightArrowCircle.classList.remove('overed');
+    $rightArrowImg.classList.remove('overed');
+
+    await new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 300);
+    });
+
+    $rightArrowLine.classList.remove('rewind');
+  }
+
+  for(let rightArrow of $rightArrows) {
+    rightArrow.addEventListener('pointerenter', enterEvent);
+  }
+
+  for(let rightArrow of $rightArrows) {
+    rightArrow.addEventListener('pointerleave', leaveEvent);
+  }
+})();
+
+
+// git push -u origin main
 // ----------------------------------------------------------------------------------
 // SPOTLIGHT
 /*

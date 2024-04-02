@@ -697,7 +697,7 @@ body.hidden {
   }
 }
 
-/* --------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------------------------ */
 /* SECTION RELEASE */
 
 #release {
@@ -799,7 +799,6 @@ body.hidden {
 }
 
 .rightarrow__box {
-  border: 2px solid red;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -818,10 +817,6 @@ body.hidden {
   letter-spacing: -0.5px;
 }
 
-.rightarrow__box__title-line__title .--underline {
-  text-decoration: underline;
-}
-
 .rightarrow__box__title-line__line {
   position: absolute;
   bottom: -2.5px;
@@ -830,16 +825,6 @@ body.hidden {
   background: black;
   height: 1px;
   transition: all 0.3s ease-in-out;
-}
-
-.rightarrow__box__title-line__line.hover {
-  left: 0;
-  width: 100%;
-}
-
-.rightarrow__box__title-line__line.rewind {
-  left: 100%;
-  width: 0%;
 }
 
 .rightarrow__box__arrow {
@@ -853,16 +838,30 @@ body.hidden {
   transition: all 0.2s ease-out;
 }
 
-.rightarrow__box__arrow.--background-color {
-  background-color: black;
-}
-
 .rightarrow__box__arrow__img {
   width: 70%;
   transition: all 0.2s ease-out;
 }
 
-.rightarrow__box__arrow__img.--invert {
+.rightarrow__box__title-line__title.overed {
+  text-decoration: underline;
+}
+
+.rightarrow__box__title-line__line.overed {
+  left: 0;
+  width: 100%;
+}
+
+.rightarrow__box__title-line__line.rewind {
+  left: 100%;
+  width: 0%;
+}
+
+.rightarrow__box__arrow.overed {
+  background-color: black;
+}
+
+.rightarrow__box__arrow__img.overed {
   filter: invert(1);
 }
 
