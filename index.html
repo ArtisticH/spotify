@@ -4,137 +4,119 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home | Spotify Design</title>
+  <!-- <title>Home | Spotify Design</title> -->
+  <title>연습</title>
   <link rel="shortcut icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/public/img/favicon.ico">
-  <link rel="stylesheet" href="/public/style.css">
-  <script defer src="/public/app.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Anton&family=Architects+Daughter&family=Gruppo&family=Indie+Flower&family=Inter:wght@300;400;500;600;700;800;900&family=Jost:ital,wght@0,100;0,200;0,300;0,600;0,700;1,100;1,200;1,300;1,600&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300&family=Montserrat:wght@400;600;700;800;900&family=Oswald:wght@300;400;500;600;700&family=PT+Serif:wght@400;700&family=Permanent+Marker&family=Poiret+One&family=REM:wght@200;300;400;500;600;700;800;900&family=Raleway:wght@200;300;400;500;600;700;800;900&family=Righteous&family=Satisfy&family=Sedgwick+Ave+Display&family=Shadows+Into+Light&family=Source+Serif+4:ital,opsz,wght@0,8..60,200;0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,200;1,8..60,300;1,8..60,400&family=Zeyada&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/public/css/style.css">
+  <script defer src="/public/js/app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 </head>
 <body>
-
-  <!-- MENU-POP -->
-
-  <div class="menu-pop"></div>
-  <div class="menu-pop__category--absolute for-flex">
-    <div class="menu-pop__category--width for-width">
-      <div class="menu-pop__category menu-pop__category--first">
-        <div class="menu-pop__category__circle"></div>
-        <div class="menu-pop__category__text">Stories</div>
+  <!-- INTRO -->
+  <img class="intro-logo" src="/public/img/svg/intro/logo.svg" alt="intro-logo">
+  <img class="intro-flower" src="/public/img/svg/intro/flower.svg" alt="intro-flower">  
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!-- MENU -->
+  <div id="menuBackground"></div>
+  <div id="menuContents">
+    <div class="menuContents width">
+      <div class="menuContents__category">
+        Stories
       </div>
-      <div class="menu-pop__category menu-pop__category--second">
-        <div class="menu-pop__category__circle"></div>
-        <div class="menu-pop__category__text">Listen</div>
+      <div class="menuContents__category">
+        Listen
       </div>
-      <div class="menu-pop__category menu-pop__category--third">
-        <div class="menu-pop__category__circle"></div>
-        <div class="menu-pop__category__text">Team</div>
+      <div class="menuContents__category">
+        Team
       </div>
-      <div class="menu-pop__category menu-pop__category--fourth">
-        <div class="menu-pop__category__circle"></div>
-        <div class="menu-pop__category__text">Tools</div>
+      <div class="menuContents__category">
+        Tools
       </div>    
     </div>
   </div>
-
-  <!-- INTRO -->
-
-  <img class="intro__logo" src="/public/svg/big_logo.svg" alt="intro-logo">
-  <img class="intro__flower" src="/public/svg/intro_flower.svg" alt="intro-flower">
-  
-  <!---------------------------------------------------------------------------------->
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
   <!-- HEADER -->
-
-  <header class="for-flex header">
-    <div class="for-width header--flex">
-      <img class="header__logo" src="/public/svg/small_logo.svg" alt="header__logo">
-      <div class="header__menu-lines">
-        <div class="header__menu-lines__line header__menu-lines__line--first"></div>
-        <div class="header__menu-lines__line header__menu-lines__line--second"></div>
-        <div class="header__menu-lines__line header__menu-lines__line--third"></div>
+  <header id="header">
+    <div class="width header">
+      <img class="header__logo" src="/public/img/svg/header/logo.svg" alt="header-logo">
+      <div class="header__menu" data-click="headerMenu">
+        <div class="header__menu__line"></div>
+        <div class="header__menu__line"></div>
+        <div class="header__menu__line"></div>
       </div> 
-      <div class="header__menu-texts">
-        <div class="header__menu-texts--flex">
-          <div class="header__menu-texts__text-box header__menu-texts__text-box--first">
-            <div class="header__menu-texts__text-box__text">Stories</div>
-            <div class="header__menu-texts__text-box__circle--flex">
-              <div class="header__menu-texts__text-box__circle"></div>
-            </div>
-          </div>
-          <div class="header__menu-texts__text-box header__menu-texts__text-box--second">
-            <div class="header__menu-texts__text-box__text">Listen</div>
-            <div class="header__menu-texts__text-box__circle--flex">
-              <div class="header__menu-texts__text-box__circle"></div>
-            </div>
-          </div>
-          <div class="header__menu-texts__text-box header__menu-texts__text-box--third">
-            <div class="header__menu-texts__text-box__text">Team</div>
-            <div class="header__menu-texts__text-box__circle--flex">
-              <div class="header__menu-texts__text-box__circle"></div>
-            </div>
-          </div>
-          <div class="header__menu-texts__text-box header__menu-texts__text-box--fourth">
-            <div class="header__menu-texts__text-box__text">Tools</div>
-            <div class="header__menu-texts__text-box__circle--flex">
-              <div class="header__menu-texts__text-box__circle"></div>
-            </div>
-          </div>
+      <div class="header__categories">
+        <div class="header__categories__category" data-pointerover="headerHover" data-pointerout="headerHover">
+          <div class="header__categories__category__text">Stories</div>
+          <div class="header__categories__category__circle"></div>
+        </div>
+        <div class="header__categories__category" data-pointerover="headerHover" data-pointerout="headerHover">
+          <div class="header__categories__category__text">Listen</div>
+          <div class="header__categories__category__circle"></div>
+        </div>
+        <div class="header__categories__category" data-pointerover="headerHover" data-pointerout="headerHover">
+          <div class="header__categories__category__text">Team</div>
+          <div class="header__categories__category__circle"></div>
+        </div>
+        <div class="header__categories__category" data-pointerover="headerHover" data-pointerout="headerHover">
+          <div class="header__categories__category__text">Tools</div>
+          <div class="header__categories__category__circle"></div>
         </div>
       </div> 
     </div>
   </header>
-
-  <!---------------------------------------------------------------------------------->
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
   <!-- MAIN -->
-
-  <main class="for-flex main">
-    <div class="for-width main--grid">
+  <!-- <main id="main">
+    <div class="width main">
       <div class="main__img-title">
         <div class="main__img-title__images">
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_1.jpeg" alt="main_1">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main1.jpeg" alt="main1">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_2.jpeg" alt="main_2">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main22.jpeg" alt="main2">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_3.jpeg" alt="main_3">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main33.jpeg" alt="main3">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_4.jpeg" alt="main_4">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main4.jpeg" alt="main4">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_5.jpeg" alt="main_5">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main5.jpeg" alt="main5">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_6.jpeg" alt="main_6">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main6.jpeg" alt="main6">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_7.jpeg" alt="main_7">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main7.jpeg" alt="main7">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_8.jpeg" alt="main_8">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main8.jpeg" alt="main8">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_9.jpeg" alt="main_9">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main9.jpeg" alt="main9">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_10.jpeg" alt="main_10">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main10.jpeg" alt="main10">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_11.jpeg" alt="main_11">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main11.jpeg" alt="main11">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_12.jpeg" alt="main_12">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main12.jpeg" alt="main12">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_13.jpeg" alt="main_13">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main13.jpeg" alt="main13">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_14.jpeg" alt="main_14">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main14.jpeg" alt="main14">
           </div>
           <div class="main__img-title__images__image-box">
-            <img class="main__img-title__images__image-box__image" src="/public/img/main_15.jpeg" alt="main_15">
+            <img class="main__img-title__images__image-box__image" src="/public/img/main/main15.jpeg" alt="main15">
           </div>
         </div>
         <div class="main__img-title__title-box">
@@ -146,9 +128,9 @@
       </div>
       <div class="main__shuffle">
         <div class="main__shuffle--flex">
-          <img class="main__shuffle__img" src="/public/svg/prev.svg" alt="prev.svg">
-          <img class="main__shuffle__img" src="/public/svg/next.svg" alt="next.svg">
-          <img class="main__shuffle__img" src="/public/svg/shuffle.svg" alt="shuffle.svg">
+          <img class="main__shuffle__img" src="/public/img/svg/main/prev.svg" alt="prev">
+          <img class="main__shuffle__img" src="/public/img/svg/main/next.svg" alt="next">
+          <img class="main__shuffle__img" src="/public/img/svg/main/shuffle.svg" alt="shuffle">
         </div>
       </div>    
       <div class="main__progress-scroll">
@@ -162,44 +144,127 @@
         <div class="main__progress-scroll__scroll">
           <div class="main__progress-scroll__scroll__text">SCROLL DOWN</div>
           <div class="main__progress-scroll__scroll__circle">
-            <img class="main__progress-scroll__scroll__circle__arrow" src="/public/svg/down_arrow.svg" alt="main-scroll-arrow">
+            <img class="main__progress-scroll__scroll__circle__arrow" src="/public/img/svg/main/down-arrow.svg" alt="down-arrow">
+          </div>
+        </div>
+      </div>  
+    </div>
+  </main> -->
+  <main id="main">
+    <div class="width main">
+      <div class="main__imgs">
+        <div class="main__imgs__frame">
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main1.jpeg" alt="main1">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main22.jpeg" alt="main2">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main33.jpeg" alt="main3">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main4.jpeg" alt="main4">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main5.jpeg" alt="main5">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main6.jpeg" alt="main6">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main7.jpeg" alt="main7">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main8.jpeg" alt="main8">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main9.jpeg" alt="main9">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main10.jpeg" alt="main10">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main11.jpeg" alt="main11">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main12.jpeg" alt="main12">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main13.jpeg" alt="main13">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main14.jpeg" alt="main14">
+          </div>
+          <div class="main__imgs__frame__image-box">
+            <img class="main__imgs__frame__image-box__image" src="/public/img/main/main15.jpeg" alt="main15">
+          </div>
+        </div>
+      </div>
+      <div class="main__title">
+        <div class="main__title__subject">BEHIND THE SCENES</div>
+        <div class="main__title__title">Collaboration Secrets: Design X Engineering</div>  
+      </div>
+      <div class="main__btns">
+        <div class="main__btns__img-box">
+          <img class="main__btns__img main__btns__prev" src="/public/img/svg/main/prev.svg" alt="prev">
+        </div>
+        <div class="main__btns__img-box">
+          <img class="main__btns__img main__btns__next" src="/public/img/svg/main/next.svg" alt="next">
+        </div>
+        <div class="main__btns__img-box">
+          <img class="main__btns__img main__btns__shuffle" src="/public/img/svg/main/shuffle.svg" alt="shuffle">
+        </div>
+      </div>    
+      <div class="main__bar">
+        <div class="main__bar__progress">
+          <div class="main__bar__progress__current">01</div>
+          <div class="main__bar__progress__stick">
+            <div class="main__bar__progress__stick__ing"></div>
+          </div>
+          <div class="main__bar__progress__total">15</div>
+        </div>
+        <div class="main__bar__scroll" data-click="scrollDown" data-pointerover="scrollDown" data-pointerout="scrollDown">
+          <div class="main__bar__scroll__text">SCROLL DOWN</div>
+          <div class="main__bar__scroll__circle">
+            <div class="main__bar__scroll__circle__background"></div>
+            <img class="main__bar__scroll__circle__arrow" src="/public/img/svg/main/down-arrow.svg" alt="down-arrow">
           </div>
         </div>
       </div>  
     </div>
   </main>
 
-  <!---------------------------------------------------------------------------------->
-  <!-- SECTION RELEASE -->
-
-  <section class="for-flex release">
-    <div class="for-width">
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!-- RELEASE -->
+  <section class="release" id="release">
+    <div class="width">
       <div class="right-arrow--relative">
         <h3 class="release__heading">New Releases</h3>
         <div class="release--grid">
           <div class="js-release__img-box">
-            <img class='img-box__img' src="/public/img/rel1.webp" alt="release1">
+            <img class='img-box__img' src="/public/img/release/release1.webp" alt="release1">
             <div class="img-box__subject">BEHIND THE SCENES</div>
             <p class="js-img-box__title">Collaboration Secrets: Design X Engineering</p>
             <p class="img-box__explanation">Learn how engineers and designers collaborate at Spotify: what works well, what can go wrong.. and everything in between!</p>
           </div>
           <div class="js-release__img-box">
-            <img class='img-box__img' src="/public/img/rel2.webp" alt="release2">
+            <img class='img-box__img' src="/public/img/release/release2.webp" alt="release2">
             <div class="img-box__subject">Q+A</div>
             <p class="js-img-box__title">Ask Spotify Design 07</p>
             <p class="img-box__explanation">How do you choose colors? Prioritize your workload? Govern a design system? Our community panel returns to answer your thoughtful questions.</p>
           </div> 
           <div class="js-release__img-box">
-            <img class='img-box__img' src="/public/img/rel3.webp" alt="release3">
+            <img class='img-box__img' src="/public/img/release/release3.webp" alt="release3">
             <div class="img-box__subject">BEHIND THE SCENES</div>
             <p class="js-img-box__title">Making Moves: Designing Motion for 2022 Wrapped</p>
             <p class="img-box__explanation">Simple brief, complex executions: UX Motion Designer Ade shares his journey on bringing 2022 Wrapped's data stories to life.</p>
           </div> 
           <div class="js-release__img-box">
             <div class="js-release__img-box__play-box release__img-box__play-box--relative">
-              <img class='img-box__img' src="/public/img/rel4.webp" alt="release4">
+              <img class='img-box__img' src="/public/img/release/release4.webp" alt="release4">
               <div class="js-release__img-box__play-box__play-button">
-                <img class='release__img-box__play-box__play-button__img' src="/public/svg/play.svg" alt="playButton">
+                <img class='release__img-box__play-box__play-button__img' src="/public/img/svg/play.svg" alt="play">
               </div>
             </div>
             <div class="img-box__subject">LISTEN</div>
@@ -217,26 +282,23 @@
               <div class="js-right-arrow__contents__title-box__second-line"></div>
             </div>
             <div class="js-right-arrow__contents__arrow-circle">
-              <img class='js-right-arrow__contents__arrow-circle__arrow-img' src="/public/svg/right_arrow.svg" alt="right_arrow">
+              <img class='js-right-arrow__contents__arrow-circle__arrow-img' src="/public/img/svg/right-arrow.svg" alt="right-arrow">
             </div>
           </div>
         </div>    
       </div>
     </div>
   </section>
-
-  <!---------------------------------------------------------------------------------->
-  <!-- SECTION SPOTLIGHT -->
-
-  <div class="js-spotlight-cursor">
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!-- SPOTLIGHT -->
+  <div class="js-spotlight-cursor" hidden>
     <div class="js-spotlight-cursor__circle">
-      <img class="spotlight-cursor__left-arrow" src="/public/svg/play.svg" alt="left-arrow">
-      <img class="spotlight-cursor__right-arrow" src="/public/svg/play.svg" alt="right-arrow">    
+      <img class="spotlight-cursor__left-arrow" src="/public/img/svg/play.svg" alt="play">
+      <img class="spotlight-cursor__right-arrow" src="/public/img/svg/play.svg" alt="play">    
     </div>
   </div>          
-
-  <section class="for-flex spotlight">
-    <div class="for-width">
+  <section class="spotlight" hidden>
+    <div class="width">
       <div class="right-arrow--relative">
         <div class="heading-box">
           <div class="heading-box--bold">In the Spotlight</div>
@@ -246,9 +308,9 @@
           <div class="js-spotlight__scroll__inner">
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-first">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot1.jpeg" alt="spot1">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight1.jpeg" alt="spotlight1">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--1"><div class="spotlight__scroll__item__img-box__read__text">"If you’d asked the kid version of me what I wanted to be when I grew up, I would’ve definitely told you “teddy bear surgeon”. If you’d asked me to be serious, I’d tell you “someone who designs things”.Looking back, I guess I wasn’t far off."</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg1" src="/public/svg/spot1.svg" alt="spot1.svg">
+                <img class="spotlight__scroll__item__img-box__svg1" src="/public/img/svg/spotlight/spotlight1.svg" alt="spotlight1">
               </div>
               <div class="spotlight__scroll__item__heading--bold">Tobi Oyadiran</div>
               <div class="spotlight__scroll__item__heading--normal">Product Designer II</div>    
@@ -259,9 +321,9 @@
             </div>
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-second">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot2.jpeg" alt="spot2">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight2.jpeg" alt="spotlight2">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--2"><div class="spotlight__scroll__item__img-box__read__text">"The art of gathering people and insights are two areas I’d like to master throughout my life and career in service design."</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg2" src="/public/svg/spot2.svg" alt="spot2.svg">
+                <img class="spotlight__scroll__item__img-box__svg2" src="/public/img/svg/spotlight/spotlight2.svg" alt="spotlight2">
               </div>
               <div class="spotlight__scroll__item__heading--bold">Grace Kwon</div>
               <div class="spotlight__scroll__item__heading--normal">Senior Service Designer</div>    
@@ -272,9 +334,9 @@
             </div>
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-third">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot3.jpeg" alt="spot3">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight3.jpeg" alt="spotlight3">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--3"><div class="spotlight__scroll__item__img-box__read__text">"I get to enter a new unfamiliar space, make sense of it using different design processes and tools, and bring forth a narrative"</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg1" src="/public/svg/spot1.svg" alt="spot1.svg">
+                <img class="spotlight__scroll__item__img-box__svg1" src="/public/img/svg/spotlight/spotlight1.svg" alt="spotlight1">
               </div>
               <div class="spotlight__scroll__item__heading--bold">René Simonsson</div>
               <div class="spotlight__scroll__item__heading--normal">Product Designer I</div>    
@@ -285,9 +347,9 @@
             </div>
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-first">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot4.jpeg" alt="spot4">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight4.jpeg" alt="spotlight4">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--4"><div class="spotlight__scroll__item__img-box__read__text">"Being able to create something that makes someone feel more visible as a human in a digital experience keeps me motivated."</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg1" src="/public/svg/spot1.svg" alt="spot1.svg">
+                <img class="spotlight__scroll__item__img-box__svg1" src="/public/img/svg/spotlight/spotlight1.svg" alt="spotlight1">
               </div>
               <div class="spotlight__scroll__item__heading--bold">Ashely Moody</div>
               <div class="spotlight__scroll__item__heading--normal">Product Designer II</div>    
@@ -298,9 +360,9 @@
             </div>
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-second">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot5.jpeg" alt="spot5">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight5.jpeg" alt="spotlight5">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--5"><div class="spotlight__scroll__item__img-box__read__text">"That experience taught me that the ‘why’ of a design is just as important as the design itself."</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg2" src="/public/svg/spot2.svg" alt="spot2.svg">
+                <img class="spotlight__scroll__item__img-box__svg2" src="/public/img/svg/spotlight/spotlight2.svg" alt="spotlight2">
               </div>
               <div class="spotlight__scroll__item__heading--bold">Kevita Chepovetsky</div>
               <div class="spotlight__scroll__item__heading--normal">Senior Product Designer</div>    
@@ -311,9 +373,9 @@
             </div>
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-third">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot6.jpeg" alt="spot6">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight6.jpeg" alt="spotlight6">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--6"><div class="spotlight__scroll__item__img-box__read__text">"Always felt I was creative but not in the traditional sense. I was more of a creative in how to just get things done with limited or no resources."</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg1" src="/public/svg/spot1.svg" alt="spot1.svg">
+                <img class="spotlight__scroll__item__img-box__svg1" src="/public/img/svg/spotlight/spotlight1.svg" alt="spotlight1">
               </div>
               <div class="spotlight__scroll__item__heading--bold">Leslie Ogoe</div>
               <div class="spotlight__scroll__item__heading--normal">Design Product Designer</div>    
@@ -324,9 +386,9 @@
             </div>
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-first">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot7.jpeg" alt="spot7">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight7.jpeg" alt="spotlight7">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--7"><div class="spotlight__scroll__item__img-box__read__text">"I find satisfaction in pouring my energy into creating something (tangible or digital) that is useful, helpful, or inspiring."</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg1" src="/public/svg/spot1.svg" alt="spot1.svg">
+                <img class="spotlight__scroll__item__img-box__svg1" src="/public/img/svg/spotlight/spotlight1.svg" alt="spotlight1">
               </div>
               <div class="spotlight__scroll__item__heading--bold">Vandana Pai</div>
               <div class="spotlight__scroll__item__heading--normal">Senior Product Designer</div>    
@@ -337,9 +399,9 @@
             </div>  
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-second">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot8.jpeg" alt="spot8">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight8.jpeg" alt="spotlight8">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--8"><div class="spotlight__scroll__item__img-box__read__text">"Design isn’t just about the perfect pixel in the perfect layout for the perfect user journey. Design is also about the user and collaboration."</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg2" src="/public/svg/spot2.svg" alt="spot2.svg">
+                <img class="spotlight__scroll__item__img-box__svg2" src="/public/img/svg/spotlight/spotlight2.svg" alt="spotlight2">
               </div>
               <div class="spotlight__scroll__item__heading--bold">Corinne Onetto</div>
               <div class="spotlight__scroll__item__heading--normal">Senior Product Manager</div>    
@@ -350,9 +412,9 @@
             </div>  
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-third">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot9.jpeg" alt="spot9">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight9.jpeg" alt="spotlight9">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--9"><div class="spotlight__scroll__item__img-box__read__text">"I like my “designer” title because it lets my curiosity run wild. It’s allowed me a peek into so many fascinating corners of the world, and I hope to keep using it as long as I can."</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg1" src="/public/svg/spot1.svg" alt="spot1.svg">
+                <img class="spotlight__scroll__item__img-box__svg1" src="/public/img/svg/spotlight/spotlight1.svg" alt="spotlight1">
               </div>
               <div class="spotlight__scroll__item__heading--bold">Janey Lee</div>
               <div class="spotlight__scroll__item__heading--normal">Senior Product Designer</div>    
@@ -363,9 +425,9 @@
             </div>  
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-first">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot10.jpeg" alt="spot10">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight10.jpeg" alt="spotlight10">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--10"><div class="spotlight__scroll__item__img-box__read__text">"I chose to be a designer because it allows me to experiment and keep on iterating."</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg1" src="/public/svg/spot1.svg" alt="spot1.svg">
+                <img class="spotlight__scroll__item__img-box__svg1" src="/public/img/svg/spotlight/spotlight1.svg" alt="spotlight1">
               </div>
               <div class="spotlight__scroll__item__heading--bold">Simeon Fadahunsi</div>
               <div class="spotlight__scroll__item__heading--normal">Summer Intern Product Designer</div>    
@@ -376,9 +438,9 @@
             </div>  
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-second">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot11.jpeg" alt="spot11">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight11.jpeg" alt="spotlight11">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--11"><div class="spotlight__scroll__item__img-box__read__text">"As a designer, your life is filled with problem-solving, establishing relationships, and making sure you’re providing the most enjoyable journey to people."</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg2" src="/public/svg/spot2.svg" alt="spot2.svg">
+                <img class="spotlight__scroll__item__img-box__svg2" src="/public/img/svg/spotlight/spotlight2.svg" alt="spotlight2">
               </div>
               <div class="spotlight__scroll__item__heading--bold">Inês João</div>
               <div class="spotlight__scroll__item__heading--normal">Product Designer</div>    
@@ -389,9 +451,9 @@
             </div>  
             <div class="js-spotlight__scroll__item spotlight__scroll__item--width-third">
               <div class="spotlight__scroll__item__img-box">
-                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spot12.jpeg" alt="spot12">
+                <img class="js-spotlight__scroll__item__img-box__img" src="/public/img/spotlight/spotlight12.jpeg" alt="spotlight12">
                 <div class="spotlight__scroll__item__img-box__read spotlight__scroll__item__img-box__read--12"><div class="spotlight__scroll__item__img-box__read__text">"I usually say that I don’t touch anything they see as Spotify. Instead, I see myself as a plumber of sorts, working far below the surface and making sure everything runs smoothly."</div><div class="spotlight__scroll__item__img-box__read__more">READ MORE</div></div>
-                <img class="spotlight__scroll__item__img-box__svg1" src="/public/svg/spot1.svg" alt="spot1.svg">
+                <img class="spotlight__scroll__item__img-box__svg1" src="/public/img/svg/spotlight/spotlight1.svg" alt="spotlight1">
               </div>
               <div class="spotlight__scroll__item__heading--bold">Elias Lind</div>
               <div class="spotlight__scroll__item__heading--normal">Product Designer</div>    
@@ -409,19 +471,17 @@
               <div class="js-right-arrow__contents__title-box__second-line"></div>
             </div>
             <div class="js-right-arrow__contents__arrow-circle">
-              <img class='js-right-arrow__contents__arrow-circle__arrow-img' src="/public/svg/right_arrow.svg" alt="right_arrow">
+              <img class='js-right-arrow__contents__arrow-circle__arrow-img' src="/public/img/svg/right-arrow.svg" alt="right-arrow">
             </div>
           </div>
         </div>    
       </div>  
     </div>
   </section>
-
-  <!---------------------------------------------------------------------------------->
-  <!-- SECTION INBOX -->
-
-  <section class="for-flex js-inbox">
-    <div class="for-width">
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!-- INBOX -->
+  <section class="js-inbox" hidden>
+    <div class="width">
       <div class="inbox__title">
         <svg class="inbox__title__svg-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 196 48" preserveAspectRatio="'none"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"><path class="js-inbox__title__svg-arrow__path1" d="M154 21c6-2 13-4 23 0-13-5-16-8-18-15"></path><path class="js-inbox__title__svg-arrow__path2" d="M14 28c29-22 101-5 104 9 1 7-18 7 0-12s53-6 53-6"></path></g></svg>
         <div class="inbox__title__text-box">
@@ -450,14 +510,10 @@
       </div>
     </div>
   </section>
-
-
-  
-  <!---------------------------------------------------------------------------------->
-  <!-- SECTION TOOLS AND JOBS -->
-
-  <section class="for-flex tools-jobs">
-    <div class="for-width tools-jobs--grid">
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!-- TOOLS AND JOBS -->
+  <section class="tools-jobs" hidden>
+    <div class="width tools-jobs--grid">
       <section class="right-arrow--relative">
           <div class="heading-box">
             <div class="heading-box--bold">Tools</div>
@@ -465,13 +521,13 @@
           </div>
           <div class="tools--grid">
             <div class="js-tools__img-box">
-              <img class='img-box__img' src="/public/img/tools1.webp" alt="tools1">
+              <img class='img-box__img' src="/public/img/tools/tools1.webp" alt="tools1">
               <div class="img-box__subject">TOOLS</div>
               <p class="js-img-box__title">Performance Cards: Designing with Meaning and Empathy</p>
               <p class="img-box__explanation">Challenge the way you think and serve access-constrained users with these cards.</p>
             </div>
             <div class="js-tools__img-box">
-              <img class='img-box__img' src="/public/img/tools2.webp" alt="tools2">
+              <img class='img-box__img' src="/public/img/tools/tools2.webp" alt="tools2">
               <div class="img-box__subject">TOOLS</div>
               <p class="js-img-box__title">Assessing Constraints: Making Products for all Users</p>
               <p class="img-box__explanation">The team behind Spotify Lite created this tool to ensure they're building products for the people around the world who face technological challenge.</p>
@@ -484,12 +540,11 @@
                 <div class="js-right-arrow__contents__title-box__second-line"></div>
               </div>
               <div class="js-right-arrow__contents__arrow-circle">
-                <img class='js-right-arrow__contents__arrow-circle__arrow-img' src="/public/svg/right_arrow.svg" alt="right_arrow">
+                <img class='js-right-arrow__contents__arrow-circle__arrow-img' src="/public/img/svg/right-arrow.svg" alt="right-arrow">
               </div>
             </div>
           </div>  
       </section>
-    
       <section class="right-arrow--relative">
           <div class="heading-box">
             <div class="heading-box--bold">Jobs</div>
@@ -501,7 +556,7 @@
               <div class="jobs__miami__text">MIAMI</div>
               <div class="js-jobs__miami__arrow">
                 <div class="js-jobs__miami__arrow__circle">
-                  <img class="js-jobs__miami__arrow__circle__arrow" src="/public/svg/diagonal_arrow.svg" alt="diagonal_arrow">
+                  <img class="js-jobs__miami__arrow__circle__arrow" src="/public/img/svg/tools/tools-arrow.svg" alt="tools-arrow">
                 </div>
               </div>
             </div>
@@ -514,22 +569,20 @@
                 <div class="js-right-arrow__contents__title-box__second-line"></div>
               </div>
               <div class="js-right-arrow__contents__arrow-circle">
-                <img class='js-right-arrow__contents__arrow-circle__arrow-img' src="/public/svg/right_arrow.svg" alt="right_arrow">
+                <img class='js-right-arrow__contents__arrow-circle__arrow-img' src="/public/img/svg/right-arrow.svg" alt="right-arrow">
               </div>
             </div>
           </div>  
       </section>
     </div>  
   </section>
-
-  <!---------------------------------------------------------------------------------->
-  <!-- SECTION TIME -->
-  
-  <div class="time-footer">
-    <section class="for-flex time">
-      <div class="for-width time--flex">
+  <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+  <!-- TIME -->
+  <div class="time-footer" hidden>
+    <section class="time">
+      <div class="width time--flex">
         <div class="time__logo">
-          <img class="time__logo__img" src="/public/svg/small_logo.svg" alt="time__logo">
+          <img class="time__logo__img" src="/public/img/svg/time/logo.svg" alt="logo">
         </div>
         <div class="time__main-box">
           <div class="time__main-box__links">
@@ -593,18 +646,16 @@
         </div>
       </div>
     </section> 
-
-    <!---------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <!-- FOOTER -->
-    
-    <footer class="for-flex">
-      <div class="for-width">
+    <footer hidden>
+      <div class="width">
         <div class="footer">
           <div class="footer__back-to-top">
             <div class="js-footer__back-to-top__contents">
               <div class="footer__back-to-top__contents__text">BACK TO TOP</div>
               <div class="js-footer__back-to-top__contents__arrow">
-                <img class="js-footer__back-to-top__contents__arrow_img" src="/public/svg/up_arrow.svg" alt="backtotop-arrow">
+                <img class="js-footer__back-to-top__contents__arrow_img" src="/public/img/svg/footer/up-arrow.svg" alt="up-arrow">
               </div>
             </div>
           </div>
@@ -623,9 +674,7 @@
         </div>
       </div>
     </footer>
-    <img class="time-footer__flower" src="/public/svg/footer.svg" alt="time-footer__flower">
+    <img class="time-footer__flower" src="/public/img/svg/footer/footer-flower.svg" alt="footer-flower" hidden>
   </div>
-
-
 </body>
 </html>

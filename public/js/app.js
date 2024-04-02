@@ -40,17 +40,82 @@ const $rightArrowContents = document.querySelectorAll('.js-right-arrow__contents
   });
 });
 
-// ----------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // INTRO + MAIN
 
+class Intro {
+  constructor() {
+    this.$introLogo = document.querySelector('.intro-logo');
+    this.$introFlower = document.querySelector('.intro-flower');
+    this.introFlowerWidth = null;
+
+    this.$header = document.getElementById('header');
+    this.$main = document.getElementById('main');
+
+    this.animate = this.animate.bind(this);
+    this.showFlower = this.showFlower.bind(this);
+    this.disappearLogoAndFlower = this.disappearLogoAndFlower.bind(this);
+  }
+
+  animate({timing, draw, duration}) {
+    let start = performance.now();
+    requestAnimationFrame(function animate(time) {
+      let timeFraction = (time - start) / duration;
+      if (timeFraction > 1) timeFraction = 1;
+      let progress = timing(timeFraction)
+      draw(progress); 
+      if (timeFraction < 1) {
+        requestAnimationFrame(animate);
+      }
+    });
+  }
+  
+  init() {
+    window.scrollTo(0, 0);
+    // document.body.style.overflowY = 'hidden';
+    // setTimeout(this.showFlower, 1500);
+    // setTimeout(this.disappearLogoAndFlower, 4500);
+  }
+
+  // 꽃 보여주고 꽃 너비 측정
+  showFlower() {
+    this.$introFlower.style.display = 'block';
+    this.introFlowerWidth = this.$introFlower.offsetWidth;
+  }
+
+  disappearLogoAndFlower() {
+    // 바디 hidden 풀리고, 
+    // 로고 사라지고,
+    document.body.style.overflowY = '';
+    this.$introLogo.style.display = 'none';
+    // 꽃 줄어들며 사라지고
+    // 📍 마지막에 사라지는 거 추가
+    this.animate({
+      duration: 500,
+      timing: function(timeFraction) {
+        return timeFraction;
+      },
+      // 📍 여기 화살표 함수인거 주목, 그냥 함수는 this가 undefined된다. 
+      // scale은 1 -> 0.5
+      draw: (progress) => {
+        this.$introFlower.style.transform = `translate3d(${-100 * progress}%, 0, 0) scale(${(-0.5 * progress) + 1})`;
+      }
+    });
+    // 헤더와 메인 나타나고
+    this.$header.style.visibility = 'visible';
+    this.$main.style.visibility = 'visible';
+
+    // 📍 슬라이드 카드 등장
+  }
+}
+
+const intro = new Intro();
+intro.init();
+
+// 이미지 촤르륵 나타나
 const $mainImageBoxes = document.querySelectorAll('.main__img-title__images__image-box');
 let indexForZindexofImageBoxes = 15;
 let indexForStack = 0;
-
-const $introFlower = document.querySelector('.intro__flower');
-const $introLogo = document.querySelector('.intro__logo');
-const $main = document.querySelector('.main');
-const $header = document.querySelector('.header');
 
 [...$mainImageBoxes].forEach(imageBox => {
   imageBox.style.zIndex = `${indexForZindexofImageBoxes}`;
@@ -58,45 +123,17 @@ const $header = document.querySelector('.header');
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  window.scrollTo(0, 0);
-
-  document.body.style.overflowY = 'hidden';
-  document.body.style.backgroundColor = '#ffd0d5';
-
-
   setTimeout(() => {
-    $introFlower.style.display = 'block';
-  }, 1500);
 
-  setTimeout(() => {
-    const introFlowerWidth = $introFlower.offsetWidth;
+    // let intervalId = setInterval(() => {
+    //   [...$mainImageBoxes][indexForStack].classList.add('stack');
+    //   indexForStack++;
 
-    $introLogo.style.display = 'none';
-    $main.style.visibility = 'visible';
-    $header.style.visibility = 'visible';
-
-    document.body.style.overflowY = '';
-    document.body.style.backgroundColor = '';
-
-    animate({
-      duration: 2000,
-      timing: function(timeFraction) {
-        return timeFraction;
-      },
-      draw: function(progress) {
-        $introFlower.style.left = -(introFlowerWidth * progress) + '%';
-      }
-    });
-
-    let intervalId = setInterval(() => {
-      [...$mainImageBoxes][indexForStack].classList.add('stack');
-      indexForStack++;
-
-      if(indexForStack >= $mainImageBoxes.length) {
-        clearInterval(intervalId);
-        imgAutoSlide();
-      }
-    }, 30);
+    //   if(indexForStack >= $mainImageBoxes.length) {
+    //     clearInterval(intervalId);
+    //     imgAutoSlide();
+    //   }
+    // }, 30);
   }, 4000);
 });
 
@@ -206,102 +243,127 @@ function imgAutoSlide() {
   return;
 }
 
-// ----------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // HEADER
 
-// 메뉴 세 라인, 클릭 효과
-const $menuLines = document.querySelector('.header__menu-lines');
-const $menuLinesFirst = document.querySelector('.header__menu-lines__line--first');
-const $menuLinesSecond = document.querySelector('.header__menu-lines__line--second');
-const $menuLinesThird = document.querySelector('.header__menu-lines__line--third');
-const $menuPopUp = document.querySelector('.menu-pop');
-const $menuPopUpCategoryAbsolute = document.querySelector('.menu-pop__category--absolute');
-const paddingToAdd = window.innerWidth - document.documentElement.clientWidth;
+class Events {
+  constructor() {
+    this.$menuBackground = document.getElementById('menuBackground');
+    this.$menuContents = document.getElementById('menuContents');
+    this.$headerMenuLines = document.querySelectorAll('.header__menu__line');
+    this.documentClientWidth = document.documentElement.clientWidth;
 
-$menuLines.onclick = () => {
-  $menuLinesFirst.classList.toggle('active');
-  $menuLinesSecond.classList.toggle('active');
-  $menuLinesThird.classList.toggle('active');
-  $menuPopUp.classList.toggle('active');
-  document.body.classList.toggle('active');
-  $menuPopUpCategoryAbsolute.classList.toggle('active');
+    this.$headerCateText = null;
+    this.$headerCateCircle = null;
 
-  // body overflow가 hidden되면 스크롤바가 갑자기 사라지면서 너비가 조정되니까
-  // body에 그만큼 오른쪽 패딩을 먹여야 한다.
-  if(document.body.classList.contains('active')) {
-    document.body.style.paddingRight = paddingToAdd + 'px';
-    $menuPopUpCategoryAbsolute.style.paddingRight = paddingToAdd + 'px';
-  } else {
-    document.body.style.paddingRight = '';
-    $menuPopUpCategoryAbsolute.style.paddingRight = '';
+    this.$mainScrollBackground = document.querySelector('.main__bar__scroll__circle__background');
+    this.$mainScrollArrow = document.querySelector('.main__bar__scroll__circle__arrow');
+    this.mainScrollStart = null;
+    this.mainScrollEnd = null;
+    this.$release = document.getElementById('release');
   }
-};
 
-window.addEventListener('resize', () => {
-  if(window.innerWidth >= 600) {
-    $menuPopUp.classList.remove('active');
-    document.body.classList.remove('active');
-    $menuLinesFirst.classList.remove('active');
-    $menuLinesSecond.classList.remove('active');
-    $menuLinesThird.classList.remove('active');  
-    $menuPopUpCategoryAbsolute.classList.remove('active');
-  
-    document.body.style.paddingRight = '';
-    $menuPopUpCategoryAbsolute.style.paddingRight = '';
+  animate({timing, draw, duration}) {
+    let start = performance.now();
+    requestAnimationFrame(function animate(time) {
+      let timeFraction = (time - start) / duration;
+      if (timeFraction > 1) timeFraction = 1;
+      let progress = timing(timeFraction)
+      draw(progress); 
+      if (timeFraction < 1) {
+        requestAnimationFrame(animate);
+      }
+    });
   }
-})
 
-// 메뉴 텍스트, 호버 효과
-const $menuTextBox = document.querySelectorAll('.header__menu-texts__text-box');
-
-[...$menuTextBox].forEach(item => {
-  item.addEventListener('pointerenter', () => {
-    item.querySelector('.header__menu-texts__text-box__circle').classList.toggle('hover');
-    item.querySelector('.header__menu-texts__text-box__text').classList.toggle('hover');
-  });
-
-  item.addEventListener('pointerleave', () => {
-    item.querySelector('.header__menu-texts__text-box__circle').classList.toggle('hover');
-    item.querySelector('.header__menu-texts__text-box__text').classList.toggle('hover');
-  });
-});
-
-// ----------------------------------------------------------------------------------
-// MAIN
-
-// 스크롤 다운
-const $mainScrollDown = document.querySelector('.main__progress-scroll__scroll');
-const $mainScrollDownCircle = document.querySelector('.main__progress-scroll__scroll__circle');
-const $mainScrollDownCircleArrow = document.querySelector('.main__progress-scroll__scroll__circle__arrow');
-const $release = document.querySelector('.release');
-
-$mainScrollDown.onclick = () => {
-  const start = window.pageYOffset; 
-  const end = $release.getBoundingClientRect().top + window.pageYOffset; 
-
-  animate({
-    duration: 300,
-    timing: function linear(timeFraction) {
-      return timeFraction;
-    },
-    draw: function(progress) {
-      if(progress <= 0) return;
-      window.scrollTo(0, start + (end - start) * progress);
+  handleEvent(event) {
+    const EVENT_TYPE = event.type;
+    if(EVENT_TYPE === 'resize') {
+      this.resize(event);
+      return;
     }
-  });
+    const target = event.target.closest(`[data-${EVENT_TYPE}]`);
+    if(!target) return;
+    const method = target.dataset[EVENT_TYPE];
+    this[method](event, target);
+  }
+
+  headerMenu(e, target) {
+    // 삼지창에서 X자로
+    for(let line of this.$headerMenuLines) {
+      line.classList.toggle('clicked');
+    }
+    // 흰색 메뉴 등장
+    this.$menuBackground.classList.toggle('clicked');
+    this.$menuContents.classList.toggle('clicked');
+    // 스크롤바 사라짐
+    document.body.classList.toggle('hidden');
+    // 스크롤바 사라지면서 너비가 넓어지니까 그만큼 padding 채워야
+    if(document.body.classList.contains('hidden')) { // 흰색 메뉴 등장, overflow: hidden
+      // 현재 넓어진 너비에서 처음 스크롤바 있을때 저장한 너비를 빼서 오른쪽 패딩으로 추가하기
+      document.body.style.paddingRight = (document.documentElement.clientWidth - this.documentClientWidth) + 'px';
+      this.$menuContents.style.paddingRight = (document.documentElement.clientWidth - this.documentClientWidth) + 'px';
+    } else {
+      document.body.style.paddingRight = '';
+      this.$menuContents.style.paddingRight = '';
+    }  
+  }
+
+  headerHover(e, target) {
+    if(e.type === 'pointerover') {
+      this.$headerCateText = target.querySelector('.header__categories__category__text');
+      this.$headerCateCircle = target.querySelector('.header__categories__category__circle');
+      this.$headerCateText.classList.add('overed');
+      this.$headerCateCircle.classList.add('overed');
+    } else if(e.type === 'pointerout') {
+      this.$headerCateText.classList.remove('overed');
+      this.$headerCateCircle.classList.remove('overed');
+    }
+  }
+
+  resize(e) {
+    this.documentClientWidth = document.documentElement.clientWidth;
+    if(document.documentElement.clientWidth >= 600) {
+      this.$menuBackground.classList.remove('clicked');
+      this.$menuContents.classList.remove('clicked');
+      document.body.classList.remove('hidden');
+      for(let line of this.$headerMenuLines) {
+        line.classList.remove('clicked');
+      }    
+      document.body.style.paddingRight = '';
+      this.$menuContents.style.paddingRight = '';
+    }
+  }
+
+  scrollDown(e, target) {
+    if(e.type === 'pointerover') {
+      this.$mainScrollBackground.classList.add('overed');
+      this.$mainScrollArrow.classList.add('overed');
+    } else if(e.type === 'pointerout') {
+      this.$mainScrollBackground.classList.remove('overed');
+      this.$mainScrollArrow.classList.remove('overed');
+    } else if(e.type === 'click') {
+      this.mainScrollStart = window.pageYOffset;
+      this.mainScrollEnd = this.$release.getBoundingClientRect().top + window.pageYOffset;    
+      this.animate({
+        duration: 300,
+        timing: function linear(timeFraction) {
+          return timeFraction;
+        },
+        draw: (progress) => {
+          if(progress <= 0) return;
+          window.scrollTo(0, this.mainScrollStart + (this.mainScrollEnd - this.mainScrollStart) * progress);
+        }
+      });    
+    }
+  }
 }
 
-$mainScrollDown.addEventListener('pointerenter', () => {
-  $mainScrollDownCircle.classList.toggle('hover');
-  $mainScrollDownCircleArrow.classList.toggle('hover');
-});
-
-$mainScrollDown.addEventListener('pointerleave', () => {
-  $mainScrollDownCircle.classList.toggle('hover');
-  $mainScrollDownCircleArrow.classList.toggle('hover');
-});
-
-
+const events = new Events();
+document.addEventListener('click', events);
+document.addEventListener('pointerover', events);
+document.addEventListener('pointerout', events);
+window.addEventListener('resize', events);
 
 // ----------------------------------------------------------------------------------
 // RELEASE
