@@ -203,6 +203,7 @@ function imgAutoSlide() {
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Events
+// 📍 왜 어떤건 pointerover가 안 되고 어떤 건 pointerover가 되는지?
 
 class Events {
   constructor() {
@@ -218,6 +219,7 @@ class Events {
     this.$mainScrollArrow = document.querySelector('.main__bar__scroll__circle__arrow');
     this.mainScrollStart = null;
     this.mainScrollEnd = null;
+    this.$mainTooltip = null;
     this.$release = document.getElementById('release');
 
     this.$releaseTitle = null;
@@ -293,6 +295,15 @@ class Events {
       }    
       document.body.style.paddingRight = '';
       this.$menuContents.style.paddingRight = '';
+    }
+  }
+
+  mainTooltips(e, target) {
+    if(e.type === 'pointerover') {
+      this.$mainTooltip = target.querySelector('.main__btns__tooltip');
+      this.$mainTooltip.classList.add('overed');
+    } else if(e.type === 'pointerout') {
+      this.$mainTooltip.classList.remove('overed');
     }
   }
 
