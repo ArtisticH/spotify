@@ -391,38 +391,100 @@ body.hidden {
 
 .main__imgs {
   grid-area: main-imgs;
-}
-
-.main__imgs__frame {
-  height: 450px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
+  height: 440px;
 }
 
-.main__imgs__frame__image-box {
-  width: 85%;
-  aspect-ratio: 1 / 1;
+.main__imgs__image-box {
   position: absolute;
-  transform: translate(-50%, -50%);
   top: 50%;
   left: 200%;
-  opacity: 0;
+  transform: translate(-50%, -50%);
+  width: 370px;
+  aspect-ratio: 1 / 1;
   transition: left 0.4s ease-out;
 }
 
-.main__imgs__frame__image-box.stack {
-  left: 50%;
-  opacity: 1;
-}
-
-.main__imgs__frame__image-box__image {
+.main__imgs__image-box__image {
   width: 100%;
   aspect-ratio: 1 / 1;
   display: block;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0) 2px 5px 27px;
+}
+
+/* 15가 가장 위에 */
+.main__imgs__image-box:nth-child(15).stacked {
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(14).stacked {
+  transform: translate(-50%, -50%) rotate(5deg) scale(1);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(13).stacked {
+  transform: translate(-50%, -50%) rotate(-5deg) scale(1);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(12).stacked {
+  transform: translate(-50%, -50%) rotate(2deg) scale(1);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(11).stacked {
+  transform: translate(-50%, -50%) rotate(-2deg) scale(1);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(10).stacked {
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(9).stacked {
+  transform: translate(-50%, -50%) rotate(5deg) scale(0.9);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(8).stacked {
+  transform: translate(-50%, -50%) rotate(-5deg) scale(0.85);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(7).stacked {
+  transform: translate(-50%, -50%) rotate(2deg) scale(0.8);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(6).stacked {
+  transform: translate(-50%, -50%) rotate(-2deg) scale(0.75);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(5).stacked {
+  transform: translate(-50%, -50%) rotate(0deg) scale(0.7);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(4).stacked {
+  transform: translate(-50%, -50%) rotate(-5deg) scale(0.65);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(3).stacked {
+  transform: translate(-50%, -50%) rotate(5deg) scale(0.6);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(2).stacked {
+  transform: translate(-50%, -50%) rotate(2deg) scale(0.55);
+  left: 50%;
+}
+
+.main__imgs__image-box:nth-child(1).stacked {
+  transform: translate(-50%, -50%) rotate(-2deg) scale(0.5);
+  left: 50%;
 }
 
 .main__title {
@@ -617,17 +679,17 @@ body.hidden {
     'main-btns main-imgs'
     'main-title main-title'
     'main-bar main-bar';
-    grid-template-columns: 1fr 9fr;
+    grid-template-columns: 0.5fr 95fr;
   }
 
-  .main__imgs__frame {
-    height: 550px;
+  .main__imgs {
+    height: 520px;
   }
-
-  .main__imgs__frame__image-box {
-    width: 60%;
+  
+  .main__imgs__image-box {
+    width: 427px;
   }  
-
+      
   .main__btns {
     flex-direction: column;
     justify-content: center;
@@ -672,11 +734,17 @@ body.hidden {
     'main-btns main-btns'
     'main-bar main-bar';
     grid-template-columns: 1fr 1fr;
+    padding-top: 50px;
+    padding-bottom: 15px;
   }
 
-  .main__imgs__frame {
-    height: 450px;
+  .main__imgs {
+    height: 435px;
   }
+  
+  .main__imgs__image-box {
+    width: 435px;
+  }  
 
   .main__btns {
     flex-direction: row;
@@ -703,10 +771,6 @@ body.hidden {
     font-size: 4rem;
     letter-spacing: -4px;
   }
-
-  .main__imgs__frame__image-box {
-    width: 85%;
-  }  
 }
 
 @media all and (min-width: 1320px) {
@@ -718,8 +782,23 @@ body.hidden {
     grid-template-columns: 1fr 4.5fr 4.5fr;
   }
 
-  .main__imgs__frame {
-    height: 550px;
+  .main__imgs {
+    height: 540px;
+  }
+  
+  .main__imgs__image-box {
+    width: 540px;
+  }
+  
+  .main__title {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }  
+
+  .main__title__title {
+    font-size: 4.5rem;
+    letter-spacing: -4.5px;
   }
 
   .main__btns {

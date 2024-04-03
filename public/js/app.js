@@ -10,9 +10,14 @@ class Intro {
     this.$header = document.getElementById('header');
     this.$main = document.getElementById('main');
 
+    this.$mainImgBoxes = document.querySelectorAll('.main__imgs__image-box');
+    this.mainStackIndex = 14;
+
     this.animate = this.animate.bind(this);
     this.showFlower = this.showFlower.bind(this);
     this.disappearLogoAndFlower = this.disappearLogoAndFlower.bind(this);
+    this.showCards = this.showCards.bind(this);
+    this.autoSlide = this.autoSlide.bind(this);
   }
 
   animate({timing, draw, duration}) {
@@ -64,36 +69,36 @@ class Intro {
     this.$main.style.visibility = 'visible';
 
     // 📍 슬라이드 카드 등장
+    // this.showCards();
+  }
+
+  async showCards() {
+    let intervalId = setInterval(() => {
+      [...this.$mainImgBoxes][this.mainStackIndex].classList.add('stacked');
+      this.mainStackIndex--;
+
+      if(this.mainStackIndex < 0) {
+        clearInterval(intervalId);
+        // 마지막 imgBox까지 중앙으로 들어왔을때 (transition: left 0.4s라서)
+        // 자동 슬라이드 시작
+        new Promise((resolve) => {
+          setTimeout(() => {
+            this.autoSlide();
+            resolve();
+          }, 400);
+        })    
+      }
+    }, 40);
+  }
+
+  autoSlide() {
+
   }
 }
 
 const intro = new Intro();
 intro.init();
-
-// 이미지 촤르륵 나타나
-const $mainImageBoxes = document.querySelectorAll('.main__img-title__images__image-box');
-let indexForZindexofImageBoxes = 15;
-let indexForStack = 0;
-
-[...$mainImageBoxes].forEach(imageBox => {
-  imageBox.style.zIndex = `${indexForZindexofImageBoxes}`;
-  indexForZindexofImageBoxes--;
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-
-    // let intervalId = setInterval(() => {
-    //   [...$mainImageBoxes][indexForStack].classList.add('stack');
-    //   indexForStack++;
-
-    //   if(indexForStack >= $mainImageBoxes.length) {
-    //     clearInterval(intervalId);
-    //     imgAutoSlide();
-    //   }
-    // }, 30);
-  }, 4000);
-});
+intro.showCards();
 
 const mainSubjects = [
   "BEHIND THE SCENES",
@@ -131,75 +136,8 @@ const mainTitles = [
   'Beyond "Good Job": How to Give Impactful Feedback'
 ];
 
-const $progressCurrentNum = document.querySelector('.main__progress-scroll__progress__current-number');
-const $progressSubject = document.querySelector('.main__img-title__title-box__box__subject');
-const $progressTitle = document.querySelector('.main__img-title__title-box__box__title');
 const backgroundColorBlue = '#a4c8d7';
 const backgroundColorOrange = '#fcba4a';
-
-let progressCurrentNum = 1;
-let countReverse = 14;
-
-function imgAutoSlide() {
-  $progressCurrentNum.textContent = '01';
-  $progressSubject.textContent = mainSubjects[0];
-  $progressTitle.textContent = mainTitles[0];
-  $main.style.backgroundColor = '';
-  $header.style.backgroundColor = '';
-
-  let progressInterval = setInterval(async () => {
-    let currentNum = progressCurrentNum + 1 < 10 ? '0' + (progressCurrentNum + 1) : progressCurrentNum + 1;
-    $progressCurrentNum.textContent = currentNum
-    $progressSubject.textContent = mainSubjects[progressCurrentNum];
-    $progressTitle.textContent = mainTitles[progressCurrentNum];
-    console.log(currentNum, mainSubjects[progressCurrentNum], mainTitles[progressCurrentNum], progressCurrentNum);
-    $mainImageBoxes[progressCurrentNum - 1].style.left = `200%`;
-
-
-    switch(progressCurrentNum) {
-      case 4: case 6: case 7: case 9: case 10: case 14:
-        $main.style.backgroundColor = backgroundColorOrange;
-        $header.style.backgroundColor = backgroundColorOrange;
-        break;
-      case 3:
-        $main.style.backgroundColor = backgroundColorBlue;
-        $header.style.backgroundColor = backgroundColorBlue;
-        break;
-      default:
-        $main.style.backgroundColor = '';
-        $header.style.backgroundColor = '';
-    }
-
-    progressCurrentNum++;
-
-    if(progressCurrentNum >= 15) {
-      clearInterval(progressInterval); 
-      progressCurrentNum = 1;
-      console.log('끝', progressCurrentNum)
-      
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve();
-        }, 5000)
-      })
-
-      let intervalId = setInterval(() => {
-        [...$mainImageBoxes][countReverse].style.left = '50%';
-        countReverse--;  
-        console.log(countReverse)
-        if(countReverse < 0) {
-          clearInterval(intervalId);
-          countReverse = 14;
-          imgAutoSlide();
-        }
-      }, 30);
-  
-      return;
-    }
-  }, 5000);
-
-  return;
-}
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Events
