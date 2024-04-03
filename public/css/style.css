@@ -402,7 +402,7 @@ body.hidden {
   transform: translate(-50%, -50%);
   width: 370px;
   aspect-ratio: 1 / 1;
-  transition: left 0.4s ease-out;
+  transition: left 0.4s ease-out, transform 0.3s ease-out;
 }
 
 .main__imgs__image-box__image {
@@ -410,81 +410,6 @@ body.hidden {
   aspect-ratio: 1 / 1;
   display: block;
   cursor: pointer;
-}
-
-/* 15가 가장 위에 */
-.main__imgs__image-box:nth-child(15).stacked {
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(14).stacked {
-  transform: translate(-50%, -50%) rotate(5deg) scale(1);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(13).stacked {
-  transform: translate(-50%, -50%) rotate(-5deg) scale(1);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(12).stacked {
-  transform: translate(-50%, -50%) rotate(2deg) scale(1);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(11).stacked {
-  transform: translate(-50%, -50%) rotate(-2deg) scale(1);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(10).stacked {
-  transform: translate(-50%, -50%) rotate(0deg) scale(1);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(9).stacked {
-  transform: translate(-50%, -50%) rotate(5deg) scale(0.9);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(8).stacked {
-  transform: translate(-50%, -50%) rotate(-5deg) scale(0.85);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(7).stacked {
-  transform: translate(-50%, -50%) rotate(2deg) scale(0.8);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(6).stacked {
-  transform: translate(-50%, -50%) rotate(-2deg) scale(0.75);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(5).stacked {
-  transform: translate(-50%, -50%) rotate(0deg) scale(0.7);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(4).stacked {
-  transform: translate(-50%, -50%) rotate(-5deg) scale(0.65);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(3).stacked {
-  transform: translate(-50%, -50%) rotate(5deg) scale(0.6);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(2).stacked {
-  transform: translate(-50%, -50%) rotate(2deg) scale(0.55);
-  left: 50%;
-}
-
-.main__imgs__image-box:nth-child(1).stacked {
-  transform: translate(-50%, -50%) rotate(-2deg) scale(0.5);
-  left: 50%;
 }
 
 .main__title {
@@ -528,7 +453,7 @@ body.hidden {
   position: relative;
 }
 
-.main__btns__img-box:hover {
+.main__btns__img:hover {
   opacity: 0.5;
 }
 
@@ -600,7 +525,10 @@ body.hidden {
   width: 0%;
   height: 100%;
   background-color: black;
-  /* animation: progress-bar 3s linear infinite; */
+}
+
+.main__bar__progress__stick__ing.progress {
+  animation: progress-bar 5s linear infinite;
 }
 
 @keyframes progress-bar {

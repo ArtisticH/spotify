@@ -11,7 +11,53 @@ class Intro {
     this.$main = document.getElementById('main');
 
     this.$mainImgBoxes = document.querySelectorAll('.main__imgs__image-box');
+    this.$mainSubTitle = document.querySelector('.main__title__subject');
+    this.$mainTitle = document.querySelector('.main__title__title');
+    this.$mainCurrentNum = document.querySelector('.main__bar__progress__current');
+    this.$mainProgress = document.querySelector('.main__bar__progress__stick__ing');
     this.mainStackIndex = 14;
+    this.mainTranslate = `translate(-50%, -50%)`;
+    this.mainInitialScale = ['scale(0.5)', 'scale(0.55)', 'scale(0.6)', 'scale(0.65)', 'scale(0.7)',
+    'scale(0.75)', 'scale(0.8)', 'scale(0.85)', 'scale(0.9)', 'scale(0.95)',
+    'scale(1)', 'scale(1)', 'scale(1)', 'scale(1)', 'scale(1)',
+    ];
+    this.mainInitialRotate = ['rotate(-3deg)', 'rotate(4deg)', 'rotate(-7deg)', 'rotate(5deg)', 'rotate(0deg)',
+    ];
+    this.mainAutoSlide = 14;
+    this.mainSubTitle = [
+      "PRODUCT DESIGN",
+      "Q+A",
+      "BEHIND THE SCENES",
+      "BEHIND THE SCENES",
+      "PRODUCT DESIGN",
+      "DESIGN OPS",
+      "BEHIND THE SCENES",
+      "PRODUCT DESIGN",
+      "PRODUCT DESIGN",
+      "BEHIND THE SCENES",
+      "DESIGN SYSTEMS",
+      "METHODS",
+      "BEHIND THE SCENES",
+      "Q+A",
+      "BEHIND THE SCENES",
+    ];
+    this.mainTitle = [
+      `Beyond "Good Job": How to Give Impactful Feedback`,
+      "Ask Spotify Design 06",
+      "How to Stand Out as a Spotify Internship Applicant",
+      "A Designer's Balancing Act: Staying Creative and Organized in Figma",
+      "Finding your T-Shape as a Generalist Designer",
+      "Growing, Scaling, and Tuning: Meet Spotify’s Global Head of Design Ops",
+      "Backstage Tickets to the World of Service Design at Spotify",
+      "Finding your T-Shape as a Specialist Designer",
+      "Designing for the World: An Introduction to Localization",
+      "From Web Page to Web Player: How Spotify Designed a New Homepage Experience",
+      "Can I get an Encore? Spotify’s Design System, Three Years On",
+      "Navigating the Discovery Phase",
+      "Making Moves: Designing Motion for 2022 Wrapped",
+      "Ask Spotify Design 07",
+      "Collaboration Secrets: Design X Engineering",
+    ];
 
     this.animate = this.animate.bind(this);
     this.showFlower = this.showFlower.bind(this);
@@ -73,8 +119,12 @@ class Intro {
   }
 
   async showCards() {
+    this.$mainSubTitle.textContent = this.mainSubTitle[this.mainAutoSlide];
+    this.$mainTitle.textContent = this.mainTitle[this.mainAutoSlide];
+
     let intervalId = setInterval(() => {
-      [...this.$mainImgBoxes][this.mainStackIndex].classList.add('stacked');
+      [...this.$mainImgBoxes][this.mainStackIndex].style.transform = `${this.mainTranslate} ${this.mainInitialScale[this.mainStackIndex]} ${this.mainInitialRotate[this.mainStackIndex % 5]}`;
+      [...this.$mainImgBoxes][this.mainStackIndex].style.left = '50%';
       this.mainStackIndex--;
 
       if(this.mainStackIndex < 0) {
@@ -86,55 +136,57 @@ class Intro {
             this.autoSlide();
             resolve();
           }, 400);
-        })    
+        });    
       }
     }, 40);
   }
 
-  autoSlide() {
-
+  // 📍 마지막 5초 후에 다시 슬라이드 촤라라 해야하는데 바로 슬라이드 촤라라 해서 이거 5초 후 수정,
+  // 📍 그리고 버튼으로 누르면 마지막 슬라이드 후에 빈공간 나타난 후에 슬라이드 촤라라
+  // 📍 진행 바
+  async autoSlide() {
+    // mainAutoSlide는 14부터 시작
+    // 바로 scale, rotate 조정
+    [...this.$mainImgBoxes][this.mainAutoSlide].style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
+    // 5번째 뒤에꺼 scale1로 조정
+    if(this.mainAutoSlide > 4) {
+      [...this.$mainImgBoxes][this.mainAutoSlide - 5].style.transform = `translate(-50%, -50%) scale(1) ${this.mainInitialRotate[(this.mainAutoSlide - 5) % 5]}`;
+    } 
+    // 처음에 진행 바 시작 => 이후 알아서 무한으로 전환
+    this.$mainProgress.classList.add('progress');
+    // 진행 바 숫자 바뀌는거
+    this.$mainCurrentNum.textContent = (15 - this.mainAutoSlide) < 10 ? `0${(15 - this.mainAutoSlide)}` : `${(15 - this.mainAutoSlide)}`;
+    // 5초간 기다려
+    new Promise((resolve) => {
+      setTimeout(() => {
+        // 이미지 날려
+        [...this.$mainImgBoxes][this.mainAutoSlide].style.left = '200%';
+        // 제목 바뀌어
+        this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide - 1]}`;
+        this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide - 1]}`;        
+        this.mainAutoSlide--;
+        if(this.mainAutoSlide <= 0) {
+          this.mainStackIndex = 14;
+          this.mainAutoSlide = 14;
+          new Promise(resolve => {
+            setTimeout(() => {
+              resolve();
+            }, 5000);
+          })
+          resolve();
+          return this.showCards();
+        } else {
+          resolve();
+          return this.autoSlide();
+        }
+      }, 5000);
+    });
   }
 }
 
 const intro = new Intro();
 intro.init();
 intro.showCards();
-
-const mainSubjects = [
-  "BEHIND THE SCENES",
-  "Q+A",
-  "BEHIND THE SCENES",
-  "METHODS",
-  "DESIGN SYSTEMS",
-  "BEHIND THE SCENES",
-  "PRODUCT DESIGN",
-  "PRODUCT DESIGN",
-  "BEHIND THE SCENES",
-  "DESIGN OPS",
-  "PRODUCT DESIGN",
-  "BEHIND THE SCENES",
-  "BEHIND THE SCENES",
-  "Q+A",
-  "PRODUCT DESIGN"
-];
-
-const mainTitles = [
-  "Collaboration Secrets: Design X Engineering",
-  "Ask Spotify Design 07",
-  "Making Moves: Designing Motion for 2022 Wrapped",
-  "Navigating the Discovery Phase",
-  "Can I get an Encore? Spotify’s Design System, Three Years On",
-  "From Web Page to Web Player: How Spotify Designed a New Homepage Experience",
-  "Designing for the World: An Introduction to Localization",
-  "Finding your T-Shape as a Specialist Designer",
-  "Backstage Tickets to the World of Service Design at Spotify",
-  "Growing, Scaling, and Tuning: Meet Spotify’s Global Head of Design Ops",
-  "Finding your T-Shape as a Generalist Designer",
-  "A Designer's Balancing Act: Staying Creative and Organized in Figma",
-  "How to Stand Out as a Spotify Internship Applicant",
-  "Ask Spotify Design 06",
-  'Beyond "Good Job": How to Give Impactful Feedback'
-];
 
 const backgroundColorBlue = '#a4c8d7';
 const backgroundColorOrange = '#fcba4a';
