@@ -68,7 +68,6 @@ class Intro {
     this.$mainPrevBtn = document.querySelector('.main__btns__prev');
     this.$mainShuffleBtn = document.querySelector('.main__btns__shuffle');
     this.autoTimeout = null;
-    this.lastNextBtnClicked = null;
 
     this.animate = this.animate.bind(this);
     this.showFlower = this.showFlower.bind(this);
@@ -134,9 +133,8 @@ class Intro {
   }
 
   async showCards() {
-    if(this.lastNextBtnClicked) {
+    if(this.mainAutoSlide === 14) {
       this.$mainPrevBtn.classList.add('deactivated');
-      this.lastNextBtnClicked = null;
     }
     this.$mainSubTitle.textContent = this.mainSubTitle[this.mainAutoSlide];
     this.$mainTitle.textContent = this.mainTitle[this.mainAutoSlide];
@@ -258,12 +256,23 @@ class Intro {
       this.$main.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
       this.$header.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
       this.$mainProgress.classList.remove('progress');
-      this.lastNextBtnClicked = true;
       return this.showCards();
     }
   }
 
   clickMainShuffleBtn() {
+    // 타이머 중지
+    clearTimeout(this.autoTimeout);
+    // 이미지 다 날리고
+    for(let imgBox of this.$mainImgBoxes) {
+      imgBox.style.left = '200%';
+    }
+    // 타이틀 다 날리고
+    this.$mainSubTitle.textContent = ``;
+    this.$mainTitle.textContent = ``;   
+    this.$mainProgress.classList.remove('progress');
+    // 다시 이미지 배열 순서를 다시해서
+    // 다시 등장, 
   }
 }
 
