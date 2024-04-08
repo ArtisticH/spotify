@@ -73,6 +73,7 @@ class Intro {
     this.temTitleArr = [];
     this.temSubtitleArr = [];
     this.temBackcolorArr = [];
+    this.mouseTarget = null;
 
     this.animate = this.animate.bind(this);
     this.showFlower = this.showFlower.bind(this);
@@ -80,13 +81,15 @@ class Intro {
     this.showCards = this.showCards.bind(this);
     this.autoSlide = this.autoSlide.bind(this);
     this.makeRandom = this.makeRandom.bind(this);
-    this.arrangeImgBoxes = this.arrangeImgBoxes.bind(this);
+    this.arrangeShuffle = this.arrangeShuffle.bind(this);
+    this.pointerdownEvent = this.pointerdownEvent.bind(this);
+    this.pointerupEvent = this.pointerupEvent.bind(this);
 
     this.$mainPrevBtn.onclick = this.clickMainPrevBtn.bind(this);
     this.$mainNextBtn.onclick = this.clickMainNextBtn.bind(this);
     this.$mainShuffleBtn.onclick = this.clickMainShuffleBtn.bind(this);
     this.$mainImgBoxes.forEach(boxes => {
-      boxes.onpointerdown = this.pointerdownImg.bind(this);
+      boxes.onpointerdown = this.pointerdownEvent;
     })
   }
 
@@ -292,7 +295,7 @@ class Intro {
     // 0부터 14의 랜덤 숫자를 가진 length 15개의 배열
     this.makeRandom();
     // $mainImgBoxes 재배열 => 실제 DOM 요소 바꾸기
-    this.arrangeImgBoxes();
+    this.arrangeShuffle();
     // 다시 등장, 
     this.mainStackIndex = 14;
     this.mainAutoSlide = 14;
@@ -316,7 +319,7 @@ class Intro {
     }
   }
 
-  arrangeImgBoxes() {
+  arrangeShuffle() {
     this.fragment = new DocumentFragment();
     // DOM재배치, 타이틀 재배치
     for(let randomNum of this.randomArr) {
@@ -335,8 +338,15 @@ class Intro {
     this.mainBackgroundColor = [...this.temBackcolorArr];
   }
 
-  pointerdownImg(e) {
-    console.log(e, e.clientX, e.clientY);
+  pointerdownEvent(e) {
+    console.log('pointerdownEvent')
+    this.mouseTarget = e.currentTarget;
+    this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1.1) rotate(0deg)`;
+    this.mouseTarget.onpointerup = this.pointerupEvent;
+  }
+
+  pointerupEvent(e) {
+    this.mouseTarget.style.transform = ``;
   }
 }
 
