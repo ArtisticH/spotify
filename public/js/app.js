@@ -144,16 +144,23 @@ class Intro {
   // 📍 마지막 5초 후에 다시 슬라이드 촤라라 해야하는데 바로 슬라이드 촤라라 해서 이거 5초 후 수정,
   // 📍 그리고 버튼으로 누르면 마지막 슬라이드 후에 빈공간 나타난 후에 슬라이드 촤라라
   // 📍 진행 바
+  // 핑크: 14-12, 9, 6, 3-1
+  // 블루: 11
+  // 오렌지: 10, 8-7, 5-4, 0
+  // background-color: #ffd0d5;
   async autoSlide() {
+    console.log(this.mainAutoSlide);
     // mainAutoSlide는 14부터 시작
     // 바로 scale, rotate 조정
     [...this.$mainImgBoxes][this.mainAutoSlide].style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
     // 5번째 뒤에꺼 scale1로 조정
     if(this.mainAutoSlide > 4) {
-      [...this.$mainImgBoxes][this.mainAutoSlide - 5].style.transform = `translate(-50%, -50%) scale(1) ${this.mainInitialRotate[(this.mainAutoSlide - 5) % 5]}`;
+      [...this.$mainImgBoxes][this.mainAutoSlide - 5].style.transform = `translate(-50%, -50%) scale(1) ${this.mainInitialRotate[this.mainAutoSlide  % 5]}`;
     } 
     // 처음에 진행 바 시작 => 이후 알아서 무한으로 전환
-    this.$mainProgress.classList.add('progress');
+    if(this.mainAutoSlide === 14) {
+      this.$mainProgress.classList.add('progress');
+    }
     // 진행 바 숫자 바뀌는거
     this.$mainCurrentNum.textContent = (15 - this.mainAutoSlide) < 10 ? `0${(15 - this.mainAutoSlide)}` : `${(15 - this.mainAutoSlide)}`;
     // 5초간 기다려
@@ -161,23 +168,17 @@ class Intro {
       setTimeout(() => {
         // 이미지 날려
         [...this.$mainImgBoxes][this.mainAutoSlide].style.left = '200%';
-        // 제목 바뀌어
-        this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide - 1]}`;
-        this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide - 1]}`;        
-        this.mainAutoSlide--;
-        if(this.mainAutoSlide <= 0) {
+        if(this.mainAutoSlide > 0) {
+          this.mainAutoSlide--;
+          this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide]}`;
+          this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide]}`;   
+          resolve();
+          return this.autoSlide();      
+        } else if(this.mainAutoSlide === 0) {
           this.mainStackIndex = 14;
           this.mainAutoSlide = 14;
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-            }, 5000);
-          })
           resolve();
           return this.showCards();
-        } else {
-          resolve();
-          return this.autoSlide();
         }
       }, 5000);
     });
