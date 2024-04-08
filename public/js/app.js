@@ -74,6 +74,7 @@ class Intro {
     this.temSubtitleArr = [];
     this.temBackcolorArr = [];
     this.mouseTarget = null;
+    this.shiftX = null;
 
     this.animate = this.animate.bind(this);
     this.showFlower = this.showFlower.bind(this);
@@ -82,15 +83,17 @@ class Intro {
     this.autoSlide = this.autoSlide.bind(this);
     this.makeRandom = this.makeRandom.bind(this);
     this.arrangeShuffle = this.arrangeShuffle.bind(this);
-    this.pointerdownEvent = this.pointerdownEvent.bind(this);
-    this.pointerupEvent = this.pointerupEvent.bind(this);
+    // this.dragAndDrop = this.dragAndDrop.bind(this);
+    // this.moveAt = this.moveAt.bind(this);
+    // this.pointerMove = this.pointerMove.bind(this);
+    // this.pointerUp = this.pointerUp.bind(this);
 
     this.$mainPrevBtn.onclick = this.clickMainPrevBtn.bind(this);
     this.$mainNextBtn.onclick = this.clickMainNextBtn.bind(this);
     this.$mainShuffleBtn.onclick = this.clickMainShuffleBtn.bind(this);
-    this.$mainImgBoxes.forEach(boxes => {
-      boxes.onpointerdown = this.pointerdownEvent;
-    })
+    // this.$mainImgBoxes.forEach(boxes => {
+    //   boxes.onpointerdown = this.dragAndDrop;
+    // })
   }
 
   animate({timing, draw, duration}) {
@@ -338,16 +341,40 @@ class Intro {
     this.mainBackgroundColor = [...this.temBackcolorArr];
   }
 
-  pointerdownEvent(e) {
-    console.log('pointerdownEvent')
-    this.mouseTarget = e.currentTarget;
-    this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1.1) rotate(0deg)`;
-    this.mouseTarget.onpointerup = this.pointerupEvent;
-  }
+  // 📍 드래그 이벤트
+  // dragAndDrop(e) {
+  //   console.log('dragAndDrop');
+  //   this.mouseTarget = e.currentTarget;
+  //   this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1.1) rotate(0deg)`;
+  //   this.shiftX = e.clientX - this.mouseTarget.getBoundingClientRect().left;
+  //   console.log(this.shiftX, e.clientX, this.mouseTarget.getBoundingClientRect().left);
 
-  pointerupEvent(e) {
-    this.mouseTarget.style.transform = ``;
-  }
+  //   this.moveAt(e.clientX);
+    
+  //   document.addEventListener('pointermove', this.pointerMove);
+  //   this.mouseTarget.addEventListener('pointerup', this.pointerUp);
+  //   this.mouseTarget.addEventListener('dragstart', (e) => {
+  //     e.preventDefault();
+  //   });
+  // }
+
+  // moveAt(clientX) {
+  //   console.log('moveAt');
+  //   this.mouseTarget.style.left = clientX - this.shiftX + 'px';
+  // }
+
+  // pointerMove(e) {
+  //   console.log('pointerMove');
+  //   this.moveAt(e.clientX, e.clientY);
+  // }
+
+  // pointerUp() {
+  //   console.log('pointerUp');
+  //   this.mouseTarget.style.transform = ``;
+  //   this.mouseTarget.style.zIndex = '';
+  //   document.removeEventListener('pointermove', this.pointerMove);
+  //   this.mouseTarget.removeEventListener('pointerup', this.pointerUp);
+  // }
 }
 
 const intro = new Intro();
