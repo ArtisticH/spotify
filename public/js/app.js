@@ -58,12 +58,25 @@ class Intro {
       "Ask Spotify Design 07",
       "Collaboration Secrets: Design X Engineering",
     ];
+    this.mainBackgroundColor = [
+      "#ffbc4a", "#ffd0d5", "#ffd0d5", "#ffd0d5", "#ffbc4a",
+      "#ffbc4a", "#ffd0d5", "#ffbc4a", "#ffbc4a", "#ffd0d5",
+      "#ffbc4a", "#a5c9d8", "#ffd0d5", "#ffd0d5", "#ffd0d5"
+    ];
+
+    this.$mainNextBtn = document.querySelector('.main__btns__next');
+    this.$mainPrevBtn = document.querySelector('.main__btns__prev');
+    this.$mainShuffleBtn = document.querySelector('.main__btns__shuffle');
 
     this.animate = this.animate.bind(this);
     this.showFlower = this.showFlower.bind(this);
     this.disappearLogoAndFlower = this.disappearLogoAndFlower.bind(this);
     this.showCards = this.showCards.bind(this);
     this.autoSlide = this.autoSlide.bind(this);
+
+    this.$mainPrevBtn.onclick = this.clickMainPrevBtn.bind(this);
+    this.$mainNextBtn.onclick = this.clickMainNextBtn.bind(this);
+    this.$mainShuffleBtn.onclick = this.clickMainShuffleBtn.bind(this);
   }
 
   animate({timing, draw, duration}) {
@@ -121,6 +134,7 @@ class Intro {
   async showCards() {
     this.$mainSubTitle.textContent = this.mainSubTitle[this.mainAutoSlide];
     this.$mainTitle.textContent = this.mainTitle[this.mainAutoSlide];
+    this.$mainCurrentNum.textContent = `01`;
 
     let intervalId = setInterval(() => {
       [...this.$mainImgBoxes][this.mainStackIndex].style.transform = `${this.mainTranslate} ${this.mainInitialScale[this.mainStackIndex]} ${this.mainInitialRotate[this.mainStackIndex % 5]}`;
@@ -134,6 +148,10 @@ class Intro {
         new Promise((resolve) => {
           setTimeout(() => {
             this.autoSlide();
+            // 처음에 진행 바 시작 => 이후 알아서 무한으로 전환
+            if(this.mainAutoSlide === 14) {
+              this.$mainProgress.classList.add('progress');
+            }
             resolve();
           }, 400);
         });    
@@ -147,28 +165,26 @@ class Intro {
   // 핑크: 14-12, 9, 6, 3-1
   // 블루: 11
   // 오렌지: 10, 8-7, 5-4, 0
-  // background-color: #ffd0d5;
   async autoSlide() {
-    console.log(this.mainAutoSlide);
     // mainAutoSlide는 14부터 시작
     // 바로 scale, rotate 조정
     [...this.$mainImgBoxes][this.mainAutoSlide].style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
+    console.log('autoSlide', this.mainAutoSlide);
+    // 배경화면 변경
+    this.$main.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
+    this.$header.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
     // 5번째 뒤에꺼 scale1로 조정
     if(this.mainAutoSlide > 4) {
       [...this.$mainImgBoxes][this.mainAutoSlide - 5].style.transform = `translate(-50%, -50%) scale(1) ${this.mainInitialRotate[this.mainAutoSlide  % 5]}`;
     } 
-    // 처음에 진행 바 시작 => 이후 알아서 무한으로 전환
-    if(this.mainAutoSlide === 14) {
-      this.$mainProgress.classList.add('progress');
-    }
     // 진행 바 숫자 바뀌는거
     this.$mainCurrentNum.textContent = (15 - this.mainAutoSlide) < 10 ? `0${(15 - this.mainAutoSlide)}` : `${(15 - this.mainAutoSlide)}`;
     // 5초간 기다려
     new Promise((resolve) => {
       setTimeout(() => {
         // 이미지 날려
-        [...this.$mainImgBoxes][this.mainAutoSlide].style.left = '200%';
         if(this.mainAutoSlide > 0) {
+          [...this.$mainImgBoxes][this.mainAutoSlide].style.left = '200%';
           this.mainAutoSlide--;
           this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide]}`;
           this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide]}`;   
@@ -177,20 +193,32 @@ class Intro {
         } else if(this.mainAutoSlide === 0) {
           this.mainStackIndex = 14;
           this.mainAutoSlide = 14;
+          // 배경화면 자연스럽게 변경
+          this.$main.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
+          this.$header.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
+          this.$mainProgress.classList.remove('progress');
           resolve();
           return this.showCards();
         }
       }, 5000);
     });
   }
+
+  // 📍 수동과 자동 믹스 어떻게?
+  clickMainPrevBtn() {
+  }
+
+  clickMainNextBtn() {
+    // 사진, 타이틀, 카운트 숫자, 배경화면 바꿔
+  }
+
+  clickMainShuffleBtn() {
+  }
 }
 
 const intro = new Intro();
 intro.init();
 intro.showCards();
-
-const backgroundColorBlue = '#a4c8d7';
-const backgroundColorOrange = '#fcba4a';
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Events
