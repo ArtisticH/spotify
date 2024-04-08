@@ -460,6 +460,12 @@ body.hidden {
 .main__btns__img {
   display: block;
   width: 100%;
+  transition: opacity 0.2s ease-out;
+}
+
+.main__btns__img.deactivated {
+  opacity: 0.5;
+  cursor: auto;
 }
 
 .main__btns__tooltip {

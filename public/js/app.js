@@ -67,6 +67,8 @@ class Intro {
     this.$mainNextBtn = document.querySelector('.main__btns__next');
     this.$mainPrevBtn = document.querySelector('.main__btns__prev');
     this.$mainShuffleBtn = document.querySelector('.main__btns__shuffle');
+    this.autoTimeout = null;
+    this.lastNextBtnClicked = null;
 
     this.animate = this.animate.bind(this);
     this.showFlower = this.showFlower.bind(this);
@@ -132,6 +134,10 @@ class Intro {
   }
 
   async showCards() {
+    if(this.lastNextBtnClicked) {
+      this.$mainPrevBtn.classList.add('deactivated');
+      this.lastNextBtnClicked = null;
+    }
     this.$mainSubTitle.textContent = this.mainSubTitle[this.mainAutoSlide];
     this.$mainTitle.textContent = this.mainTitle[this.mainAutoSlide];
     this.$mainCurrentNum.textContent = `01`;
@@ -166,10 +172,13 @@ class Intro {
   // 블루: 11
   // 오렌지: 10, 8-7, 5-4, 0
   async autoSlide() {
+    // 수동 버튼 클릭 시 01에서 비활성화된 버튼 다시 활성화
+    if(this.$mainPrevBtn.classList.contains('deactivated') && this.mainAutoSlide === 13) {
+      this.$mainPrevBtn.classList.remove('deactivated');
+    }
     // mainAutoSlide는 14부터 시작
     // 바로 scale, rotate 조정
     [...this.$mainImgBoxes][this.mainAutoSlide].style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
-    console.log('autoSlide', this.mainAutoSlide);
     // 배경화면 변경
     this.$main.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
     this.$header.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
@@ -181,7 +190,7 @@ class Intro {
     this.$mainCurrentNum.textContent = (15 - this.mainAutoSlide) < 10 ? `0${(15 - this.mainAutoSlide)}` : `${(15 - this.mainAutoSlide)}`;
     // 5초간 기다려
     new Promise((resolve) => {
-      setTimeout(() => {
+      this.autoTimeout = setTimeout(() => {
         // 이미지 날려
         if(this.mainAutoSlide > 0) {
           [...this.$mainImgBoxes][this.mainAutoSlide].style.left = '200%';
@@ -205,11 +214,53 @@ class Intro {
   }
 
   // 📍 수동과 자동 믹스 어떻게?
+  // 📍 기존에 자동에서 진행되던 타이머를 취소하고 새롭게 타이머 설정해야 한다. 
   clickMainPrevBtn() {
+    if(this.mainAutoSlide >= 14) return;
+    clearTimeout(this.autoTimeout);
+
+    if(this.mainAutoSlide === 13) {
+      // 버튼 비활성화
+      this.$mainPrevBtn.classList.add('deactivated');
+    }
+
+    // 지나간 슬라이드 다시 돌아와
+    [...this.$mainImgBoxes][this.mainAutoSlide + 1].style.left = '50%';
+    // 동시에 현재 슬라이드 rotate 변화하고 뒤에서 5번째 다시 scale조정
+    [...this.$mainImgBoxes][this.mainAutoSlide].style.transform = `translate(-50%, -50%) scale(1) ${this.mainInitialRotate[this.mainAutoSlide % 5]}`;
+    // 다시 안보이게 됌
+    if(this.mainAutoSlide > 4) {
+      [...this.$mainImgBoxes][this.mainAutoSlide - 5].style.transform = `translate(-50%, -50%) ${this.mainInitialScale[this.mainAutoSlide]} ${this.mainInitialRotate[this.mainAutoSlide  % 5]}`;
+    } 
+    this.mainAutoSlide++;
+    // 진행 바 숫자 바뀌는거
+    this.$mainCurrentNum.textContent = (15 - this.mainAutoSlide ) < 10 ? `0${(15 - this.mainAutoSlide)}` : `${(15 - this.mainAutoSlide)}`;
+    this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide]}`;
+    this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide]}`;   
+    return this.autoSlide();
   }
 
   clickMainNextBtn() {
     // 사진, 타이틀, 카운트 숫자, 배경화면 바꿔
+    // 기존의 autoSlide 정지
+    clearTimeout(this.autoTimeout);
+
+    if(this.mainAutoSlide > 0) {
+      [...this.$mainImgBoxes][this.mainAutoSlide].style.left = '200%';
+      this.mainAutoSlide--;
+      this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide]}`;
+      this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide]}`;   
+      return this.autoSlide();      
+    } else if(this.mainAutoSlide === 0) {
+      this.mainStackIndex = 14;
+      this.mainAutoSlide = 14;
+      // 배경화면 자연스럽게 변경
+      this.$main.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
+      this.$header.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
+      this.$mainProgress.classList.remove('progress');
+      this.lastNextBtnClicked = true;
+      return this.showCards();
+    }
   }
 
   clickMainShuffleBtn() {
