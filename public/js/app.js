@@ -10,7 +10,8 @@ class Intro {
     this.$header = document.getElementById('header');
     this.$main = document.getElementById('main');
 
-    this.$mainImgBoxes = document.querySelectorAll('.main__imgs__image-box');
+    this.$mainImgArea = document.querySelector('.main__imgs');
+    this.$mainImgBoxes = Array.from(document.querySelectorAll('.main__imgs__image-box'));
     this.$mainSubTitle = document.querySelector('.main__title__subject');
     this.$mainTitle = document.querySelector('.main__title__title');
     this.$mainCurrentNum = document.querySelector('.main__bar__progress__current');
@@ -68,16 +69,25 @@ class Intro {
     this.$mainPrevBtn = document.querySelector('.main__btns__prev');
     this.$mainShuffleBtn = document.querySelector('.main__btns__shuffle');
     this.autoTimeout = null;
+    this.randomArr = [];
+    this.temTitleArr = [];
+    this.temSubtitleArr = [];
+    this.temBackcolorArr = [];
 
     this.animate = this.animate.bind(this);
     this.showFlower = this.showFlower.bind(this);
     this.disappearLogoAndFlower = this.disappearLogoAndFlower.bind(this);
     this.showCards = this.showCards.bind(this);
     this.autoSlide = this.autoSlide.bind(this);
+    this.makeRandom = this.makeRandom.bind(this);
+    this.arrangeImgBoxes = this.arrangeImgBoxes.bind(this);
 
     this.$mainPrevBtn.onclick = this.clickMainPrevBtn.bind(this);
     this.$mainNextBtn.onclick = this.clickMainNextBtn.bind(this);
     this.$mainShuffleBtn.onclick = this.clickMainShuffleBtn.bind(this);
+    this.$mainImgBoxes.forEach(boxes => {
+      boxes.onpointerdown = this.pointerdownImg.bind(this);
+    })
   }
 
   animate({timing, draw, duration}) {
@@ -141,8 +151,8 @@ class Intro {
     this.$mainCurrentNum.textContent = `01`;
 
     let intervalId = setInterval(() => {
-      [...this.$mainImgBoxes][this.mainStackIndex].style.transform = `${this.mainTranslate} ${this.mainInitialScale[this.mainStackIndex]} ${this.mainInitialRotate[this.mainStackIndex % 5]}`;
-      [...this.$mainImgBoxes][this.mainStackIndex].style.left = '50%';
+      this.$mainImgBoxes[this.mainStackIndex].style.transform = `${this.mainTranslate} ${this.mainInitialScale[this.mainStackIndex]} ${this.mainInitialRotate[this.mainStackIndex % 5]}`;
+      this.$mainImgBoxes[this.mainStackIndex].style.left = '50%';
       this.mainStackIndex--;
 
       if(this.mainStackIndex < 0) {
@@ -176,13 +186,13 @@ class Intro {
     }
     // mainAutoSlide는 14부터 시작
     // 바로 scale, rotate 조정
-    [...this.$mainImgBoxes][this.mainAutoSlide].style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
+    this.$mainImgBoxes[this.mainAutoSlide].style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
     // 배경화면 변경
     this.$main.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
     this.$header.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
     // 5번째 뒤에꺼 scale1로 조정
     if(this.mainAutoSlide > 4) {
-      [...this.$mainImgBoxes][this.mainAutoSlide - 5].style.transform = `translate(-50%, -50%) scale(1) ${this.mainInitialRotate[this.mainAutoSlide  % 5]}`;
+      this.$mainImgBoxes[this.mainAutoSlide - 5].style.transform = `translate(-50%, -50%) scale(1) ${this.mainInitialRotate[this.mainAutoSlide  % 5]}`;
     } 
     // 진행 바 숫자 바뀌는거
     this.$mainCurrentNum.textContent = (15 - this.mainAutoSlide) < 10 ? `0${(15 - this.mainAutoSlide)}` : `${(15 - this.mainAutoSlide)}`;
@@ -191,7 +201,7 @@ class Intro {
       this.autoTimeout = setTimeout(() => {
         // 이미지 날려
         if(this.mainAutoSlide > 0) {
-          [...this.$mainImgBoxes][this.mainAutoSlide].style.left = '200%';
+          this.$mainImgBoxes[this.mainAutoSlide].style.left = '200%';
           this.mainAutoSlide--;
           this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide]}`;
           this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide]}`;   
@@ -223,12 +233,12 @@ class Intro {
     }
 
     // 지나간 슬라이드 다시 돌아와
-    [...this.$mainImgBoxes][this.mainAutoSlide + 1].style.left = '50%';
+    this.$mainImgBoxes[this.mainAutoSlide + 1].style.left = '50%';
     // 동시에 현재 슬라이드 rotate 변화하고 뒤에서 5번째 다시 scale조정
-    [...this.$mainImgBoxes][this.mainAutoSlide].style.transform = `translate(-50%, -50%) scale(1) ${this.mainInitialRotate[this.mainAutoSlide % 5]}`;
+    this.$mainImgBoxes[this.mainAutoSlide].style.transform = `translate(-50%, -50%) scale(1) ${this.mainInitialRotate[this.mainAutoSlide % 5]}`;
     // 다시 안보이게 됌
     if(this.mainAutoSlide > 4) {
-      [...this.$mainImgBoxes][this.mainAutoSlide - 5].style.transform = `translate(-50%, -50%) ${this.mainInitialScale[this.mainAutoSlide]} ${this.mainInitialRotate[this.mainAutoSlide  % 5]}`;
+      this.$mainImgBoxes[this.mainAutoSlide - 5].style.transform = `translate(-50%, -50%) ${this.mainInitialScale[this.mainAutoSlide]} ${this.mainInitialRotate[this.mainAutoSlide  % 5]}`;
     } 
     this.mainAutoSlide++;
     // 진행 바 숫자 바뀌는거
@@ -244,7 +254,7 @@ class Intro {
     clearTimeout(this.autoTimeout);
 
     if(this.mainAutoSlide > 0) {
-      [...this.$mainImgBoxes][this.mainAutoSlide].style.left = '200%';
+      this.$mainImgBoxes[this.mainAutoSlide].style.left = '200%';
       this.mainAutoSlide--;
       this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide]}`;
       this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide]}`;   
@@ -260,7 +270,7 @@ class Intro {
     }
   }
 
-  clickMainShuffleBtn() {
+  async clickMainShuffleBtn() {
     // 타이머 중지
     clearTimeout(this.autoTimeout);
     // 이미지 다 날리고
@@ -271,14 +281,69 @@ class Intro {
     this.$mainSubTitle.textContent = ``;
     this.$mainTitle.textContent = ``;   
     this.$mainProgress.classList.remove('progress');
+
+    this.fragment = null;
+    this.randomArr = [];
+    this.temTitleArr = [];
+    this.temSubtitleArr = [];
+    this.temBackcolorArr = [];
+
     // 다시 이미지 배열 순서를 다시해서
+    // 0부터 14의 랜덤 숫자를 가진 length 15개의 배열
+    this.makeRandom();
+    // $mainImgBoxes 재배열 => 실제 DOM 요소 바꾸기
+    this.arrangeImgBoxes();
     // 다시 등장, 
+    this.mainStackIndex = 14;
+    this.mainAutoSlide = 14;
+    new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+        return this.showCards();    
+      }, 2500);
+    })
+  }
+
+  makeRandom() {
+    const number = Math.floor(Math.random() * 15);
+    if(!this.randomArr.includes(number)) {
+      this.randomArr = this.randomArr.concat(number);
+    }
+    if(this.randomArr.length === 15) {
+      return;
+    } else {
+      this.makeRandom();
+    }
+  }
+
+  arrangeImgBoxes() {
+    this.fragment = new DocumentFragment();
+    // DOM재배치, 타이틀 재배치
+    for(let randomNum of this.randomArr) {
+      this.fragment.append(this.$mainImgBoxes[randomNum]);
+      this.temTitleArr.push(this.mainTitle[randomNum]);
+      this.temSubtitleArr.push(this.mainSubTitle[randomNum]);
+      this.temBackcolorArr.push(this.mainBackgroundColor[randomNum]);
+    }
+    for(let currentElem of this.$mainImgArea.children) {
+      currentElem.remove();
+    }
+    this.$mainImgArea.append(this.fragment);
+    this.$mainImgBoxes = Array.from(document.querySelectorAll('.main__imgs__image-box'));    
+    this.mainTitle = [...this.temTitleArr];
+    this.mainSubTitle = [...this.temSubtitleArr];
+    this.mainBackgroundColor = [...this.temBackcolorArr];
+  }
+
+  pointerdownImg(e) {
+    console.log(e, e.clientX, e.clientY);
   }
 }
 
 const intro = new Intro();
 intro.init();
 intro.showCards();
+
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Events
