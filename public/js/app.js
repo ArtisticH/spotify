@@ -387,7 +387,10 @@ class Intro {
       this.ratio = (this.mouseTarget.getBoundingClientRect().width - this.mouseTarget.getBoundingClientRect().right) / document.documentElement.clientWidth;
     }
 
-    if(this.ratio >= 0.3) {
+    console.log(this.ratio);
+
+
+    if(this.ratio >= 0.2) {
       // 넘겨
       if(this.mainAutoSlide > 0) {
         this.$mainImgBoxes[this.mainAutoSlide].style.left = '200%';
@@ -409,10 +412,11 @@ class Intro {
       this.autoSlide();
     }
 
-    this.mouseTarget.style.transform = ``;
+    this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
     this.mouseTarget.style.transition = `left 0.4s ease-out, transform 0.3s ease-out`;
     this.mouseTarget.style.cursor = ``;
     this.mouseTarget.style.zIndex = ``;  
+    this.$mainProgress.classList.add('progress');
 
     document.removeEventListener('pointermove', this.pointerMove);
     this.mouseTarget.removeEventListener('pointerup', this.pointerUp);
