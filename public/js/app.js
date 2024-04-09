@@ -76,6 +76,7 @@ class Intro {
     this.mouseTarget = null;
     this.shiftX = null;
     this.rectX = null;
+    this.ratio = null;
 
     this.animate = this.animate.bind(this);
     this.showFlower = this.showFlower.bind(this);
@@ -372,13 +373,25 @@ class Intro {
     this.moveAt(e.clientX);
   }
 
-  pointerUp() {
+  pointerUp(e) {
     this.autoSlide();
-    this.$mainProgress.classList.add('progress');
+    this.$mainProgress.classList.add('progress');  
 
-    this.ratio = ((this.mouseTarget.getBoundingClientRect().right - document.documentElement.clientWidth) / document.documentElement.clientWidth) * 100;
+    // 오른쪽으로 움직일때와 왼쪽으로 움직일때
+    // 오른쪽은 ${clientX - this.shiftX - this.rectX}의 값이 양수일때
+    // 왼쪽은 ${clientX - this.shiftX - this.rectX}의 값이 음수일때
+    // 오른쪽은 (right - 브라우저 너비) / 브라우저 너비가 0.3이상일때
+    // 왼쪽은 (요소 너비 - right) / 브라우저 너비가 0.3이상일때
+    if(e.clientX - this.shiftX - this.rectX > 0) {
+      // 오른쪽
+      this.ratio = ((this.mouseTarget.getBoundingClientRect().right - document.documentElement.clientWidth) / document.documentElement.clientWidth) * 100;
+    } else if(e.clientX - this.shiftX - this.rectX < 0) {
+      // 왼쪽
+      this.ratio = ((this.mouseTarget.getBoundingClientRect().width - this.mouseTarget.getBoundingClientRect().right) / document.documentElement.clientWidth) * 100;
+    }
+
     if(this.ratio >= 0.3) {
-      console.log('yes');
+      // 넘겨
     }
 
     this.mouseTarget.style.transform = ``;
