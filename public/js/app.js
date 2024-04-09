@@ -478,16 +478,17 @@ class Events {
     this.currentSpotItem = 0;
     this.currentSpotFlower = null;
     this.currentSpotTarget = null;
+    this.spotRatio = null;
 
     this.spotlightPointerMove = this.spotlightPointerMove.bind(this);
     this.spotlightPointerUp = this.spotlightPointerUp.bind(this);  
     this.spotKeydown = this.spotKeydown.bind(this);
-    // this.spotFlower = this.spotFlower.bind(this);
-    // this.leaveSpotFlower = this.leaveSpotFlower.bind(this);
+    this.spotFlower = this.spotFlower.bind(this);
+    this.leaveSpotFlower = this.leaveSpotFlower.bind(this);
 
-    // this.$spotlightImgBoxImges.forEach(item => {
-    //   item.addEventListener('pointerover', this.spotFlower);
-    // })
+    this.$spotlightImgBoxImges.forEach(item => {
+      item.addEventListener('pointerover', this.spotFlower);
+    })
   }
 
   animate({timing, draw, duration}) {
@@ -629,6 +630,8 @@ class Events {
 
   spotlightMoveAt(clientX) {
     this.$spotlightInner.style.marginLeft = -(this.spotShiftX - clientX + this.spotInnerLeft) + 'px';
+    // this.spotRatio = this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
+    // console.log(this.spotRatio);
   }
 
   spotlightPointerMove(e) {
@@ -636,7 +639,14 @@ class Events {
   }
 
   spotlightPointerUp(e) {
-    this.$spotlightInner.style.marginLeft = '';
+    this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
+    this.spotRatio = this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
+    if(this.spotRatio <= 0.4) {
+      this.currentSpotItem++;
+      this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
+    } else {
+      this.$spotlightInner.style.marginLeft = '';
+    }
     this.$spotlightInner.style.transition = '';
     this.$spotlightInner.removeEventListener('pointermove', this.spotlightPointerMove);
     this.$spotlightInner.removeEventListener('pointerup', this.spotlightPointerUp);
@@ -655,20 +665,22 @@ class Events {
     }
   }
 
-  // spotFlower(e) {
-  //   if(e.target.className !== 'spotlight__contents__item__img-box__img') return;
-  //   if(this.currentSpotFlower) return;
-  //   this.currentSpotTarget = e.target;
-  //   this.currentSpotFlower = this.currentSpotTarget.parentNode.querySelector('.spotlight__contents__item__img-box__svg');
-  //   this.currentSpotFlower.classList.add('bloom');
-  //   this.currentSpotTarget.addEventListener('pointerout', this.leaveSpotFlower);
-  // }
+  // 📍 꽃 svg가 왼쪽의 이미지를 가리는거 
+  // 📍 enter과 over의 차이, enter는 잘 안되는 경우
+  spotFlower(e) {
+    if(e.target.className !== 'spotlight__contents__item__img-box__img') return;
+    if(this.currentSpotFlower) return;
+    this.currentSpotTarget = e.target;
+    this.currentSpotFlower = this.currentSpotTarget.parentNode.querySelector('.spotlight__contents__item__img-box__svg');
+    this.currentSpotFlower.classList.add('bloom');
+    this.currentSpotTarget.addEventListener('pointerout', this.leaveSpotFlower);
+  }
 
-  // leaveSpotFlower(e) {
-  //   this.currentSpotFlower.classList.remove('bloom');
-  //   this.currentSpotTarget.removeEventListener('pointerout', this.leaveSpotFlower);
-  //   this.currentSpotFlower = null;
-  // }
+  leaveSpotFlower(e) {
+    this.currentSpotFlower.classList.remove('bloom');
+    this.currentSpotTarget.removeEventListener('pointerout', this.leaveSpotFlower);
+    this.currentSpotFlower = null;
+  }
 }
 
 const events = new Events();

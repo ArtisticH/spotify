@@ -1070,7 +1070,7 @@ body.hidden {
 .spotlight__contents__item__img-box__svg {
   position: absolute;
   transform: translate(-50%, -50%) scale(0);
-  width: 550px;
+  width: 600px;
   top: 50%;
   left: 50%;
   transition: transform 0.7s ease-out;
