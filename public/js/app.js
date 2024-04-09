@@ -446,7 +446,7 @@ class Intro {
 
 const intro = new Intro();
 intro.init();
-intro.showCards();
+// intro.showCards();
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Events
@@ -656,6 +656,8 @@ translate3d는 항상 어디에서 어디 가는지를 명시해줘야 자연스
 안 그럼 0, 0에서 출발
 예를 들면 -452에서 -700을 가려면 -452에서 -700가는 걸 명시해줘야지, 그냥 띡하니 -700하면 0에서 -700으로 출발한다.
 */
+
+/*
 const $spotlightScrollItem = document.querySelectorAll('.js-spotlight__scroll__item');
 const $spotlightScrollInner = document.querySelector('.js-spotlight__scroll__inner');
 const $spotlightImg = document.querySelectorAll('.js-spotlight__scroll__item__img-box__img');
@@ -950,7 +952,7 @@ function bounceEvent() {
     });
   }
 }
-
+*/
 
 // ----------------------------------------------------------------------------------
 // INBOX
