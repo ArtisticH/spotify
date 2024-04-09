@@ -374,9 +374,6 @@ class Intro {
   }
 
   pointerUp(e) {
-    this.autoSlide();
-    this.$mainProgress.classList.add('progress');  
-
     // 오른쪽으로 움직일때와 왼쪽으로 움직일때
     // 오른쪽은 ${clientX - this.shiftX - this.rectX}의 값이 양수일때
     // 왼쪽은 ${clientX - this.shiftX - this.rectX}의 값이 음수일때
@@ -384,21 +381,39 @@ class Intro {
     // 왼쪽은 (요소 너비 - right) / 브라우저 너비가 0.3이상일때
     if(e.clientX - this.shiftX - this.rectX > 0) {
       // 오른쪽
-      this.ratio = ((this.mouseTarget.getBoundingClientRect().right - document.documentElement.clientWidth) / document.documentElement.clientWidth) * 100;
+      this.ratio = (this.mouseTarget.getBoundingClientRect().right - document.documentElement.clientWidth) / document.documentElement.clientWidth;
     } else if(e.clientX - this.shiftX - this.rectX < 0) {
       // 왼쪽
-      this.ratio = ((this.mouseTarget.getBoundingClientRect().width - this.mouseTarget.getBoundingClientRect().right) / document.documentElement.clientWidth) * 100;
+      this.ratio = (this.mouseTarget.getBoundingClientRect().width - this.mouseTarget.getBoundingClientRect().right) / document.documentElement.clientWidth;
     }
 
     if(this.ratio >= 0.3) {
       // 넘겨
+      if(this.mainAutoSlide > 0) {
+        this.$mainImgBoxes[this.mainAutoSlide].style.left = '200%';
+        this.mainAutoSlide--;
+        this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide]}`;
+        this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide]}`;   
+        this.autoSlide();      
+      } else if(this.mainAutoSlide === 0) {
+        this.mainStackIndex = 14;
+        this.mainAutoSlide = 14;
+        // 배경화면 자연스럽게 변경
+        this.$main.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
+        this.$header.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
+        this.$mainProgress.classList.remove('progress');
+        this.showCards();
+      }
+    } else {
+      this.mouseTarget.style.left = `50%`;
+      this.autoSlide();
     }
 
     this.mouseTarget.style.transform = ``;
-    this.mouseTarget.style.left = `50%`;
-    this.mouseTarget.style.transition = ``;
+    this.mouseTarget.style.transition = `left 0.4s ease-out, transform 0.3s ease-out`;
     this.mouseTarget.style.cursor = ``;
-    this.mouseTarget.style.zIndex = ``;
+    this.mouseTarget.style.zIndex = ``;  
+
     document.removeEventListener('pointermove', this.pointerMove);
     this.mouseTarget.removeEventListener('pointerup', this.pointerUp);
   }
