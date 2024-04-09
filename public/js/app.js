@@ -613,9 +613,8 @@ class Events {
       }
     }
   }
-
+  // 📍 클릭때마다 원점으로 가는 거 고치고, 키보드와 연계해서 이어질 수 있도록
   spotlight(e, target) {
-    console.log('클릭')
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
     this.spotShiftX = e.clientX - this.spotInnerLeft;
     this.$spotlightInner.style.transition = 'none';
@@ -630,7 +629,6 @@ class Events {
   }
 
   spotlightMoveAt(clientX) {
-    console.log('클릭2')
     this.$spotlightInner.style.marginLeft = -(this.spotShiftX - clientX + this.spotInnerLeft) + 'px';
   }
 
