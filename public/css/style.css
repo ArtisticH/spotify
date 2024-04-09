@@ -1038,8 +1038,7 @@ body.hidden {
   /* margin-left로 이동 */
   position: relative;
   /* overflow: visible; */
-  transition: margin-left 0.2s ease-out;
-  margin-left: 0px;
+  transition: margin-left 0.2s ease-in;
 }
 
 .spotlight__contents__item {
@@ -1082,20 +1081,20 @@ body.hidden {
   position: absolute;
   transform: translate(-50%, -50%);
   border: 1px solid red;
-  width: 0%;
+  width: 0px;
   top: 50%;
   left: 50%;
+  transition: width 1s cubic-bezier(0, 0, 0.3, 1.0) -0.3s;
   /* z-index: -1; */
 }
 
 .spotlight__contents__item__img-box__svg.bloom {
   width: 620px;
-  transition: all 1s cubic-bezier(0, 0, 0.3, 1.0) -0.3s;
 }
 
 .spotlight__contents__item__img-box__svg.shrink {
   width: 0px;
-  transition: all 1s cubic-bezier(0, 0, 0.3, 1.0);
+  /* transition: all 1s cubic-bezier(0, 0, 0.3, 1.0); */
 }
 
 .spotlight__contents__item__name {

@@ -650,7 +650,7 @@ class Events {
   }
 
   spotFlower(e) {
-
+    console.log(e.target, e.currentTarget)
   }
 }
 
