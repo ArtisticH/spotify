@@ -1039,6 +1039,7 @@ body.hidden {
   position: relative;
   /* overflow: visible; */
   transition: margin-left 0.2s ease-out;
+  margin-left: 0px;
 }
 
 .spotlight__contents__item {

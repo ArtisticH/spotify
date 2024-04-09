@@ -1,6 +1,5 @@
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // INTRO + MAIN
-
 class Intro {
   constructor() {
     this.$introLogo = document.querySelector('.intro-logo');
@@ -471,6 +470,15 @@ class Events {
 
     this.$releaseTitle = null;
     this.$releasePlay = null;
+
+    this.$spotlightInner = document.querySelector('.spotlight__contents__inner');
+    this.$spotlightItems = Array.from(document.querySelectorAll('.spotlight__contents__item'));
+    this.spotInnerLeft = null;
+    this.currentSpotItem = 0;
+
+    this.spotlightPointerMove = this.spotlightPointerMove.bind(this);
+    this.spotlightPointerUp = this.spotlightPointerUp.bind(this);  
+    this.spotKeydown = this.spotKeydown.bind(this);
   }
 
   animate({timing, draw, duration}) {
@@ -595,12 +603,51 @@ class Events {
       }
     }
   }
+
+  spotlight(e, target) {
+    this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
+    this.spotShiftX = e.clientX - this.spotInnerLeft;
+
+    this.spotlightMoveAt(e.clientX);
+
+    this.$spotlightInner.addEventListener('pointermove', this.spotlightPointerMove);
+    this.$spotlightInner.addEventListener('pointerup', this.spotlightPointerUp);
+    this.$spotlightInner.addEventListener('dragstart', (e) => {
+      e.preventDefault();
+    });
+  }
+
+  spotlightMoveAt(clientX) {
+    this.$spotlightInner.style.marginLeft = -(this.spotShiftX - clientX + this.spotInnerLeft) + 'px';
+  }
+
+  spotlightPointerMove(e) {
+    this.spotlightMoveAt(e.clientX);
+  }
+
+  spotlightPointerUp(e) {
+    this.$spotlightInner.style.marginLeft = '';
+    this.$spotlightInner.removeEventListener('pointermove', this.spotlightPointerMove);
+    this.$spotlightInner.removeEventListener('pointerup', this.spotlightPointerUp);
+  }
+
+  spotKeydown(e) {
+    this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
+    if(e.key == 'ArrowRight') {
+      this.currentSpotItem++;
+      this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
+    } else if(e.key == 'ArrowLeft') {
+      console.log('왼쪽');
+    }
+  }
 }
 
 const events = new Events();
 document.addEventListener('click', events);
 document.addEventListener('pointerover', events);
 document.addEventListener('pointerout', events);
+document.addEventListener('pointerdown', events);
+document.addEventListener('keydown', events.spotKeydown);
 window.addEventListener('resize', events);
 
 // 오른쪽 화살표 효과
