@@ -403,13 +403,13 @@ body.hidden {
   width: 370px;
   aspect-ratio: 1 / 1;
   transition: left 0.4s ease-out, transform 0.3s ease-out;
+  cursor: grab;
 }
 
 .main__imgs__image-box__image {
   width: 100%;
   aspect-ratio: 1 / 1;
   display: block;
-  cursor: pointer;
 }
 
 .main__title {
