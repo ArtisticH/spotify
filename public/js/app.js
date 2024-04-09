@@ -78,6 +78,7 @@ class Intro {
     this.rectX = null;
     this.ratio = null;
     this.browserWidth = null;
+    this.direction = null;
 
     this.animate = this.animate.bind(this);
     this.showFlower = this.showFlower.bind(this);
@@ -385,19 +386,28 @@ class Intro {
     if(e.clientX - this.shiftX - this.rectX > 0) {
       // 오른쪽
       this.ratio = (this.mouseTarget.getBoundingClientRect().right - this.browserWidth) / this.browserWidth;
+      this.direction = 'right';
     } else if(e.clientX - this.shiftX - this.rectX < 0) {
       // 왼쪽
       this.ratio = (this.mouseTarget.getBoundingClientRect().width - this.mouseTarget.getBoundingClientRect().right) / this.browserWidth;
+      this.direction = 'left';
     }
 
     // 브라우저 너비별로 다르게
-    console.log(this.browserWidth, this.ratio);
     if(this.browserWidth < 600) {
       this.forPointerUp(0.2);
     } else if(this.browserWidth >= 600 && this.browserWidth < 1024) {
-    } else if(this.browserWidth >= 1024 && this.browserWidth < 1320) {
-    } else if(this.browserWidth >= 1320) {
-    }
+      this.forPointerUp(0.05);
+    } else if(this.browserWidth >= 1024) {
+      switch(this.direction) {
+        case 'right':
+          this.forPointerUp(0.1);
+          break;
+        case 'left': 
+          this.forPointerUp(-0.35);
+          break;
+      }
+    } 
 
     this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
     this.mouseTarget.style.transition = `left 0.4s ease-out, transform 0.3s ease-out`;
