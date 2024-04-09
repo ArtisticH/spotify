@@ -615,6 +615,7 @@ class Events {
   }
 
   spotlight(e, target) {
+    console.log('클릭')
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
     this.spotShiftX = e.clientX - this.spotInnerLeft;
     this.$spotlightInner.style.transition = 'none';
@@ -629,9 +630,8 @@ class Events {
   }
 
   spotlightMoveAt(clientX) {
+    console.log('클릭2')
     this.$spotlightInner.style.marginLeft = -(this.spotShiftX - clientX + this.spotInnerLeft) + 'px';
-    // this.spotRatio = this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
-    // console.log(this.spotRatio);
   }
 
   spotlightPointerMove(e) {
@@ -641,7 +641,7 @@ class Events {
   spotlightPointerUp(e) {
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
     this.spotRatio = this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
-    if(this.spotRatio <= 0.4) {
+    if(this.spotRatio <= 0.5) {
       this.currentSpotItem++;
       this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
     } else {
