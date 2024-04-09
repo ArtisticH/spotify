@@ -77,6 +77,7 @@ class Intro {
     this.shiftX = null;
     this.rectX = null;
     this.ratio = null;
+    this.browserWidth = null;
 
     this.animate = this.animate.bind(this);
     this.showFlower = this.showFlower.bind(this);
@@ -89,6 +90,7 @@ class Intro {
     this.moveAt = this.moveAt.bind(this);
     this.pointerMove = this.pointerMove.bind(this);
     this.pointerUp = this.pointerUp.bind(this);
+    this.forPointerUp = this.forPointerUp.bind(this);
 
     this.$mainPrevBtn.onclick = this.clickMainPrevBtn.bind(this);
     this.$mainNextBtn.onclick = this.clickMainNextBtn.bind(this);
@@ -374,6 +376,7 @@ class Intro {
   }
 
   pointerUp(e) {
+    this.browserWidth = document.documentElement.clientWidth;
     // 오른쪽으로 움직일때와 왼쪽으로 움직일때
     // 오른쪽은 ${clientX - this.shiftX - this.rectX}의 값이 양수일때
     // 왼쪽은 ${clientX - this.shiftX - this.rectX}의 값이 음수일때
@@ -381,16 +384,33 @@ class Intro {
     // 왼쪽은 (요소 너비 - right) / 브라우저 너비가 0.3이상일때
     if(e.clientX - this.shiftX - this.rectX > 0) {
       // 오른쪽
-      this.ratio = (this.mouseTarget.getBoundingClientRect().right - document.documentElement.clientWidth) / document.documentElement.clientWidth;
+      this.ratio = (this.mouseTarget.getBoundingClientRect().right - this.browserWidth) / this.browserWidth;
     } else if(e.clientX - this.shiftX - this.rectX < 0) {
       // 왼쪽
-      this.ratio = (this.mouseTarget.getBoundingClientRect().width - this.mouseTarget.getBoundingClientRect().right) / document.documentElement.clientWidth;
+      this.ratio = (this.mouseTarget.getBoundingClientRect().width - this.mouseTarget.getBoundingClientRect().right) / this.browserWidth;
     }
 
-    console.log(this.ratio);
+    // 브라우저 너비별로 다르게
+    console.log(this.browserWidth, this.ratio);
+    if(this.browserWidth < 600) {
+      this.forPointerUp(0.2);
+    } else if(this.browserWidth >= 600 && this.browserWidth < 1024) {
+    } else if(this.browserWidth >= 1024 && this.browserWidth < 1320) {
+    } else if(this.browserWidth >= 1320) {
+    }
 
+    this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
+    this.mouseTarget.style.transition = `left 0.4s ease-out, transform 0.3s ease-out`;
+    this.mouseTarget.style.cursor = ``;
+    this.mouseTarget.style.zIndex = ``;  
+    this.$mainProgress.classList.add('progress');
 
-    if(this.ratio >= 0.2) {
+    document.removeEventListener('pointermove', this.pointerMove);
+    this.mouseTarget.removeEventListener('pointerup', this.pointerUp);
+  }
+
+  forPointerUp(RATIO) {
+    if(this.ratio >= RATIO) {
       // 넘겨
       if(this.mainAutoSlide > 0) {
         this.$mainImgBoxes[this.mainAutoSlide].style.left = '200%';
@@ -411,15 +431,6 @@ class Intro {
       this.mouseTarget.style.left = `50%`;
       this.autoSlide();
     }
-
-    this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
-    this.mouseTarget.style.transition = `left 0.4s ease-out, transform 0.3s ease-out`;
-    this.mouseTarget.style.cursor = ``;
-    this.mouseTarget.style.zIndex = ``;  
-    this.$mainProgress.classList.add('progress');
-
-    document.removeEventListener('pointermove', this.pointerMove);
-    this.mouseTarget.removeEventListener('pointerup', this.pointerUp);
   }
 }
 
