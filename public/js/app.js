@@ -344,10 +344,14 @@ class Intro {
 
   // 📍 드래그 이벤트
   dragAndDrop(e) {
+    clearTimeout(this.autoTimeout);
+    this.$mainProgress.classList.remove('progress');
+
     this.mouseTarget = e.currentTarget;
     this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1.1) rotate(0deg)`;
     this.mouseTarget.style.transition = `left 0.1s ease-out, transform 0.3s ease-out`;
     this.mouseTarget.style.cursor = `grabbing`;
+    this.mouseTarget.style.zIndex = `1000`;
     this.rectX = this.mouseTarget.getBoundingClientRect().left;
     this.shiftX = e.clientX - this.rectX;
 
@@ -369,10 +373,19 @@ class Intro {
   }
 
   pointerUp() {
+    this.autoSlide();
+    this.$mainProgress.classList.add('progress');
+
+    this.ratio = ((this.mouseTarget.getBoundingClientRect().right - document.documentElement.clientWidth) / document.documentElement.clientWidth) * 100;
+    if(this.ratio >= 0.3) {
+      console.log('yes');
+    }
+
     this.mouseTarget.style.transform = ``;
     this.mouseTarget.style.left = `50%`;
     this.mouseTarget.style.transition = ``;
     this.mouseTarget.style.cursor = ``;
+    this.mouseTarget.style.zIndex = ``;
     document.removeEventListener('pointermove', this.pointerMove);
     this.mouseTarget.removeEventListener('pointerup', this.pointerUp);
   }
@@ -381,7 +394,6 @@ class Intro {
 const intro = new Intro();
 intro.init();
 intro.showCards();
-
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Events
