@@ -473,17 +473,21 @@ class Events {
 
     this.$spotlightInner = document.querySelector('.spotlight__contents__inner');
     this.$spotlightItems = Array.from(document.querySelectorAll('.spotlight__contents__item'));
+    this.$spotlightImgBoxImges = Array.from(document.querySelectorAll('.spotlight__contents__item__img-box__img'));
     this.spotInnerLeft = null;
     this.currentSpotItem = 0;
+    this.currentSpotFlower = null;
+    this.currentSpotTarget = null;
 
     this.spotlightPointerMove = this.spotlightPointerMove.bind(this);
     this.spotlightPointerUp = this.spotlightPointerUp.bind(this);  
     this.spotKeydown = this.spotKeydown.bind(this);
-    this.spotFlower = this.spotFlower.bind(this);
+    // this.spotFlower = this.spotFlower.bind(this);
+    // this.leaveSpotFlower = this.leaveSpotFlower.bind(this);
 
-    this.$spotlightItems.forEach(item => {
-      item.addEventListener('pointerenter', this.spotFlower);
-    })
+    // this.$spotlightImgBoxImges.forEach(item => {
+    //   item.addEventListener('pointerover', this.spotFlower);
+    // })
   }
 
   animate({timing, draw, duration}) {
@@ -612,6 +616,7 @@ class Events {
   spotlight(e, target) {
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
     this.spotShiftX = e.clientX - this.spotInnerLeft;
+    this.$spotlightInner.style.transition = 'none';
 
     this.spotlightMoveAt(e.clientX);
 
@@ -632,6 +637,7 @@ class Events {
 
   spotlightPointerUp(e) {
     this.$spotlightInner.style.marginLeft = '';
+    this.$spotlightInner.style.transition = '';
     this.$spotlightInner.removeEventListener('pointermove', this.spotlightPointerMove);
     this.$spotlightInner.removeEventListener('pointerup', this.spotlightPointerUp);
   }
@@ -649,9 +655,20 @@ class Events {
     }
   }
 
-  spotFlower(e) {
-    console.log(e.target, e.currentTarget)
-  }
+  // spotFlower(e) {
+  //   if(e.target.className !== 'spotlight__contents__item__img-box__img') return;
+  //   if(this.currentSpotFlower) return;
+  //   this.currentSpotTarget = e.target;
+  //   this.currentSpotFlower = this.currentSpotTarget.parentNode.querySelector('.spotlight__contents__item__img-box__svg');
+  //   this.currentSpotFlower.classList.add('bloom');
+  //   this.currentSpotTarget.addEventListener('pointerout', this.leaveSpotFlower);
+  // }
+
+  // leaveSpotFlower(e) {
+  //   this.currentSpotFlower.classList.remove('bloom');
+  //   this.currentSpotTarget.removeEventListener('pointerout', this.leaveSpotFlower);
+  //   this.currentSpotFlower = null;
+  // }
 }
 
 const events = new Events();
