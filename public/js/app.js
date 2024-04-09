@@ -479,6 +479,11 @@ class Events {
     this.spotlightPointerMove = this.spotlightPointerMove.bind(this);
     this.spotlightPointerUp = this.spotlightPointerUp.bind(this);  
     this.spotKeydown = this.spotKeydown.bind(this);
+    this.spotFlower = this.spotFlower.bind(this);
+
+    this.$spotlightItems.forEach(item => {
+      item.addEventListener('pointerenter', this.spotFlower);
+    })
   }
 
   animate({timing, draw, duration}) {
@@ -634,11 +639,18 @@ class Events {
   spotKeydown(e) {
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
     if(e.key == 'ArrowRight') {
+      if(this.currentSpotItem >= 11) return;
       this.currentSpotItem++;
       this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
     } else if(e.key == 'ArrowLeft') {
-      console.log('왼쪽');
+      if(this.currentSpotItem === 0) return;
+      this.currentSpotItem--;
+      this.$spotlightInner.style.marginLeft = `${-this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left + this.spotInnerLeft}px`;
     }
+  }
+
+  spotFlower(e) {
+
   }
 }
 
