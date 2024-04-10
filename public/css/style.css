@@ -998,6 +998,8 @@ body.hidden {
 
 .heading-box {
   padding: 3rem 0 1rem 0;
+  position: relative;
+  z-index: 2;
 }
 
 .heading-box__main {
@@ -1106,6 +1108,7 @@ body.hidden {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  z-index: 0;
 }
 
 .spotlight__contents__item__side-box__circle {

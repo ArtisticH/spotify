@@ -479,6 +479,7 @@ class Events {
     this.currentSpotFlower = null;
     this.currentSpotTarget = null;
     this.spotRatio = null;
+    this.spotZindex = null;
 
     this.spotlightPointerMove = this.spotlightPointerMove.bind(this);
     this.spotlightPointerUp = this.spotlightPointerUp.bind(this);  
@@ -651,6 +652,7 @@ class Events {
   }
 
   spotKeydown(e) {
+    // 17..5 , -286.5, -519.5... 의 변화
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
     if(e.key == 'ArrowRight') {
       if(this.currentSpotItem >= 11) return;
@@ -663,22 +665,26 @@ class Events {
     }
   }
 
-  // 📍 꽃 svg가 왼쪽의 이미지를 가리는거 
+  // 📍 꽃 svg가 왼쪽의 이미지를 가리는거 => 타이틀 가리는거
   // 📍 enter과 over의 차이, enter는 잘 안되는 경우
   spotFlower(e) {
     if(e.target.className !== 'spotlight__contents__item__img-box__img') return;
     if(this.currentSpotFlower) return;
     this.currentSpotTarget = e.target;
+    this.spotZindex = this.currentSpotTarget.closest('.spotlight__contents__item');
+    this.spotZindex.style.zIndex = '0';
     this.currentSpotFlower = this.currentSpotTarget.parentNode.querySelector('.spotlight__contents__item__img-box__svg');
     this.currentSpotFlower.classList.add('bloom');
     this.currentSpotTarget.addEventListener('pointerout', this.leaveSpotFlower);
   }
 
   leaveSpotFlower(e) {
+    this.spotZindex.style.zIndex = '';
     this.currentSpotFlower.classList.remove('bloom');
     this.currentSpotTarget.removeEventListener('pointerout', this.leaveSpotFlower);
     this.currentSpotFlower = null;
   }
+
 }
 
 const events = new Events();
