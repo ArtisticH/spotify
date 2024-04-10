@@ -475,6 +475,7 @@ class Events {
     this.$spotlightItems = Array.from(document.querySelectorAll('.spotlight__contents__item'));
     this.$spotlightImgBoxImges = Array.from(document.querySelectorAll('.spotlight__contents__item__img-box__img'));
     this.spotInnerLeft = null;
+    this.firstInnerLeft = document.querySelector('.spotlight__contents__inner').getBoundingClientRect().left;
     this.currentSpotItem = 0;
     this.currentSpotFlower = null;
     this.currentSpotTarget = null;
@@ -615,6 +616,10 @@ class Events {
     }
   }
   // 📍 클릭때마다 원점으로 가는 거 고치고, 키보드와 연계해서 이어질 수 있도록
+  /*
+  spotShiftX는 마우스 커서와 spotlightInner의 왼쪽 모서리 사이
+  spotShiftX가 동일하게 움직여야 한다.
+  */
   spotlight(e, target) {
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
     this.spotShiftX = e.clientX - this.spotInnerLeft;
@@ -630,13 +635,13 @@ class Events {
   }
 
   spotlightMoveAt(clientX) {
-    this.$spotlightInner.style.marginLeft = -(this.spotShiftX - clientX + this.spotInnerLeft) + 'px';
+    this.$spotlightInner.style.marginLeft = -(this.spotShiftX  - clientX + this.firstInnerLeft) + 'px';
   }
 
   spotlightPointerMove(e) {
     this.spotlightMoveAt(e.clientX);
   }
-
+  // 방향 구분, 양 끝단에서 이벤트 못하게
   spotlightPointerUp(e) {
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
     this.spotRatio = this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
@@ -644,7 +649,7 @@ class Events {
       this.currentSpotItem++;
       this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
     } else {
-      this.$spotlightInner.style.marginLeft = '';
+      this.$spotlightInner.style.marginLeft = this.$spotlightInner.getBoundingClientRect().left + -this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left + 'px';
     }
     this.$spotlightInner.style.transition = '';
     this.$spotlightInner.removeEventListener('pointermove', this.spotlightPointerMove);
