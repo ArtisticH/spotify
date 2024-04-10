@@ -1075,7 +1075,7 @@ body.hidden {
   width: 600px;
   top: 50%;
   left: 50%;
-  transition: transform 0.7s ease-out;
+  transition: transform 0.5s ease-out;
   z-index: -1;
 }
 
