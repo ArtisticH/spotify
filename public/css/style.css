@@ -1690,18 +1690,29 @@ body.hidden {
 /* --------------------------------------------------------------------------------- */
 /* SECTION TOOLS AND JOBS */
 
-.tools-jobs {
+#toolsjobs {
   background-color: #fff;
   display: flex;
   justify-content: center;
+  border: 2px solid red;
 } 
 
+.toolsjobs {
+  border: 1px solid blue;
+}
+
+#tools,
+#jobs {
+  position: relative;
+  border: 1px solid green;
+}
+
 @media all and (min-width: 1024px) {
-  .tools-jobs {
+  #toolsjobs {
     padding-top: 1rem;
   }   
 
-  .tools-jobs--grid {
+  .toolsjobs {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
     grid-gap: 6rem;
@@ -1711,17 +1722,19 @@ body.hidden {
 /* --------------------------------------------------------------------------------- */
 /* SECTION TOOLS */
 
-.js-tools__img-box {
-  cursor: pointer;
-  margin-bottom: 2.5rem;
+.tools {
+  padding-top: 1rem;
+  border: 1px solid black;
 }
 
-.tools--grid {
-  padding-top: 1rem;
+.tools__img-box {
+  cursor: pointer;
+  margin-bottom: 2.5rem;
+  border: 1px solid red;
 }
 
 @media all and (min-width: 600px) {
-  .tools--grid {
+  .tools {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1.5rem;
@@ -1731,11 +1744,12 @@ body.hidden {
 /* --------------------------------------------------------------------------------- */
 /* SECTION JOBS */
 
-.js-jobs {
+.jobs {
   cursor: pointer;
   margin-bottom: 3rem;
   padding-bottom: 1rem;
   margin-top: 0.5rem;
+  border: 1px solid red;
 }
 
 .jobs__miami {
@@ -1759,7 +1773,7 @@ body.hidden {
   letter-spacing: -0.8px;
 }
 
-.js-jobs__miami__arrow {
+.jobs__arrow {
   visibility: hidden;
   position: absolute;
   top: 0;
@@ -1768,7 +1782,7 @@ body.hidden {
   transition: all 0.3s ease-out;
 }
 
-.js-jobs__miami__arrow__circle {
+.jobs__arrow__circle {
   width: 29px;
   height: 29px;
   border-radius: 50%;
@@ -1781,38 +1795,38 @@ body.hidden {
   background-color: black;
 }
 
-.js-jobs__miami__arrow__circle.hover {
+.jobs__arrow__circle.hover {
   transform: scale(1);
 }
 
-.js-jobs__miami__arrow__circle__arrow {
+.jobs__arrow__circle__img {
   width: 70%;
   transition: all 0.3s ease-out; 
 }
 
-.js-jobs__miami__arrow__circle__arrow.hover {
+.jobs__arrow__circle__img.hover {
   filter: invert(1);
 }
 
-.js-jobs__editorial {
+.jobs__editorial {
   font-family: var(--font-circular-medium);
   font-size: 1.2rem;
   letter-spacing: -1px;
 }
 
-.js-jobs__editorial.hover {
+.jobs__editorial.hover {
   text-decoration: underline;
 }
 
 @media all and (min-width: 600px) {
-  .js-jobs__editorial {
+  .jobs__editorial {
     font-size: 1.3rem;
     letter-spacing: -1px;
   }
 }
 
 @media all and (min-width: 1024px) {
-  .js-jobs {
+  .jobs {
     position: relative;
     margin-top: 0.5rem;
   }  
@@ -1827,7 +1841,7 @@ body.hidden {
     visibility: visible;
   }  
 
-  .js-jobs__editorial {
+  .jobs__editorial {
     font-size: 1.5rem;
     letter-spacing: -1px;
   }
@@ -1836,16 +1850,21 @@ body.hidden {
 /* --------------------------------------------------------------------------------- */
 /* SECTION TIME */
 
-.time-footer {
+#timefooter {
   /* flower-svg 위치 */
   position: relative;
   background-color: #ffd0d5;
 }
 
-.time {
+#time {
   padding-top: 3.5rem;
   display: flex;
   justify-content: center;
+  border: 1px solid red;
+}
+
+.time {
+  border: 1px solid green;
 }
 
 .time__logo {
@@ -1860,13 +1879,15 @@ body.hidden {
   cursor: pointer;
 }
 
-.time__main-box {
+.time__contents {
+  border: 1px solid blue;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.time__main-box__links__link {
+.time__contents__links__link {
+  border: 1px solid green;
   font-size: 1.1rem;
   letter-spacing: -0.5px;
   font-family: var(--font-inter);
@@ -1875,35 +1896,35 @@ body.hidden {
   width: max-content;
 }
 
-.time__main-box__links__newsroom,
-.time__main-box__links__instagram {
+.time__contents__links__newsroom,
+.time__contents__links__instagram {
   z-index: 1;
 }
 
-.time__main-box__links__link:hover {
+.time__contents__links__link:hover {
   text-decoration: underline;
 }
 
-.time__main-box__times {
+#time__contents__times {
   z-index: 1;
   width: 150px;
 }
 
-.time__main-box__times__time {
+.time__contents__times {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
 }
 
-.time__main-box__times__time__country {
+.time__country {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   z-index: 1;
 }
 
-.time__main-box__times__time__country__circle {
+.time__country__circle {
   width: 4px; 
   height: 4px;
   background: black;
@@ -1911,17 +1932,17 @@ body.hidden {
   margin-right: 0.7rem;
 }
 
-.time__main-box__times__time__country__country-name {
+.time__country__name {
   font-family: var(--font-circular-medium);
   font-weight: bolder;
   font-size: 1.1rem;
 }
 
-.time__main-box__times__time__country__city {
+.time__country__city {
   display: none;
 }
 
-.time__main-box__times__time__clock {
+.time__clock {
   font-family: var(--font-inter);
   font-size: 1.1rem;
   display: flex;
@@ -1930,17 +1951,12 @@ body.hidden {
   z-index: 1;
 }
 
-.js-time__main-box__times__time__clock__hour,
-.js-time__main-box__times__time__clock__minute,
-.js-time__main-box__times__time__clock__second {
+.time__clock__hour,
+.time__clock__minute,
+.time__clock__second {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.js-time__main-box__times__time__clock__hour,
-.js-time__main-box__times__time__clock__minute,
-.js-time__main-box__times__time__clock__second {
   width: 28px;
 }
 
@@ -1949,70 +1965,70 @@ body.hidden {
     width: 190px;
   }
 
-  .time__main-box__links {
+  .time__contents__links {
     display: flex;
     align-items: flex-start;
     width: 44%;
     justify-content: space-between;
   }
 
-  .time__main-box__links__link {
+  .time__contents__links__link {
     font-size: 1.2rem;
   }
 
-  .time__main-box__times {
+  #time__contents__times {
     width: 230px;
   }
       
-  .time__main-box__times__time__country__circle {
+  .time__country__circle {
     width: 7px; 
     height: 7px;
     margin-right: 0.4rem;
   }
   
-  .time__main-box__times__time__country__country-name {
+  .time__country__name {
     font-size: 1.2rem;
     letter-spacing: -0.5px;
   }
   
-  .time__main-box__times__time__country__city {
+  .time__country__city {
     display: block;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  .time__main-box__times__time__country__city__name {
+  .time__country__city__name {
     font-family: var(--font-circular-book);
     font-size: 0.8rem;
     padding: 0 0.2rem;
   }
 
-  .time__main-box__times__time__country__city__circle {
+  .time__country__city__circle {
     width: 2px;
     height: 2px;
     background: black;
     border-radius: 50%;
   }
   
-  .time__main-box__times__time__clock {
+  .time__clock {
     font-size: 1.2rem;
     z-index: 1;
   }  
 
-  .js-time__main-box__times__time__clock__hour,
-  .js-time__main-box__times__time__clock__minute,
-  .js-time__main-box__times__time__clock__second {
+  .time__clock__hour,
+  .time__clock__minute,
+  .time__clock__second {
     width: 29px;
   }
 }
 
 @media all and (min-width: 1024px) {
-  .time {
+  #time {
     padding-bottom: 12rem;
   }
 
-  .time--flex {
+  .time {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -2028,43 +2044,43 @@ body.hidden {
     width: 230px;
   }
 
-  .time__main-box {
+  .time__contents {
     width: 70%;
   }
 
-  .time__main-box__links {
+  .time__contents__links {
     width: 50%;
   }
 
-  .time__main-box__links__link {
+  .time__contents__links__link {
     font-size: 1.4rem;
   }
 
-  .time__main-box__times {
+  #time__contents__times {
     width: 270px;
   }
 
-  .time__main-box__times__time {
+  .time__contents__times {
     margin-bottom: 0.6rem;
   }  
   
-  .time__main-box__times__time__country__country-name {
+  .time__country__name {
     font-size: 1.4rem;
     letter-spacing: -0.7px;
   }
 
-  .time__main-box__times__time__country__city__name {
+  .time__country__city__name {
     font-size: 0.9rem;
     letter-spacing: -0.9px;
   }
   
-  .time__main-box__times__time__clock {
+  .time__clock {
     font-size: 1.4rem;
   }
   
-  .js-time__main-box__times__time__clock__hour,
-  .js-time__main-box__times__time__clock__minute,
-  .js-time__main-box__times__time__clock__second {
+  .time__clock__hour,
+  .time__clock__minute,
+  .time__clock__second {
     width: 30px;
   }
 } 
@@ -2072,15 +2088,16 @@ body.hidden {
 /* --------------------------------------------------------------------------------- */
 /* FOOTER */
 
-footer {
+#footer {
   display: flex;
   justify-content: center;
 }
+
 .footer {
   padding-bottom: 2rem;
 }
 
-.time-footer__flower {
+#timefooter__flower {
   /* time-footer가 relative */
   position: absolute;
   right: 0;
@@ -2088,14 +2105,14 @@ footer {
   z-index: 0;
 }
 
-.footer__back-to-top {
+.footer__scroll {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding: 2rem 0;
 }
 
-.js-footer__back-to-top__contents {
+.footer__scroll__contents {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2103,7 +2120,7 @@ footer {
   z-index: 1;
 }
 
-.footer__back-to-top__contents__text {
+.footer__scroll__contents__text {
   font-family: var(--font-inter);
   font-size: 0.85rem;
   font-weight: 600;
@@ -2111,7 +2128,7 @@ footer {
   margin-right: 0.5rem;
 }
 
-.js-footer__back-to-top__contents__arrow {
+.footer__scroll__contents__arrow {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -2123,16 +2140,16 @@ footer {
   background: transparent;
 }
 
-.js-footer__back-to-top__contents__arrow.hover {
+.footer__scroll__contents__arrow.hover {
   background-color: black;
 }
 
-.js-footer__back-to-top__contents__arrow_img {
+.footer__scroll__contents__arrow__img {
   width: 35%;
   transition: all 0.2s ease-in-out;
 }
 
-.js-footer__back-to-top__contents__arrow_img.hover {
+.footer__scroll__contents__arrow__img.hover {
   filter: invert(1);
 }
 
@@ -2149,7 +2166,7 @@ footer {
   justify-content: flex-start;
 }
 
-.footer__links--text {
+.footer__text {
   font-family: var(--font-inter);
   font-size: 1rem;
   margin-right: 2rem;
@@ -2157,7 +2174,7 @@ footer {
   z-index: 1;
 }
 
-.footer__links--text:hover {
+.footer__text:hover {
   text-decoration: underline;
 }
 
@@ -2173,7 +2190,7 @@ footer {
     order: 1;
   }
 
-  .footer__back-to-top {
+  .footer__scroll {
     padding: 0;
     order: 2;
   }
@@ -2187,7 +2204,7 @@ footer {
     width: 40%;
   }
   
-  .footer__links--text {
+  .footer__text {
     font-size: 1.1rem;
   }  
 }
@@ -2203,7 +2220,7 @@ footer {
     margin-bottom: 0;
   }
 
-  .footer__links--text {
+  .footer__text {
     font-size: 1.2rem;
   }  
 }
