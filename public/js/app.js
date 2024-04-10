@@ -1055,15 +1055,15 @@ function bounceEvent() {
 // INBOX
 
 
-const $inbox = document.querySelector('.js-inbox');
-const $inboxSvgCirclePath1 = document.querySelector('.js-inbox__title__text-box__svg-circle__path1');
-const $inboxSvgCirclePath2 = document.querySelector('.js-inbox__title__text-box__svg-circle__path2');
-const $inboxSvgCirclePath1_lenghth = $inboxSvgCirclePath1.getTotalLength(); // 244.7532196044922
-const $inboxSvgCirclePath2_length = $inboxSvgCirclePath2.getTotalLength(); // 294.6005859375
-const $inboxSvgArrowPath1 = document.querySelector('.js-inbox__title__svg-arrow__path1');
-const $inboxSvgArrowPath2 = document.querySelector('.js-inbox__title__svg-arrow__path2');
-const $inboxSvgArrowPath1_length = $inboxSvgArrowPath1.getTotalLength(); // 48.15165710449219
-const $inboxSvgArrowPath2_length = $inboxSvgArrowPath2.getTotalLength(); // 195.17434692382812
+// const $inbox = document.querySelector('.js-inbox');
+// const $inboxSvgCirclePath1 = document.querySelector('.js-inbox__title__text-box__svg-circle__path1');
+// const $inboxSvgCirclePath2 = document.querySelector('.js-inbox__title__text-box__svg-circle__path2');
+// const $inboxSvgCirclePath1_lenghth = $inboxSvgCirclePath1.getTotalLength(); // 244.7532196044922
+// const $inboxSvgCirclePath2_length = $inboxSvgCirclePath2.getTotalLength(); // 294.6005859375
+// const $inboxSvgArrowPath1 = document.querySelector('.js-inbox__title__svg-arrow__path1');
+// const $inboxSvgArrowPath2 = document.querySelector('.js-inbox__title__svg-arrow__path2');
+// const $inboxSvgArrowPath1_length = $inboxSvgArrowPath1.getTotalLength(); // 48.15165710449219
+// const $inboxSvgArrowPath2_length = $inboxSvgArrowPath2.getTotalLength(); // 195.17434692382812
 
 /*
 window.pageYOffset: 세로 스크롤에 의해 가려진 위쪽 영역 높이
@@ -1071,21 +1071,21 @@ window.innerHeight: 전체 창 너비
 document.documentElement.clientHeight: 스크롤바가 차지하는 영역을 제외한 창 너비
 */
 
-document.addEventListener('scroll', () => {
-  const ratio = (window.pageYOffset + document.documentElement.clientHeight - ($inbox.getBoundingClientRect().top + window.pageYOffset)) / $inbox.offsetHeight;
+// document.addEventListener('scroll', () => {
+//   const ratio = (window.pageYOffset + document.documentElement.clientHeight - ($inbox.getBoundingClientRect().top + window.pageYOffset)) / $inbox.offsetHeight;
 
-  if (ratio >= 0.4 && ratio < 1.15) {
-    $inboxSvgCirclePath1.classList.add('active');
-    $inboxSvgCirclePath2.classList.add('active');
-    $inboxSvgArrowPath1.classList.add('active');
-    $inboxSvgArrowPath2.classList.add('active');
-  } else if (ratio <= 0.3 || ratio >= 1.17) {
-    $inboxSvgCirclePath1.classList.remove('active');
-    $inboxSvgCirclePath2.classList.remove('active');
-    $inboxSvgArrowPath1.classList.remove('active');
-    $inboxSvgArrowPath2.classList.remove('active');
-  }
-})
+//   if (ratio >= 0.4 && ratio < 1.15) {
+//     $inboxSvgCirclePath1.classList.add('active');
+//     $inboxSvgCirclePath2.classList.add('active');
+//     $inboxSvgArrowPath1.classList.add('active');
+//     $inboxSvgArrowPath2.classList.add('active');
+//   } else if (ratio <= 0.3 || ratio >= 1.17) {
+//     $inboxSvgCirclePath1.classList.remove('active');
+//     $inboxSvgCirclePath2.classList.remove('active');
+//     $inboxSvgArrowPath1.classList.remove('active');
+//     $inboxSvgArrowPath2.classList.remove('active');
+//   }
+// })
 
 
 // ----------------------------------------------------------------------------------
