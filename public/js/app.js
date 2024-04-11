@@ -1100,52 +1100,6 @@ function bounceEvent() {
 */
 
 // ----------------------------------------------------------------------------------
-// JOBS
-
-// const $toolsImgBoxes = document.querySelectorAll('.js-tools__img-box');
-
-// [...$toolsImgBoxes].forEach(imgBox => {
-//   let title;
-
-//   imgBox.addEventListener('pointerenter', () => {
-//     title = imgBox.querySelector('.js-img-box__title');
-//     title.classList.add('--underline');
-//   });
-
-//   imgBox.addEventListener('pointerleave', () => {
-//     title.classList.remove('--underline');
-//   });
-// });
-
-// const $jobs = document.querySelector('.js-jobs');
-// const $jobsMiamiArrow = document.querySelector('.js-jobs__miami__arrow');
-// const $jobsMiamiArrowCircle = document.querySelector('.js-jobs__miami__arrow__circle');
-// const $jobsMiamiArrowCircleArrow = document.querySelector('.js-jobs__miami__arrow__circle__arrow');
-// const $jobsEditorial = document.querySelector('.js-jobs__editorial');
-
-// $jobs.addEventListener('mouseenter', () => {
-//   jobsAdd($jobsMiamiArrow, $jobsMiamiArrowCircle, $jobsMiamiArrowCircleArrow, $jobsEditorial)
-// });
-
-// $jobs.addEventListener('mouseleave', () => {
-//   jobsRemove($jobsMiamiArrow, $jobsMiamiArrowCircle, $jobsMiamiArrowCircleArrow, $jobsEditorial)
-// });
-
-// function jobsAdd(item1, item2, item3, item4) {
-//   item1.classList.add('hover');
-//   item2.classList.add('hover');
-//   item3.classList.add('hover');
-//   item4.classList.add('hover');
-// }
-
-// function jobsRemove(item1, item2, item3, item4) {
-//   item1.classList.remove('hover');
-//   item2.classList.remove('hover');
-//   item3.classList.remove('hover');
-//   item4.classList.remove('hover');
-// }
-
-// ----------------------------------------------------------------------------------
 // TIME
 // SE -> UK -> US
 // const $hours = document.querySelectorAll('.js-time__main-box__times__time__clock__hour');

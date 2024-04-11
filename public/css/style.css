@@ -1683,7 +1683,6 @@ body.hidden {
 #tools,
 #jobs {
   position: relative;
-  border: 1px solid green;
 }
 
 @media all and (min-width: 1024px) {
@@ -1727,7 +1726,6 @@ body.hidden {
   margin-bottom: 3rem;
   padding-bottom: 1rem;
   margin-top: 0.5rem;
-  border: 2px solid red;
   position: relative;
 }
 
@@ -1736,7 +1734,6 @@ body.hidden {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border: 1px solid blue;
 }
 
 .jobs__miami__circle {
@@ -1785,7 +1782,6 @@ body.hidden {
   font-family: var(--font-circular-medium);
   font-size: 1.2rem;
   letter-spacing: -1px;
-  border: 1px solid green;
 }
 
 .jobs__editorial:hover {
@@ -1826,7 +1822,7 @@ body.hidden {
 }
 
 /* --------------------------------------------------------------------------------- */
-/* SECTION TIME */
+/* SECTION TIME & FOOTER */
 
 #timefooter {
   /* flower-svg 위치 */
@@ -2062,9 +2058,6 @@ body.hidden {
     width: 30px;
   }
 } 
-
-/* --------------------------------------------------------------------------------- */
-/* FOOTER */
 
 #footer {
   display: flex;
