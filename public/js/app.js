@@ -482,15 +482,19 @@ class Events {
     this.spotRatio = null;
     this.spotZindex = null;
 
+    this.$jobsArrow = document.querySelector('.jobs__arrow');
+    this.$jobsEditorial = document.querySelector('.jobs__editorial');
+
     this.spotlightPointerMove = this.spotlightPointerMove.bind(this);
     this.spotlightPointerUp = this.spotlightPointerUp.bind(this);  
     this.spotKeydown = this.spotKeydown.bind(this);
     this.spotFlower = this.spotFlower.bind(this);
     this.leaveSpotFlower = this.leaveSpotFlower.bind(this);
+    this.jobs = this.jobs.bind(this);
 
     this.$spotlightImgBoxImges.forEach(item => {
       item.addEventListener('pointerover', this.spotFlower);
-    })
+    });
   }
 
   animate({timing, draw, duration}) {
@@ -689,6 +693,16 @@ class Events {
     this.currentSpotTarget.removeEventListener('pointerout', this.leaveSpotFlower);
     this.currentSpotFlower = null;
   }
+
+  jobs(e) {
+    if(e.type === 'pointerover') {
+      this.$jobsArrow.classList.add('show');
+      this.$jobsEditorial.classList.add('show');
+    } else if(e.type === 'pointerout') {
+      this.$jobsArrow.classList.remove('show');
+      this.$jobsEditorial.classList.remove('show');
+    }
+  }
 }
 
 const events = new Events();
@@ -717,15 +731,12 @@ class InboxScroll {
 
   inbox(e) {
     this.ratio = (window.pageYOffset + document.documentElement.clientHeight - this.$inbox.offsetTop) / this.$inbox.offsetHeight;
-    console.log(this.ratio);
     if(this.ratio >= 0.43 && this.ratio < 1.8) {
-      console.log('애드')
       this.$inboxSvgCircle1.classList.add('show');
       this.$inboxSvgCircle2.classList.add('show');
       this.$inboxSvgArrowHead.classList.add('show');
       this.$inboxSvgArrowBody.classList.add('show');
     } else if(this.ratio >= 1.8 || this.ratio < 0.43) {
-      console.log('리무브')
       this.$inboxSvgCircle1.classList.remove('show');
       this.$inboxSvgCircle2.classList.remove('show');
       this.$inboxSvgArrowHead.classList.remove('show');

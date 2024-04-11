@@ -863,6 +863,7 @@ body.hidden {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 3;
 }
 
 .rightarrow__box__title-line {
@@ -1677,12 +1678,7 @@ body.hidden {
   background-color: #fff;
   display: flex;
   justify-content: center;
-  border: 2px solid red;
 } 
-
-.toolsjobs {
-  border: 1px solid blue;
-}
 
 #tools,
 #jobs {
@@ -1707,13 +1703,12 @@ body.hidden {
 
 .tools {
   padding-top: 1rem;
-  border: 1px solid black;
 }
 
 .tools__img-box {
   cursor: pointer;
   margin-bottom: 2.5rem;
-  border: 1px solid red;
+  height: fit-content;
 }
 
 @media all and (min-width: 600px) {
@@ -1732,7 +1727,8 @@ body.hidden {
   margin-bottom: 3rem;
   padding-bottom: 1rem;
   margin-top: 0.5rem;
-  border: 1px solid red;
+  border: 2px solid red;
+  position: relative;
 }
 
 .jobs__miami {
@@ -1740,6 +1736,7 @@ body.hidden {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  border: 1px solid blue;
 }
 
 .jobs__miami__circle {
@@ -1759,35 +1756,28 @@ body.hidden {
 .jobs__arrow {
   visibility: hidden;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 0;
   right: 0;
   opacity: 0;
-  transition: all 0.3s ease-out;
-}
-
-.jobs__arrow__circle {
+  transition: all 0.1s ease-out;
   width: 29px;
   height: 29px;
   border-radius: 50%;
   border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: scale(0);
-  transition: all 0.3s ease-out;  
+  transform: scale(0.8);
   background-color: black;
 }
 
-.jobs__arrow__circle.hover {
+.jobs__arrow.show {
   transform: scale(1);
+  opacity: 1;
 }
 
-.jobs__arrow__circle__img {
+.jobs__arrow__img {
   width: 70%;
-  transition: all 0.3s ease-out; 
-}
-
-.jobs__arrow__circle__img.hover {
   filter: invert(1);
 }
 
@@ -1795,9 +1785,10 @@ body.hidden {
   font-family: var(--font-circular-medium);
   font-size: 1.2rem;
   letter-spacing: -1px;
+  border: 1px solid green;
 }
 
-.jobs__editorial.hover {
+.jobs__editorial:hover {
   text-decoration: underline;
 }
 
@@ -1805,12 +1796,12 @@ body.hidden {
   .jobs__editorial {
     font-size: 1.3rem;
     letter-spacing: -1px;
+    width: 50%;
   }
 }
 
 @media all and (min-width: 1024px) {
   .jobs {
-    position: relative;
     margin-top: 0.5rem;
   }  
 
@@ -1819,14 +1810,18 @@ body.hidden {
     letter-spacing: -0.8px;
   }
   
-  .js-jobs__miami__arrow.hover {
-    opacity: 1;
+  .jobs__arrow {
     visibility: visible;
   }  
 
   .jobs__editorial {
     font-size: 1.5rem;
     letter-spacing: -1px;
+    width: 100%;
+  }
+
+  .jobs__editorial.show {
+    text-decoration: underline;
   }
 }
 
