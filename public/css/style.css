@@ -1396,29 +1396,20 @@ body.hidden {
 
 #inbox {
   background: #171313;
-  padding-top: 6rem;
-  padding-bottom: 3rem;
+  padding: 6rem 0 3rem 0;
   display: flex;
   justify-content: center;
-
-  border: 2px solid red;
-}
-
-.inbox {
-  border: 2px solid blue;
 }
 
 .inbox__title {
-  border: 2px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* svg-arrow에 대해 */
+  /* .inbox__svg__arrow */
   position: relative;
 }
 
 .inbox__title__text {
-  border: 2px solid red;
   text-align: center;
   width: 72%;
   color: #fff;
@@ -1432,11 +1423,104 @@ body.hidden {
   position: relative;
 }
 
-.inbox__title__text__inbox__svg-box  {
+.inbox__svg__circle {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110%;
+}
+
+.inbox__svg__circle__path1, 
+.inbox__svg__circle__path2, 
+.inbox__svg__arrow__head, 
+.inbox__svg__arrow__body {
+  fill: none;
+  stroke: #ffe818;
+}
+
+.inbox__svg__circle__path1 {
+  visibility: hidden;
+  stroke-dasharray: 245;
+  stroke-dashoffset: 245;
+}
+
+.inbox__svg__circle__path2 {
+  visibility: hidden;
+  stroke-dasharray: 295;
+  stroke-dashoffset: 295;
+}
+
+.inbox__svg__circle__path1.show {
+  visibility: visible;
+  animation: svg-circle__path1 0.6s linear;
+  stroke-dashoffset: 0;
+}
+
+.inbox__svg__circle__path2.show {
+  visibility: visible;
+  animation: svg-circle__path2 0.8s linear;
+  stroke-dashoffset: 0;
+}
+
+/* 0에서 0.6s까지 */
+@keyframes svg-circle__path1 {
+  0% {stroke-dashoffset: 245;}
+  100% {stroke-dashoffset: 0;}
+}
+
+/* 0.2s에서 0.8s까지, 똑같이 0.6s동안 */
+@keyframes svg-circle__path2 {
+  0% {stroke-dashoffset: 295;}
+  25% {stroke-dashoffset: 295;}
+  100% {stroke-dashoffset: 0;}
+}
+
+.inbox__svg__arrow {
+  position: absolute;
+  display: none;
+  width: 20%;
+  top: 9rem;
+  left: 37rem;
+  transform: rotate(30deg);
+  transform-origin: left center;
+}
+
+.inbox__svg__arrow__head {
+  visibility: hidden;
+  stroke-dasharray: 49;
+  stroke-dashoffset: 49;
+}
+
+.inbox__svg__arrow__head.show {
+  visibility: visible;
+  animation: svg-arrow__head 0.8s linear;
+  stroke-dashoffset: 0;
+}
+
+.inbox__svg__arrow__body {
+  visibility: hidden;
+  stroke-dasharray: 196;
+  stroke-dashoffset: 196;
+}
+
+.inbox__svg__arrow__body.show {
+  visibility: visible;
+  animation: svg-arrow__body 0.6s linear;
+  stroke-dashoffset: 0;
+}
+
+/* 0.6s부터 0.8s까지 0.2s동안 */
+@keyframes svg-arrow__head {
+  0% {stroke-dashoffset: 49;}
+  75% {stroke-dashoffset: 49;}
+  100% {stroke-dashoffset: 0;}
+}
+
+/* 0s부터 0.6s까지 */
+@keyframes svg-arrow__body {
+  0% {stroke-dashoffset: 196;}
+  100% {stroke-dashoffset: 0;}
 }
 
 .inbox__email {
@@ -1444,49 +1528,40 @@ body.hidden {
   justify-content: center;
   align-items: center;
   padding: 4rem 0 6rem 0;
-  border: 1px solid red;
-}
-
-.inbox__email__contents {
-  width: 448px;
-  border: 1px solid blue;
 }
 
 .inbox__email__form {
-  border: 1px solid white;
-}
-
-.inbox__email__form__div {
-  width: 100%;
+  width: 448px;
   display: flex;
   justify-content: space-between;
-  /* underline 위치 */
   position: relative;
 }
 
-.inbox__email__form__input {
+.inbox__email__input {
   font-family: var(--font-inter);
   background: transparent;
   border: none;
   width: 85%;
   height: 30px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 300;
   letter-spacing: -1.5px;
   color: #fff;
 }
 
-.inbox__email-box__form__input:focus {
+.inbox__email__input:focus {
   outline: none;
 }
 
-.inbox__email-box__form__input::placeholder {
+.inbox__email__input::placeholder {
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 300;
   font-family: var(--font-inter);
   letter-spacing: -1.5px;
 }
 
-.inbox__email__form__button  {
+.inbox__email__button  {
   background: transparent;
   color: #fff;
   font-family: var(--font-circular-medium);
@@ -1495,7 +1570,7 @@ body.hidden {
   cursor: pointer;
 }
 
-.inbox__email__form__underline {
+.inbox__email__underline {
   height: 1px;
   width: 100%;
   background: #fff;
@@ -1520,98 +1595,6 @@ body.hidden {
   letter-spacing: -0.5px;
 }
 
-.inbox__svg__circle__path1 {
-  visibility: hidden;
-  stroke-dasharray: 245;
-  stroke-dashoffset: 245;
-}
-
-.inbox__svg__circle__path1.active {
-  visibility: visible;
-  animation: svg-circle__path1 0.6s linear;
-  stroke-dashoffset: 0;
-}
-
-@keyframes svg-circle__path1 {
-  0% {stroke-dashoffset: 245;}
-  100% {stroke-dashoffset: 0;}
-}
-
-.inbox__svg__circle__path2 {
-  visibility: hidden;
-  stroke-dasharray: 295;
-  stroke-dashoffset: 295;
-}
-
-.inbox__svg__circle__path2.active {
-  visibility: visible;
-  animation: svg-circle__path2 0.8s linear;
-  stroke-dashoffset: 0;
-}
-
-@keyframes svg-circle__path2 {
-  0% {stroke-dashoffset: 295;}
-  25% {stroke-dashoffset: 295;}
-  100% {stroke-dashoffset: 0;}
-}
-
-.inbox__svg__circle__path1, 
-.inbox__svg__circle__path2, 
-.inbox__svg__arrow__path1, 
-.inbox__svg__arrow__path2 {
-  fill: none;
-  stroke: #ffe818;
-}
-
-.inbox__svg__arrow {
-  position: absolute;
-  display: none;
-  width: 20%;
-  top: 9rem;
-  left: 37rem;
-  transform: rotate(30deg);
-  transform-origin: left center;
-}
-
-/* 화살표머리 */
-
-.inbox__svg__arrow__path1 {
-  visibility: hidden;
-  stroke-dasharray: 49;
-  stroke-dashoffset: 49;
-}
-
-.inbox__svg__arrow__path1.active {
-  visibility: visible;
-  animation: svg-arrow__path1 0.8s linear;
-  stroke-dashoffset: 0;
-}
-
-@keyframes svg-arrow__path1 {
-  0% {stroke-dashoffset: 49;}
-  75% {stroke-dashoffset: 49;}
-  100% {stroke-dashoffset: 0;}
-}
-
-/* 화살표몸통 */
-
-.inbox__svg__arrow__path2 {
-  visibility: hidden;
-  stroke-dasharray: 196;
-  stroke-dashoffset: 196;
-}
-
-.inbox__svg__arrow__path2.active {
-  visibility: visible;
-  animation: svg-arrow__path2 0.6s linear;
-  stroke-dashoffset: 0;
-}
-
-@keyframes svg-arrow__path2 {
-  0% {stroke-dashoffset: 196;}
-  100% {stroke-dashoffset: 0;}
-}
-
 @media all and (min-width: 600px) {
   #inbox {
     padding-top: 10rem;
@@ -1627,13 +1610,13 @@ body.hidden {
     padding: 6rem 0 13rem 0;
   }  
 
-  .inbox__email__form__input {
-    font-size: 1.3rem;
+  .inbox__email__input {
+    font-size: 1.2rem;
     letter-spacing: -1.5px;
   }
     
-  .inbox__email__form__input::placeholder {
-    font-size: 1.3rem;
+  .inbox__email__input::placeholder {
+    font-size: 1.2rem;
     letter-spacing: -1.5px;
   }
 
@@ -1659,16 +1642,16 @@ body.hidden {
     justify-content: flex-end;
   }  
 
-  .inbox__email__contents {
+  .inbox__email__form {
     width: 40%;
   }
   
-  .inbox__email__form__input {
+  .inbox__email__input {
     font-size: 1.5rem;
     letter-spacing: -1.5px;
   }
     
-  .inbox__email__form__input::placeholder {
+  .inbox__email__input::placeholder {
     font-size: 1.5rem;
     letter-spacing: -1.5px;
   }  

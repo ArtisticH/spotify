@@ -689,7 +689,6 @@ class Events {
     this.currentSpotTarget.removeEventListener('pointerout', this.leaveSpotFlower);
     this.currentSpotFlower = null;
   }
-
 }
 
 const events = new Events();
@@ -699,6 +698,44 @@ document.addEventListener('pointerout', events);
 document.addEventListener('pointerdown', events);
 document.addEventListener('keydown', events.spotKeydown);
 window.addEventListener('resize', events);
+
+class InboxScroll {
+  constructor() {
+    this.$inbox = document.getElementById('inbox');
+    this.$inboxSvgCircle1 = document.querySelector('.inbox__svg__circle__path1');
+    this.$inboxSvgCircle2 = document.querySelector('.inbox__svg__circle__path2');
+    this.$inboxSvgArrowHead = document.querySelector('.inbox__svg__arrow__head');
+    this.$inboxSvgArrowBody = document.querySelector('.inbox__svg__arrow__body');
+    this.circle1Length = this.$inboxSvgCircle1.getTotalLength(); // 245
+    this.circle2Length = this.$inboxSvgCircle2.getTotalLength(); // 295
+    this.headLength = this.$inboxSvgArrowHead.getTotalLength(); // 49
+    this.bodyLength = this.$inboxSvgArrowBody.getTotalLength(); // 196
+    this.ratio = null;
+
+    this.inbox = this.inbox.bind(this);
+  }
+
+  inbox(e) {
+    this.ratio = (window.pageYOffset + document.documentElement.clientHeight - this.$inbox.offsetTop) / this.$inbox.offsetHeight;
+    console.log(this.ratio);
+    if(this.ratio >= 0.43 && this.ratio < 1.8) {
+      console.log('애드')
+      this.$inboxSvgCircle1.classList.add('show');
+      this.$inboxSvgCircle2.classList.add('show');
+      this.$inboxSvgArrowHead.classList.add('show');
+      this.$inboxSvgArrowBody.classList.add('show');
+    } else if(this.ratio >= 1.8 || this.ratio < 0.43) {
+      console.log('리무브')
+      this.$inboxSvgCircle1.classList.remove('show');
+      this.$inboxSvgCircle2.classList.remove('show');
+      this.$inboxSvgArrowHead.classList.remove('show');
+      this.$inboxSvgArrowBody.classList.remove('show');
+    }
+  }
+}
+
+const inboxScroll = new InboxScroll();
+window.addEventListener('scroll', inboxScroll.inbox);
 
 // 오른쪽 화살표 효과
 (async function rightArrows() {
@@ -1052,174 +1089,137 @@ function bounceEvent() {
 */
 
 // ----------------------------------------------------------------------------------
-// INBOX
-
-
-// const $inbox = document.querySelector('.js-inbox');
-// const $inboxSvgCirclePath1 = document.querySelector('.js-inbox__title__text-box__svg-circle__path1');
-// const $inboxSvgCirclePath2 = document.querySelector('.js-inbox__title__text-box__svg-circle__path2');
-// const $inboxSvgCirclePath1_lenghth = $inboxSvgCirclePath1.getTotalLength(); // 244.7532196044922
-// const $inboxSvgCirclePath2_length = $inboxSvgCirclePath2.getTotalLength(); // 294.6005859375
-// const $inboxSvgArrowPath1 = document.querySelector('.js-inbox__title__svg-arrow__path1');
-// const $inboxSvgArrowPath2 = document.querySelector('.js-inbox__title__svg-arrow__path2');
-// const $inboxSvgArrowPath1_length = $inboxSvgArrowPath1.getTotalLength(); // 48.15165710449219
-// const $inboxSvgArrowPath2_length = $inboxSvgArrowPath2.getTotalLength(); // 195.17434692382812
-
-/*
-window.pageYOffset: 세로 스크롤에 의해 가려진 위쪽 영역 높이
-window.innerHeight: 전체 창 너비
-document.documentElement.clientHeight: 스크롤바가 차지하는 영역을 제외한 창 너비
-*/
-
-// document.addEventListener('scroll', () => {
-//   const ratio = (window.pageYOffset + document.documentElement.clientHeight - ($inbox.getBoundingClientRect().top + window.pageYOffset)) / $inbox.offsetHeight;
-
-//   if (ratio >= 0.4 && ratio < 1.15) {
-//     $inboxSvgCirclePath1.classList.add('active');
-//     $inboxSvgCirclePath2.classList.add('active');
-//     $inboxSvgArrowPath1.classList.add('active');
-//     $inboxSvgArrowPath2.classList.add('active');
-//   } else if (ratio <= 0.3 || ratio >= 1.17) {
-//     $inboxSvgCirclePath1.classList.remove('active');
-//     $inboxSvgCirclePath2.classList.remove('active');
-//     $inboxSvgArrowPath1.classList.remove('active');
-//     $inboxSvgArrowPath2.classList.remove('active');
-//   }
-// })
-
-
-// ----------------------------------------------------------------------------------
 // JOBS
 
-const $toolsImgBoxes = document.querySelectorAll('.js-tools__img-box');
+// const $toolsImgBoxes = document.querySelectorAll('.js-tools__img-box');
 
-[...$toolsImgBoxes].forEach(imgBox => {
-  let title;
+// [...$toolsImgBoxes].forEach(imgBox => {
+//   let title;
 
-  imgBox.addEventListener('pointerenter', () => {
-    title = imgBox.querySelector('.js-img-box__title');
-    title.classList.add('--underline');
-  });
+//   imgBox.addEventListener('pointerenter', () => {
+//     title = imgBox.querySelector('.js-img-box__title');
+//     title.classList.add('--underline');
+//   });
 
-  imgBox.addEventListener('pointerleave', () => {
-    title.classList.remove('--underline');
-  });
-});
+//   imgBox.addEventListener('pointerleave', () => {
+//     title.classList.remove('--underline');
+//   });
+// });
 
-const $jobs = document.querySelector('.js-jobs');
-const $jobsMiamiArrow = document.querySelector('.js-jobs__miami__arrow');
-const $jobsMiamiArrowCircle = document.querySelector('.js-jobs__miami__arrow__circle');
-const $jobsMiamiArrowCircleArrow = document.querySelector('.js-jobs__miami__arrow__circle__arrow');
-const $jobsEditorial = document.querySelector('.js-jobs__editorial');
+// const $jobs = document.querySelector('.js-jobs');
+// const $jobsMiamiArrow = document.querySelector('.js-jobs__miami__arrow');
+// const $jobsMiamiArrowCircle = document.querySelector('.js-jobs__miami__arrow__circle');
+// const $jobsMiamiArrowCircleArrow = document.querySelector('.js-jobs__miami__arrow__circle__arrow');
+// const $jobsEditorial = document.querySelector('.js-jobs__editorial');
 
-$jobs.addEventListener('mouseenter', () => {
-  jobsAdd($jobsMiamiArrow, $jobsMiamiArrowCircle, $jobsMiamiArrowCircleArrow, $jobsEditorial)
-});
+// $jobs.addEventListener('mouseenter', () => {
+//   jobsAdd($jobsMiamiArrow, $jobsMiamiArrowCircle, $jobsMiamiArrowCircleArrow, $jobsEditorial)
+// });
 
-$jobs.addEventListener('mouseleave', () => {
-  jobsRemove($jobsMiamiArrow, $jobsMiamiArrowCircle, $jobsMiamiArrowCircleArrow, $jobsEditorial)
-});
+// $jobs.addEventListener('mouseleave', () => {
+//   jobsRemove($jobsMiamiArrow, $jobsMiamiArrowCircle, $jobsMiamiArrowCircleArrow, $jobsEditorial)
+// });
 
-function jobsAdd(item1, item2, item3, item4) {
-  item1.classList.add('hover');
-  item2.classList.add('hover');
-  item3.classList.add('hover');
-  item4.classList.add('hover');
-}
+// function jobsAdd(item1, item2, item3, item4) {
+//   item1.classList.add('hover');
+//   item2.classList.add('hover');
+//   item3.classList.add('hover');
+//   item4.classList.add('hover');
+// }
 
-function jobsRemove(item1, item2, item3, item4) {
-  item1.classList.remove('hover');
-  item2.classList.remove('hover');
-  item3.classList.remove('hover');
-  item4.classList.remove('hover');
-}
+// function jobsRemove(item1, item2, item3, item4) {
+//   item1.classList.remove('hover');
+//   item2.classList.remove('hover');
+//   item3.classList.remove('hover');
+//   item4.classList.remove('hover');
+// }
 
 // ----------------------------------------------------------------------------------
 // TIME
 // SE -> UK -> US
-const $hours = document.querySelectorAll('.js-time__main-box__times__time__clock__hour');
-const $mins = document.querySelectorAll('.js-time__main-box__times__time__clock__minute');
-const $secs = document.querySelectorAll('.js-time__main-box__times__time__clock__second');
+// const $hours = document.querySelectorAll('.js-time__main-box__times__time__clock__hour');
+// const $mins = document.querySelectorAll('.js-time__main-box__times__time__clock__minute');
+// const $secs = document.querySelectorAll('.js-time__main-box__times__time__clock__second');
 
-function setTime(string, timezone, number) {
-  let date = new Date().toLocaleString(string, {
-    timeZone: timezone,
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    hour12: false
-  });
+// function setTime(string, timezone, number) {
+//   let date = new Date().toLocaleString(string, {
+//     timeZone: timezone,
+//     hour: 'numeric',
+//     minute: 'numeric',
+//     second: 'numeric',
+//     hour12: false
+//   });
 
-  const timeComponents = date.split(':');
-  let hour = parseInt(timeComponents[0]);
-  if(hour < 10) hour = '0' + hour;
-  $hours[number].innerHTML = hour;
+//   const timeComponents = date.split(':');
+//   let hour = parseInt(timeComponents[0]);
+//   if(hour < 10) hour = '0' + hour;
+//   $hours[number].innerHTML = hour;
 
-  let minute = parseInt(timeComponents[1]);
-  if (minute < 10) minute = '0' + minute;
-  $mins[number].innerHTML = minute;
+//   let minute = parseInt(timeComponents[1]);
+//   if (minute < 10) minute = '0' + minute;
+//   $mins[number].innerHTML = minute;
 
-  let second = parseInt(timeComponents[2]);
-  if (second < 10) second = '0' + second;
-  $secs[number].innerHTML = second;
-}
+//   let second = parseInt(timeComponents[2]);
+//   if (second < 10) second = '0' + second;
+//   $secs[number].innerHTML = second;
+// }
 
-setTime('en-US', 'Europe/Stockholm', 0);
-setTime('en-GB', 'Europe/London', 1);
-setTime('en-US', 'America/New_York', 2);
+// setTime('en-US', 'Europe/Stockholm', 0);
+// setTime('en-GB', 'Europe/London', 1);
+// setTime('en-US', 'America/New_York', 2);
 
-setInterval(() => {
-  setTime('en-US', 'Europe/Stockholm', 0)
-  setTime('en-GB', 'Europe/London', 1)
-  setTime('en-US', 'America/New_York', 2)
-},  1000)
+// setInterval(() => {
+//   setTime('en-US', 'Europe/Stockholm', 0)
+//   setTime('en-GB', 'Europe/London', 1)
+//   setTime('en-US', 'America/New_York', 2)
+// },  1000)
 
 // ----------------------------------------------------------------------------------
 // FOOTER
 
-const $backToTopContents = document.querySelector('.js-footer__back-to-top__contents');
-const $backToTopContentsArrow = document.querySelector('.js-footer__back-to-top__contents__arrow');
-const $backToTopContentsArrowImg = document.querySelector('.js-footer__back-to-top__contents__arrow_img');
+// const $backToTopContents = document.querySelector('.js-footer__back-to-top__contents');
+// const $backToTopContentsArrow = document.querySelector('.js-footer__back-to-top__contents__arrow');
+// const $backToTopContentsArrowImg = document.querySelector('.js-footer__back-to-top__contents__arrow_img');
 
-$backToTopContents.onclick = () => {
-  const start = window.pageYOffset; 
+// $backToTopContents.onclick = () => {
+//   const start = window.pageYOffset; 
 
-  animate({
-    duration: 400,
-    timing: function quad(timeFraction) {
-      return Math.pow(timeFraction, 2)
-    },
-    draw: function(progress) {
-      window.scrollTo(0, start * (1 - progress));
-    }
-  });
-}
+//   animate({
+//     duration: 400,
+//     timing: function quad(timeFraction) {
+//       return Math.pow(timeFraction, 2)
+//     },
+//     draw: function(progress) {
+//       window.scrollTo(0, start * (1 - progress));
+//     }
+//   });
+// }
 
-$backToTopContents.addEventListener('pointerenter', () => {
-  $backToTopContentsArrow.classList.toggle('hover');
-  $backToTopContentsArrowImg.classList.toggle('hover');
-});
+// $backToTopContents.addEventListener('pointerenter', () => {
+//   $backToTopContentsArrow.classList.toggle('hover');
+//   $backToTopContentsArrowImg.classList.toggle('hover');
+// });
 
-$backToTopContents.addEventListener('pointerleave', () => {
-  $backToTopContentsArrow.classList.toggle('hover');
-  $backToTopContentsArrowImg.classList.toggle('hover');
-});
+// $backToTopContents.addEventListener('pointerleave', () => {
+//   $backToTopContentsArrow.classList.toggle('hover');
+//   $backToTopContentsArrowImg.classList.toggle('hover');
+// });
 
 
-function animate({timing, draw, duration}) {
+// function animate({timing, draw, duration}) {
 
-  let start = performance.now();
+//   let start = performance.now();
 
-  requestAnimationFrame(function animate(time) {
-    let timeFraction = (time - start) / duration;
-    if (timeFraction > 1) timeFraction = 1;
+//   requestAnimationFrame(function animate(time) {
+//     let timeFraction = (time - start) / duration;
+//     if (timeFraction > 1) timeFraction = 1;
 
-    let progress = timing(timeFraction)
+//     let progress = timing(timeFraction)
 
-    draw(progress); 
+//     draw(progress); 
 
-    if (timeFraction < 1) {
-      requestAnimationFrame(animate);
-    }
-  });
-}
+//     if (timeFraction < 1) {
+//       requestAnimationFrame(animate);
+//     }
+//   });
+// }
