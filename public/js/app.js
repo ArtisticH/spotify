@@ -485,6 +485,10 @@ class Events {
     this.$jobsArrow = document.querySelector('.jobs__arrow');
     this.$jobsEditorial = document.querySelector('.jobs__editorial');
 
+    this.$footerScollBack = document.querySelector('.footer__scroll__contents__arrow__background');
+    this.$footerScrollArrow = document.querySelector('.footer__scroll__contents__arrow__img');
+    this.footerScrollStart = null;
+
     this.spotlightPointerMove = this.spotlightPointerMove.bind(this);
     this.spotlightPointerUp = this.spotlightPointerUp.bind(this);  
     this.spotKeydown = this.spotKeydown.bind(this);
@@ -701,6 +705,29 @@ class Events {
     } else if(e.type === 'pointerout') {
       this.$jobsArrow.classList.remove('show');
       this.$jobsEditorial.classList.remove('show');
+    }
+  }
+
+  backToTop(e, target) {
+    if(e.type === 'pointerover') {
+      this.$footerScollBack.classList.add('overed');
+      this.$footerScrollArrow.classList.add('overed');
+    } else if(e.type === 'pointerout') {
+      this.$footerScollBack.classList.remove('overed');
+      this.$footerScrollArrow.classList.remove('overed');
+    } else if(e.type === 'click') {
+      this.footerScrollStart = window.pageYOffset;
+
+      this.animate({
+        duration: 400,
+        timing: function quad(timeFraction) {
+          return Math.pow(timeFraction, 2)
+        },
+        draw: (progress) => {
+          if(progress <= 0) return;
+          window.scrollTo(0, this.footerScrollStart * (1 - progress));
+        }    
+      });
     }
   }
 }
