@@ -821,57 +821,47 @@ window.addEventListener('scroll', inboxScroll.inbox);
 
 class Time {
   constructor() {
-    // ----------------------------------------------------------------------------------
-// TIME
-// SE -> UK -> US
-// const $hours = document.querySelectorAll('.js-time__main-box__times__time__clock__hour');
-// const $mins = document.querySelectorAll('.js-time__main-box__times__time__clock__minute');
-// const $secs = document.querySelectorAll('.js-time__main-box__times__time__clock__second');
-
-// function setTime(string, timezone, number) {
-//   let date = new Date().toLocaleString(string, {
-//     timeZone: timezone,
-//     hour: 'numeric',
-//     minute: 'numeric',
-//     second: 'numeric',
-//     hour12: false
-//   });
-
-//   const timeComponents = date.split(':');
-//   let hour = parseInt(timeComponents[0]);
-//   if(hour < 10) hour = '0' + hour;
-//   $hours[number].innerHTML = hour;
-
-//   let minute = parseInt(timeComponents[1]);
-//   if (minute < 10) minute = '0' + minute;
-//   $mins[number].innerHTML = minute;
-
-//   let second = parseInt(timeComponents[2]);
-//   if (second < 10) second = '0' + second;
-//   $secs[number].innerHTML = second;
-// }
-
-// setTime('en-US', 'Europe/Stockholm', 0);
-// setTime('en-GB', 'Europe/London', 1);
-// setTime('en-US', 'America/New_York', 2);
-
-// setInterval(() => {
-//   setTime('en-US', 'Europe/Stockholm', 0)
-//   setTime('en-GB', 'Europe/London', 1)
-//   setTime('en-US', 'America/New_York', 2)
-// },  1000)
-
-
+    this.$hours = document.querySelectorAll('.time__clock__hour');
+    this.$minutes = document.querySelectorAll('.time__clock__minute');
+    this.$seconds = document.querySelectorAll('.time__clock__second');
   }
 
-  init() {
+  init(string, timezone, index) {
+    const date = new Date().toLocaleString(string, {
+      timeZone: timezone,
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: false,
+    });
+    
+    const timeComponents = date.split(':');
 
+    let hour = parseInt(timeComponents[0]);
+    if(hour < 10) hour = '0' + hour;
+    this.$hours[index].innerHTML = hour;
+
+    let minute = parseInt(timeComponents[1]);
+    if(minute < 10) minute = '0' + minute;
+    this.$minutes[index].innerHTML = minute;
+
+    let second = parseInt(timeComponents[2]);
+    if(second < 10) second = '0' + second;
+    this.$seconds[index].innerHTML = second;
+  }
+
+  time() {
+    this.init('en-US', 'Europe/Stockholm', 0);
+    this.init('en-GB', 'Europe/London', 1);
+    this.init('en-US', 'America/New_York', 2);
   }
 }
 
 const time = new Time();
-time.init();
-
+time.time();
+setInterval(() => {
+  time.time();
+}, 1000)
 
 // git push -u origin main
 // ----------------------------------------------------------------------------------
