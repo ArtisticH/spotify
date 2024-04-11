@@ -1,3 +1,47 @@
+// 오른쪽 화살표 효과
+(async function rightArrows() {
+  const $rightArrows = document.querySelectorAll('.rightarrow__box');
+  let $rightArrowTitle;
+  let $rightArrowLine;
+  let $rightArrowCircle;
+  let $rightArrowImg;
+
+  function enterEvent(e) {
+    $rightArrowTitle = e.target.querySelector('.rightarrow__box__title-line__title');
+    $rightArrowLine = e.target.querySelector('.rightarrow__box__title-line__line');;
+    $rightArrowCircle = e.target.querySelector('.rightarrow__box__arrow');;
+    $rightArrowImg = e.target.querySelector('.rightarrow__box__arrow__img');
+
+    $rightArrowTitle.classList.add('overed');
+    $rightArrowLine.classList.add('overed');
+    $rightArrowCircle.classList.add('overed');
+    $rightArrowImg.classList.add('overed');
+  }
+
+  async function leaveEvent(e) {
+    $rightArrowTitle.classList.remove('overed');
+    $rightArrowLine.classList.replace('overed', 'rewind');
+    $rightArrowCircle.classList.remove('overed');
+    $rightArrowImg.classList.remove('overed');
+
+    await new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 300);
+    });
+
+    $rightArrowLine.classList.remove('rewind');
+  }
+
+  for(let rightArrow of $rightArrows) {
+    rightArrow.addEventListener('pointerenter', enterEvent);
+  }
+
+  for(let rightArrow of $rightArrows) {
+    rightArrow.addEventListener('pointerleave', leaveEvent);
+  }
+})();
+
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // INTRO + MAIN
 class Intro {
@@ -775,49 +819,58 @@ class InboxScroll {
 const inboxScroll = new InboxScroll();
 window.addEventListener('scroll', inboxScroll.inbox);
 
-// 오른쪽 화살표 효과
-(async function rightArrows() {
-  const $rightArrows = document.querySelectorAll('.rightarrow__box');
-  let $rightArrowTitle;
-  let $rightArrowLine;
-  let $rightArrowCircle;
-  let $rightArrowImg;
+class Time {
+  constructor() {
+    // ----------------------------------------------------------------------------------
+// TIME
+// SE -> UK -> US
+// const $hours = document.querySelectorAll('.js-time__main-box__times__time__clock__hour');
+// const $mins = document.querySelectorAll('.js-time__main-box__times__time__clock__minute');
+// const $secs = document.querySelectorAll('.js-time__main-box__times__time__clock__second');
 
-  function enterEvent(e) {
-    $rightArrowTitle = e.target.querySelector('.rightarrow__box__title-line__title');
-    $rightArrowLine = e.target.querySelector('.rightarrow__box__title-line__line');;
-    $rightArrowCircle = e.target.querySelector('.rightarrow__box__arrow');;
-    $rightArrowImg = e.target.querySelector('.rightarrow__box__arrow__img');
+// function setTime(string, timezone, number) {
+//   let date = new Date().toLocaleString(string, {
+//     timeZone: timezone,
+//     hour: 'numeric',
+//     minute: 'numeric',
+//     second: 'numeric',
+//     hour12: false
+//   });
 
-    $rightArrowTitle.classList.add('overed');
-    $rightArrowLine.classList.add('overed');
-    $rightArrowCircle.classList.add('overed');
-    $rightArrowImg.classList.add('overed');
+//   const timeComponents = date.split(':');
+//   let hour = parseInt(timeComponents[0]);
+//   if(hour < 10) hour = '0' + hour;
+//   $hours[number].innerHTML = hour;
+
+//   let minute = parseInt(timeComponents[1]);
+//   if (minute < 10) minute = '0' + minute;
+//   $mins[number].innerHTML = minute;
+
+//   let second = parseInt(timeComponents[2]);
+//   if (second < 10) second = '0' + second;
+//   $secs[number].innerHTML = second;
+// }
+
+// setTime('en-US', 'Europe/Stockholm', 0);
+// setTime('en-GB', 'Europe/London', 1);
+// setTime('en-US', 'America/New_York', 2);
+
+// setInterval(() => {
+//   setTime('en-US', 'Europe/Stockholm', 0)
+//   setTime('en-GB', 'Europe/London', 1)
+//   setTime('en-US', 'America/New_York', 2)
+// },  1000)
+
+
   }
 
-  async function leaveEvent(e) {
-    $rightArrowTitle.classList.remove('overed');
-    $rightArrowLine.classList.replace('overed', 'rewind');
-    $rightArrowCircle.classList.remove('overed');
-    $rightArrowImg.classList.remove('overed');
+  init() {
 
-    await new Promise(resolve => {
-      setTimeout(() => {
-        resolve();
-      }, 300);
-    });
-
-    $rightArrowLine.classList.remove('rewind');
   }
+}
 
-  for(let rightArrow of $rightArrows) {
-    rightArrow.addEventListener('pointerenter', enterEvent);
-  }
-
-  for(let rightArrow of $rightArrows) {
-    rightArrow.addEventListener('pointerleave', leaveEvent);
-  }
-})();
+const time = new Time();
+time.init();
 
 
 // git push -u origin main
@@ -1126,92 +1179,3 @@ function bounceEvent() {
 }
 */
 
-// ----------------------------------------------------------------------------------
-// TIME
-// SE -> UK -> US
-// const $hours = document.querySelectorAll('.js-time__main-box__times__time__clock__hour');
-// const $mins = document.querySelectorAll('.js-time__main-box__times__time__clock__minute');
-// const $secs = document.querySelectorAll('.js-time__main-box__times__time__clock__second');
-
-// function setTime(string, timezone, number) {
-//   let date = new Date().toLocaleString(string, {
-//     timeZone: timezone,
-//     hour: 'numeric',
-//     minute: 'numeric',
-//     second: 'numeric',
-//     hour12: false
-//   });
-
-//   const timeComponents = date.split(':');
-//   let hour = parseInt(timeComponents[0]);
-//   if(hour < 10) hour = '0' + hour;
-//   $hours[number].innerHTML = hour;
-
-//   let minute = parseInt(timeComponents[1]);
-//   if (minute < 10) minute = '0' + minute;
-//   $mins[number].innerHTML = minute;
-
-//   let second = parseInt(timeComponents[2]);
-//   if (second < 10) second = '0' + second;
-//   $secs[number].innerHTML = second;
-// }
-
-// setTime('en-US', 'Europe/Stockholm', 0);
-// setTime('en-GB', 'Europe/London', 1);
-// setTime('en-US', 'America/New_York', 2);
-
-// setInterval(() => {
-//   setTime('en-US', 'Europe/Stockholm', 0)
-//   setTime('en-GB', 'Europe/London', 1)
-//   setTime('en-US', 'America/New_York', 2)
-// },  1000)
-
-// ----------------------------------------------------------------------------------
-// FOOTER
-
-// const $backToTopContents = document.querySelector('.js-footer__back-to-top__contents');
-// const $backToTopContentsArrow = document.querySelector('.js-footer__back-to-top__contents__arrow');
-// const $backToTopContentsArrowImg = document.querySelector('.js-footer__back-to-top__contents__arrow_img');
-
-// $backToTopContents.onclick = () => {
-//   const start = window.pageYOffset; 
-
-//   animate({
-//     duration: 400,
-//     timing: function quad(timeFraction) {
-//       return Math.pow(timeFraction, 2)
-//     },
-//     draw: function(progress) {
-//       window.scrollTo(0, start * (1 - progress));
-//     }
-//   });
-// }
-
-// $backToTopContents.addEventListener('pointerenter', () => {
-//   $backToTopContentsArrow.classList.toggle('hover');
-//   $backToTopContentsArrowImg.classList.toggle('hover');
-// });
-
-// $backToTopContents.addEventListener('pointerleave', () => {
-//   $backToTopContentsArrow.classList.toggle('hover');
-//   $backToTopContentsArrowImg.classList.toggle('hover');
-// });
-
-
-// function animate({timing, draw, duration}) {
-
-//   let start = performance.now();
-
-//   requestAnimationFrame(function animate(time) {
-//     let timeFraction = (time - start) / duration;
-//     if (timeFraction > 1) timeFraction = 1;
-
-//     let progress = timing(timeFraction)
-
-//     draw(progress); 
-
-//     if (timeFraction < 1) {
-//       requestAnimationFrame(animate);
-//     }
-//   });
-// }
