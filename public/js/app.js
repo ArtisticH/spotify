@@ -159,9 +159,9 @@ class Intro {
   
   init() {
     window.scrollTo(0, 0);
-    // document.body.style.overflowY = 'hidden';
-    // setTimeout(this.showFlower, 1500);
-    // setTimeout(this.disappearLogoAndFlower, 4500);
+    document.body.style.overflowY = 'hidden';
+    setTimeout(this.showFlower, 1500);
+    setTimeout(this.disappearLogoAndFlower, 4500);
   }
 
   // 꽃 보여주고 꽃 너비 측정
@@ -193,7 +193,7 @@ class Intro {
     this.$main.style.visibility = 'visible';
 
     // 📍 슬라이드 카드 등장
-    // this.showCards();
+    this.showCards();
   }
 
   async showCards() {
@@ -488,8 +488,7 @@ class Intro {
 }
 
 const intro = new Intro();
-intro.init();
-// intro.showCards();
+// intro.init();
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Events
@@ -523,6 +522,7 @@ class Events {
     this.currentSpotItem = 0;
     this.currentSpotFlower = null;
     this.currentSpotTarget = null;
+    this.currentSpotRead = null;
     this.spotRatio = null;
     this.spotZindex = null;
 
@@ -728,16 +728,25 @@ class Events {
     if(e.target.className !== 'spotlight__contents__item__img-box__img') return;
     if(this.currentSpotFlower) return;
     this.currentSpotTarget = e.target;
+    this.currentSpotRead = this.currentSpotTarget.nextElementSibling;
     this.spotZindex = this.currentSpotTarget.closest('.spotlight__contents__item');
     this.spotZindex.style.zIndex = '0';
     this.currentSpotFlower = this.currentSpotTarget.parentNode.querySelector('.spotlight__contents__item__img-box__svg');
     this.currentSpotFlower.classList.add('bloom');
+    this.currentSpotRead.classList.add('show');
+    for(let child of this.currentSpotRead.children) {
+      child.classList.add('show');
+    }
     this.currentSpotTarget.addEventListener('pointerout', this.leaveSpotFlower);
   }
 
   leaveSpotFlower(e) {
     this.spotZindex.style.zIndex = '';
     this.currentSpotFlower.classList.remove('bloom');
+    this.currentSpotRead.classList.remove('show');
+    for(let child of this.currentSpotRead.children) {
+      child.classList.remove('show');
+    }
     this.currentSpotTarget.removeEventListener('pointerout', this.leaveSpotFlower);
     this.currentSpotFlower = null;
   }
