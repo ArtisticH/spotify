@@ -764,7 +764,9 @@ class Events {
       child.classList.add('show');
     }
     // 마우스 커서 모양 변형
-    // this.$spotCursor.classList.add('overed');
+    this.$spotCursor.classList.add('overed');
+    this.$spotCursor.style.left = e.clientX - (this.$spotCursor.getBoundingClientRect().width / 2) + 'px';
+    this.$spotCursor.style.top = e.clientY - (this.$spotCursor.getBoundingClientRect().height / 2) + 'px';
     this.currentSpotTarget.addEventListener('pointerout', this.leaveSpotFlower);
   }
 
@@ -775,7 +777,7 @@ class Events {
     for(let child of this.currentSpotRead.children) {
       child.classList.remove('show');
     }
-    // this.$spotCursor.classList.remove('overed');
+    this.$spotCursor.classList.remove('overed');
     this.currentSpotTarget.removeEventListener('pointerout', this.leaveSpotFlower);
     this.currentSpotFlower = null;
   }
@@ -783,7 +785,6 @@ class Events {
   spotCursor(e) {
     // 완전체로 등장
     this.$spotCursor.style.display = 'flex';
-    console.log(e.target, e.type, this.$spotCursor, e.clientX, e.clientY);
 
     this.spotCursorMoveAt(e.clientX, e.clientY);
 

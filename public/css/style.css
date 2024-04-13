@@ -1263,6 +1263,12 @@ body.hidden {
   position: fixed;
   top: 0;
   left: 0;
+  /* 마우스 커서 바로 아래에 있으면서 다른 이벤트에 영향을 끼치지 않는 중요한 요소
+  : pointer-events: none과 z-index
+  */
+  pointer-events: none;
+  z-index: 99;
+  transition: left 0.3s ease-out, top 0.3s ease-out, display 0.3s ease-out;
 }
 
 #spotlightCursor.downed {
