@@ -1268,11 +1268,14 @@ body.hidden {
   */
   pointer-events: none;
   z-index: 99;
-  transition: left 0.3s ease-out, top 0.3s ease-out, display 0.3s ease-out;
+  transition: left 0.3s ease-out, top 0.3s ease-out;
 }
 
 #spotlightCursor.downed {
   border: 12px solid rgb(231, 231, 231);
+  width: 25px;
+  height: 25px;
+  pointer-events: none;
 }
 
 #spotlightCursor.overed {
@@ -1280,10 +1283,6 @@ body.hidden {
   height: 25px;
   border: none;
   display: flex;
-}
-
-#spotlightCursor.overed.downed {
-  /* border: 12px solid rgb(231, 231, 231); */
 }
 
 .spotcursorLeft {

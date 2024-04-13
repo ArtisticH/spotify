@@ -518,6 +518,8 @@ class Events {
     this.$spotlightItems = Array.from(document.querySelectorAll('.spotlight__contents__item'));
     this.$spotlightImgBoxImges = Array.from(document.querySelectorAll('.spotlight__contents__item__img-box__img'));
     this.$spotCursor = document.getElementById('spotlightCursor');
+    this.$spotCursorLeft = document.querySelector('.spotcursorLeft');
+    this.$spotCursorRight = document.querySelector('.spotcursorRight');
     this.spotInnerLeft = null;
     this.firstInnerLeft = document.querySelector('.spotlight__contents__inner').getBoundingClientRect().left;
     this.currentSpotItem = 0;
@@ -543,6 +545,7 @@ class Events {
     this.spotCursorMoveAt = this.spotCursorMoveAt.bind(this);
     this.spotCursorMove = this.spotCursorMove.bind(this);
     this.spotCursorOut = this.spotCursorOut.bind(this);
+    this.spotCursorDown = this.spotCursorDown.bind(this);
     this.jobs = this.jobs.bind(this);
 
     this.$spotlightImgBoxImges.forEach(item => {
@@ -719,7 +722,7 @@ class Events {
         // 원래 위치로
         this.$spotlightInner.style.marginLeft = this.$spotlightInner.getBoundingClientRect().left + -this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left + 'px';
       }  
-    } else {
+    } else if(this.firstClientX - e.clientX < 0){
       // 방향이 오른쪽으로 드래그이면
       this.spotRatio = this.$spotlightItems[this.currentSpotItem - 1].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
       if(this.spotRatio >= 0.5) {
@@ -732,6 +735,13 @@ class Events {
     this.$spotlightInner.style.transition = '';
     this.$spotlightInner.removeEventListener('pointermove', this.spotlightPointerMove);
     this.$spotlightInner.removeEventListener('pointerup', this.spotlightPointerUp);
+
+    this.$spotCursor.classList.remove('downed');
+    this.$spotCursorLeft.classList.remove('none');
+    this.$spotCursorRight.classList.remove('none');
+
+    this.spotCursorMoveAt(e.clientX, e.clientY);
+    this.$spotlightInner.removeEventListener('pointerdown', this.spotCursorDown);
   }
 
   spotKeydown(e) {
@@ -788,6 +798,7 @@ class Events {
 
     this.spotCursorMoveAt(e.clientX, e.clientY);
 
+    this.$spotlightInner.addEventListener('pointerdown', this.spotCursorDown);
     this.$spotlightInner.addEventListener('pointermove', this.spotCursorMove);
     this.$spotlightInner.addEventListener('pointerout', this.spotCursorOut);
   }
@@ -803,6 +814,15 @@ class Events {
 
   spotCursorOut() {
     this.$spotCursor.style.display = 'none';
+  }
+
+  spotCursorDown(e) {
+    this.$spotCursor.classList.add('downed');
+    this.$spotCursorLeft.classList.add('none');
+    this.$spotCursorRight.classList.add('none');
+
+    this.spotCursorMoveAt(e.clientX, e.clientY);
+    this.$spotlightInner.addEventListener('pointerup', this.spotCursorUp);
   }
 
   jobs(e) {
