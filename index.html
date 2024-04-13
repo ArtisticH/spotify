@@ -209,12 +209,14 @@
   </section>
   <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
   <!-- SPOTLIGHT -->
-  <div class="js-spotlight-cursor" hidden>
-    <div class="js-spotlight-cursor__circle">
-      <img class="spotlight-cursor__left-arrow" src="/public/img/svg/play.svg" alt="play">
-      <img class="spotlight-cursor__right-arrow" src="/public/img/svg/play.svg" alt="play">    
+  <div id="spotlightCursor">
+    <div class="spotcursorLeft">
+      <img src="/public/img/svg/play.svg" alt="spotcursorLeft">
     </div>
-  </div>          
+    <div class="spotcursorRight">
+      <img src="/public/img/svg/play.svg" alt="spotcursorRight">
+    </div>
+  </div>
   <section id="spotlight">
     <div class="width spotlight">
       <div class="heading-box">
@@ -222,7 +224,7 @@
         <div class="heading-box__sub">Meet the humans who design Spotify</div>  
       </div>
       <div class="spotlight__contents">
-        <div class="spotlight__contents__inner" data-pointerdown="spotlight" data-keydown="spotKeydown">
+        <div class="spotlight__contents__inner" data-pointerover="spotCursor" data-pointerdown="spotlight" data-keydown="spotKeydown">
           <div class="spotlight__contents__item spotlight__item__first">
             <div class="spotlight__contents__item__img-box">
               <img class="spotlight__contents__item__img-box__svg" src="/public/img/svg/spotlight/spotlight1.svg" alt="spotlight__svg">

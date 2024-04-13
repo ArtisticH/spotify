@@ -517,6 +517,7 @@ class Events {
     this.$spotlightInner = document.querySelector('.spotlight__contents__inner');
     this.$spotlightItems = Array.from(document.querySelectorAll('.spotlight__contents__item'));
     this.$spotlightImgBoxImges = Array.from(document.querySelectorAll('.spotlight__contents__item__img-box__img'));
+    this.$spotCursor = document.getElementById('spotlightCursor');
     this.spotInnerLeft = null;
     this.firstInnerLeft = document.querySelector('.spotlight__contents__inner').getBoundingClientRect().left;
     this.currentSpotItem = 0;
@@ -538,6 +539,10 @@ class Events {
     this.spotKeydown = this.spotKeydown.bind(this);
     this.spotFlower = this.spotFlower.bind(this);
     this.leaveSpotFlower = this.leaveSpotFlower.bind(this);
+    this.spotCursor = this.spotCursor.bind(this);
+    this.spotCursorMoveAt = this.spotCursorMoveAt.bind(this);
+    this.spotCursorMove = this.spotCursorMove.bind(this);
+    this.spotCursorOut = this.spotCursorOut.bind(this);
     this.jobs = this.jobs.bind(this);
 
     this.$spotlightImgBoxImges.forEach(item => {
@@ -758,6 +763,8 @@ class Events {
     for(let child of this.currentSpotRead.children) {
       child.classList.add('show');
     }
+    // 마우스 커서 모양 변형
+    // this.$spotCursor.classList.add('overed');
     this.currentSpotTarget.addEventListener('pointerout', this.leaveSpotFlower);
   }
 
@@ -768,8 +775,33 @@ class Events {
     for(let child of this.currentSpotRead.children) {
       child.classList.remove('show');
     }
+    // this.$spotCursor.classList.remove('overed');
     this.currentSpotTarget.removeEventListener('pointerout', this.leaveSpotFlower);
     this.currentSpotFlower = null;
+  }
+
+  spotCursor(e) {
+    // 완전체로 등장
+    this.$spotCursor.style.display = 'flex';
+    console.log(e.target, e.type, this.$spotCursor, e.clientX, e.clientY);
+
+    this.spotCursorMoveAt(e.clientX, e.clientY);
+
+    this.$spotlightInner.addEventListener('pointermove', this.spotCursorMove);
+    this.$spotlightInner.addEventListener('pointerout', this.spotCursorOut);
+  }
+
+  spotCursorMoveAt(clientX, clientY) {
+    this.$spotCursor.style.left = clientX - (this.$spotCursor.getBoundingClientRect().width / 2) + 'px';
+    this.$spotCursor.style.top = clientY - (this.$spotCursor.getBoundingClientRect().height / 2) + 'px';
+  }
+
+  spotCursorMove(e) {
+    this.spotCursorMoveAt(e.clientX, e.clientY);
+  }
+
+  spotCursorOut() {
+    this.$spotCursor.style.display = 'none';
   }
 
   jobs(e) {

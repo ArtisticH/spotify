@@ -1250,6 +1250,58 @@ body.hidden {
   letter-spacing: -0.7px;
 }
 
+#spotlightCursor {
+  border-radius: 50%;
+  box-sizing: content-box;
+  width: 95px;
+  height: 95px;
+  background-color: white;
+  border: 1px solid rgb(231, 231, 231);
+  align-items: center;
+  justify-content: center;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#spotlightCursor.downed {
+  border: 12px solid rgb(231, 231, 231);
+}
+
+#spotlightCursor.overed {
+  width: 25px;
+  height: 25px;
+  border: none;
+  display: flex;
+}
+
+#spotlightCursor.overed.downed {
+  /* border: 12px solid rgb(231, 231, 231); */
+}
+
+.spotcursorLeft {
+  width: 22px;
+  margin-right: 13px;
+  transform: rotate(180deg);
+}
+
+.spotcursorLeft > img,
+.spotcursorRight > img {
+  width: 100%;
+  display: block;
+}
+
+.spotcursorRight {
+  width: 22px;
+  margin-left: 13px;
+}
+
+.spotcursorLeft.none,
+.spotcursorRight.none {
+  display: none;
+}
+
 @media all and (min-width: 600px) {
   .heading-box__main {
     font-size: 1.7rem;
