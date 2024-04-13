@@ -52,6 +52,7 @@ class Intro {
 
     this.$header = document.getElementById('header');
     this.$main = document.getElementById('main');
+    this.$headerCategories = document.querySelectorAll('.header__categories__category');
 
     this.$mainImgArea = document.querySelector('.main__imgs');
     this.$mainImgBoxes = Array.from(document.querySelectorAll('.main__imgs__image-box'));
@@ -188,8 +189,7 @@ class Intro {
         this.$introFlower.style.transform = `translate3d(${-100 * progress}%, 0, 0) scale(${(-0.5 * progress) + 1})`;
       }
     });
-    // 헤더와 메인 나타나고
-    this.$header.style.visibility = 'visible';
+    // 메인 나타나고
     this.$main.style.visibility = 'visible';
 
     // 📍 슬라이드 카드 등장
@@ -211,6 +211,11 @@ class Intro {
 
       if(this.mainStackIndex < 0) {
         clearInterval(intervalId);
+        // 헤더 등장
+        this.$header.classList.add('show');
+        for(let category of this.$headerCategories) {
+          category.classList.add('show');
+        }
         // 마지막 imgBox까지 중앙으로 들어왔을때 (transition: left 0.4s라서)
         // 자동 슬라이드 시작
         new Promise((resolve) => {
@@ -488,7 +493,7 @@ class Intro {
 }
 
 const intro = new Intro();
-// intro.init();
+intro.init();
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Events
@@ -503,6 +508,7 @@ class Events {
 
     this.$headerCateText = null;
     this.$headerCateCircle = null;
+    this.$headerCategories = document.querySelectorAll('.header__categories__category');
 
     this.$mainScrollBackground = document.querySelector('.main__bar__scroll__circle__background');
     this.$mainScrollArrow = document.querySelector('.main__bar__scroll__circle__arrow');
@@ -620,6 +626,9 @@ class Events {
       for(let line of this.$headerMenuLines) {
         line.classList.remove('clicked');
       }    
+      for(let category of this.$headerCategories) {
+        category.classList.add('show');
+      }
       document.body.style.paddingRight = '';
       this.$menuContents.style.paddingRight = '';
     }
