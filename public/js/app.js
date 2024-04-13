@@ -680,6 +680,8 @@ class Events {
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
     this.spotShiftX = e.clientX - this.spotInnerLeft;
     this.$spotlightInner.style.transition = 'none';
+    // 방향을 알기 위한 포인트
+    this.firstClientX = e.clientX;
 
     this.spotlightMoveAt(e.clientX);
 
@@ -700,19 +702,28 @@ class Events {
 
   // 방향 구분, 양 끝단에서 이벤트 못하게
   spotlightPointerUp(e) {
-    // 왼쪽으로 드래그할때 == 요소가 왼쪽에서 오른쪽으로 이동할때
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
-    // 방향이 왼쪽으로 드래그이면
-    this.spotRatio = this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
-    if(this.spotRatio <= 0.5) {
-      // 다음 요소로 이동
-      this.currentSpotItem++;
-      this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
+    // 양수면 왼쪽으로 드래그, 음수면 오른쪽으로 드래그
+    if(this.firstClientX - e.clientX > 0) {
+      this.spotRatio = this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
+      if(this.spotRatio <= 0.5) {
+        // 다음 요소로 이동
+        this.currentSpotItem++;
+        this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
+      } else {
+        // 원래 위치로
+        this.$spotlightInner.style.marginLeft = this.$spotlightInner.getBoundingClientRect().left + -this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left + 'px';
+      }  
     } else {
-      // 원래 위치로
-      this.$spotlightInner.style.marginLeft = this.$spotlightInner.getBoundingClientRect().left + -this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left + 'px';
+      // 방향이 오른쪽으로 드래그이면
+      this.spotRatio = this.$spotlightItems[this.currentSpotItem - 1].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
+      if(this.spotRatio >= 0.5) {
+        this.currentSpotItem--;
+        this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
+      } else {
+        this.$spotlightInner.style.marginLeft = this.$spotlightInner.getBoundingClientRect().left + -this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left + 'px';
+      }
     }
-    // 방향이 오른쪽으로 드래그이면
     this.$spotlightInner.style.transition = '';
     this.$spotlightInner.removeEventListener('pointermove', this.spotlightPointerMove);
     this.$spotlightInner.removeEventListener('pointerup', this.spotlightPointerUp);
@@ -721,7 +732,6 @@ class Events {
   spotKeydown(e) {
     // 17..5 , -286.5, -519.5... 의 변화
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
-    console.log('키보드', this.spotInnerLeft);
     if(e.key == 'ArrowRight') {
       if(this.currentSpotItem >= 11) return;
       this.currentSpotItem++;
