@@ -618,6 +618,7 @@ class Events {
     // spotlight에서 현재의 요소가 가장 앞에 오게 조정
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
     this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
+    this.firstInnerLeft = document.querySelector('.spotlight__contents__inner').getBoundingClientRect().left;
   }
 
   mainTooltips(e, target) {
@@ -696,16 +697,22 @@ class Events {
   spotlightPointerMove(e) {
     this.spotlightMoveAt(e.clientX);
   }
+
   // 방향 구분, 양 끝단에서 이벤트 못하게
   spotlightPointerUp(e) {
+    // 왼쪽으로 드래그할때 == 요소가 왼쪽에서 오른쪽으로 이동할때
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
+    // 방향이 왼쪽으로 드래그이면
     this.spotRatio = this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
     if(this.spotRatio <= 0.5) {
+      // 다음 요소로 이동
       this.currentSpotItem++;
       this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
     } else {
+      // 원래 위치로
       this.$spotlightInner.style.marginLeft = this.$spotlightInner.getBoundingClientRect().left + -this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left + 'px';
     }
+    // 방향이 오른쪽으로 드래그이면
     this.$spotlightInner.style.transition = '';
     this.$spotlightInner.removeEventListener('pointermove', this.spotlightPointerMove);
     this.$spotlightInner.removeEventListener('pointerup', this.spotlightPointerUp);
