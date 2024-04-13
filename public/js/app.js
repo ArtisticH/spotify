@@ -615,6 +615,9 @@ class Events {
       document.body.style.paddingRight = '';
       this.$menuContents.style.paddingRight = '';
     }
+    // spotlight에서 현재의 요소가 가장 앞에 오게 조정
+    this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
+    this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
   }
 
   mainTooltips(e, target) {
@@ -711,6 +714,7 @@ class Events {
   spotKeydown(e) {
     // 17..5 , -286.5, -519.5... 의 변화
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
+    console.log('키보드', this.spotInnerLeft);
     if(e.key == 'ArrowRight') {
       if(this.currentSpotItem >= 11) return;
       this.currentSpotItem++;
