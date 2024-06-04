@@ -42,34 +42,160 @@
   }
 })();
 
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// INTRO + MAIN
+// 인트로
 class Intro {
   constructor() {
+    // 인트로
     this.$introLogo = document.querySelector('.intro-logo');
     this.$introFlower = document.querySelector('.intro-flower');
-    this.introFlowerWidth = null;
-
-    this.$header = document.getElementById('header');
+    this.init = this.init.bind(this);
+    this.showFlower = this.showFlower.bind(this);
+    this.disappearIntro = this.disappearIntro.bind(this);
+  }
+  animate({timing, draw, duration}) {
+    let start = performance.now();
+    requestAnimationFrame(function animate(time) {
+      let timeFraction = (time - start) / duration;
+      if (timeFraction > 1) timeFraction = 1;
+      let progress = timing(timeFraction)
+      draw(progress); 
+      if (timeFraction < 1) {
+        requestAnimationFrame(animate);
+      }
+    });
+  }
+  // 처음에 로고 있고 꽃이 1.5초 후에 등장
+  // 4.5초 후에 로고 사라지고, 스크롤 풀리고, 
+  // 0.5초간 꽃 사라지며 슬라이드 등장
+  init() {
+    // 맨처음으로 올려
+    window.scrollTo(0, 0);
+    // 스크롤 멈춰
+    document.body.style.overflowY = 'hidden';
+    // 1.5초 후에 꽃 보여주고
+    // 4.5초 후에 로고와 꽃 사라진다. 
+    setTimeout(this.showFlower, 1500);
+    setTimeout(this.disappearIntro, 4500);
+  }
+  showFlower() {
+    // 꽃 등장
+    this.$introFlower.style.display = 'block';
+  }
+  disappearIntro() {
+    // 스크롤 풀리고 로고 사라져
+    this.$introLogo.style.display = 'none';
+    document.body.style.overflowY = '';
+    // 꽃 0.5초 동안 줄어들며 사라지고
+    // 📍 마지막에 사라지는 거 추가
+    this.animate({
+      duration: 500,
+      timing: function(timeFraction) {
+        return timeFraction;
+      },
+      // 📍 여기 화살표 함수인거 주목, 그냥 함수는 this가 undefined된다. 
+      // scale은 1 -> 0.5
+      draw: (progress) => {
+        this.$introFlower.style.transform = `translate3d(${-100 * progress}%, 0, 0) scale(${(-0.5 * progress) + 1})`;
+      }
+    });
+    main.showMain();
+  }
+}
+const intro = new Intro();
+// document.addEventListener('DOMContentLoaded', intro.init);
+// 헤더
+class Header {
+  constructor() {
+    // 메뉴 클릭시 메뉴 화면 등장
+    this.$menu = document.querySelector('.header-menu');
+    this.$menu.onclick = this.click.bind(this);
+    this.$lines = document.querySelectorAll('.header-line');
+    this.$menuBack = document.getElementById('white');
+    this.$menuText = document.getElementById('text');
+    this.$broswerWidth = document.documentElement.clientWidth;
+    this._X = null;
+    // 글자 메뉴 호버효과
+    this.$navs = document.querySelectorAll('.nav');
+    [...this.$navs].forEach(item => {
+      item.onpointerenter = this.navIn.bind(this);
+    });
+  }
+  navIn(e) {
+    const target = e.currentTarget;
+    const circle = target.querySelector('.nav-circle');
+    const text = target.querySelector('.nav-text');  
+    circle.classList.add('pointer');
+    text.classList.add('pointer');
+    target.onpointerleave = () => {
+      circle.classList.remove('pointer');
+      text.classList.remove('pointer');  
+    }
+  }
+  click() {
+    // 삼지창에서 X자로, X자에서 삼지창으로
+    for(let line of this.$lines) {
+      line.classList.toggle('clicked');
+    }
+    // 메뉴 등장
+    this.$menuBack.classList.toggle('show');
+    this.$menuText.classList.toggle('show');
+    if(this.$menuBack.classList.contains('show')) {
+      this._X = true; // 삼지창이 된 상태
+    } else {
+      this._X = false; // 다시 원래 상태로, 메뉴가 안 보이는 상태로 돌아가자
+    }
+    if(this._X) {
+      // 스크롤바 사라짐
+      document.body.style.overflow = 'hidden';
+      // 스크롤바 사라지면서 너비가 넓어지니까 그만큼 패딩으로 채워야 한다. 
+      // 현재 넓어진 너비에서 처음 스크롤바 있을때 저장한 너비를 빼서 오른쪽 패딩으로 추가하기
+      document.body.style.paddingRight = (document.documentElement.clientWidth - this.$broswerWidth) + 'px';
+      this.$menuText.style.paddingRight = (document.documentElement.clientWidth - this.$broswerWidth) + 'px';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+      this.$menuText.style.paddingRight = '';
+    }
+  }
+}
+new Header();
+// 메인
+class Main {
+  constructor() {
     this.$main = document.getElementById('main');
-    this.$headerCategories = document.querySelectorAll('.header__categories__category');
+    // 툴팁
+    this.$btns = document.querySelectorAll('.main-btn');
+    [...this.$btns].forEach(item => {
+      item.onpointerenter = this.tooltip.bind(this);
+    })
+    // this.$tooltip = null;
+    // 스크롤텍스트 호버 효과
+    this.$scroll = document.querySelector('.main-scroll');
+    this.$scroll.onpointerenter = this.scroll.bind(this);
+    this.$scrollBack = document.querySelector('.main-circle-back');
+    this.$scrollCircle = document.querySelector('.main-circle-arrow');
+    // 클릭시 스크롤 다운
+    this.$scroll.onclick = this.scrollDown.bind(this);
+    this.$release = document.getElementById('release');
 
-    this.$mainImgArea = document.querySelector('.main__imgs');
-    this.$mainImgBoxes = Array.from(document.querySelectorAll('.main__imgs__image-box'));
-    this.$mainSubTitle = document.querySelector('.main__title__subject');
-    this.$mainTitle = document.querySelector('.main__title__title');
-    this.$mainCurrentNum = document.querySelector('.main__bar__progress__current');
-    this.$mainProgress = document.querySelector('.main__bar__progress__stick__ing');
+
+    this.$mainImgArea = document.querySelector('.main-img-area');
+    this.$mainImgBoxes = Array.from(document.querySelectorAll('.main-img-box'));
+    this.$title = document.querySelector('.main-title');
+    this.$sub = document.querySelector('.main-sub');
+    this.$mainCurrentNum = document.querySelector('.main-current');
+    this.$mainProgress = document.querySelector('.main-stick-fill');
     this.mainStackIndex = 14;
-    this.mainTranslate = `translate(-50%, -50%)`;
-    this.mainInitialScale = ['scale(0.5)', 'scale(0.55)', 'scale(0.6)', 'scale(0.65)', 'scale(0.7)',
+    this._translate = `translate(-50%, -50%)`;
+    this._scale = [
+    'scale(0.5)', 'scale(0.55)', 'scale(0.6)', 'scale(0.65)', 'scale(0.7)',
     'scale(0.75)', 'scale(0.8)', 'scale(0.85)', 'scale(0.9)', 'scale(0.95)',
     'scale(1)', 'scale(1)', 'scale(1)', 'scale(1)', 'scale(1)',
     ];
-    this.mainInitialRotate = ['rotate(-3deg)', 'rotate(4deg)', 'rotate(-7deg)', 'rotate(5deg)', 'rotate(0deg)',
+    this._rotate = ['rotate(-3deg)', 'rotate(4deg)', 'rotate(-7deg)', 'rotate(5deg)', 'rotate(0deg)',
     ];
-    this.mainAutoSlide = 14;
-    this.mainSubTitle = [
+    this._slide = 14;
+    this._sub = [
       "PRODUCT DESIGN",
       "Q+A",
       "BEHIND THE SCENES",
@@ -86,7 +212,7 @@ class Intro {
       "Q+A",
       "BEHIND THE SCENES",
     ];
-    this.mainTitle = [
+    this._main = [
       `Beyond "Good Job": How to Give Impactful Feedback`,
       "Ask Spotify Design 06",
       "How to Stand Out as a Spotify Internship Applicant",
@@ -103,15 +229,18 @@ class Intro {
       "Ask Spotify Design 07",
       "Collaboration Secrets: Design X Engineering",
     ];
-    this.mainBackgroundColor = [
+    this._backColor = [
       "#ffbc4a", "#ffd0d5", "#ffd0d5", "#ffd0d5", "#ffbc4a",
       "#ffbc4a", "#ffd0d5", "#ffbc4a", "#ffbc4a", "#ffd0d5",
       "#ffbc4a", "#a5c9d8", "#ffd0d5", "#ffd0d5", "#ffd0d5"
     ];
 
-    this.$mainNextBtn = document.querySelector('.main__btns__next');
-    this.$mainPrevBtn = document.querySelector('.main__btns__prev');
-    this.$mainShuffleBtn = document.querySelector('.main__btns__shuffle');
+    this.$header = document.getElementById('header');
+    this.$headerCategories = document.querySelectorAll('.header__categories__category');
+
+    this.$mainNextBtn = document.querySelector('.btn-next');
+    this.$mainPrevBtn = document.querySelector('.btn-prev');
+    this.$mainShuffleBtn = document.querySelector('.btn-shuffle');
     this.autoTimeout = null;
     this.randomArr = [];
     this.temTitleArr = [];
@@ -124,9 +253,6 @@ class Intro {
     this.browserWidth = null;
     this.direction = null;
 
-    this.animate = this.animate.bind(this);
-    this.showFlower = this.showFlower.bind(this);
-    this.disappearLogoAndFlower = this.disappearLogoAndFlower.bind(this);
     this.showCards = this.showCards.bind(this);
     this.autoSlide = this.autoSlide.bind(this);
     this.makeRandom = this.makeRandom.bind(this);
@@ -144,7 +270,6 @@ class Intro {
       boxes.onpointerdown = this.dragAndDrop;
     })
   }
-
   animate({timing, draw, duration}) {
     let start = performance.now();
     requestAnimationFrame(function animate(time) {
@@ -157,55 +282,59 @@ class Intro {
       }
     });
   }
-  
-  init() {
-    window.scrollTo(0, 0);
-    document.body.style.overflowY = 'hidden';
-    setTimeout(this.showFlower, 1500);
-    setTimeout(this.disappearLogoAndFlower, 4500);
-  }
-
-  // 꽃 보여주고 꽃 너비 측정
-  showFlower() {
-    this.$introFlower.style.display = 'block';
-    this.introFlowerWidth = this.$introFlower.offsetWidth;
-  }
-
-  disappearLogoAndFlower() {
-    // 바디 hidden 풀리고, 
-    // 로고 사라지고,
-    document.body.style.overflowY = '';
-    this.$introLogo.style.display = 'none';
-    // 꽃 줄어들며 사라지고
-    // 📍 마지막에 사라지는 거 추가
-    this.animate({
-      duration: 500,
-      timing: function(timeFraction) {
-        return timeFraction;
-      },
-      // 📍 여기 화살표 함수인거 주목, 그냥 함수는 this가 undefined된다. 
-      // scale은 1 -> 0.5
-      draw: (progress) => {
-        this.$introFlower.style.transform = `translate3d(${-100 * progress}%, 0, 0) scale(${(-0.5 * progress) + 1})`;
-      }
-    });
-    // 메인 나타나고
+  // 메인 등장
+  showMain() {
     this.$main.style.visibility = 'visible';
-
     // 📍 슬라이드 카드 등장
     this.showCards();
+  }  
+  // 툴팁 호버 효과
+  tooltip(e) {
+    const target = e.currentTarget;
+    const tooltip = target.querySelector('.main-tooltip');
+    tooltip.classList.add('show');
+    target.onpointerleave = () => {
+      tooltip.classList.remove('show');
+    }
+  }
+  // 스크롤 원 효과
+  scroll(e) {
+    const target = e.currentTarget;
+    this.$scrollBack.classList.add('show');
+    this.$scrollCircle.classList.add('show');
+    target.onpointerleave = () => {
+      this.$scrollBack.classList.remove('show');
+      this.$scrollCircle.classList.remove('show');  
+    }
+  }
+  // 스크롤 클릭시
+  scrollDown() {
+    const start = window.pageYOffset;
+    const end = this.$release.getBoundingClientRect().top + start;
+    this.animate({
+      duration: 200,
+      timing: function linear(timeFraction) {
+        return timeFraction;
+      },
+      draw: (progress) => {
+        if(progress <= 0) return;
+        window.scrollTo(0, start + (end - start) * progress);
+      }
+    });    
   }
 
+
   async showCards() {
-    if(this.mainAutoSlide === 14) {
+    if(this._slide === 14) {
       this.$mainPrevBtn.classList.add('deactivated');
     }
-    this.$mainSubTitle.textContent = this.mainSubTitle[this.mainAutoSlide];
-    this.$mainTitle.textContent = this.mainTitle[this.mainAutoSlide];
+    // 처음에 등장할때 보여지는 타이틀과 넘버
+    this.$sub.textContent = this._sub[this._slide];
+    this.$title.textContent = this._main[this._slide];
     this.$mainCurrentNum.textContent = `01`;
 
     let intervalId = setInterval(() => {
-      this.$mainImgBoxes[this.mainStackIndex].style.transform = `${this.mainTranslate} ${this.mainInitialScale[this.mainStackIndex]} ${this.mainInitialRotate[this.mainStackIndex % 5]}`;
+      this.$mainImgBoxes[this.mainStackIndex].style.transform = `${this._translate} ${this._scale[this.mainStackIndex]} ${this._rotate[this.mainStackIndex % 5]}`;
       this.$mainImgBoxes[this.mainStackIndex].style.left = '50%';
       this.mainStackIndex--;
 
@@ -222,7 +351,7 @@ class Intro {
           setTimeout(() => {
             this.autoSlide();
             // 처음에 진행 바 시작 => 이후 알아서 무한으로 전환
-            if(this.mainAutoSlide === 14) {
+            if(this._slide === 14) {
               this.$mainProgress.classList.add('progress');
             }
             resolve();
@@ -240,38 +369,38 @@ class Intro {
   // 오렌지: 10, 8-7, 5-4, 0
   async autoSlide() {
     // 수동 버튼 클릭 시 01에서 비활성화된 버튼 다시 활성화
-    if(this.$mainPrevBtn.classList.contains('deactivated') && this.mainAutoSlide === 13) {
+    if(this.$mainPrevBtn.classList.contains('deactivated') && this._slide === 13) {
       this.$mainPrevBtn.classList.remove('deactivated');
     }
     // mainAutoSlide는 14부터 시작
     // 바로 scale, rotate 조정
-    this.$mainImgBoxes[this.mainAutoSlide].style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
+    this.$mainImgBoxes[this._slide].style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
     // 배경화면 변경
-    this.$main.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
-    this.$header.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
+    this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
+    this.$header.style.backgroundColor = `${this._backColor[this._slide]}`;
     // 5번째 뒤에꺼 scale1로 조정
-    if(this.mainAutoSlide > 4) {
-      this.$mainImgBoxes[this.mainAutoSlide - 5].style.transform = `translate(-50%, -50%) scale(1) ${this.mainInitialRotate[this.mainAutoSlide  % 5]}`;
+    if(this._slide > 4) {
+      this.$mainImgBoxes[this._slide - 5].style.transform = `translate(-50%, -50%) scale(1) ${this._rotate[this._slide  % 5]}`;
     } 
     // 진행 바 숫자 바뀌는거
-    this.$mainCurrentNum.textContent = (15 - this.mainAutoSlide) < 10 ? `0${(15 - this.mainAutoSlide)}` : `${(15 - this.mainAutoSlide)}`;
+    this.$mainCurrentNum.textContent = (15 - this._slide) < 10 ? `0${(15 - this._slide)}` : `${(15 - this._slide)}`;
     // 5초간 기다려
     new Promise((resolve) => {
       this.autoTimeout = setTimeout(() => {
         // 이미지 날려
-        if(this.mainAutoSlide > 0) {
-          this.$mainImgBoxes[this.mainAutoSlide].style.left = '200%';
-          this.mainAutoSlide--;
-          this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide]}`;
-          this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide]}`;   
+        if(this._slide > 0) {
+          this.$mainImgBoxes[this._slide].style.left = '200%';
+          this._slide--;
+          this.$sub.textContent = `${this._sub[this._slide]}`;
+          this.$title.textContent = `${this._main[this._slide]}`;   
           resolve();
           return this.autoSlide();      
-        } else if(this.mainAutoSlide === 0) {
+        } else if(this._slide === 0) {
           this.mainStackIndex = 14;
-          this.mainAutoSlide = 14;
+          this._slide = 14;
           // 배경화면 자연스럽게 변경
-          this.$main.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
-          this.$header.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
+          this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
+          this.$header.style.backgroundColor = `${this._backColor[this._slide]}`;
           this.$mainProgress.classList.remove('progress');
           resolve();
           return this.showCards();
@@ -283,27 +412,27 @@ class Intro {
   // 📍 수동과 자동 믹스 어떻게?
   // 📍 기존에 자동에서 진행되던 타이머를 취소하고 새롭게 타이머 설정해야 한다. 
   clickMainPrevBtn() {
-    if(this.mainAutoSlide >= 14) return;
+    if(this._slide >= 14) return;
     clearTimeout(this.autoTimeout);
 
-    if(this.mainAutoSlide === 13) {
+    if(this._slide === 13) {
       // 버튼 비활성화
       this.$mainPrevBtn.classList.add('deactivated');
     }
 
     // 지나간 슬라이드 다시 돌아와
-    this.$mainImgBoxes[this.mainAutoSlide + 1].style.left = '50%';
+    this.$mainImgBoxes[this._slide + 1].style.left = '50%';
     // 동시에 현재 슬라이드 rotate 변화하고 뒤에서 5번째 다시 scale조정
-    this.$mainImgBoxes[this.mainAutoSlide].style.transform = `translate(-50%, -50%) scale(1) ${this.mainInitialRotate[this.mainAutoSlide % 5]}`;
+    this.$mainImgBoxes[this._slide].style.transform = `translate(-50%, -50%) scale(1) ${this._rotate[this._slide % 5]}`;
     // 다시 안보이게 됌
-    if(this.mainAutoSlide > 4) {
-      this.$mainImgBoxes[this.mainAutoSlide - 5].style.transform = `translate(-50%, -50%) ${this.mainInitialScale[this.mainAutoSlide]} ${this.mainInitialRotate[this.mainAutoSlide  % 5]}`;
+    if(this._slide > 4) {
+      this.$mainImgBoxes[this._slide - 5].style.transform = `translate(-50%, -50%) ${this._scale[this._slide]} ${this._rotate[this._slide  % 5]}`;
     } 
-    this.mainAutoSlide++;
+    this._slide++;
     // 진행 바 숫자 바뀌는거
-    this.$mainCurrentNum.textContent = (15 - this.mainAutoSlide ) < 10 ? `0${(15 - this.mainAutoSlide)}` : `${(15 - this.mainAutoSlide)}`;
-    this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide]}`;
-    this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide]}`;   
+    this.$mainCurrentNum.textContent = (15 - this._slide ) < 10 ? `0${(15 - this._slide)}` : `${(15 - this._slide)}`;
+    this.$sub.textContent = `${this._sub[this._slide]}`;
+    this.$title.textContent = `${this._main[this._slide]}`;   
     return this.autoSlide();
   }
 
@@ -312,18 +441,18 @@ class Intro {
     // 기존의 autoSlide 정지
     clearTimeout(this.autoTimeout);
 
-    if(this.mainAutoSlide > 0) {
-      this.$mainImgBoxes[this.mainAutoSlide].style.left = '200%';
-      this.mainAutoSlide--;
-      this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide]}`;
-      this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide]}`;   
+    if(this._slide > 0) {
+      this.$mainImgBoxes[this._slide].style.left = '200%';
+      this._slide--;
+      this.$sub.textContent = `${this._sub[this._slide]}`;
+      this.$title.textContent = `${this._main[this._slide]}`;   
       return this.autoSlide();      
-    } else if(this.mainAutoSlide === 0) {
+    } else if(this._slide === 0) {
       this.mainStackIndex = 14;
-      this.mainAutoSlide = 14;
+      this._slide = 14;
       // 배경화면 자연스럽게 변경
-      this.$main.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
-      this.$header.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
+      this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
+      this.$header.style.backgroundColor = `${this._backColor[this._slide]}`;
       this.$mainProgress.classList.remove('progress');
       return this.showCards();
     }
@@ -337,8 +466,8 @@ class Intro {
       imgBox.style.left = '200%';
     }
     // 타이틀 다 날리고
-    this.$mainSubTitle.textContent = ``;
-    this.$mainTitle.textContent = ``;   
+    this.$sub.textContent = ``;
+    this.$title.textContent = ``;   
     this.$mainProgress.classList.remove('progress');
 
     this.fragment = null;
@@ -354,7 +483,7 @@ class Intro {
     this.arrangeShuffle();
     // 다시 등장, 
     this.mainStackIndex = 14;
-    this.mainAutoSlide = 14;
+    this._slide = 14;
     new Promise(resolve => {
       setTimeout(() => {
         resolve();
@@ -380,18 +509,18 @@ class Intro {
     // DOM재배치, 타이틀 재배치
     for(let randomNum of this.randomArr) {
       this.fragment.append(this.$mainImgBoxes[randomNum]);
-      this.temTitleArr.push(this.mainTitle[randomNum]);
-      this.temSubtitleArr.push(this.mainSubTitle[randomNum]);
-      this.temBackcolorArr.push(this.mainBackgroundColor[randomNum]);
+      this.temTitleArr.push(this._main[randomNum]);
+      this.temSubtitleArr.push(this._sub[randomNum]);
+      this.temBackcolorArr.push(this._backColor[randomNum]);
     }
     for(let currentElem of this.$mainImgArea.children) {
       currentElem.remove();
     }
     this.$mainImgArea.append(this.fragment);
     this.$mainImgBoxes = Array.from(document.querySelectorAll('.main__imgs__image-box'));    
-    this.mainTitle = [...this.temTitleArr];
-    this.mainSubTitle = [...this.temSubtitleArr];
-    this.mainBackgroundColor = [...this.temBackcolorArr];
+    this._main = [...this.temTitleArr];
+    this._sub = [...this.temSubtitleArr];
+    this._backColor = [...this.temBackcolorArr];
   }
 
   // 📍 드래그 이벤트
@@ -470,18 +599,18 @@ class Intro {
   forPointerUp(RATIO) {
     if(this.ratio >= RATIO) {
       // 넘겨
-      if(this.mainAutoSlide > 0) {
-        this.$mainImgBoxes[this.mainAutoSlide].style.left = '200%';
-        this.mainAutoSlide--;
-        this.$mainSubTitle.textContent = `${this.mainSubTitle[this.mainAutoSlide]}`;
-        this.$mainTitle.textContent = `${this.mainTitle[this.mainAutoSlide]}`;   
+      if(this._slide > 0) {
+        this.$mainImgBoxes[this._slide].style.left = '200%';
+        this._slide--;
+        this.$sub.textContent = `${this._sub[this._slide]}`;
+        this.$title.textContent = `${this._main[this._slide]}`;   
         this.autoSlide();      
-      } else if(this.mainAutoSlide === 0) {
+      } else if(this._slide === 0) {
         this.mainStackIndex = 14;
-        this.mainAutoSlide = 14;
+        this._slide = 14;
         // 배경화면 자연스럽게 변경
-        this.$main.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
-        this.$header.style.backgroundColor = `${this.mainBackgroundColor[this.mainAutoSlide]}`;
+        this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
+        this.$header.style.backgroundColor = `${this._backColor[this._slide]}`;
         this.$mainProgress.classList.remove('progress');
         this.showCards();
       }
@@ -492,9 +621,8 @@ class Intro {
   }
 }
 
-const intro = new Intro();
-intro.init();
-
+const main = new Main();
+main.showMain();
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Events
 // 📍 왜 어떤건 pointerover가 안 되고 어떤 건 pointerover가 되는지?
@@ -514,7 +642,7 @@ class Events {
     this.$mainScrollArrow = document.querySelector('.main__bar__scroll__circle__arrow');
     this.mainScrollStart = null;
     this.mainScrollEnd = null;
-    this.$mainTooltip = null;
+    // this.$mainTooltip = null;
     this.$release = document.getElementById('release');
 
     this.$releaseTitle = null;
@@ -581,28 +709,7 @@ class Events {
     const target = event.target.closest(`[data-${EVENT_TYPE}]`);
     if(!target) return;
     const method = target.dataset[EVENT_TYPE];
-    this[method](event, target);
-  }
-
-  headerMenu(e, target) {
-    // 삼지창에서 X자로
-    for(let line of this.$headerMenuLines) {
-      line.classList.toggle('clicked');
-    }
-    // 흰색 메뉴 등장
-    this.$menuBackground.classList.toggle('clicked');
-    this.$menuContents.classList.toggle('clicked');
-    // 스크롤바 사라짐
-    document.body.classList.toggle('hidden');
-    // 스크롤바 사라지면서 너비가 넓어지니까 그만큼 padding 채워야
-    if(document.body.classList.contains('hidden')) { // 흰색 메뉴 등장, overflow: hidden
-      // 현재 넓어진 너비에서 처음 스크롤바 있을때 저장한 너비를 빼서 오른쪽 패딩으로 추가하기
-      document.body.style.paddingRight = (document.documentElement.clientWidth - this.documentClientWidth) + 'px';
-      this.$menuContents.style.paddingRight = (document.documentElement.clientWidth - this.documentClientWidth) + 'px';
-    } else {
-      document.body.style.paddingRight = '';
-      this.$menuContents.style.paddingRight = '';
-    }  
+    // this[method](event, target);
   }
 
   headerHover(e, target) {
@@ -636,38 +743,6 @@ class Events {
     this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
     this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
     this.firstInnerLeft = document.querySelector('.spotlight__contents__inner').getBoundingClientRect().left;
-  }
-
-  mainTooltips(e, target) {
-    if(e.type === 'pointerover') {
-      this.$mainTooltip = target.querySelector('.main__btns__tooltip');
-      this.$mainTooltip.classList.add('overed');
-    } else if(e.type === 'pointerout') {
-      this.$mainTooltip.classList.remove('overed');
-    }
-  }
-
-  scrollDown(e, target) {
-    if(e.type === 'pointerover') {
-      this.$mainScrollBackground.classList.add('overed');
-      this.$mainScrollArrow.classList.add('overed');
-    } else if(e.type === 'pointerout') {
-      this.$mainScrollBackground.classList.remove('overed');
-      this.$mainScrollArrow.classList.remove('overed');
-    } else if(e.type === 'click') {
-      this.mainScrollStart = window.pageYOffset;
-      this.mainScrollEnd = this.$release.getBoundingClientRect().top + window.pageYOffset;    
-      this.animate({
-        duration: 300,
-        timing: function linear(timeFraction) {
-          return timeFraction;
-        },
-        draw: (progress) => {
-          if(progress <= 0) return;
-          window.scrollTo(0, this.mainScrollStart + (this.mainScrollEnd - this.mainScrollStart) * progress);
-        }
-      });    
-    }
   }
 
   releaseBox(e, target) {
@@ -869,12 +944,12 @@ class Events {
 }
 
 const events = new Events();
-document.addEventListener('click', events);
-document.addEventListener('pointerover', events);
-document.addEventListener('pointerout', events);
-document.addEventListener('pointerdown', events);
-document.addEventListener('keydown', events.spotKeydown);
-window.addEventListener('resize', events);
+// document.addEventListener('click', events);
+// document.addEventListener('pointerover', events);
+// document.addEventListener('pointerout', events);
+// document.addEventListener('pointerdown', events);
+// document.addEventListener('keydown', events.spotKeydown);
+// window.addEventListener('resize', events);
 
 class InboxScroll {
   constructor() {
