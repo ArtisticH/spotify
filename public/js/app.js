@@ -177,24 +177,37 @@ class Main {
     // 클릭시 스크롤 다운
     this.$scroll.onclick = this.scrollDown.bind(this);
     this.$release = document.getElementById('release');
-
-
-    this.$mainImgArea = document.querySelector('.main-img-area');
-    this.$mainImgBoxes = Array.from(document.querySelectorAll('.main-img-box'));
+    // 카드에 대한 모든 효과
+    // 카드 슬라이드
     this.$title = document.querySelector('.main-title');
     this.$sub = document.querySelector('.main-sub');
-    this.$mainCurrentNum = document.querySelector('.main-current');
-    this.$mainProgress = document.querySelector('.main-stick-fill');
-    this.mainStackIndex = 14;
+    // 이미지를 담는 공간
+    this.$imgArea = document.querySelector('.main-img-area');
+    // 이미지 박스
+    this.$img = Array.from(document.querySelectorAll('.main-img-box'));
+    this.$img.forEach(item => {
+      item.onpointerdown = this.dragAndDrop;
+    })
+    // 현재 슬라이드 넘버
+    this.$current = document.querySelector('.main-current');
+    // 채워지는 바
+    this.$stickFill = document.querySelector('.main-stick-fill');
+    // this._stack은 처음에 슬라이드가 중앙으로 촤라락 올때 쓰인다. 
+    this._stack = 14;
+    this._slide = 14;
+    // 슬라이드가 변하면서 보여지는 배경색, 스케일, 제목들...
     this._translate = `translate(-50%, -50%)`;
+    // 인덱스 14부터 0으로... 
+    // 처음에 앞에서 5개는 scale이 1이다. 
     this._scale = [
     'scale(0.5)', 'scale(0.55)', 'scale(0.6)', 'scale(0.65)', 'scale(0.7)',
     'scale(0.75)', 'scale(0.8)', 'scale(0.85)', 'scale(0.9)', 'scale(0.95)',
     'scale(1)', 'scale(1)', 'scale(1)', 'scale(1)', 'scale(1)',
     ];
+    // this._stack % 5로 쓰일 예정, 
+    // 즉 인덱스 4, 3, 2, 1, 0순으로.. 반복
     this._rotate = ['rotate(-3deg)', 'rotate(4deg)', 'rotate(-7deg)', 'rotate(5deg)', 'rotate(0deg)',
     ];
-    this._slide = 14;
     this._sub = [
       "PRODUCT DESIGN",
       "Q+A",
@@ -234,14 +247,22 @@ class Main {
       "#ffbc4a", "#ffd0d5", "#ffbc4a", "#ffbc4a", "#ffd0d5",
       "#ffbc4a", "#a5c9d8", "#ffd0d5", "#ffd0d5", "#ffd0d5"
     ];
-
+    // 헤더가 내려오는 효과
     this.$header = document.getElementById('header');
-    this.$headerCategories = document.querySelectorAll('.header__categories__category');
+    // 메뉴가 삼지창 아닐때 하나씩 내려오는 효과
+    this.$navs = document.querySelectorAll('.nav');
+    // 직접 클릭해 슬라이드 변경
+    this.$next = document.querySelector('.btn-next');
+    this.$prev = document.querySelector('.btn-prev');
+    this.$shuffle = document.querySelector('.btn-shuffle');
+    // 자동 슬라이드의 타이머 함수 반환값, 나중에 이걸로 슬라이드 끝낼거야
+    this._clearSlide = null;
+    this.$prev.onclick = this.prev.bind(this);
+    this.$next.onclick = this.next.bind(this);
+    this.$shuffle.onclick = this.shuffle.bind(this);
 
-    this.$mainNextBtn = document.querySelector('.btn-next');
-    this.$mainPrevBtn = document.querySelector('.btn-prev');
-    this.$mainShuffleBtn = document.querySelector('.btn-shuffle');
-    this.autoTimeout = null;
+
+
     this.randomArr = [];
     this.temTitleArr = [];
     this.temSubtitleArr = [];
@@ -253,8 +274,6 @@ class Main {
     this.browserWidth = null;
     this.direction = null;
 
-    this.showCards = this.showCards.bind(this);
-    this.autoSlide = this.autoSlide.bind(this);
     this.makeRandom = this.makeRandom.bind(this);
     this.arrangeShuffle = this.arrangeShuffle.bind(this);
     this.dragAndDrop = this.dragAndDrop.bind(this);
@@ -263,12 +282,6 @@ class Main {
     this.pointerUp = this.pointerUp.bind(this);
     this.forPointerUp = this.forPointerUp.bind(this);
 
-    this.$mainPrevBtn.onclick = this.clickMainPrevBtn.bind(this);
-    this.$mainNextBtn.onclick = this.clickMainNextBtn.bind(this);
-    this.$mainShuffleBtn.onclick = this.clickMainShuffleBtn.bind(this);
-    this.$mainImgBoxes.forEach(boxes => {
-      boxes.onpointerdown = this.dragAndDrop;
-    })
   }
   animate({timing, draw, duration}) {
     let start = performance.now();
@@ -322,37 +335,48 @@ class Main {
       }
     });    
   }
-
-
   async showCards() {
     if(this._slide === 14) {
-      this.$mainPrevBtn.classList.add('deactivated');
+      // 처음에 슬라이드가 중앙에 올때 prev버튼 비활성화
+      this.$prev.classList.add('not');
+      // 슬라이드가 다 날라가고 중앙으로 모일때 처음으로 변경해줘야 해
+      this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
+      this.$header.style.backgroundColor = `${this._backColor[this._slide]}`; 
+      this.$sub.textContent = this._sub[this._slide];
+      this.$title.textContent = this._main[this._slide];
+      this.$current.textContent = '01';
     }
-    // 처음에 등장할때 보여지는 타이틀과 넘버
-    this.$sub.textContent = this._sub[this._slide];
-    this.$title.textContent = this._main[this._slide];
-    this.$mainCurrentNum.textContent = `01`;
-
+    // 처음에 this._stack = 14부터 시작,
+    // left: 200%으로 바깥에 나가있는 이미지 박스를 중앙에 불러들일건데
+    // this.$img는 노드의 배열로, absolute로 쌓이기 때문에 HTML에서 아래에 있는 요소가 가장 겉을(?)이루고 있다. 
+    // 그래서 처음 화면에 딱 보이는 겉 요소는 HTML에서 가장 아래에 있는 인덱스 14번째 요소이다. 
+    // 인터벌로 40ms간격으로 슬라이드를 가져온다. 
+    // 40ms간격으로 이미지를 쏘면 400ms동안 이미지가 움직인다.
     let intervalId = setInterval(() => {
-      this.$mainImgBoxes[this.mainStackIndex].style.transform = `${this._translate} ${this._scale[this.mainStackIndex]} ${this._rotate[this.mainStackIndex % 5]}`;
-      this.$mainImgBoxes[this.mainStackIndex].style.left = '50%';
-      this.mainStackIndex--;
-
-      if(this.mainStackIndex < 0) {
+      // left: 200% => 50%
+      // this._translate는 transform의 다른 요소들을 설정하기 위해 어쩔 수 없이 같이 써야돼
+      this.$img[this._stack].style.transform = `${this._translate} ${this._scale[this._stack]} ${this._rotate[this._stack % 5]}`;
+      this.$img[this._stack].style.left = '50%';
+      // 그 다음놈 가져와
+      this._stack--;
+      if(this._stack < 0) {
+        // 다 보낸 후 인덱스가 -1이 되면 이 인터벌을 끝내자. 
         clearInterval(intervalId);
-        // 헤더 등장
+        // 그 다음에 헤더 등장하고, 만약 삼지창이 아니면 내려오는 메뉴 등장
         this.$header.classList.add('show');
-        for(let category of this.$headerCategories) {
+        for(let category of this.$navs) {
           category.classList.add('show');
         }
-        // 마지막 imgBox까지 중앙으로 들어왔을때 (transition: left 0.4s라서)
+        // 슬라이드가 다 안착했다면
+        // this.$img의 transition: left 0.4s ease-out,
         // 자동 슬라이드 시작
         new Promise((resolve) => {
           setTimeout(() => {
             this.autoSlide();
-            // 처음에 진행 바 시작 => 이후 알아서 무한으로 전환
+            // 바로 진행 바 시작 => 이후 알아서 무한으로 전환
+            // this._slide === 14은 슬라이드가 중앙에 모인후, 그 이후를 의미
             if(this._slide === 14) {
-              this.$mainProgress.classList.add('progress');
+              this.$stickFill.classList.add('progress');
             }
             resolve();
           }, 400);
@@ -360,115 +384,129 @@ class Main {
       }
     }, 40);
   }
-
-  // 📍 마지막 5초 후에 다시 슬라이드 촤라라 해야하는데 바로 슬라이드 촤라라 해서 이거 5초 후 수정,
-  // 📍 그리고 버튼으로 누르면 마지막 슬라이드 후에 빈공간 나타난 후에 슬라이드 촤라라
-  // 📍 진행 바
-  // 핑크: 14-12, 9, 6, 3-1
-  // 블루: 11
-  // 오렌지: 10, 8-7, 5-4, 0
+  /*
+  그니까 처음에 showCards()로 슬라이드들이 중앙에 모인다.
+  이때 40ms간격으로 쏘고, 오는데 400ms가 걸린다. 
+  그럼 마지막 슬라이드바를 쏘고 인터벌 중단하고 400ms후에 마지막 놈이 안착한다. 
+    이때 autoSlide()를 호출한다. 진행바도 실행한다. 
+    바로 처음에 시작하자마자 타이틀, 서브타이틀, 배경색, 윈위치, 현재 넘버 등을 바꾸고
+    5초 동안 진행바가 진행하면서 
+    5초 후엔 날아간다. 
+    그리고 다음 슬라이드에 대해서 똑같이 반복...
+    시작 ----5초----- 날아가
+    그리고 마지막 슬라이드때 5초가 지나면 날아가지 않고
+    다시 showCards()..
+  */
   async autoSlide() {
-    // 수동 버튼 클릭 시 01에서 비활성화된 버튼 다시 활성화
-    if(this.$mainPrevBtn.classList.contains('deactivated') && this._slide === 13) {
-      this.$mainPrevBtn.classList.remove('deactivated');
+    // 처음에 슬라이드가 중앙에 올때 prev버튼은 비활성화되어있다. 
+    // 근데 자동 슬라이드로 슬라이드가 2로 넘어가면 이 비활성화를 해제해야 한다.
+    if(this.$prev.classList.contains('not') && this._slide === 13) {
+      this.$prev.classList.remove('not');
     }
-    // mainAutoSlide는 14부터 시작
-    // 바로 scale, rotate 조정
-    this.$mainImgBoxes[this._slide].style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
+    // 가장 맨 앞에 있는 친구가 원래 크기와 각도로 돌아온다. 
+    // 가장 맨 처음에 this._slide = 14부터 시작...
+    this.$img[this._slide].style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
     // 배경화면 변경
     this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
     this.$header.style.backgroundColor = `${this._backColor[this._slide]}`;
-    // 5번째 뒤에꺼 scale1로 조정
-    if(this._slide > 4) {
-      this.$mainImgBoxes[this._slide - 5].style.transform = `translate(-50%, -50%) scale(1) ${this._rotate[this._slide  % 5]}`;
-    } 
+    this.$sub.textContent = this._sub[this._slide];
+    this.$title.textContent = this._main[this._slide];
     // 진행 바 숫자 바뀌는거
-    this.$mainCurrentNum.textContent = (15 - this._slide) < 10 ? `0${(15 - this._slide)}` : `${(15 - this._slide)}`;
-    // 5초간 기다려
+    // this._slide가 14일때 진행바는 01이니까 
+    // this._slide와 현재 진행바 숫자가 합쳐쳐 15가 되야 하니까
+    this.$current.textContent = (15 - this._slide) < 10 ? `0${(15 - this._slide)}` : `${(15 - this._slide)}`;
+    // 스케일은 처음에 5친구는 1이고 그이후 작아져서 마지막 친구는 0.5이다. 
+    // 맨 앞 친구가 주목을 받을때 뒤에 한명 크키를 키워야 한다. 
+    // 내 뒤에서 5번째 친구
+    if(this._slide > 4) {
+      // this._slide가 4일때는 이미 뒤에 애들이 다 스케일 1임. 
+      this.$img[this._slide - 5].style.transform = `translate(-50%, -50%) scale(1) ${this._rotate[this._slide  % 5]}`;
+    } 
+    // 5초간 기다려 => CSS에서 진행 바 진행 타임도 5초야, 
     new Promise((resolve) => {
-      this.autoTimeout = setTimeout(() => {
+      this._clearSlide = setTimeout(() => {
         // 이미지 날려
         if(this._slide > 0) {
-          this.$mainImgBoxes[this._slide].style.left = '200%';
+          // 마지막 아니라면
+          // 밖으로 날아가 🦋
+          this.$img[this._slide].style.left = '200%';
           this._slide--;
-          this.$sub.textContent = `${this._sub[this._slide]}`;
-          this.$title.textContent = `${this._main[this._slide]}`;   
           resolve();
+          // 다음 자동 호출
           return this.autoSlide();      
         } else if(this._slide === 0) {
-          this.mainStackIndex = 14;
+          // 마지막 슬라이드의 5초 후가 지나면, 
+          // 다시 처음으로 셋팅
+          // 마지막 친구는 안 날라가더라
+          // 다시 중앙으로 처음처럼 모여!
+          this._stack = 14;
           this._slide = 14;
-          // 배경화면 자연스럽게 변경
-          this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
-          this.$header.style.backgroundColor = `${this._backColor[this._slide]}`;
-          this.$mainProgress.classList.remove('progress');
+          this.$stickFill.classList.remove('progress');
           resolve();
           return this.showCards();
         }
       }, 5000);
     });
   }
-
-  // 📍 수동과 자동 믹스 어떻게?
-  // 📍 기존에 자동에서 진행되던 타이머를 취소하고 새롭게 타이머 설정해야 한다. 
-  clickMainPrevBtn() {
-    if(this._slide >= 14) return;
-    clearTimeout(this.autoTimeout);
-
-    if(this._slide === 13) {
-      // 버튼 비활성화
-      this.$mainPrevBtn.classList.add('deactivated');
-    }
-
-    // 지나간 슬라이드 다시 돌아와
-    this.$mainImgBoxes[this._slide + 1].style.left = '50%';
-    // 동시에 현재 슬라이드 rotate 변화하고 뒤에서 5번째 다시 scale조정
-    this.$mainImgBoxes[this._slide].style.transform = `translate(-50%, -50%) scale(1) ${this._rotate[this._slide % 5]}`;
-    // 다시 안보이게 됌
-    if(this._slide > 4) {
-      this.$mainImgBoxes[this._slide - 5].style.transform = `translate(-50%, -50%) ${this._scale[this._slide]} ${this._rotate[this._slide  % 5]}`;
-    } 
-    this._slide++;
-    // 진행 바 숫자 바뀌는거
-    this.$mainCurrentNum.textContent = (15 - this._slide ) < 10 ? `0${(15 - this._slide)}` : `${(15 - this._slide)}`;
-    this.$sub.textContent = `${this._sub[this._slide]}`;
-    this.$title.textContent = `${this._main[this._slide]}`;   
-    return this.autoSlide();
-  }
-
-  clickMainNextBtn() {
-    // 사진, 타이틀, 카운트 숫자, 배경화면 바꿔
-    // 기존의 autoSlide 정지
-    clearTimeout(this.autoTimeout);
-
+  // 인위적으로 넘기기
+  next() {
+    // 자동으로 날아가는거 멈추기
+    // 진행바는 어찌할 수가 없소
+    clearTimeout(this._clearSlide);
     if(this._slide > 0) {
-      this.$mainImgBoxes[this._slide].style.left = '200%';
+      // 인위적으로 날리기
+      this.$img[this._slide].style.left = '200%';
       this._slide--;
-      this.$sub.textContent = `${this._sub[this._slide]}`;
-      this.$title.textContent = `${this._main[this._slide]}`;   
+      // 다시 자동 시작
       return this.autoSlide();      
     } else if(this._slide === 0) {
-      this.mainStackIndex = 14;
+      this._stack = 14;
       this._slide = 14;
-      // 배경화면 자연스럽게 변경
-      this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
-      this.$header.style.backgroundColor = `${this._backColor[this._slide]}`;
-      this.$mainProgress.classList.remove('progress');
+      this.$stickFill.classList.remove('progress');
       return this.showCards();
     }
   }
-
-  async clickMainShuffleBtn() {
+  prev() {
+    // 첫 화면에선 이전 버튼 눌러도 아무 효과 없어.
+    if(this._slide === 14) {
+      alert('첫 화면입니다');
+      return;
+    }
+    // 13일때 이전 버튼 누르면 가장 첫 화면이 되니까 버튼 비활성화
+    if(this._slide === 13) {
+      this.$prev.classList.add('not');
+    }
+    // 날아가기 멈춰
+    clearTimeout(this._clearSlide);
+    this._slide++;
+    // 지나간 슬라이드 다시 돌아와
+    this.$img[this._slide].style.left = '50%';
+    // 동시에 현재 슬라이드 rotate 변화
+    this.$img[this._slide - 1].style.transform = `translate(-50%, -50%) scale(1) ${this._rotate[this._slide % 5]}`;
+    // 만약 현재 인덱스 12이였는데 이전 버튼을 눌렀어. 
+    // 그럼 12일때 뒤에서 5번째인 인덱스 7요소가 스케일이 1로 컸었는데 이 친구를 다시 줄여야 해
+    if(this._slide > 5) {
+      this.$img[this._slide - 6].style.transform = `translate(-50%, -50%) ${this._scale[this._slide]} ${this._rotate[this._slide  % 5]}`;
+    } 
+    return this.autoSlide();
+  }
+  // 랜덤 버튼 클릭하면
+  // 모두 다 날리고, 타이틀, 서브타이틀 사라지고
+  // 뒤에서 랜덤 작업한 다음에
+  // 다시 중앙으로 와서 
+  // 이전 버튼 비활성화, 현재 숫자 01, 진행바 다시 시작, 타이틀과 서브타이틀 랜덤으로 처음부터, 사진 다 날아오기
+  // 근데 랜덤으로 날릴때는 처음에 날아올때와 반대 모양으로 날리기, 
+  async shuffle() {
     // 타이머 중지
-    clearTimeout(this.autoTimeout);
+    clearTimeout(this._clearSlide);
     // 이미지 다 날리고
-    for(let imgBox of this.$mainImgBoxes) {
+    for(let imgBox of this.$img) {
       imgBox.style.left = '200%';
     }
     // 타이틀 다 날리고
     this.$sub.textContent = ``;
     this.$title.textContent = ``;   
-    this.$mainProgress.classList.remove('progress');
+    this.$stickFill.classList.remove('progress');
 
     this.fragment = null;
     this.randomArr = [];
@@ -482,7 +520,7 @@ class Main {
     // $mainImgBoxes 재배열 => 실제 DOM 요소 바꾸기
     this.arrangeShuffle();
     // 다시 등장, 
-    this.mainStackIndex = 14;
+    this._stack = 14;
     this._slide = 14;
     new Promise(resolve => {
       setTimeout(() => {
@@ -491,7 +529,6 @@ class Main {
       }, 2500);
     })
   }
-
   makeRandom() {
     const number = Math.floor(Math.random() * 15);
     if(!this.randomArr.includes(number)) {
@@ -503,30 +540,28 @@ class Main {
       this.makeRandom();
     }
   }
-
   arrangeShuffle() {
     this.fragment = new DocumentFragment();
     // DOM재배치, 타이틀 재배치
     for(let randomNum of this.randomArr) {
-      this.fragment.append(this.$mainImgBoxes[randomNum]);
+      this.fragment.append(this.$img[randomNum]);
       this.temTitleArr.push(this._main[randomNum]);
       this.temSubtitleArr.push(this._sub[randomNum]);
       this.temBackcolorArr.push(this._backColor[randomNum]);
     }
-    for(let currentElem of this.$mainImgArea.children) {
+    for(let currentElem of this.$imgArea.children) {
       currentElem.remove();
     }
-    this.$mainImgArea.append(this.fragment);
-    this.$mainImgBoxes = Array.from(document.querySelectorAll('.main__imgs__image-box'));    
+    this.$imgArea.append(this.fragment);
+    this.$img = Array.from(document.querySelectorAll('.main__imgs__image-box'));    
     this._main = [...this.temTitleArr];
     this._sub = [...this.temSubtitleArr];
     this._backColor = [...this.temBackcolorArr];
   }
-
   // 📍 드래그 이벤트
   dragAndDrop(e) {
-    clearTimeout(this.autoTimeout);
-    this.$mainProgress.classList.remove('progress');
+    clearTimeout(this._clearSlide);
+    this.$stickFill.classList.remove('progress');
 
     this.mouseTarget = e.currentTarget;
     this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1.1) rotate(0deg)`;
@@ -544,15 +579,12 @@ class Main {
       e.preventDefault();
     });
   }
-
   moveAt(clientX) {
     this.mouseTarget.style.left = `calc(50% + ${clientX - this.shiftX - this.rectX}px)`;
   }
-
   pointerMove(e) {
     this.moveAt(e.clientX);
   }
-
   pointerUp(e) {
     this.browserWidth = document.documentElement.clientWidth;
     // 오른쪽으로 움직일때와 왼쪽으로 움직일때
@@ -585,33 +617,30 @@ class Main {
           break;
       }
     } 
-
     this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
     this.mouseTarget.style.transition = `left 0.4s ease-out, transform 0.3s ease-out`;
     this.mouseTarget.style.cursor = ``;
     this.mouseTarget.style.zIndex = ``;  
-    this.$mainProgress.classList.add('progress');
-
+    this.$stickFill.classList.add('progress');
     document.removeEventListener('pointermove', this.pointerMove);
     this.mouseTarget.removeEventListener('pointerup', this.pointerUp);
   }
-
   forPointerUp(RATIO) {
     if(this.ratio >= RATIO) {
       // 넘겨
       if(this._slide > 0) {
-        this.$mainImgBoxes[this._slide].style.left = '200%';
+        this.$img[this._slide].style.left = '200%';
         this._slide--;
         this.$sub.textContent = `${this._sub[this._slide]}`;
         this.$title.textContent = `${this._main[this._slide]}`;   
         this.autoSlide();      
       } else if(this._slide === 0) {
-        this.mainStackIndex = 14;
+        this._stack = 14;
         this._slide = 14;
         // 배경화면 자연스럽게 변경
         this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
         this.$header.style.backgroundColor = `${this._backColor[this._slide]}`;
-        this.$mainProgress.classList.remove('progress');
+        this.$stickFill.classList.remove('progress');
         this.showCards();
       }
     } else {
@@ -620,7 +649,6 @@ class Main {
     }
   }
 }
-
 const main = new Main();
 main.showMain();
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -636,7 +664,7 @@ class Events {
 
     this.$headerCateText = null;
     this.$headerCateCircle = null;
-    this.$headerCategories = document.querySelectorAll('.header__categories__category');
+    this.$navs = document.querySelectorAll('.header__categories__category');
 
     this.$mainScrollBackground = document.querySelector('.main__bar__scroll__circle__background');
     this.$mainScrollArrow = document.querySelector('.main__bar__scroll__circle__arrow');
@@ -712,17 +740,6 @@ class Events {
     // this[method](event, target);
   }
 
-  headerHover(e, target) {
-    if(e.type === 'pointerover') {
-      this.$headerCateText = target.querySelector('.header__categories__category__text');
-      this.$headerCateCircle = target.querySelector('.header__categories__category__circle');
-      this.$headerCateText.classList.add('overed');
-      this.$headerCateCircle.classList.add('overed');
-    } else if(e.type === 'pointerout') {
-      this.$headerCateText.classList.remove('overed');
-      this.$headerCateCircle.classList.remove('overed');
-    }
-  }
 
   resize(e) {
     this.documentClientWidth = document.documentElement.clientWidth;
@@ -733,7 +750,7 @@ class Events {
       for(let line of this.$headerMenuLines) {
         line.classList.remove('clicked');
       }    
-      for(let category of this.$headerCategories) {
+      for(let category of this.$navs) {
         category.classList.add('show');
       }
       document.body.style.paddingRight = '';
@@ -944,12 +961,6 @@ class Events {
 }
 
 const events = new Events();
-// document.addEventListener('click', events);
-// document.addEventListener('pointerover', events);
-// document.addEventListener('pointerout', events);
-// document.addEventListener('pointerdown', events);
-// document.addEventListener('keydown', events.spotKeydown);
-// window.addEventListener('resize', events);
 
 class InboxScroll {
   constructor() {

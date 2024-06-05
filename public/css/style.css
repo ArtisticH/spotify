@@ -494,7 +494,7 @@ body {
   transition: opacity 0.2s ease-out;
 }
 
-.main-btn-img.deactivated {
+.main-btn-img.not {
   opacity: 0.5;
   cursor: auto;
 }
