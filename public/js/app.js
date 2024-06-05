@@ -1,47 +1,3 @@
-// 오른쪽 화살표 효과
-(async function rightArrows() {
-  const $rightArrows = document.querySelectorAll('.rightarrow__box');
-  let $rightArrowTitle;
-  let $rightArrowLine;
-  let $rightArrowCircle;
-  let $rightArrowImg;
-
-  function enterEvent(e) {
-    $rightArrowTitle = e.target.querySelector('.rightarrow__box__title-line__title');
-    $rightArrowLine = e.target.querySelector('.rightarrow__box__title-line__line');;
-    $rightArrowCircle = e.target.querySelector('.rightarrow__box__arrow');;
-    $rightArrowImg = e.target.querySelector('.rightarrow__box__arrow__img');
-
-    $rightArrowTitle.classList.add('overed');
-    $rightArrowLine.classList.add('overed');
-    $rightArrowCircle.classList.add('overed');
-    $rightArrowImg.classList.add('overed');
-  }
-
-  async function leaveEvent(e) {
-    $rightArrowTitle.classList.remove('overed');
-    $rightArrowLine.classList.replace('overed', 'rewind');
-    $rightArrowCircle.classList.remove('overed');
-    $rightArrowImg.classList.remove('overed');
-
-    await new Promise(resolve => {
-      setTimeout(() => {
-        resolve();
-      }, 300);
-    });
-
-    $rightArrowLine.classList.remove('rewind');
-  }
-
-  for(let rightArrow of $rightArrows) {
-    rightArrow.addEventListener('pointerenter', enterEvent);
-  }
-
-  for(let rightArrow of $rightArrows) {
-    rightArrow.addEventListener('pointerleave', leaveEvent);
-  }
-})();
-
 // 인트로
 class Intro {
   constructor() {
@@ -576,7 +532,6 @@ class Main {
     this.shiftX = e.clientX - this.rectX;
 
     this.moveAt(e.clientX);
-    
     document.addEventListener('pointermove', this.pointerMove);
     this.mouseTarget.addEventListener('pointerup', this.pointerUp);
     this.mouseTarget.addEventListener('dragstart', (e) => {
@@ -605,7 +560,6 @@ class Main {
       this.ratio = (this.mouseTarget.getBoundingClientRect().width - this.mouseTarget.getBoundingClientRect().right) / this.browserWidth;
       this.direction = 'left';
     }
-
     // 브라우저 너비별로 다르게
     if(this.browserWidth < 600) {
       this.forPointerUp(0.2);
@@ -626,6 +580,7 @@ class Main {
     this.mouseTarget.style.cursor = ``;
     this.mouseTarget.style.zIndex = ``;  
     this.$stickFill.classList.add('progress');
+    // 제거
     document.removeEventListener('pointermove', this.pointerMove);
     this.mouseTarget.removeEventListener('pointerup', this.pointerUp);
   }
@@ -655,30 +610,81 @@ class Main {
 }
 const main = new Main();
 main.showMain();
+class Release {
+  constructor() {
+    this.$box = document.querySelectorAll('.rel-box');
+    [...this.$box].forEach(item => {
+      item.onpointerenter = this.pointer.bind(this);
+    })
+  }
+  pointer(e) {
+    const target = e.currentTarget;
+    const title = target.querySelector('.rel-title');
+    const play = target.querySelector('.rel-play-btn');
+    title.classList.add('pointer');
+    if(play) {
+      play.classList.add('pointer');
+    } 
+    target.onpointerleave = () => {
+      title.classList.remove('pointer');
+      if(play) {
+        play.classList.remove('pointer');
+      }   
+    }
+  }
+}
+new Release();
+class View {
+  constructor() {
+    this.$view = document.querySelectorAll('.view-box');
+    [...this.$view].forEach(item => {
+      item.onpointerenter = this.view.bind(this);
+    });
+  }
+  // 처음에 호버되면
+  // 타이틀에 밑줄,
+  // 그 밑에 줄이 0%에서 100%로 차오르고,
+  // 화살표 배경 검정색으로, 
+  // 화살표도 반전된다.
+  // 놓으면 원래 자리로 돌아가는데, 
+  // 밑의 줄만 왼쪽에서 오른쪽 방향으로 100%에서 0%가 된다. 
+  // 처음에 호버하면 width: 0%, left: 0% => width: 100%, left: 0%
+  // 그리고 놓으면 left: 0%, width: 100% => left: 100%, width: 0%
+  view(e) {
+    const target = e.currentTarget;
+    const title = target.querySelector('.view-title');
+    const line = target.querySelector('.view-title-line');
+    const color = target.querySelector('.view-circle');
+    const arrow = target.querySelector('.view-arrow');
+    // 'back'이 다 사라지기 전에 호버하는거 막자.
+    if(line.classList.contains('back')) return;
+    title.classList.add('pointer');
+    line.classList.add('pointer');
+    color.classList.add('pointer');
+    arrow.classList.add('pointer');
+    target.onpointerleave = async () => {
+      title.classList.remove('pointer');
+      color.classList.remove('pointer');
+      arrow.classList.remove('pointer');
+      line.classList.replace('pointer', 'back');
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve();
+        }, 200);
+      });
+      line.classList.remove('back');
+    }
+  }
+}
+new View();
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Events
 // 📍 왜 어떤건 pointerover가 안 되고 어떤 건 pointerover가 되는지?
 
 class Events {
   constructor() {
-    this.$menuBackground = document.getElementById('menuBackground');
-    this.$menuContents = document.getElementById('menuContents');
-    this.$headerMenuLines = document.querySelectorAll('.header__menu__line');
-    this.documentClientWidth = document.documentElement.clientWidth;
 
-    this.$headerCateText = null;
-    this.$headerCateCircle = null;
-    this.$navs = document.querySelectorAll('.header__categories__category');
 
-    this.$mainScrollBackground = document.querySelector('.main__bar__scroll__circle__background');
-    this.$mainScrollArrow = document.querySelector('.main__bar__scroll__circle__arrow');
-    this.mainScrollStart = null;
-    this.mainScrollEnd = null;
-    // this.$mainTooltip = null;
-    this.$release = document.getElementById('release');
-
-    this.$releaseTitle = null;
-    this.$releasePlay = null;
 
     this.$spotlightInner = document.querySelector('.spotlight__contents__inner');
     this.$spotlightItems = Array.from(document.querySelectorAll('.spotlight__contents__item'));
@@ -766,24 +772,6 @@ class Events {
     this.firstInnerLeft = document.querySelector('.spotlight__contents__inner').getBoundingClientRect().left;
   }
 
-  releaseBox(e, target) {
-    this.$releaseTitle = target.querySelector('.release__contents__box__title');
-    if(target.querySelector('.release__contents__box__play-btn')) {
-      this.$releasePlay = target.querySelector('.release__contents__box__play-btn');
-    }
-    if(e.type === 'pointerover') {
-      this.$releaseTitle.classList.add('overed');
-      if(this.$releasePlay) {
-        this.$releasePlay.classList.add('overed');
-      }
-    } else if(e.type === 'pointerout') {
-      this.$releaseTitle.classList.remove('overed');
-      if(this.$releasePlay) {
-        this.$releasePlay.classList.remove('overed');
-        this.$releasePlay = null;
-      }
-    }
-  }
   // 📍 클릭때마다 원점으로 가는 거 고치고, 키보드와 연계해서 이어질 수 있도록
   /*
   spotShiftX는 마우스 커서와 spotlightInner의 왼쪽 모서리 사이
