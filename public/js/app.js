@@ -185,9 +185,6 @@ class Main {
     this.$imgArea = document.querySelector('.main-img-area');
     // 이미지 박스
     this.$img = Array.from(document.querySelectorAll('.main-img-box'));
-    this.$img.forEach(item => {
-      item.onpointerdown = this.dragAndDrop;
-    })
     // 현재 슬라이드 넘버
     this.$current = document.querySelector('.main-current');
     // 채워지는 바
@@ -260,13 +257,15 @@ class Main {
     this.$prev.onclick = this.prev.bind(this);
     this.$next.onclick = this.next.bind(this);
     this.$shuffle.onclick = this.shuffle.bind(this);
+    // 셔플 클릭 후 랜덤으로 담을 0와14 사이의 숫자 배열
+    this._random = null;
+    // 드래그애드롭
+    this.$img.forEach(item => {
+      item.onpointerdown = this.dragAndDrop.bind(this);
+    });
 
 
 
-    this.randomArr = [];
-    this.temTitleArr = [];
-    this.temSubtitleArr = [];
-    this.temBackcolorArr = [];
     this.mouseTarget = null;
     this.shiftX = null;
     this.rectX = null;
@@ -274,9 +273,6 @@ class Main {
     this.browserWidth = null;
     this.direction = null;
 
-    this.makeRandom = this.makeRandom.bind(this);
-    this.arrangeShuffle = this.arrangeShuffle.bind(this);
-    this.dragAndDrop = this.dragAndDrop.bind(this);
     this.moveAt = this.moveAt.bind(this);
     this.pointerMove = this.pointerMove.bind(this);
     this.pointerUp = this.pointerUp.bind(this);
@@ -500,26 +496,30 @@ class Main {
     // 타이머 중지
     clearTimeout(this._clearSlide);
     // 이미지 다 날리고
-    for(let imgBox of this.$img) {
-      imgBox.style.left = '200%';
-    }
-    // 타이틀 다 날리고
+    let intervalId = setInterval(() => {
+      this.$img[this._slide].style.left = '200%';
+      this._slide--;
+      if(this._slide < 0) {
+        clearInterval(intervalId);
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve();
+            this.makeShuffle();
+          }, 400);
+        });       
+      }
+    }, 40);
     this.$sub.textContent = ``;
     this.$title.textContent = ``;   
     this.$stickFill.classList.remove('progress');
-
-    this.fragment = null;
-    this.randomArr = [];
-    this.temTitleArr = [];
-    this.temSubtitleArr = [];
-    this.temBackcolorArr = [];
-
-    // 다시 이미지 배열 순서를 다시해서
+  }
+  makeShuffle() {
+    this._random = [];
     // 0부터 14의 랜덤 숫자를 가진 length 15개의 배열
-    this.makeRandom();
-    // $mainImgBoxes 재배열 => 실제 DOM 요소 바꾸기
-    this.arrangeShuffle();
-    // 다시 등장, 
+    this.random();
+    // 실제 DOM 요소 바꾸기
+    this.shuffleDOM();
+    // 다시 시작
     this._stack = 14;
     this._slide = 14;
     new Promise(resolve => {
@@ -529,36 +529,40 @@ class Main {
       }, 2500);
     })
   }
-  makeRandom() {
+  // 0부터 14의 랜덤 숫자를 가진 length 15개의 배열, 재귀 함수
+  random() {
     const number = Math.floor(Math.random() * 15);
-    if(!this.randomArr.includes(number)) {
-      this.randomArr = this.randomArr.concat(number);
+    if(!this._random.includes(number)) {
+      this._random = this._random.concat(number);
     }
-    if(this.randomArr.length === 15) {
+    if(this._random.length === 15) {
       return;
     } else {
-      this.makeRandom();
+      this.random();
     }
   }
-  arrangeShuffle() {
-    this.fragment = new DocumentFragment();
-    // DOM재배치, 타이틀 재배치
-    for(let randomNum of this.randomArr) {
-      this.fragment.append(this.$img[randomNum]);
-      this.temTitleArr.push(this._main[randomNum]);
-      this.temSubtitleArr.push(this._sub[randomNum]);
-      this.temBackcolorArr.push(this._backColor[randomNum]);
+  shuffleDOM() {
+    const fragment = new DocumentFragment();
+    const title = [];
+    const sub = [];
+    const back = [];
+    // 이미지 DOM + 타이틀 재배치
+    for(let num of this._random) {
+      fragment.append(this.$img[num].cloneNode(true));
+      title.push(this._main[num]);
+      sub.push(this._sub[num]);
+      back.push(this._backColor[num]);
     }
-    for(let currentElem of this.$imgArea.children) {
-      currentElem.remove();
+    // 원래 이미지 요소 지우고
+    for(let item of this.$img) {
+      item.remove();
     }
-    this.$imgArea.append(this.fragment);
-    this.$img = Array.from(document.querySelectorAll('.main__imgs__image-box'));    
-    this._main = [...this.temTitleArr];
-    this._sub = [...this.temSubtitleArr];
-    this._backColor = [...this.temBackcolorArr];
+    this.$imgArea.append(fragment);
+    this.$img = Array.from(document.querySelectorAll('.main-img-box'));    
+    this._main = title;
+    this._sub = sub;
+    this._backColor = back;
   }
-  // 📍 드래그 이벤트
   dragAndDrop(e) {
     clearTimeout(this._clearSlide);
     this.$stickFill.classList.remove('progress');
