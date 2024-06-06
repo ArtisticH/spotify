@@ -137,6 +137,8 @@ class Main {
     // 카드 슬라이드
     this.$title = document.querySelector('.main-title');
     this.$sub = document.querySelector('.main-sub');
+    // 하단도 같이 색상 변화
+    this.$timefooter = document.getElementById('timefooter');
     // 이미지를 담는 공간
     this.$imgArea = document.querySelector('.main-img-area');
     // 이미지 박스
@@ -219,21 +221,17 @@ class Main {
     this.$img.forEach(item => {
       item.onpointerdown = this.dragAndDrop.bind(this);
     });
-
-
-
-    this.mouseTarget = null;
-    this.shiftX = null;
-    this.rectX = null;
-    this.ratio = null;
-    this.browserWidth = null;
-    this.direction = null;
-
+    this._img = null;
+    this._shiftX = null;
+    this._rectLeft = null;
+    // 현재 얼마만큼 나갔는지 비율, 이 비율을 근거로 다시 원위치로 올지 나갈지 결정
+    this._radio = null;
+    // 왼쪽인지 오른쪽인지
+    this._dir = null;
     this.moveAt = this.moveAt.bind(this);
     this.pointerMove = this.pointerMove.bind(this);
     this.pointerUp = this.pointerUp.bind(this);
-    this.forPointerUp = this.forPointerUp.bind(this);
-
+    this.decideLeaving = this.decideLeaving.bind(this);
   }
   animate({timing, draw, duration}) {
     let start = performance.now();
@@ -294,6 +292,7 @@ class Main {
       // 슬라이드가 다 날라가고 중앙으로 모일때 처음으로 변경해줘야 해
       this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
       this.$header.style.backgroundColor = `${this._backColor[this._slide]}`; 
+      this.$timefooter.style.backgroundColor = `${this._backColor[this._slide]}`; 
       this.$sub.textContent = this._sub[this._slide];
       this.$title.textContent = this._main[this._slide];
       this.$current.textContent = '01';
@@ -361,6 +360,7 @@ class Main {
     // 배경화면 변경
     this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
     this.$header.style.backgroundColor = `${this._backColor[this._slide]}`;
+    this.$timefooter.style.backgroundColor = `${this._backColor[this._slide]}`; 
     this.$sub.textContent = this._sub[this._slide];
     this.$title.textContent = this._main[this._slide];
     // 진행 바 숫자 바뀌는거
@@ -519,91 +519,101 @@ class Main {
     this._sub = sub;
     this._backColor = back;
   }
+  // 눌렀을때
+  // 커지고 이동한다. 
   dragAndDrop(e) {
+    // 자동 멈추고
     clearTimeout(this._clearSlide);
+    // 바 사라지고
     this.$stickFill.classList.remove('progress');
-
-    this.mouseTarget = e.currentTarget;
-    this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1.1) rotate(0deg)`;
-    this.mouseTarget.style.transition = `left 0.1s ease-out, transform 0.3s ease-out`;
-    this.mouseTarget.style.cursor = `grabbing`;
-    this.mouseTarget.style.zIndex = `1000`;
-    this.rectX = this.mouseTarget.getBoundingClientRect().left;
-    this.shiftX = e.clientX - this.rectX;
-
+    // 현재 누른 슬라이드 이미지
+    this._img = e.currentTarget;
+    // 스케일 커지고,
+    this._img.style.transform = `translate(-50%, -50%) scale(1.1) rotate(0deg)`;
+    // left 0.4s ease-out, => 0.1초로 바뀐다.
+    this._img.style.transition = `left 0.1s ease-out, transform 0.3s ease-out`;
+    // 마우스 커서 모양 바뀐다.
+    this._img.style.cursor = `grabbing`;
+    this._img.style.zIndex = `1000`;
+    // 브라우저 왼쪽 모서리와 타겟 왼쪽 모서리 사이의 거리
+    this._rectLeft = this._img.getBoundingClientRect().left;
+    // shiftX는 이미지 요소 왼쪽 모서리와 내가 클릭한 마우스 사이의 거리
+    this._shiftX = e.clientX - this._rectLeft;
     this.moveAt(e.clientX);
     document.addEventListener('pointermove', this.pointerMove);
-    this.mouseTarget.addEventListener('pointerup', this.pointerUp);
-    this.mouseTarget.addEventListener('dragstart', (e) => {
+    this._img.addEventListener('pointerup', this.pointerUp);
+    this._img.addEventListener('dragstart', (e) => {
       e.preventDefault();
     });
   }
   moveAt(clientX) {
-    this.mouseTarget.style.left = `calc(50% + ${clientX - this.shiftX - this.rectX}px)`;
+    this._img.style.left = `calc(50% + ${clientX - this._shiftX - this._rectLeft}px)`;
   }
   pointerMove(e) {
     this.moveAt(e.clientX);
   }
+  // 놓았을때 어느정도 이동했느냐에 따라
+  // 원래 위치로 돌아갈지 아니면 날아갈지 결정
   pointerUp(e) {
-    this.browserWidth = document.documentElement.clientWidth;
+    const width = document.documentElement.clientWidth;
+    const left = e.clientX - this._shiftX - this._rectLeft;
     // 오른쪽으로 움직일때와 왼쪽으로 움직일때
-    // 오른쪽은 ${clientX - this.shiftX - this.rectX}의 값이 양수일때
-    // 왼쪽은 ${clientX - this.shiftX - this.rectX}의 값이 음수일때
-    // 오른쪽은 (right - 브라우저 너비) / 브라우저 너비가 0.3이상일때
-    // 왼쪽은 (요소 너비 - right) / 브라우저 너비가 0.3이상일때
-    if(e.clientX - this.shiftX - this.rectX > 0) {
+    // left > 0이면 오른쪽, left < 0이면 왼쪽
+    if(left > 0) {
       // 오른쪽
-      this.ratio = (this.mouseTarget.getBoundingClientRect().right - this.browserWidth) / this.browserWidth;
-      this.direction = 'right';
-    } else if(e.clientX - this.shiftX - this.rectX < 0) {
+      // getBoundingClientRect().right는 브라우저 왼쪽 모서리와 이미지 오른쪽 모서리 사이의 거리
+      // 만약 이미지가 브라우저 밖을 나가면 이 길이는 브라우저 너비보다 길 수 있다. 
+      // 그래서 (this._img.getBoundingClientRect().right - width) 이 부분은 브라우저 너비 바깥으로 나간 이미지의 너비를 말하고
+      // 위를 다시 width로 나누면 브라우저 대비 이미지의 몇 %가 브라우저 바깥으로 나갔는지...
+      this._radio = (this._img.getBoundingClientRect().right - width) / width;
+      this._dir = 'right';
+    } else if(left < 0) {
       // 왼쪽
-      this.ratio = (this.mouseTarget.getBoundingClientRect().width - this.mouseTarget.getBoundingClientRect().right) / this.browserWidth;
-      this.direction = 'left';
+      // (this._img.getBoundingClientRect().width - this._img.getBoundingClientRect().right)가 왼쪽 바깥으로 나간 이미지의 너비
+      this._radio = (this._img.getBoundingClientRect().width - this._img.getBoundingClientRect().right) / width;
+      this._dir = 'left';
     }
     // 브라우저 너비별로 다르게
-    if(this.browserWidth < 600) {
-      this.forPointerUp(0.2);
-    } else if(this.browserWidth >= 600 && this.browserWidth < 1024) {
-      this.forPointerUp(0.05);
-    } else if(this.browserWidth >= 1024) {
-      switch(this.direction) {
+    if(width < 600) {
+      this.decideLeaving(0.2);
+    } else if(width >= 600 && width < 1024) {
+      this.decideLeaving(0.05);
+    } else if(width >= 1024) {
+      switch(this._dir) {
         case 'right':
-          this.forPointerUp(0.1);
+          this.decideLeaving(0.1);
           break;
         case 'left': 
-          this.forPointerUp(-0.35);
+          this.decideLeaving(-0.35);
           break;
       }
     } 
-    this.mouseTarget.style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
-    this.mouseTarget.style.transition = `left 0.4s ease-out, transform 0.3s ease-out`;
-    this.mouseTarget.style.cursor = ``;
-    this.mouseTarget.style.zIndex = ``;  
-    this.$stickFill.classList.add('progress');
+    // 원래대로
+    this._img.style.transform = `translate(-50%, -50%) scale(1) rotate(0deg)`;
+    this._img.style.transition = `left 0.4s ease-out, transform 0.3s ease-out`;
+    this._img.style.cursor = ``;
+    this._img.style.zIndex = ``;  
     // 제거
     document.removeEventListener('pointermove', this.pointerMove);
-    this.mouseTarget.removeEventListener('pointerup', this.pointerUp);
+    this._img.removeEventListener('pointerup', this.pointerUp);
   }
-  forPointerUp(RATIO) {
-    if(this.ratio >= RATIO) {
-      // 넘겨
+  decideLeaving(raio) {
+    if(this._radio >= raio) {
+      // 날리기
       if(this._slide > 0) {
         this.$img[this._slide].style.left = '200%';
         this._slide--;
-        this.$sub.textContent = `${this._sub[this._slide]}`;
-        this.$title.textContent = `${this._main[this._slide]}`;   
+        this.$stickFill.classList.add('progress');
         this.autoSlide();      
       } else if(this._slide === 0) {
         this._stack = 14;
         this._slide = 14;
-        // 배경화면 자연스럽게 변경
-        this.$main.style.backgroundColor = `${this._backColor[this._slide]}`;
-        this.$header.style.backgroundColor = `${this._backColor[this._slide]}`;
-        this.$stickFill.classList.remove('progress');
         this.showCards();
       }
     } else {
-      this.mouseTarget.style.left = `50%`;
+      // 원위치로
+      this._img.style.left = `50%`;
+      this.$stickFill.classList.add('progress');
       this.autoSlide();
     }
   }
@@ -898,29 +908,29 @@ const spotlight = new Spotlight();
 class Inbox {
   constructor() {
     this.$inbox = document.getElementById('inbox');
-    this.$inboxSvgCircle1 = document.querySelector('.inbox__svg__circle__path1');
-    this.$inboxSvgCircle2 = document.querySelector('.inbox__svg__circle__path2');
-    this.$inboxSvgArrowHead = document.querySelector('.inbox__svg__arrow__head');
-    this.$inboxSvgArrowBody = document.querySelector('.inbox__svg__arrow__body');
-    this.circle1Length = this.$inboxSvgCircle1.getTotalLength(); // 245
-    this.circle2Length = this.$inboxSvgCircle2.getTotalLength(); // 295
-    this.headLength = this.$inboxSvgArrowHead.getTotalLength(); // 49
-    this.bodyLength = this.$inboxSvgArrowBody.getTotalLength(); // 196
+    this.$circle1 = document.querySelector('.inbox-circle1');
+    this.$circle2 = document.querySelector('.inbox-circle2');
+    this.$head = document.querySelector('.inbox-head');
+    this.$body = document.querySelector('.inbox-body');
+    this._circle1 = this.$circle1.getTotalLength(); // 245
+    this._circle2 = this.$circle2.getTotalLength(); // 295
+    this._head = this.$head.getTotalLength(); // 49
+    this._body = this.$body.getTotalLength(); // 196
     this.ratio = null;
     this.scroll = this.scroll.bind(this);
   }
   scroll(e) {
     this.ratio = (window.pageYOffset + document.documentElement.clientHeight - this.$inbox.offsetTop) / this.$inbox.offsetHeight;
     if(this.ratio >= 0.43 && this.ratio < 1.8) {
-      this.$inboxSvgCircle1.classList.add('show');
-      this.$inboxSvgCircle2.classList.add('show');
-      this.$inboxSvgArrowHead.classList.add('show');
-      this.$inboxSvgArrowBody.classList.add('show');
+      this.$circle1.classList.add('show');
+      this.$circle2.classList.add('show');
+      this.$head.classList.add('show');
+      this.$body.classList.add('show');
     } else if(this.ratio >= 1.8 || this.ratio < 0.43) {
-      this.$inboxSvgCircle1.classList.remove('show');
-      this.$inboxSvgCircle2.classList.remove('show');
-      this.$inboxSvgArrowHead.classList.remove('show');
-      this.$inboxSvgArrowBody.classList.remove('show');
+      this.$circle1.classList.remove('show');
+      this.$circle2.classList.remove('show');
+      this.$head.classList.remove('show');
+      this.$body.classList.remove('show');
     }
   }
 }

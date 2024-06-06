@@ -418,7 +418,6 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
 }
 
 .main-img-area {
@@ -426,7 +425,6 @@ img {
   /* .main-img-box */
   position: relative;
   height: 440px;
-  border: 1px solid green;
 }
 
 .main-img-box {
@@ -445,7 +443,6 @@ img {
 .main-title-box {
   height: 270px;
   grid-area: main-title;
-  border: 1px solid black;
   font-family: var(--font-circular-medium);
 }
 
@@ -453,7 +450,6 @@ img {
   font-size: 0.9rem;
   letter-spacing: -0.5px;
   cursor: pointer;
-  border: 1px solid black;
 }
 
 .main-title {
@@ -462,7 +458,6 @@ img {
   letter-spacing: -2.5px;
   line-height: 1.1;
   cursor: pointer;
-  border: 1px solid red;
 }
 
 .main-sub:hover,
@@ -476,7 +471,6 @@ img {
   align-items: center;
   padding: 1rem 0;
   grid-area: main-btns;
-  border: 1px solid green;
 }
 
 .main-btn {
@@ -485,7 +479,6 @@ img {
   cursor: pointer;
   /* .main-tooltip */
   position: relative;
-  border: 1px solid red;
 }
 
 .main-btn-img:hover {
@@ -536,7 +529,6 @@ img {
   justify-content: space-between;
   align-items: center;
   grid-area: main-bar;
-  border: 1px solid black;
 }
 
 .main-progress {
@@ -1052,7 +1044,6 @@ img {
   }
 }
 
-/* ------------------------------------------------------------------------------------------------------------------------------------- */
 /* SECTION SPOTLIGHT */
 
 #spotlight {
@@ -1523,82 +1514,16 @@ img {
   justify-content: center;
 }
 
-.inbox__title {
+.inbox-title-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* .inbox__svg__arrow */
+  /* .inbox-arrow */
   position: relative;
 }
 
-.inbox__title__text {
-  text-align: center;
-  width: 72%;
-  color: #fff;
-  font-family: var(--font-circular-medium);
-  font-size: 2.5rem;
-  letter-spacing: -2px;
-  line-height: 1.1;
-}
-
-.inbox__title__text__inbox {
-  position: relative;
-}
-
-.inbox__svg__circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 110%;
-}
-
-.inbox__svg__circle__path1, 
-.inbox__svg__circle__path2, 
-.inbox__svg__arrow__head, 
-.inbox__svg__arrow__body {
-  fill: none;
-  stroke: #ffe818;
-}
-
-.inbox__svg__circle__path1 {
-  visibility: hidden;
-  stroke-dasharray: 245;
-  stroke-dashoffset: 245;
-}
-
-.inbox__svg__circle__path2 {
-  visibility: hidden;
-  stroke-dasharray: 295;
-  stroke-dashoffset: 295;
-}
-
-.inbox__svg__circle__path1.show {
-  visibility: visible;
-  animation: svg-circle__path1 0.6s linear;
-  stroke-dashoffset: 0;
-}
-
-.inbox__svg__circle__path2.show {
-  visibility: visible;
-  animation: svg-circle__path2 0.8s linear;
-  stroke-dashoffset: 0;
-}
-
-/* 0에서 0.6s까지 */
-@keyframes svg-circle__path1 {
-  0% {stroke-dashoffset: 245;}
-  100% {stroke-dashoffset: 0;}
-}
-
-/* 0.2s에서 0.8s까지, 똑같이 0.6s동안 */
-@keyframes svg-circle__path2 {
-  0% {stroke-dashoffset: 295;}
-  25% {stroke-dashoffset: 295;}
-  100% {stroke-dashoffset: 0;}
-}
-
-.inbox__svg__arrow {
+.inbox-arrow {
+  /* inbox-title-box */
   position: absolute;
   display: none;
   width: 20%;
@@ -1608,58 +1533,128 @@ img {
   transform-origin: left center;
 }
 
-.inbox__svg__arrow__head {
+.inbox-title {
+  text-align: center;
+  width: 72%;
+  color: #fff;
+  font-family: var(--font-circular-medium);
+  font-size: 2.5rem;
+  letter-spacing: -2px;
+  line-height: 1.1;
+}
+
+.inbox-circle-area {
+  /* .inbox-circle */
+  position: relative;
+}
+
+.inbox-circle {
+  /* .inbox-circle-area */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110%;
+}
+
+.inbox-circle1, 
+.inbox-circle2, 
+.inbox-head, 
+.inbox-body {
+  fill: none;
+  stroke: #ffe818;
+}
+
+.inbox-circle1  {
+  visibility: hidden;
+  stroke-dasharray: 245;
+  stroke-dashoffset: 245;
+}
+
+.inbox-circle2 {
+  visibility: hidden;
+  stroke-dasharray: 295;
+  stroke-dashoffset: 295;
+}
+
+.inbox-circle1.show {
+  visibility: visible;
+  animation: circle1 0.6s linear;
+  stroke-dashoffset: 0;
+}
+
+.inbox-circle2.show {
+  visibility: visible;
+  animation: circle2 0.8s linear;
+  stroke-dashoffset: 0;
+}
+
+/* 0에서 0.6s까지 */
+@keyframes circle1 {
+  0% {stroke-dashoffset: 245;}
+  100% {stroke-dashoffset: 0;}
+}
+
+/* 0.2s에서 0.8s까지, 똑같이 0.6s동안 */
+@keyframes circle2 {
+  0% {stroke-dashoffset: 295;}
+  25% {stroke-dashoffset: 295;}
+  100% {stroke-dashoffset: 0;}
+}
+
+.inbox-head {
   visibility: hidden;
   stroke-dasharray: 49;
   stroke-dashoffset: 49;
 }
 
-.inbox__svg__arrow__head.show {
+.inbox-head.show {
   visibility: visible;
-  animation: svg-arrow__head 0.8s linear;
+  animation: head 0.8s linear;
   stroke-dashoffset: 0;
 }
 
-.inbox__svg__arrow__body {
+.inbox-body {
   visibility: hidden;
   stroke-dasharray: 196;
   stroke-dashoffset: 196;
 }
 
-.inbox__svg__arrow__body.show {
+.inbox-body.show {
   visibility: visible;
-  animation: svg-arrow__body 0.6s linear;
+  animation: body 0.6s linear;
   stroke-dashoffset: 0;
 }
 
 /* 0.6s부터 0.8s까지 0.2s동안 */
-@keyframes svg-arrow__head {
+@keyframes head {
   0% {stroke-dashoffset: 49;}
   75% {stroke-dashoffset: 49;}
   100% {stroke-dashoffset: 0;}
 }
 
 /* 0s부터 0.6s까지 */
-@keyframes svg-arrow__body {
+@keyframes body {
   0% {stroke-dashoffset: 196;}
   100% {stroke-dashoffset: 0;}
 }
 
-.inbox__email {
+.inbox-email {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 4rem 0 6rem 0;
 }
 
-.inbox__email__form {
+.inbox-form {
   width: 448px;
   display: flex;
   justify-content: space-between;
+  /* .inbox-line  */
   position: relative;
 }
 
-.inbox__email__input {
+.inbox-email-input {
   font-family: var(--font-inter);
   background: transparent;
   border: none;
@@ -1671,11 +1666,11 @@ img {
   color: #fff;
 }
 
-.inbox__email__input:focus {
+.inbox-email-input:focus {
   outline: none;
 }
 
-.inbox__email__input::placeholder {
+.inbox-email-input::placeholder {
   color: #fff;
   font-size: 1.1rem;
   font-weight: 300;
@@ -1683,7 +1678,7 @@ img {
   letter-spacing: -1.5px;
 }
 
-.inbox__email__button  {
+.inbox-btn  {
   background: transparent;
   color: #fff;
   font-family: var(--font-circular-medium);
@@ -1692,22 +1687,23 @@ img {
   cursor: pointer;
 }
 
-.inbox__email__underline {
+.inbox-line {
   height: 1px;
   width: 100%;
   background: #fff;
+  /* inbox-form */
   position: absolute;
   left: 0;
   bottom: -6px;
 }
 
-.inbox__explanation {
+.inbox-exp-box {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.inbox__explanation__text {
+.inbox-exp {
   width: 95%;
   color: #837e7e;
   font-family: var(--font-inter);  
@@ -1723,72 +1719,72 @@ img {
     padding-bottom: 5rem;
   }
 
-  .inbox__title__text {
+  .inbox-title  {
     font-size: 3.5rem;
     letter-spacing: -4px;
   }
 
-  .inbox__email {
+  .inbox-email {
     padding: 6rem 0 13rem 0;
   }  
 
-  .inbox__email__input {
+  .inbox-email-input {
     font-size: 1.2rem;
     letter-spacing: -1.5px;
   }
     
-  .inbox__email__input::placeholder {
+  .inbox-email-input::placeholder {
     font-size: 1.2rem;
     letter-spacing: -1.5px;
   }
 
-  .inbox__explanation__text {
+  .inbox-exp {
     width: 80%;
   }
 }
 
 
 @media all and (min-width: 1024px) {
-  .inbox__title {
+  .inbox-title-box {
     justify-content: flex-start;
   }
 
-  .inbox__title__text {
+  .inbox-arrow {
+    display: block;
+  }  
+
+  .inbox-title  {
     font-size: 4rem;
     text-align: left;
     width: 817px;
   }
   
-  .inbox__email { 
+  .inbox-email { 
     padding: 12rem 0 9rem 0;
     justify-content: flex-end;
   }  
 
-  .inbox__email__form {
+  .inbox-form {
     width: 40%;
   }
   
-  .inbox__email__input {
+  .inbox-email-input {
     font-size: 1.5rem;
     letter-spacing: -1.5px;
   }
     
-  .inbox__email__input::placeholder {
+  .inbox-email-input::placeholder {
     font-size: 1.5rem;
     letter-spacing: -1.5px;
   }  
 
-  .inbox__explanation {
+  .inbox-exp-box {
     justify-content: flex-end;
   }
   
-  .inbox__explanation__text {
+  .inbox-exp {
     width: 40%;
     text-align: left;
-  }  
-
-  .inbox__svg__arrow {
-    display: block;
   }  
 }
 
