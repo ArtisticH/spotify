@@ -40,8 +40,6 @@ body {
 
 .width {
   width: 90vw;
-  /* .view에 대해서 */
-  position: relative;
 }
 
 img {
@@ -832,11 +830,11 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid red;
 }
 
 .release {
-  border: 1px solid red;
+  /* .view에 대해서 */
+  position: relative;
 }
 
 .rel-main-title {
@@ -845,17 +843,11 @@ img {
   font-weight: 500;
   letter-spacing: -1px;
   padding: 1.8rem 0 1.6rem 0;
-  border: 1px solid green;
-}
-
-.rel-main {
-  border: 1px solid blue;
 }
 
 .rel-box {
   cursor: pointer;
   margin-bottom: 2rem;
-  border: 1px solid pink;
 }
 
 .rel-sub {
@@ -932,7 +924,6 @@ img {
   justify-content: flex-end;
   align-items: flex-start;
   padding-bottom: 2rem;
-  border: 3px solid green;
 }
 
 .view-box {
@@ -941,7 +932,6 @@ img {
   justify-content: center;
   align-items: center;
   z-index: 3;
-  border: 1px solid black;
 }
 
 .view-title-box {
@@ -1072,20 +1062,20 @@ img {
   align-items: center;
 }
 
-.heading-box {
+.title {
   padding: 3rem 0 1rem 0;
   position: relative;
   z-index: 2;
 }
 
-.heading-box__main {
+.title-main {
   font-family: var(--font-circular-medium);
   font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: -1px;
 }
 
-.heading-box__sub {
+.title-sub {
   margin-top: 0.3rem;
   font-size: 1.5rem;
   letter-spacing: -1px;
@@ -1383,24 +1373,24 @@ img {
 }
 
 @media all and (min-width: 600px) {
-  .heading-box__main {
+  .title-main {
     font-size: 1.7rem;
     letter-spacing: -1.4px;
   }
 
-  .heading-box__sub {
+  .title-sub {
     font-size: 1.7rem;
     letter-spacing: -1.4px;
   }
 }
 
 @media all and (min-width: 1024px) {
-  .heading-box__main {
+  .title-main {
     font-size: 2rem;
     letter-spacing: -1.7px;
   }
 
-  .heading-box__sub {
+  .title-sub {
     font-size: 2rem;
     letter-spacing: -1.7px;
   }
@@ -1524,8 +1514,6 @@ img {
     }
   }  
 }  
-
-/* --------------------------------------------------------------------------------- */
 /* SECTION INBOX */
 
 #inbox {
@@ -1804,7 +1792,6 @@ img {
   }  
 }
 
-/* --------------------------------------------------------------------------------- */
 /* SECTION TOOLS AND JOBS */
 
 #toolsjobs {
@@ -1815,6 +1802,7 @@ img {
 
 #tools,
 #jobs {
+  /* .view에 대해서 */
   position: relative;
 }
 
@@ -1830,14 +1818,13 @@ img {
   }
 }
 
-/* --------------------------------------------------------------------------------- */
 /* SECTION TOOLS */
 
 .tools {
   padding-top: 1rem;
 }
 
-.tools__img-box {
+.tool-box {
   cursor: pointer;
   margin-bottom: 2.5rem;
   height: fit-content;
@@ -1851,7 +1838,6 @@ img {
   }
 }
 
-/* --------------------------------------------------------------------------------- */
 /* SECTION JOBS */
 
 .jobs {
@@ -1859,17 +1845,18 @@ img {
   margin-bottom: 3rem;
   padding-bottom: 1rem;
   margin-top: 0.5rem;
+  /* .jobs-arrow에 대해서  */
   position: relative;
 }
 
-.jobs__miami {
+.jobs-miami {
   margin-bottom: 0.3rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.jobs__miami__circle {
+.jobs-circle {
   width: 7px;
   height: 7px;
   background-color: #000;
@@ -1877,14 +1864,25 @@ img {
   margin-right: 0.2rem;
 }
 
-.jobs__miami__text {
+.jobs-miami-text {
   font-family: var(--font-circular-medium);
   font-size: 0.8rem;
   letter-spacing: -0.8px;
 }
 
-.jobs__arrow {
-  visibility: hidden;
+.jobs-editorial {
+  font-family: var(--font-circular-medium);
+  font-size: 1.2rem;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+.jobs-editorial:hover {
+  text-decoration: underline;
+}
+
+.jobs-arrow {
+  /* .jobs에 대해서 */
   position: absolute;
   display: flex;
   align-items: center;
@@ -1892,37 +1890,24 @@ img {
   top: 0;
   right: 0;
   opacity: 0;
+  /* visible: hidden 을 하고 visible: visible하면 서서히 커지는 효과가 없어진다. */
   transition: all 0.1s ease-out;
   width: 29px;
   height: 29px;
   border-radius: 50%;
   border: 1px solid black;
+  /* scale: 0.8에서 1로 */
   transform: scale(0.8);
   background-color: black;
 }
 
-.jobs__arrow.show {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.jobs__arrow__img {
+.jobs-img {
   width: 70%;
   filter: invert(1);
 }
 
-.jobs__editorial {
-  font-family: var(--font-circular-medium);
-  font-size: 1.2rem;
-  letter-spacing: -1px;
-}
-
-.jobs__editorial:hover {
-  text-decoration: underline;
-}
-
 @media all and (min-width: 600px) {
-  .jobs__editorial {
+  .jobs-editorial {
     font-size: 1.3rem;
     letter-spacing: -1px;
     width: 50%;
@@ -1934,36 +1919,38 @@ img {
     margin-top: 0.5rem;
   }  
 
-  .jobs__miami__text {
+  .jobs-miami-text {
     font-size: 0.9rem;
     letter-spacing: -0.8px;
   }
-  
-  .jobs__arrow {
-    visibility: visible;
-  }  
 
-  .jobs__editorial {
+  .jobs-editorial {
     font-size: 1.5rem;
     letter-spacing: -1px;
     width: 100%;
   }
 
-  .jobs__editorial.show {
+  .jobs-arrow.pointer {
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .jobs-editorial.pointer {
     text-decoration: underline;
   }
 }
 
-/* --------------------------------------------------------------------------------- */
 /* SECTION TIME & FOOTER */
 
 #timefooter {
-  /* #timefooter__flower */
+  /* .footer-flower에 대해서 */
   position: relative;
 }
 
-#timefooter__flower {
-  /* #timefooter */
+.footer-flower {
+  /* #timefooter에 대해서 */
+  /* 여기서 다른 z-index: 1은 플라워에 대해서 */
   position: absolute;
   right: 0;
   bottom: 0;
@@ -1976,25 +1963,31 @@ img {
   justify-content: center;
 }
 
-.time__logo {
+.time-logo {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
+  width: fit-content;
   padding-bottom: 2.5rem;
 }
 
-.time__logo__img {
+.time-img {
   width: 170px;
+  display: block;
   cursor: pointer;
 }
 
-.time__contents {
+.time-main {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.time__contents__links__link {
+.links-box {
+  z-index: 1;
+}
+
+.link {
   font-size: 1.1rem;
   letter-spacing: -0.5px;
   font-family: var(--font-inter);
@@ -2004,35 +1997,34 @@ img {
   white-space: nowrap;
 }
 
-.time__contents__links__newsroom,
-.time__contents__links__instagram {
-  z-index: 1;
-}
-
-.time__contents__links__link:hover {
+.link:hover {
   text-decoration: underline;
 }
 
-#time__contents__times {
+.time-clock {
   z-index: 1;
   width: 150px;
 }
 
-.time__contents__times {
+.clock-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
 }
 
-.time__country {
+.clock-box.last {
+  margin-bottom: 0;
+}
+
+.clock-country {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   z-index: 1;
 }
 
-.time__country__circle {
+.clock-circle {
   width: 4px; 
   height: 4px;
   background: black;
@@ -2040,17 +2032,17 @@ img {
   margin-right: 0.7rem;
 }
 
-.time__country__name {
+.clock-country-name {
   font-family: var(--font-circular-medium);
   font-weight: bolder;
   font-size: 1.1rem;
 }
 
-.time__country__city {
+.clock-city {
   display: none;
 }
 
-.time__clock {
+.clock {
   font-family: var(--font-inter);
   font-size: 1.1rem;
   display: flex;
@@ -2059,9 +2051,9 @@ img {
   z-index: 1;
 }
 
-.time__clock__hour,
-.time__clock__minute,
-.time__clock__second {
+.hour,
+.min,
+.second {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2069,63 +2061,63 @@ img {
 }
 
 @media all and (min-width: 600px) {
-  .time__logo__img {
+  .time-img {
     width: 190px;
   }
 
-  .time__contents__links {
+  .time-links {
     display: flex;
     align-items: flex-start;
     width: 44%;
     justify-content: space-between;
   }
 
-  .time__contents__links__link {
+  .link {
     font-size: 1.2rem;
   }
 
-  #time__contents__times {
+  .time-clock {
     width: 230px;
   }
       
-  .time__country__circle {
+  .clock-circle {
     width: 7px; 
     height: 7px;
     margin-right: 0.4rem;
   }
   
-  .time__country__name {
+  .clock-country-name {
     font-size: 1.2rem;
     letter-spacing: -0.5px;
   }
   
-  .time__country__city {
+  .clock-city {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  .time__country__city__name {
+  .clock-city-name {
     font-family: var(--font-circular-book);
     font-size: 0.8rem;
     padding: 0 0.2rem;
   }
 
-  .time__country__city__circle {
+  .clock-city-circle {
     width: 2px;
     height: 2px;
     background: black;
     border-radius: 50%;
   }
   
-  .time__clock {
+  .clock {
     font-size: 1.2rem;
     z-index: 1;
   }  
 
-  .time__clock__hour,
-  .time__clock__minute,
-  .time__clock__second {
+  .hour,
+  .min,
+  .second {
     width: 29px;
   }
 }
@@ -2141,53 +2133,51 @@ img {
     justify-content: space-between;
   }
 
-  .time__logo {
-    width: 30%;
-    align-items: flex-start;
+  .time-logo {
     padding-bottom: 0rem;
   }
 
-  .time__logo__img {
+  .time-img {
     width: 230px;
   }
 
-  .time__contents {
+  .time-main {
     width: 70%;
   }
 
-  .time__contents__links {
+  .time-links {
     width: 50%;
   }
 
-  .time__contents__links__link {
+  .link {
     font-size: 1.4rem;
   }
 
-  #time__contents__times {
+  .time-clock {
     width: 270px;
   }
 
-  .time__contents__times {
+  .clock-box {
     margin-bottom: 0.6rem;
   }  
   
-  .time__country__name {
+  .clock-country-name {
     font-size: 1.4rem;
     letter-spacing: -0.7px;
   }
 
-  .time__country__city__name {
+  .clock-city-name {
     font-size: 0.9rem;
     letter-spacing: -0.9px;
   }
   
-  .time__clock {
+  .clock {
     font-size: 1.4rem;
   }
   
-  .time__clock__hour,
-  .time__clock__minute,
-  .time__clock__second {
+  .hour,
+  .min,
+  .second {
     width: 30px;
   }
 } 
@@ -2202,21 +2192,21 @@ img {
   z-index: 1;
 }
 
-.footer__scroll {
+.footer-scroll {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding: 2rem 0;
 }
 
-.footer__scroll__contents {
+.footer-scroll-box {
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 
-.footer__scroll__contents__text {
+.footer-scroll-text {
   font-family: var(--font-inter);
   font-size: 0.85rem;
   font-weight: 600;
@@ -2225,7 +2215,8 @@ img {
   text-align: center;
 }
 
-.footer__scroll__contents__arrow {
+.footer-scroll-arrow {
+  /* .footer-scroll-back과 img */
   position: relative;
   width: 50px;
   height: 50px;
@@ -2235,7 +2226,8 @@ img {
   background: transparent;
 }
 
-.footer__scroll__contents__arrow__background {
+.footer-scroll-back {
+  /* .footer-scroll-arrow */
   position: absolute;
   background-color: black;
   top: 0;
@@ -2243,12 +2235,14 @@ img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  /* 0.8 -> 1 */
   transform: scale(0.8);
   opacity: 0;
   transition: all 0.1s ease-out;
 }
 
-.footer__scroll__contents__arrow__img {
+.footer-scroll-img {
+  /* .footer-scroll-arrow */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -2258,29 +2252,26 @@ img {
   transition: all 0.2s ease-out;
 }
 
-.footer__scroll__contents__arrow__background.overed {
+.footer-scroll-back.pointer {
   transform: scale(1);
   opacity: 1;
 }
 
-.footer__scroll__contents__arrow__img.overed {
+.footer-scroll-img.pointer {
   filter: invert(1);
 }
 
-.footer__links__company {
+.footer-company {
   margin-bottom: 0.7rem;
+}
+
+.footer-detail {
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
-.footer__links__detail {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.footer__text {
+.footer-text {
   font-family: var(--font-inter);
   font-size: 1rem;
   margin-right: 1.5rem;
@@ -2289,7 +2280,7 @@ img {
   white-space: nowrap;
 }
 
-.footer__text:hover {
+.footer-text:hover {
   text-decoration: underline;
 }
 
@@ -2301,47 +2292,48 @@ img {
     align-items: center;
   }
 
-  .footer__links {
+  .footer-links {
     order: 1;
   }
 
-  .footer__scroll {
+  .footer-scroll {
     padding: 0;
+    /* justify-content: space-between;에 대해 순서 지정 */
     order: 2;
   }
 
-  .footer__scroll__contents__arrow {
+  .footer-scroll-arrow {
     width: 60px;
     height: 60px;
   }
     
-  .footer__scroll__contents__arrow__img {
+  .footer-scroll-img {
     width: 40%;
   }
   
-  .footer__text {
+  .footer-text {
     font-size: 1.1rem;
   }  
 }
 
 @media all and (min-width: 800px) {
-  .footer__links {
+  .footer-links {
     display: flex;
     justify-content: flex-start;
     align-items: center;
   }
 
-  .footer__links__company {
+  .footer-company {
     margin-bottom: 0;
   }
 
-  .footer__text {
+  .footer-text {
     margin-right: 1rem;
   }  
 }
 
 @media all and (min-width: 1024px) {
-  .footer__text {
+  .footer-text {
     margin-right: 1.5rem;
     font-size: 1.2rem;
   }  

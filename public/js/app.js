@@ -610,12 +610,18 @@ class Main {
 }
 const main = new Main();
 main.showMain();
-class Release {
+class RelTools {
   constructor() {
     this.$box = document.querySelectorAll('.rel-box');
     [...this.$box].forEach(item => {
       item.onpointerenter = this.pointer.bind(this);
-    })
+    });
+    this.$tool = document.querySelectorAll('.tool-box');
+    [...this.$tool].forEach(item => {
+      item.onpointerenter = this.pointer.bind(this);
+    });
+    this.$jobs = document.querySelector('.jobs');
+    this.$jobs.onpointerenter = this.job.bind(this);
   }
   pointer(e) {
     const target = e.currentTarget;
@@ -632,8 +638,19 @@ class Release {
       }   
     }
   }
+  job(e) {
+    const target = e.currentTarget;
+    const arrow = target.querySelector('.jobs-arrow');
+    const line = target.querySelector('.jobs-editorial');
+    arrow.classList.add('pointer');
+    line.classList.add('pointer');
+    target.onpointerleave = () => {
+      arrow.classList.remove('pointer');
+      line.classList.remove('pointer');  
+    }
+  }
 }
-new Release();
+new RelTools();
 class View {
   constructor() {
     this.$view = document.querySelectorAll('.view-box');
@@ -677,15 +694,8 @@ class View {
   }
 }
 new View();
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Events
-// 📍 왜 어떤건 pointerover가 안 되고 어떤 건 pointerover가 되는지?
-
-class Events {
+class Spotlight {
   constructor() {
-
-
-
     this.$spotlightInner = document.querySelector('.spotlight__contents__inner');
     this.$spotlightItems = Array.from(document.querySelectorAll('.spotlight__contents__item'));
     this.$spotlightImgBoxImges = Array.from(document.querySelectorAll('.spotlight__contents__item__img-box__img'));
@@ -701,13 +711,6 @@ class Events {
     this.spotRatio = null;
     this.spotZindex = null;
 
-    this.$jobsArrow = document.querySelector('.jobs__arrow');
-    this.$jobsEditorial = document.querySelector('.jobs__editorial');
-
-    this.$footerScollBack = document.querySelector('.footer__scroll__contents__arrow__background');
-    this.$footerScrollArrow = document.querySelector('.footer__scroll__contents__arrow__img');
-    this.footerScrollStart = null;
-
     this.spotlightPointerMove = this.spotlightPointerMove.bind(this);
     this.spotlightPointerUp = this.spotlightPointerUp.bind(this);  
     this.spotKeydown = this.spotKeydown.bind(this);
@@ -718,39 +721,11 @@ class Events {
     this.spotCursorMove = this.spotCursorMove.bind(this);
     this.spotCursorOut = this.spotCursorOut.bind(this);
     this.spotCursorDown = this.spotCursorDown.bind(this);
-    this.jobs = this.jobs.bind(this);
 
     this.$spotlightImgBoxImges.forEach(item => {
       item.addEventListener('pointerover', this.spotFlower);
     });
   }
-
-  animate({timing, draw, duration}) {
-    let start = performance.now();
-    requestAnimationFrame(function animate(time) {
-      let timeFraction = (time - start) / duration;
-      if (timeFraction > 1) timeFraction = 1;
-      let progress = timing(timeFraction)
-      draw(progress); 
-      if (timeFraction < 1) {
-        requestAnimationFrame(animate);
-      }
-    });
-  }
-
-  handleEvent(event) {
-    const EVENT_TYPE = event.type;
-    if(EVENT_TYPE === 'resize') {
-      this.resize(event);
-      return;
-    }
-    const target = event.target.closest(`[data-${EVENT_TYPE}]`);
-    if(!target) return;
-    const method = target.dataset[EVENT_TYPE];
-    // this[method](event, target);
-  }
-
-
   resize(e) {
     this.documentClientWidth = document.documentElement.clientWidth;
     if(document.documentElement.clientWidth >= 600) {
@@ -918,43 +893,9 @@ class Events {
     this.$spotlightInner.addEventListener('pointerup', this.spotCursorUp);
   }
 
-  jobs(e) {
-    if(e.type === 'pointerover') {
-      this.$jobsArrow.classList.add('show');
-      this.$jobsEditorial.classList.add('show');
-    } else if(e.type === 'pointerout') {
-      this.$jobsArrow.classList.remove('show');
-      this.$jobsEditorial.classList.remove('show');
-    }
-  }
-
-  backToTop(e, target) {
-    if(e.type === 'pointerover') {
-      this.$footerScollBack.classList.add('overed');
-      this.$footerScrollArrow.classList.add('overed');
-    } else if(e.type === 'pointerout') {
-      this.$footerScollBack.classList.remove('overed');
-      this.$footerScrollArrow.classList.remove('overed');
-    } else if(e.type === 'click') {
-      this.footerScrollStart = window.pageYOffset;
-
-      this.animate({
-        duration: 400,
-        timing: function quad(timeFraction) {
-          return Math.pow(timeFraction, 2)
-        },
-        draw: (progress) => {
-          if(progress <= 0) return;
-          window.scrollTo(0, this.footerScrollStart * (1 - progress));
-        }    
-      });
-    }
-  }
 }
-
-const events = new Events();
-
-class InboxScroll {
+const spotlight = new Spotlight();
+class Inbox {
   constructor() {
     this.$inbox = document.getElementById('inbox');
     this.$inboxSvgCircle1 = document.querySelector('.inbox__svg__circle__path1');
@@ -966,11 +907,9 @@ class InboxScroll {
     this.headLength = this.$inboxSvgArrowHead.getTotalLength(); // 49
     this.bodyLength = this.$inboxSvgArrowBody.getTotalLength(); // 196
     this.ratio = null;
-
-    this.inbox = this.inbox.bind(this);
+    this.scroll = this.scroll.bind(this);
   }
-
-  inbox(e) {
+  scroll(e) {
     this.ratio = (window.pageYOffset + document.documentElement.clientHeight - this.$inbox.offsetTop) / this.$inbox.offsetHeight;
     if(this.ratio >= 0.43 && this.ratio < 1.8) {
       this.$inboxSvgCircle1.classList.add('show');
@@ -985,17 +924,29 @@ class InboxScroll {
     }
   }
 }
-
-const inboxScroll = new InboxScroll();
-window.addEventListener('scroll', inboxScroll.inbox);
-
-class Time {
+const inbox = new Inbox();
+window.addEventListener('scroll', inbox.scroll);
+class Footer {
   constructor() {
-    this.$hours = document.querySelectorAll('.time__clock__hour');
-    this.$minutes = document.querySelectorAll('.time__clock__minute');
-    this.$seconds = document.querySelectorAll('.time__clock__second');
+    this.$hours = Array.from(document.querySelectorAll('.hour'));
+    this.$minutes = Array.from(document.querySelectorAll('.min'));
+    this.$seconds = Array.from(document.querySelectorAll('.second'));
+    this.$box = document.querySelector('.footer-scroll-box');
+    this.$box.onpointerenter = this.pointer.bind(this);
+    this.$box.onclick = this.click.bind(this);
   }
-
+  animate({timing, draw, duration}) {
+    let start = performance.now();
+    requestAnimationFrame(function animate(time) {
+      let timeFraction = (time - start) / duration;
+      if (timeFraction > 1) timeFraction = 1;
+      let progress = timing(timeFraction)
+      draw(progress); 
+      if (timeFraction < 1) {
+        requestAnimationFrame(animate);
+      }
+    });
+  }
   init(string, timezone, index) {
     const date = new Date().toLocaleString(string, {
       timeZone: timezone,
@@ -1004,34 +955,50 @@ class Time {
       second: 'numeric',
       hour12: false,
     });
-    
     const timeComponents = date.split(':');
-
     let hour = parseInt(timeComponents[0]);
     if(hour < 10) hour = '0' + hour;
     this.$hours[index].innerHTML = hour;
-
     let minute = parseInt(timeComponents[1]);
     if(minute < 10) minute = '0' + minute;
     this.$minutes[index].innerHTML = minute;
-
     let second = parseInt(timeComponents[2]);
     if(second < 10) second = '0' + second;
     this.$seconds[index].innerHTML = second;
   }
-
   time() {
     this.init('en-US', 'Europe/Stockholm', 0);
     this.init('en-GB', 'Europe/London', 1);
     this.init('en-US', 'America/New_York', 2);
   }
+  pointer(e) {
+    const target = e.currentTarget;
+    const back = target.querySelector('.footer-scroll-back');
+    const img = target.querySelector('.footer-scroll-img');
+    back.classList.add('pointer');
+    img.classList.add('pointer');
+    target.onpointerleave = () => {
+      back.classList.remove('pointer');
+      img.classList.remove('pointer');  
+    }
+  }
+  click(e) {
+    const start = window.pageYOffset;
+    this.animate({
+      duration: 300,
+      timing: function quad(timeFraction) {
+        return Math.pow(timeFraction, 2)
+      },
+      draw: (progress) => {
+        if(progress <= 0) return;
+        window.scrollTo(0, start * (1 - progress));
+      }    
+    });
+  }
 }
-
-const time = new Time();
-time.time();
+const footer = new Footer();
+footer.time();
 setInterval(() => {
-  time.time();
-}, 1000)
-
-// git push -u origin main
+  footer.time();
+}, 1000);
 
