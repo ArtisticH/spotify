@@ -1046,11 +1046,16 @@ img {
 
 /* SECTION SPOTLIGHT */
 
-#spotlight {
+#spot {
   background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.spot {
+  /* .view */
+  position: relative;
 }
 
 .title {
@@ -1075,6 +1080,7 @@ img {
 
 .spotlight__contents {
   padding: 1rem 0 2rem 0;
+  border: 2px solid green;
 }
 
 .spotlight__contents::-webkit-scrollbar {
@@ -1398,10 +1404,6 @@ img {
   
   .spotlight__item__third {
     width: 292px;
-  }
-
-  .spotlight {
-    position: relative;
   }
 
   .spotlight__contents {
