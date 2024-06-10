@@ -4,8 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server",
-    "predeploy": "npm run build"
+    "start": "nodemon server"
   },
   "keywords": [],
   "author": "Seo Hanna",
@@ -13,5 +12,8 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
