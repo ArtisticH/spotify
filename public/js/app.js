@@ -58,7 +58,7 @@ class Intro {
   }
 }
 const intro = new Intro();
-// document.addEventListener('DOMContentLoaded', intro.init);
+document.addEventListener('DOMContentLoaded', intro.init);
 // 헤더
 class Header {
   constructor() {
@@ -619,7 +619,6 @@ class Main {
   }
 }
 const main = new Main();
-main.showMain();
 class RelTools {
   constructor() {
     this.$box = document.querySelectorAll('.rel-box');
@@ -706,205 +705,185 @@ class View {
 new View();
 class Spotlight {
   constructor() {
-    this.$spotlightInner = document.querySelector('.spotlight__contents__inner');
-    this.$spotlightItems = Array.from(document.querySelectorAll('.spotlight__contents__item'));
-    this.$spotlightImgBoxImges = Array.from(document.querySelectorAll('.spotlight__contents__item__img-box__img'));
-    this.$spotCursor = document.getElementById('spotlightCursor');
-    this.$spotCursorLeft = document.querySelector('.spotcursorLeft');
-    this.$spotCursorRight = document.querySelector('.spotcursorRight');
-    this.spotInnerLeft = null;
-    this.firstInnerLeft = document.querySelector('.spotlight__contents__inner').getBoundingClientRect().left;
-    this.currentSpotItem = 0;
-    this.currentSpotFlower = null;
-    this.currentSpotTarget = null;
-    this.currentSpotRead = null;
-    this.spotRatio = null;
-    this.spotZindex = null;
-
-    this.spotlightPointerMove = this.spotlightPointerMove.bind(this);
-    this.spotlightPointerUp = this.spotlightPointerUp.bind(this);  
-    this.spotKeydown = this.spotKeydown.bind(this);
-    this.spotFlower = this.spotFlower.bind(this);
-    this.leaveSpotFlower = this.leaveSpotFlower.bind(this);
-    this.spotCursor = this.spotCursor.bind(this);
-    this.spotCursorMoveAt = this.spotCursorMoveAt.bind(this);
-    this.spotCursorMove = this.spotCursorMove.bind(this);
-    this.spotCursorOut = this.spotCursorOut.bind(this);
-    this.spotCursorDown = this.spotCursorDown.bind(this);
-
-    this.$spotlightImgBoxImges.forEach(item => {
-      item.addEventListener('pointerover', this.spotFlower);
+    this.$zone = document.querySelector('.spot-event');
+    // 커서 모양 바뀌기
+    this.$zone.onpointerover = this.cursor.bind(this);
+    this.$cursor = document.querySelector('.cursor');
+    this.$left = document.querySelector('.cursor-left');
+    this.$right = document.querySelector('.cursor-right');
+    // 이미지에 마우스 올릴때 변화들
+    this.$imgs = Array.from(document.querySelectorAll('.spot-img'));
+    this.$imgs.forEach(item => {
+      item.onpointerover = this.img.bind(this);
     });
-  }
-  resize(e) {
-    this.documentClientWidth = document.documentElement.clientWidth;
-    if(document.documentElement.clientWidth >= 600) {
-      this.$menuBackground.classList.remove('clicked');
-      this.$menuContents.classList.remove('clicked');
-      document.body.classList.remove('hidden');
-      for(let line of this.$headerMenuLines) {
-        line.classList.remove('clicked');
-      }    
-      for(let category of this.$navs) {
-        category.classList.add('show');
-      }
-      document.body.style.paddingRight = '';
-      this.$menuContents.style.paddingRight = '';
-    }
-    // spotlight에서 현재의 요소가 가장 앞에 오게 조정
-    this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
-    this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
-    this.firstInnerLeft = document.querySelector('.spotlight__contents__inner').getBoundingClientRect().left;
-  }
-
-  // 📍 클릭때마다 원점으로 가는 거 고치고, 키보드와 연계해서 이어질 수 있도록
-  /*
-  spotShiftX는 마우스 커서와 spotlightInner의 왼쪽 모서리 사이
-  spotShiftX가 동일하게 움직여야 한다.
-  */
-  spotlight(e, target) {
-    this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
-    this.spotShiftX = e.clientX - this.spotInnerLeft;
-    this.$spotlightInner.style.transition = 'none';
-    // 방향을 알기 위한 포인트
-    this.firstClientX = e.clientX;
-
-    this.spotlightMoveAt(e.clientX);
-
-    this.$spotlightInner.addEventListener('pointermove', this.spotlightPointerMove);
-    this.$spotlightInner.addEventListener('pointerup', this.spotlightPointerUp);
-    this.$spotlightInner.addEventListener('dragstart', (e) => {
+    // 키보드누를때 이동
+    this.keydown = this.keydown.bind(this);
+    this._marginLeft = null;
+    this._current = 0;
+    this._firstLeft = this.$zone.getBoundingClientRect().left;
+    this._firstX = null;
+    this._ratio = null;
+    this.$zone.onpointermove = this.move.bind(this);
+    this.$zone.onpointerout = this.out.bind(this);
+    this.$zone.onpointerdown = this.down.bind(this);
+    this.$zone.onpointerup = this.up.bind(this);
+    this.spotMove = this.spotMove.bind(this);
+    this.spotUp = this.spotUp.bind(this);
+    this.resize = this.resize.bind(this);
+    this.$zone.addEventListener('dragstart', (e) => {
       e.preventDefault();
     });
   }
-
-  spotlightMoveAt(clientX) {
-    this.$spotlightInner.style.marginLeft = -(this.spotShiftX  - clientX + this.firstInnerLeft) + 'px';
-  }
-
-  spotlightPointerMove(e) {
-    this.spotlightMoveAt(e.clientX);
-  }
-
-  // 방향 구분, 양 끝단에서 이벤트 못하게
-  spotlightPointerUp(e) {
-    this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
-    // 양수면 왼쪽으로 드래그, 음수면 오른쪽으로 드래그
-    if(this.firstClientX - e.clientX > 0) {
-      this.spotRatio = this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
-      if(this.spotRatio <= 0.5) {
-        // 다음 요소로 이동
-        this.currentSpotItem++;
-        this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
-      } else {
-        // 원래 위치로
-        this.$spotlightInner.style.marginLeft = this.$spotlightInner.getBoundingClientRect().left + -this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left + 'px';
-      }  
-    } else if(this.firstClientX - e.clientX < 0){
-      // 방향이 오른쪽으로 드래그이면
-      this.spotRatio = this.$spotlightItems[this.currentSpotItem - 1].getBoundingClientRect().right / this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().width;
-      if(this.spotRatio >= 0.5) {
-        this.currentSpotItem--;
-        this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
-      } else {
-        this.$spotlightInner.style.marginLeft = this.$spotlightInner.getBoundingClientRect().left + -this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left + 'px';
-      }
-    }
-    this.$spotlightInner.style.transition = '';
-    this.$spotlightInner.removeEventListener('pointermove', this.spotlightPointerMove);
-    this.$spotlightInner.removeEventListener('pointerup', this.spotlightPointerUp);
-
-    this.$spotCursor.classList.remove('downed');
-    this.$spotCursorLeft.classList.remove('none');
-    this.$spotCursorRight.classList.remove('none');
-
-    this.spotCursorMoveAt(e.clientX, e.clientY);
-    this.$spotlightInner.removeEventListener('pointerdown', this.spotCursorDown);
-  }
-
-  spotKeydown(e) {
-    // 17..5 , -286.5, -519.5... 의 변화
-    this.spotInnerLeft = this.$spotlightInner.getBoundingClientRect().left;
-    if(e.key == 'ArrowRight') {
-      if(this.currentSpotItem >= 11) return;
-      this.currentSpotItem++;
-      this.$spotlightInner.style.marginLeft = `-${this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left - this.spotInnerLeft}px`;
-    } else if(e.key == 'ArrowLeft') {
-      if(this.currentSpotItem === 0) return;
-      this.currentSpotItem--;
-      this.$spotlightInner.style.marginLeft = `${-this.$spotlightItems[this.currentSpotItem].getBoundingClientRect().left + this.spotInnerLeft}px`;
-    }
-  }
-
-  // 📍 꽃 svg가 왼쪽의 이미지를 가리는거 => 타이틀 가리는거
-  // 📍 enter과 over의 차이, enter는 잘 안되는 경우
-  spotFlower(e) {
-    if(e.target.className !== 'spotlight__contents__item__img-box__img') return;
-    if(this.currentSpotFlower) return;
-    this.currentSpotTarget = e.target;
-    this.currentSpotRead = this.currentSpotTarget.nextElementSibling;
-    this.spotZindex = this.currentSpotTarget.closest('.spotlight__contents__item');
-    this.spotZindex.style.zIndex = '0';
-    this.currentSpotFlower = this.currentSpotTarget.parentNode.querySelector('.spotlight__contents__item__img-box__svg');
-    this.currentSpotFlower.classList.add('bloom');
-    this.currentSpotRead.classList.add('show');
-    for(let child of this.currentSpotRead.children) {
-      child.classList.add('show');
+  img(e) {
+    // target은 spot-img
+    const target = e.currentTarget;
+    const imgbox = target.parentNode;
+    const box = imgbox.parentNode;
+    const svg = imgbox.querySelector('.spot-svg');
+    const read = imgbox.querySelector('.spot-read');
+    // 이래야 꽃이 다른 상자 이미지 가리지 않음
+    box.style.zIndex = '0';
+    // 꽃 보여주고 리드 요소 보여주기
+    svg.classList.add('bloom');
+    read.classList.add('show');
+    for(let item of read.children) {
+      item.classList.add('show');
     }
     // 마우스 커서 모양 변형
-    this.$spotCursor.classList.add('overed');
-    this.$spotCursor.style.left = e.clientX - (this.$spotCursor.getBoundingClientRect().width / 2) + 'px';
-    this.$spotCursor.style.top = e.clientY - (this.$spotCursor.getBoundingClientRect().height / 2) + 'px';
-    this.currentSpotTarget.addEventListener('pointerout', this.leaveSpotFlower);
-  }
-
-  leaveSpotFlower(e) {
-    this.spotZindex.style.zIndex = '';
-    this.currentSpotFlower.classList.remove('bloom');
-    this.currentSpotRead.classList.remove('show');
-    for(let child of this.currentSpotRead.children) {
-      child.classList.remove('show');
+    this.$cursor.classList.add('over');
+    this.$left.classList.add('none');
+    this.$right.classList.add('none');
+    const half = this.$cursor.getBoundingClientRect().width / 2;
+    this.$cursor.style.left = e.clientX - half + 'px';
+    this.$cursor.style.top = e.clientY - half + 'px';
+    target.onpointerout = () => {
+      box.style.zIndex = '';
+      svg.classList.remove('bloom');
+      read.classList.remove('show');
+      for(let item of read.children) {
+        item.classList.remove('show');
+      }  
+      this.$cursor.classList.remove('over');
+      this.$left.classList.remove('none');
+      this.$right.classList.remove('none');  
     }
-    this.$spotCursor.classList.remove('overed');
-    this.currentSpotTarget.removeEventListener('pointerout', this.leaveSpotFlower);
-    this.currentSpotFlower = null;
   }
-
-  spotCursor(e) {
-    // 완전체로 등장
-    this.$spotCursor.style.display = 'flex';
-
-    this.spotCursorMoveAt(e.clientX, e.clientY);
-
-    this.$spotlightInner.addEventListener('pointerdown', this.spotCursorDown);
-    this.$spotlightInner.addEventListener('pointermove', this.spotCursorMove);
-    this.$spotlightInner.addEventListener('pointerout', this.spotCursorOut);
+  cursor(e) {
+    this.$cursor.style.display = 'flex';
+    this.moveAt(e.clientX, e.clientY);
   }
-
-  spotCursorMoveAt(clientX, clientY) {
-    this.$spotCursor.style.left = clientX - (this.$spotCursor.getBoundingClientRect().width / 2) + 'px';
-    this.$spotCursor.style.top = clientY - (this.$spotCursor.getBoundingClientRect().height / 2) + 'px';
+  moveAt(clientX, clientY) {
+    const half = this.$cursor.getBoundingClientRect().width / 2;
+    this.$cursor.style.left = clientX - half + 'px';
+    this.$cursor.style.top = clientY - half + 'px';
   }
-
-  spotCursorMove(e) {
-    this.spotCursorMoveAt(e.clientX, e.clientY);
+  move(e) {
+    // 커서
+    this.moveAt(e.clientX, e.clientY);
   }
-
-  spotCursorOut() {
-    this.$spotCursor.style.display = 'none';
+  out() {
+    this.$cursor.style.display = 'none';
+    this.$cursor.classList.remove('over');
+    this.$left.classList.remove('none');
+    this.$right.classList.remove('none');  
   }
-
-  spotCursorDown(e) {
-    this.$spotCursor.classList.add('downed');
-    this.$spotCursorLeft.classList.add('none');
-    this.$spotCursorRight.classList.add('none');
-
-    this.spotCursorMoveAt(e.clientX, e.clientY);
-    this.$spotlightInner.addEventListener('pointerup', this.spotCursorUp);
+  down(e) {
+    // 기본에서 down하는 경우, over상태에서 down하는 경우
+    const state = this.$cursor.classList[1];
+    if(!state) {
+      // 기본상태일때
+      this.$cursor.classList.add('down');
+    } else if(state === 'over') {
+      this.$cursor.classList.add('down');
+    }
+    this.$left.classList.add('none');
+    this.$right.classList.add('none');
+    this.moveAt(e.clientX, e.clientY);
+    // 슬라이드 이동
+    this._marginLeft = this.$zone.getBoundingClientRect().left;
+    // this.$zone의 가장 왼쪽 모서리와 마우스 사이의 거리
+    this._shiftX = e.clientX - this._marginLeft;
+    // 방향을 알기 위한 포인트
+    this._firstX = e.clientX;
+    this.$zone.style.transition = 'none';
+    this.spotMoveAt(e.clientX);
+    this.$zone.addEventListener('pointermove', this.spotMove);
+    this.$zone.addEventListener('pointerup', this.spotUp);
   }
-
+  spotMove(e) {
+    // 슬라이드 이동
+    this.spotMoveAt(e.clientX);
+  }
+  spotMoveAt(clientX) {
+    this.$zone.style.marginLeft = -(this._shiftX + this._firstLeft - clientX) + 'px';
+  }
+  up(e) {
+    // 커서
+    this.$cursor.classList.remove('down');
+    this.$cursor.classList.remove('down');
+    this.$left.classList.remove('none');
+    this.$right.classList.remove('none');
+    this.moveAt(e.clientX, e.clientY);
+  }
+  spotUp(e) {
+    // 슬라이드
+    this._marginLeft = this.$zone.getBoundingClientRect().left;
+    this.$zone.style.transition = '';
+    // 양수면 왼쪽으로 드래그, 음수면 오른쪽으로 드래그
+    if(this._firstX - e.clientX > 0) {
+      if(this._current === 11) {
+        this.$zone.style.marginLeft = `-${this.$imgs[this._current].getBoundingClientRect().left - this._marginLeft}px`;
+        this.$zone.removeEventListener('pointermove', this.spotMove);
+        this.$zone.removeEventListener('pointerup', this.spotUp);
+        return;    
+      }
+      this._ratio = this.$imgs[this._current].getBoundingClientRect().right / this.$imgs[this._current].getBoundingClientRect().width;
+      if(this._ratio <= 0.5) {
+        // 다음 요소로 이동
+        this._current++;
+      } 
+    } else if(this._firstX - e.clientX < 0){
+      if(this._current === 0) {
+        this.$zone.style.marginLeft = `-${this.$imgs[this._current].getBoundingClientRect().left - this._marginLeft}px`;
+        this.$zone.removeEventListener('pointermove', this.spotMove);
+        this.$zone.removeEventListener('pointerup', this.spotUp);
+        return;    
+      }
+      // 방향이 오른쪽으로 드래그이면
+      this._ratio = this.$imgs[this._current - 1].getBoundingClientRect().right / this.$imgs[this._current - 1].getBoundingClientRect().width;
+      if(this._ratio >= 0.5) {
+        this._current--;
+      } 
+    }
+    this.$zone.style.marginLeft = `-${this.$imgs[this._current].getBoundingClientRect().left - this._marginLeft}px`;
+    this.$zone.removeEventListener('pointermove', this.spotMove);
+    this.$zone.removeEventListener('pointerup', this.spotUp);
+  }
+  resize(e) {
+    this._marginLeft = this.$zone.getBoundingClientRect().left;
+    this._firstLeft = this.$imgs[this._current].getBoundingClientRect().left;
+    this.$zone.style.marginLeft = `-${this.$imgs[this._current].getBoundingClientRect().left - this._marginLeft}px`;
+  }
+  keydown(e) {
+    const key = e.key;
+    this._marginLeft = this.$zone.getBoundingClientRect().left;
+    if(key === 'ArrowRight') {
+      if(this._current === 11) return;
+      // 오른쪽으로 이동하려면 marginLeft가 음수여야 한다.
+      this._current++;
+      this.$zone.style.marginLeft = `-${this.$imgs[this._current].getBoundingClientRect().left - this._marginLeft}px`;
+    } else if(key === 'ArrowLeft') {
+      // 왼쪽으로
+      if(this._current === 0) return;
+      this._current--; // 이동하고자 하는 이미지 번호
+      // this.$imgs[this._current].getBoundingClientRect().left이게 마이너스 값이니까 플러스로 부호 변환
+      this.$zone.style.marginLeft = `${-this.$imgs[this._current].getBoundingClientRect().left + this._marginLeft}px`;
+    }
+  }
 }
 const spotlight = new Spotlight();
+document.body.addEventListener('keydown', spotlight.keydown);
+window.addEventListener('scroll', spotlight.resize);
 class Inbox {
   constructor() {
     this.$inbox = document.getElementById('inbox');

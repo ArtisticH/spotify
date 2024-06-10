@@ -75,7 +75,6 @@ img {
   top: 0;
   left: 0;
   width: 118%;
-  display: none;
   /* 자바스크립트에서 translate3d이동 */
   transition: transform 0.1s;
   transform-origin: top left;
@@ -244,7 +243,8 @@ img {
 
 .header-logo {
   height: 100%;
-  width: fit-content;
+  width: min-content;
+  display: block;
 }
 
 .header-logo,
@@ -1045,6 +1045,68 @@ img {
 }
 
 /* SECTION SPOTLIGHT */
+/* 이미지 사이, 원래 모양 */
+.cursor {
+  border-radius: 50%;
+  box-sizing: content-box;
+  width: 95px;
+  height: 95px;
+  background-color: white;
+  border: 1px solid rgb(231, 231, 231);
+  align-items: center;
+  justify-content: center;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* 마우스 커서 바로 아래에 있으면서 다른 이벤트에 영향을 끼치지 않는 중요한 요소
+  : pointer-events: none과 z-index
+  pointer-events: none는 마우스에 인식되지 않는다.
+  */
+  pointer-events: none;
+  z-index: 99;
+}
+/* 누를때 */
+.cursor.down {
+  border: 12px solid rgba(0, 0, 0, 0.3);
+  width: 25px;
+  height: 25px;
+}
+/* 지나다닌 상태에서 누를 때 */
+.cursor.over.down {
+  border: 12px solid rgba(0, 0, 0, 0.3);
+  width: 25px;
+  height: 25px;
+}
+/* 이미지위를 지나다닐때 */
+.cursor.over {
+  width: 25px;
+  height: 25px;
+  border: none;
+  display: flex;
+}
+
+.cursor-left {
+  width: 22px;
+  margin-right: 13px;
+  transform: rotate(180deg) scale(1);
+}
+
+.img {
+  width: 100%;
+  display: block;
+}
+
+.cursor-right {
+  width: 22px;
+  margin-left: 13px;
+  transform: scale(1);
+}
+/* 누를때와 이미지 위를 지나다닐때 사라짐 */
+.cursor-left.none,
+.cursor-right.none {
+  transform: scale(0);
+}
 
 #spot {
   background-color: #fff;
@@ -1078,16 +1140,17 @@ img {
   font-family: var(--font-inter);
 }
 
-.spotlight__contents {
+.spot-area {
   padding: 1rem 0 2rem 0;
-  border: 2px solid green;
+  /* border: 2px solid green; */
 }
 
-.spotlight__contents::-webkit-scrollbar {
+.spot-area::-webkit-scrollbar {
   display: none;
 }
 
-.spotlight__contents__inner {
+.spot-event  {
+  /* border: 2px solid red; */
   width: fit-content;
   width: 9999px;
   display: flex;
@@ -1098,38 +1161,40 @@ img {
   transition: margin-left 0.2s ease-in;
 }
 
-.spotlight__contents__item {
-  /* .spotlight__contents__item__side-box */
+.spot-box {
+  /* .spot-side, */
   position: relative;
   margin-right: 3rem;
   z-index: 1;
+  /* border: 2px solid blue; */
 }
 
-.spotlight__item__first {
+.spot-box1 {
   width: 256px;
 }
 
-.spotlight__item__second  {
+.spot-box2  {
   width: 185px;
 }
 
-.spotlight__item__third {
+.spot-box3 {
   width: 240px;
 }
 
-.spotlight__contents__item__img-box {
-  /* .spotlight__contents__item__img-box__read, .spotlight__contents__item__img-box__svg */
+.spot-img-box {
+  /* .spot-read, .spot-svg */
   position: relative;
   cursor: pointer;
 }
 
-.spotlight__contents__item__img-box__img {
+.spot-img {
   display: block;
   width: 100%;
 }
 
-.spotlight__contents__item__img-box__read {
+.spot-read {
   background-color: #000;
+  /* .spot-img-box */
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -1141,7 +1206,7 @@ img {
   padding: 1.5rem;
 }
 
-.spotlight__contents__item__img-box__read__text {
+.spot-text {
   color: #fff;
   font-size: 1.4rem;
   white-space: normal;
@@ -1149,12 +1214,13 @@ img {
   letter-spacing: -0.4px;
   opacity: 0;
   visibility: hidden;
+  /* 살짝 아래에서 위로 올라오는 효과 */
   position: relative;
   top: 5%;
   left: 0;
 }
 
-.spotlight__contents__item__img-box__read__more {
+.spot-more {
   text-decoration: underline;
   font-size: 0.9rem;
   font-family: var(--font-circular-medium);
@@ -1162,19 +1228,20 @@ img {
   color: #fff;
   opacity: 0;
   visibility: hidden;
+  /* 살짝 아래에서 위로 올라오는 효과 */
   position: relative;
   top: 1%;
   left: 0;
 }
 
-.spotlight__read1 {
+.spot-read1 {
   width: 320px;
   height: 480px;
   left: 0.8rem;
   bottom: 0.8rem;
 }
 
-.spotlight__read2 {
+.spot-read2 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -1182,21 +1249,21 @@ img {
   height: 93%;
 }
 
-.spotlight__read3 {
+.spot-read3 {
   left: 0.8rem;
   bottom: 0.8rem;
   width: 330px;
   height: 360px;
 }
 
-.spotlight__read4 {
+.spot-read4 {
   left: 0.8rem;
   bottom: 0.8rem;
   width: 330px;
   height: 370px;
 }
 
-.spotlight__read5 {
+.spot-read5 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -1204,21 +1271,21 @@ img {
   height: 93%;
 }
 
-.spotlight__read6 {
+.spot-read6 {
   left: 0.8rem;
   bottom: 0.8rem;
   width: 330px;
   height: 400px;
 }
 
-.spotlight__read7 {
+.spot-read7 {
   left: 0.8rem;
   bottom: 0.8rem;
   width: 310px;
   height: 330px;
 }
 
-.spotlight__read8 {
+.spot-read8 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -1226,21 +1293,21 @@ img {
   height: 93%;
 }
 
-.spotlight__read9 {
+.spot-read9 {
   left: 0.8rem;
   bottom: 0.8rem;
   width: 310px;
   height: 390px;
 }
 
-.spotlight__read10 {
+.spot-read10 {
   left: 0.8rem;
   bottom: 0.8rem;
   width: 320px;
   height: 320px;
 }
 
-.spotlight__read11 {
+.spot-read11 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -1248,15 +1315,17 @@ img {
   height: 93%;
 }
 
-.spotlight__read12 {
+.spot-read12 {
   left: 0.8rem;
   bottom: 0.8rem;
   width: 350px;
   height: 390px;
 }
 
-.spotlight__contents__item__img-box__svg {
+.spot-svg {
+  /* .spot-box */
   position: absolute;
+  /* 0에서 1로 */
   transform: translate(-50%, -50%) scale(0);
   width: 600px;
   top: 50%;
@@ -1265,31 +1334,34 @@ img {
   z-index: -1;
 }
 
-.spotlight__contents__item__img-box__svg.bloom {
+.spot-svg.bloom {
   transform: translate(-50%, -50%) scale(1);
 }
 
-.spotlight__contents__item__name {
+.spot-name  {
   font-family: var(--font-circular-medium);
   font-size: 1.1rem;
   font-weight: 500;
   letter-spacing: -0.8px;
-  margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
+  margin: 0.5rem 0;
+  width: fit-content;
 }
 
-.spotlight__contents__item__job {
+.spot-job  {
+  width: fit-content;
   font-size: 1.1rem;
   letter-spacing: -0.8px;
   font-family: var(--font-inter);
 }
 
-.spotlight__contents__item__side-box {
+.spot-side {
+  /* .spot-box */
   position: absolute;
   top: 0;
   right: 0;
   transform: translateX(100%) rotate(180deg);
   writing-mode: vertical-lr;
+  /* marin-right: -0.5rem을 기준으로 180deg된다.  */
   margin-right: -0.5rem;
   display: flex;
   justify-content: flex-start;
@@ -1297,77 +1369,22 @@ img {
   z-index: 0;
 }
 
-.spotlight__contents__item__side-box__circle {
+.spot-circle  {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background-color: #000;
+  /* writing-mode: vertical-lr의 영향을 받는다. */
   margin-bottom: 0.3rem;
 }
 
-.spotlight__contents__item__side-box__city {
+.spot-city {
   font-family: var(--font-circular-medium);
   font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: -0.7px;
 }
 
-#spotlightCursor {
-  border-radius: 50%;
-  box-sizing: content-box;
-  width: 95px;
-  height: 95px;
-  background-color: white;
-  border: 1px solid rgb(231, 231, 231);
-  align-items: center;
-  justify-content: center;
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  /* 마우스 커서 바로 아래에 있으면서 다른 이벤트에 영향을 끼치지 않는 중요한 요소
-  : pointer-events: none과 z-index
-  */
-  pointer-events: none;
-  z-index: 99;
-  transition: left 0.3s ease-out, top 0.3s ease-out;
-}
-
-#spotlightCursor.downed {
-  border: 12px solid rgb(231, 231, 231);
-  width: 25px;
-  height: 25px;
-  pointer-events: none;
-}
-
-#spotlightCursor.overed {
-  width: 25px;
-  height: 25px;
-  border: none;
-  display: flex;
-}
-
-.spotcursorLeft {
-  width: 22px;
-  margin-right: 13px;
-  transform: rotate(180deg);
-}
-
-.spotcursorLeft > img,
-.spotcursorRight > img {
-  width: 100%;
-  display: block;
-}
-
-.spotcursorRight {
-  width: 22px;
-  margin-left: 13px;
-}
-
-.spotcursorLeft.none,
-.spotcursorRight.none {
-  display: none;
-}
 
 @media all and (min-width: 600px) {
   .title-main {
@@ -1394,96 +1411,96 @@ img {
 }
 
 @media all and (min-width: 600px) {
-  .spotlight__item__first {
+  .spot-box1 {
     width: 352px;
   }
   
-  .spotlight__item__second  {
+  .spot-box2  {
     width: 256px;
   }
   
-  .spotlight__item__third {
+  .spot-box3 {
     width: 292px;
   }
 
-  .spotlight__contents {
+  .spot-area {
     padding: 1rem 0 3rem 0;
   }
 
-  .spotlight__contents__item {
+  .spot-box {
     margin-right: 4.5rem;
-  }  
+  }
 
-  .spotlight__contents__item__name {
+  .spot-name  {
     font-size: 1.3rem;
     letter-spacing: -1px;
   }
   
-  .spotlight__contents__item__job {
+  .spot-job  {
     font-size: 1.3rem;
     letter-spacing: -1px;
   }  
 
-  .spotlight__contents__item__img-box__svg.bloom {
+  .spot-svg.bloom {
     width: 820px;
   }
 }
 
 @media all and (min-width: 1024px) {
-  .spotlight__item__first {
+  .spot-box1 {
     width: 536px;
   }
   
-  .spotlight__item__second  {
+  .spot-box2  {
     width: 312px;
   }
   
-  .spotlight__item__third {
+  .spot-box3 {
     width: 424px;
   }
 
-  .spotlight__contents {
+  .spot-area {
     padding: 1rem 0 5rem 0;
   }
-  
-  .spotlight__contents__item {
-    margin-right: 10rem;
-  }  
 
-  .spotlight__contents__item__name {
+  .spot-box {
+    margin-right: 10rem;
+  }
+  
+  .spot-name  {
     font-size: 1.5rem;
     letter-spacing: -1px;
   }
   
-  .spotlight__contents__item__job {
+  .spot-job  {
     font-size: 1.5rem;
     letter-spacing: -1px;
   }  
 
-  .spotlight__contents__item__img-box__read.show,
-  .spotlight__contents__item__img-box__read__text.show,
-  .spotlight__contents__item__img-box__read__more.show {
+  .spot-read.show,
+  .spot-text.show,
+  .spot-more.show {
     opacity: 1;
     visibility: visible;
   }
 
-  .spotlight__contents__item__img-box__read__text.show {
+  .spot-text.show {
     top: 0;
-    animation: readtext 0.5s ease-out;
+    animation: read-text 0.5s ease-out;
   }
 
-  .spotlight__contents__item__img-box__read__more.show {
+  .spot-more.show {
     top: 0;
-    animation: readmore 0.6s ease-out;
+    animation: read-more 0.6s ease-out;
   }
 
-  @keyframes readtext {
+  @keyframes read-text {
     0% { 
-      top: 7%;
+      top: 5%;
       opacity: 0;
    }
     40% {
-      top: 7%;
+      top: 5%;
       opacity: 0;
     }
     100% {
@@ -1492,7 +1509,7 @@ img {
     }
   }  
 
-  @keyframes readmore {
+  @keyframes read-more {
     0% { 
       top: 1%;
       opacity: 0;
@@ -1507,6 +1524,7 @@ img {
     }
   }  
 }  
+
 /* SECTION INBOX */
 
 #inbox {
