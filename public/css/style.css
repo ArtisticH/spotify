@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'Circular-medium';
-  src: url('/source/font/CircularSpotifyTxT-Medium.woff2') format('woff2');
+  src: url('/font/CircularSpotifyTxT-Medium.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'Circular-book';
-  src: url('/source/font/CircularSpotifyTxT-Book.woff2') format('woff2');
+  src: url('/font/CircularSpotifyTxT-Book.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'Circular-bold';
-  src: url('/source/font/CircularSpotifyTxT-Bold.woff2') format('woff2');
+  src: url('/font/CircularSpotifyTxT-Bold.woff2') format('woff2');
 }
 
 :root {

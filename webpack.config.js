@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: ['@babel/polyfill', './source/js/index.js'],
+  entry: ['@babel/polyfill', './source/app.js'],
   output: {
     path: path.resolve(__dirname, 'public/js'),
     filename: 'bundle.js'
@@ -9,16 +9,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ]
-      },
-      {
         test: /\.js$/,
         include: [
-          path.resolve(__dirname, 'source/js')
+          path.resolve(__dirname, 'source')
         ],
         exclude: /node_modules/,
         use: {
