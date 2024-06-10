@@ -7,10 +7,10 @@ dotenv.config();
 const app = express();
 app.set('port', process.env.PORT || 8080);
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join('https://artistich.github.io/portfolio.spotify', 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join('https://artistich.github.io/portfolio.spotify', 'index.html'));
 });
 
 app.listen(app.get('port'), () => {
