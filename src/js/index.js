@@ -1,4 +1,5 @@
 import { Intro, Header, Main, RelTools, View, Spotlight, Inbox, Footer } from './app.js';
+import css from '../css/style.css';
 
 const main = new Main();
 const intro = new Intro(main);
