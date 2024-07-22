@@ -1,12 +1,13 @@
 // 인트로
 class Intro {
-  constructor() {
+  constructor(main) {
     // 인트로
     this.$introLogo = document.querySelector('.intro-logo');
     this.$introFlower = document.querySelector('.intro-flower');
     this.init = this.init.bind(this);
     this.showFlower = this.showFlower.bind(this);
     this.disappearIntro = this.disappearIntro.bind(this);
+    this.$mainClass = main;
   }
   animate({timing, draw, duration}) {
     let start = performance.now();
@@ -54,7 +55,7 @@ class Intro {
         this.$introFlower.style.transform = `translate3d(${-100 * progress}%, 0, 0) scale(${(-0.5 * progress) + 1})`;
       }
     });
-    main.showMain();
+    this.$mainClass.showMain();
   }
 }
 
@@ -658,7 +659,7 @@ class RelTools {
     }
   }
 }
-// new RelTools();
+
 class View {
   constructor() {
     this.$view = document.querySelectorAll('.view-box');
@@ -701,7 +702,7 @@ class View {
     }
   }
 }
-// new View();
+
 class Spotlight {
   constructor() {
     this.$zone = document.querySelector('.spot-event');
@@ -982,20 +983,5 @@ class Footer {
   }
 }
 
-const intro = new Intro();
-new Header();
-const main = new Main();
-new RelTools();
-new View();
-const spotlight = new Spotlight();
-const inbox = new Inbox();
-const footer = new Footer();
-document.addEventListener('DOMContentLoaded', intro.init);
-document.body.addEventListener('keydown', spotlight.keydown);
-window.addEventListener('scroll', spotlight.resize);
-window.addEventListener('scroll', inbox.scroll);
-footer.time();
-setInterval(() => {
-  footer.time();
-}, 1000);
+export { Intro, Header, Main, RelTools, View, Spotlight, Inbox, Footer };
 
