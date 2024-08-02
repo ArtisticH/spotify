@@ -1,17 +1,17 @@
 @font-face {
   font-family: 'Circular-medium';
-  src: url('/src/font/CircularSpotifyTxT-Medium.woff2') format('woff2');
+  src: url('https://artistich.github.io/spotify/src/font/CircularSpotifyTxT-Medium.woff2') format('woff2');
 
 }
 
 @font-face {
   font-family: 'Circular-book';
-  src: url('/src/font/CircularSpotifyTxT-Book.woff2') format('woff2');
+  src: url('https://artistich.github.io/spotify/src/font/CircularSpotifyTxT-Book.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'Circular-bold';
-  src: url('/src/font/CircularSpotifyTxT-Bold.woff2') format('woff2');
+  src: url('https://artistich.github.io/spotify/src/font/CircularSpotifyTxT-Bold.woff2') format('woff2');
 }
 
 :root {
